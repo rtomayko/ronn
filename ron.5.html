@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ron(5) -- humane manpage authoring format</title>
+  <style type='text/css'>
+    body {
+      font-family:consolas,monospace;
+      font-size:18px;
+      line-height:1.25;
+      color:#111
+    }
+    #man { max-width:42em;text-align:justify;margin:25px }
+    #man h1, #man h2, #man h3, #man strong, #man code { color:#111 }
+    #man h1 { text-align:center }
+    #man h2 { font-size:20px;margin-bottom:0 }
+    #man h3 { font-size:18px;margin:0 0 0 50px }
+    #man p, #man ul, #man ol, #man dl, #man pre
+    { margin:0 0 24px 0; }
+    #man pre { color:#555;font-size:16px }
+    #man > p, #man > ul, #man > ol, #man > dl, #man > pre
+    { margin:0 0 24px 80px; }
+    #man dt { margin:0;clear:left }
+    #man dt.flush { float:left;width:105px }
+    #man dd { margin:0 0 0 105px }
+    #man code { font-weight:bold; }
+    #man pre code { font-weight:normal;color:#555 }
+    #man em { font-style:normal;text-decoration:underline }
+  </style>
+</head>
+<body>
+<div id='man'>
+
+<h1>ron(5)</h1>
+
+<h2 id="NAME">NAME</h2>
+<p><code>ron</code> -- humane manpage authoring format</p>
+
+<h2>SYNOPSIS</h2>
+
+<p>A <code>ron</code></p>
+
+<p><em>name</em>(<em>section</em>) -- <em>tagline</em><br><code>======================</code><br><br><code>##</code> <em>SECTION HEADING</em> ...<br><br><em>paragraph</em> ...<br><br><code>*</code> <em>term</em><code>:</code><br>&nbsp;&nbsp;[ <em>definition</em> ]<br><code>*</code> <em>term</em><code>:</code><br>&nbsp;&nbsp;[ <em>definition</em> ]<br></p>
+
+<h2>DESCRIPTION</h2>
+
+<p><code>ron</code> files are simple ASCII texts that document things in the style of UNIX
+manpages but with a syntax and feature-set less insane than that of <code>roff(7)</code>.
+<code>ron</code> files are piped through <code>ron(1)</code> to build and install traditional
+<code>roff(7)</code> manpages or to generate hyperlinked HTML documentation.</p>
+
+<p>All <code>ron</code> files must conform to a simple subset of the humane text format,
+markdown(5).</p>
+
+<p>It is neither possible nor desirable to express many of <code>roff(7)</code>'s complex
+typesetting features in <code>ron</code>.</p>
+
+<h2>MANPAGE TITLE</h2>
+
+<p>All manpages have a <em>name</em>, belong to a <em>section</em>, and have a single sentence
+<em>tagline</em> (useless but witty, preferably). <code>ron</code> files must begin with a
+first-level heading that includes all of this information. For example, this
+very manpage begins:</p>
+
+<pre><code>ron(5) -- humane manpage authoring format
+=========================================
+</code></pre>
+
+<p>Here, we're saying that the manpage documents a thing named <code>ron</code> in manual
+section <code>5</code> -- the "file formats" section; see <code>manpages(5)</code> for full section
+list -- and that's quickly described as a "humane manpage authoring format".</p>
+
+<p>These bits of information are used to fill in the document header, to create the
+<code>NAME</code> section, and also to establish output filenames when processed through
+<code>ron(1)</code>.</p>
+
+<h2>INLINE MARKUP</h2>
+
+<p>Manpages typically use a limited set of text formatting capabilities. There's
+basically <b>boldface</b> and <i>italics</i> (often displayed using
+<u>underline</u>).  <b>boldface</b> is used for flags, subcommands, and other
+noun-like things; <i>italics</i> is used for user-specified arguments,
+variables, or user input. <code>ron</code> uses backticks (<code>\`</code>) to denote
+<code>boldface</code> and underscores (<code>_</code>) to denote <em>italics</em>.</p>
+
+<dl>
+<dt class="flush"><code>backticks</code></dt>
+<dd>Code, flags, commands, and nouns; typically displayed in in <b>boldface</b>.</dd>
+<dt>
+<code>_</code><em>underbars</em><code>_</code>
+</dt>
+<dd>User-specified arguments, variables, or user input; typically displayed
+with <u>underline</u>.</dd>
+<dt><code>**double stars**</code></dt>
+<dd>Like <code>backticks</code> but processes other inline markup.</dd>
+</dl>
+<p>Here is <code>grep(1)</code>'s DESCRIPTION section represented in <code>ron</code>:</p>
+
+<pre><code>`Grep` searches the named input _FILE_ (or standard input if no
+files are named, or the file name `-` is given) for lines
+containing a match to the given _PATTERN_. By default, `grep`
+prints the matching lines.
+</code></pre>
+
+<p>Note that not only do <code>boldface</code></p>
+
+<p>Any argument surrounded by brackets is considered to be optional.  For
+example, [ filename ] would indicate an optional filename argument.</p>
+
+<h2>HEADINGS</h2>
+
+<p>Manpages typically have at least some of SYNOPSIS, DESCRIPTION, and
+OPTIONS sections.</p>
+
+<p>Additional sections include SYNTAX, ENVIRONMENT, HISTORY, BUGS,
+SECURITY CONSIDERATIONS, STANDARDS / CONFORMING TO, AUTHOR, and COPYRIGHT.</p>
+
+<p>Finally, most manpages have a SEE ALSO section.</p>
+
+<h2>DEFINITION LISTS</h2>
+
+<h2>EXAMPLES</h2>
+
+<p>The following in <code>test.1.ron</code>:</p>
+
+<pre><code>test - condition evaluation utility
+===================================
+
+## SYNOPSIS
+
+`test` _expression_
+`[` _expression_ ]
+
+## DESCRIPTION
+
+The `test` utility evaluates the expression and, if it evaluates
+to true, returns a zero (true) exit status; otherwise it returns
+1 (false).  If there is no expression, test also returns 1
+(false).
+
+## OPTIONS
+
+All operators and flags are separate arguments to the `test`
+utility.
+
+The following primaries are used to construct expressions:
+
+  * `-h` _file_:
+    True if file exists and is a symbolic link. This operator is
+    retained for compatibility with previous versions of this
+    program. Do not rely on its existence; use `-L` instead.
+
+  * `-n` _string_:
+    True if the length of string is nonzero.
+
+  * _file1_ `-nt` _file2_:
+    True if _file1_ exists and is newer than _file2_.
+</code></pre>
+
+<h2>SEE ALSO</h2>
+
+<p>ron(1), markdown(5), manpages(5)</p>
+
+</div>
+</body>
+</html>

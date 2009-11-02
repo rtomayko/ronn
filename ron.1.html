@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ron(1) -- the opposite of roff</title>
+  <style type='text/css'>
+    body {
+      font-family:consolas,monospace;
+      font-size:18px;
+      line-height:1.25;
+      color:#111
+    }
+    #man { max-width:42em;text-align:justify;margin:25px }
+    #man h1, #man h2, #man h3, #man strong, #man code { color:#111 }
+    #man h1 { text-align:center }
+    #man h2 { font-size:20px;margin-bottom:0 }
+    #man h3 { font-size:18px;margin:0 0 0 50px }
+    #man p, #man ul, #man ol, #man dl, #man pre
+    { margin:0 0 24px 0; }
+    #man pre { color:#555;font-size:16px }
+    #man > p, #man > ul, #man > ol, #man > dl, #man > pre
+    { margin:0 0 24px 80px; }
+    #man dt { margin:0;clear:left }
+    #man dt.flush { float:left;width:105px }
+    #man dd { margin:0 0 0 105px }
+    #man code { font-weight:bold; }
+    #man pre code { font-weight:normal;color:#555 }
+    #man em { font-style:normal;text-decoration:underline }
+  </style>
+</head>
+<body>
+<div id='man'>
+
+<h1>ron(1)</h1>
+
+<h2 id="NAME">NAME</h2>
+<p><code>ron</code> -- the opposite of roff</p>
+
+<h2>SYNOPSIS</h2>
+
+<p><code>ron</code> [ <em>OPTIONS</em> ]<br><code>ron</code> --build <em>FILE</em> ...<br><code>ron</code> --install <em>FILE</em> ...</p>
+
+<h2>DESCRIPTION</h2>
+
+<p><code>ron</code> is a humane text format and toolchain for authoring manpages (and things
+that appear as manpages from a distance). It can be used to build and install
+standard UNIX <code>roff(7)</code> formatted manpages and to generate beautiful HTML
+manpages.</p>
+
+<p>The <code>ron</code> command converts one or more named input <em>FILE</em>s (or standard
+input when no files are named or the file name <code>-</code> is given) from humane manpage
+markup to roff (for use with <code>man(1)</code>) or to HTML.</p>
+
+<h2>OPTIONS</h2>
+
+<p><code>ron</code>'s default mode of operation is to read a single document from standard
+input and to write the generated output to standard output. The following
+arguments change this behavior:</p>
+
+<dl>
+<dt>
+<code>-b</code>, <code>--build</code>
+</dt>
+<dd><p>Write directly to output files instead of standard output. With the
+<code>--html</code> option, write output to '<em>file</em>.<em>section</em>.html', where <em>file</em>
+is the name of the input <em>FILE</em> minus any ".ron" file extension.</p></dd>
+<dt>
+<code>-i</code>, <code>--install</code>
+</dt>
+<dd><p>Install the roff formatted manpage to the local system such that it can be
+displayed by <code>man(1)</code>. The <code>MANHOME</code> environment variable is used to
+determine the prefix where manpages should be installed when defined. If
+<code>MANHOME</code> is not defined, <code>ron</code> installs manpages to <em>/usr/local/man</em>.</p></dd>
+<dt class="flush">
+<code>-m</code>, <code>--man</code>
+</dt>
+<dd><p>Display <em>FILE</em> like <code>man(1)</code>. This simulates default man behavior by
+piping the roff output through <code>groff(1)</code> and the paging program specified
+by the <code>MANPAGER</code> environment variable.</p></dd>
+</dl>
+<p>The following options control the output formats generated:</p>
+
+<dl>
+<dt class="flush"><code>--html</code></dt>
+<dd><p>Generate HTML output.</p></dd>
+<dt class="flush"><code>--roff</code></dt>
+<dd><p>Generate roff output. This is the default.</p></dd>
+</dl>
+<h2>SYNTAX</h2>
+
+<p><strong>Ron</strong> files are simple ascii documents that conform to subset of markdown(5)
+with the following constraints and additions:</p>
+
+<p>See <code>ron(5)</code></p>
+
+<h2>EXAMPLES</h2>
+
+<p>To generate a <code>roff(7)</code> file of <em>test.1</em> file, suitable for use with <code>man(1)</code>:</p>
+
+<pre><code>$ ron -b test.1.ron
+$ man test.1
+</code></pre>
+
+<p>To generate a standalone HTML version:</p>
+
+<pre><code>$ ron -b --html test.1.ron
+$ open test.1.html
+</code></pre>
+
+<p>To build HTML versions of all <code>ron</code> files:</p>
+
+<pre><code>$ ron -b --html *.ron
+</code></pre>
+
+<h2>ENVIRONMENT</h2>
+
+<dl>
+<dt class="flush"><code>MANHOME</code></dt>
+<dd><p>Location where roff formatted manpages should be installed. Relevant
+only when the <code>--installed</code> argument is provided. <em>PATH</em> is to the base
+of a man file hierarchy. e.g., <code>/usr/local/share/man</code>, <code>/home/rtomayko/man</code>.</p></dd>
+<dt class="flush"><code>MANPAGER</code></dt>
+<dd><p>The paging program used for manpages. This is typically set to something
+like 'less -is'.</p></dd>
+<dt class="flush"><code>PAGER</code></dt>
+<dd><p>Used instead of <code>MANPAGER</code> when <code>MANPAGER</code> is not defined.</p></dd>
+</dl>
+<h2>BUGS</h2>
+
+<p>Ruby</p>
+
+<h2>COPYRIGHT</h2>
+
+<p><code>ron</code> is Copyright (C) 2009 Ryan Tomayko <a href="http://tomayko.com/about">http://tomayko.com/about</a></p>
+
+<h2>SEE ALSO</h2>
+
+<p>ron(5), manpages(5), man(1), roff(7), groff(1)</p>
+
+</div>
+</body>
+</html>
