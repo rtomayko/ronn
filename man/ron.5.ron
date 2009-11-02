@@ -65,9 +65,10 @@ variables, or user input. `ron` uses backticks (`\``) to denote
 
 Here is `grep(1)`'s DESCRIPTION section represented in `ron`:
 
-    `Grep` searches the named input _FILE_ (or standard input if no files are
-    named, or the file name `-` is given) for lines containing a match to the
-    given _PATTERN_. By default, `grep` prints the matching lines.
+    `Grep` searches the named input _FILE_ (or standard input if no
+    files are named, or the file name `-` is given) for lines
+    containing a match to the given _PATTERN_. By default, `grep`
+    prints the matching lines.
 
 Note that not only do `boldface`
 
@@ -89,7 +90,7 @@ Finally, most manpages have a SEE ALSO section.
 
 
 
-## BOOM
+## EXAMPLES
 
 The following in `test.1.ron`:
 
@@ -103,13 +104,15 @@ The following in `test.1.ron`:
 
     ## DESCRIPTION
 
-    The `test` utility evaluates the expression and, if it evaluates to true,
-    returns a zero (true) exit status; otherwise it returns 1 (false).  If there
-    is no expression, test also returns 1 (false).
+    The `test` utility evaluates the expression and, if it evaluates
+    to true, returns a zero (true) exit status; otherwise it returns
+    1 (false).  If there is no expression, test also returns 1
+    (false).
 
     ## OPTIONS
 
-    All operators and flags are separate arguments to the `test` utility.
+    All operators and flags are separate arguments to the `test`
+    utility.
 
     The following primaries are used to construct expressions:
 
