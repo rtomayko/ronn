@@ -9,12 +9,13 @@ ron(1) -- the opposite of roff
 
 ## DESCRIPTION
 
-**Ron** is a humane text format and toolchain for authoring manpages (and things
+`ron` is a humane text format and toolchain for authoring manpages (and things
 that appear as manpages from a distance). It can be used to build and install
-standard UNIX roff manpages and to generate beautiful HTML manpages.
+standard UNIX `roff(7)` formatted manpages and to generate beautiful HTML
+manpages.
 
 The `ron` command converts one or more named input <em>FILE</em>s (or standard
-input if no files are named, or the file name `-` is given) from humane manpage
+input when no files are named or the file name `-` is given) from humane manpage
 markup to roff (for use with `man(1)`) or to HTML.
 
 ## OPTIONS
@@ -49,82 +50,12 @@ The following options control the output formats generated:
 
 ## SYNTAX
 
-**Ron** is [Markdown]() with the following constraints and additions:
+**Ron** files are simple ascii documents that conform to subset of markdown(5)
+with the following constraints and additions:
 
-  1. The level 1 heading must be specified and must be the tagline.
-
-     ron(1) - the opposite of roff
-     =============================
+See `ron(5)`
 
 ## EXAMPLES
-
-The following in `test.1.ron`:
-
-    test - condition evaluation utility
-    ===================================
-
-    ## SYNOPSIS
-
-    `test` _expression_
-    `[` _expression_ ]
-
-    ## DESCRIPTION
-
-    The `test` utility evaluates the expression and, if it evaluates to true,
-    returns a zero (true) exit status; otherwise it returns 1 (false).  If there
-    is no expression, test also returns 1 (false).
-
-    ## OPTIONS
-
-    All operators and flags are separate arguments to the `test` utility.
-
-    The following primaries are used to construct expressions:
-
-      * `-h` _file_:
-        True if file exists and is a symbolic link. This operator is
-        retained for compatibility with previous versions of this
-        program. Do not rely on its existence; use `-L` instead.
-
-      * `-n` _string_:
-        True if the length of string is nonzero.
-
-      * _file1_ `-nt` _file2_:
-        True if _file1_ exists and is newer than _file2_.
-
-      * _n1_ `!=` _n2_:
-        True if the strings s1 and s2 are not identical.
-
-    These primaries can be combined with the following operators:
-
-      * `!` _expression_:
-        True if _expression_ is false.
-
-      * _expression1_ `-a` _expression2_:
-        True if both _expression1_ and _expression2_ are true.
-
-      * `(`_expression_`)`:
-        True if expression is true.
-
-     ## GRAMMAR AMBIGUITY
-
-     The `test` grammar is inherently ambiguous. In order to assure a degree of
-     consistency, the cases described in IEEE Std 1003.2 (``POSIX.2'') section
-     4.62.4, are evaluated consistently according to the rules specified in the
-     standards document. All other cases are subject to the ambiguity in the
-     command semantics.
-
-     ## RETURN VALUES
-
-     The `test` utility exits with one of the following values:
-
-       * 0:
-         expression evaluated to true.
-
-       * 1:
-         expression evaluated to false or expression was missing.
-
-       * >1:
-         An error occurred.
 
 To generate a `roff(7)` file of _test.1_ file, suitable for use with `man(1)`:
 
@@ -142,20 +73,26 @@ To build HTML versions of all `ron` files:
 
 ## ENVIRONMENT
 
-  * `MANHOME`=_PATH_:
+  * `MANHOME`:
     Location where roff formatted manpages should be installed. Relevant
     only when the `--installed` argument is provided. _PATH_ is to the base
     of a man file hierarchy. e.g., `/usr/local/share/man`, `/home/rtomayko/man`.
 
   * `MANPAGER`:
+    The paging program used for manpages. This is typically set to something
+    like 'less -is'.
 
   * `PAGER`:
     Used instead of `MANPAGER` when `MANPAGER` is not defined.
 
-## SEE ALSO
+## BUGS
 
-manpages(5), man(1), roff(7), groff(1)
+Ruby
 
 ## COPYRIGHT
 
 `ron` is Copyright (C) 2009 Ryan Tomayko <http://tomayko.com/about>
+
+## SEE ALSO
+
+ron(5), manpages(5), man(1), roff(7), groff(1)
