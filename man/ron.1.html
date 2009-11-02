@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ron(1) -- the opposite of roff</title>
+  <style type='text/css'>
+    body {
+      font-family:consolas,monospace;
+      font-size:18px;
+      line-height:1.25;
+      color:#333
+    }
+    #man { max-width:42em;text-align:justify;margin:25px }
+    h1, h2, h3, strong, code { color:#111 }
+    h1 { text-align:center }
+    h2 { font-size:20px;margin-bottom:0 }
+    h3 { font-size:18px;margin:0 0 0 50px }
+    p, ul, ol, dl, pre { margin:0 0 24px 0; }
+    #man > p, #man > ul, #man > ol, #man > dl, #man > pre
+    { margin:0 0 24px 80px; }
+    dt { margin:0;clear:left }
+    dt.flush { float:left;width:105px }
+    dd { margin:0 0 0 105px }
+    code { font-weight:bold; }
+    pre code { font-weight:normal; }
+    em { font-style:normal;text-decoration:underline }
+  </style>
+</head>
+<body>
+<div id='man'>
+
+<h1>ron(1)</h1>
+
+<h2 id="NAME">NAME</h2>
+<p><code>ron</code> -- the opposite of roff</p>
+
+<h2>SYNOPSIS</h2>
+
+<p><code>ron</code> [ <em>OPTIONS</em> ]<br><code>ron</code> --build <em>FILE</em> ...<br><code>ron</code> --install <em>FILE</em> ...</p>
+
+<h2>DESCRIPTION</h2>
+
+<p><code>ron</code> is a humane roff(1); for man pages.</p>
+
+<h2>OPTIONS</h2>
+
+<p><code>ron</code> expects Ron formatted text on <em>stdin</em> and writes roff formatted
+text on <em>stdout</em>.</p>
+
+<dl>
+<dt class="flush"><code>--roff</code></dt>
+<dd><p>Generate roff output. This is the default.</p></dd>
+<dt class="flush"><code>--html</code></dt>
+<dd><p>Generate HTML output.</p></dd>
+<dt class="flush"><code>-O</code></dt>
+<dd><p>Open the HTML version in a browser immediately after</p></dd>
+</dl>
+<h2>FILE</h2>
+
+<h2>SYNTAX</h2>
+
+<p><strong>Ron</strong> is <a href="">Markdown</a> with the following constraints and additions:</p>
+
+<ol>
+<li>
+</ol>
+<h2>COPYRIGHT</h2>
+
+<p><code>ron</code> is Copyright (C) 2009 Ryan Tomayko <a href="http://tomayko.com/about">http://tomayko.com/about</a></p>
+
+</div>
+</body>
+</html>

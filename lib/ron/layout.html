@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>#{name}(#{section}) -- #{tagline}</title>
+  <style type='text/css'>
+    body {
+      font-family:consolas,monospace;
+      font-size:18px;
+      line-height:1.25;
+      color:#333
+    }
+    #man { max-width:42em;text-align:justify;margin:25px }
+    h1, h2, h3, strong, code { color:#111 }
+    h1 { text-align:center }
+    h2 { font-size:20px;margin-bottom:0 }
+    h3 { font-size:18px;margin:0 0 0 50px }
+    p, ul, ol, dl, pre { margin:0 0 24px 0; }
+    #man > p, #man > ul, #man > ol, #man > dl, #man > pre
+    { margin:0 0 24px 80px; }
+    dt { margin:0;clear:left }
+    dt.flush { float:left;width:105px }
+    dd { margin:0 0 0 105px }
+    code { font-weight:bold; }
+    pre code { font-weight:normal; }
+    em { font-style:normal;text-decoration:underline }
+  </style>
+</head>
+<body>
+<div id='man'>
+
+<h1>#{@name}(#{@section})</h1>
+
+#{html}
+
+</div>
+</body>
+</html>

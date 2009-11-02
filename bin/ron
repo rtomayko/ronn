@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+## Usage: ron [OPTIONS] [FILE...]
+##        ron --build FILE...  
+## Convert ron file to roff or html.
+##
+## Options
+##   -b, --build             write output to files instead of to stdout
+##   -i, --install           write manpage to MAN_HOME or system man path
+##
+##       --roff              generate roff/man text; this is the default behavior
+##   -5, --html              generate HTML
+##
+##       --help              show this help message
+##
+## See the ron(2)
+require 'optparse'
+
+format = 'roff'
+build = false
+install = false
+
+ARGV.options do |option|
+  option.on("-5", "--html") { format = 'html' }
+  option.on("--roff") { format = 'roff' }
+  option.on("-b", "--build") { build = true }
+  option.on("-i", "--install") { install = true }
+
+  option.on_tail("--help") {
+    puts File.read(__FILE__).
+      grep(/^##.*/).
+      map { |line| line.chomp[3..-1] }.
+      join("\n")
+    exit
+  }
+  option.parse!
+end
+
+require 'ron'
+ARGV.each do |file|
+  doc = Ron.new(file) { file == '-' ? STDIN.read : File.read(file) }
+  html = doc.to_html
+  if build
+    File.open(doc.path('html'), 'wb') do |f|
+      f.write(html)
+    end
+  else
+    $stdout.write(html)
+  end
+end

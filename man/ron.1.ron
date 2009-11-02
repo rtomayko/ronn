@@ -1,0 +1,46 @@
+ron(1) -- the opposite of roff
+==============================
+
+## SYNOPSIS
+
+`ron` [ _OPTIONS_ ]  
+`ron` --build _FILE_ ...  
+`ron` --install _FILE_ ...
+
+## DESCRIPTION
+
+`ron` is a humane text format for authoring man pages and things that
+
+## OPTIONS
+
+`ron` expects Ron formatted text on _stdin_ and writes roff formatted
+text on _stdout_.
+
+  * `--build`:
+
+  * `--roff`:
+    Generate roff output. This is the default.
+
+  * `--html`:
+    Generate HTML output.
+
+  * `-O`:
+    Open the HTML version in a browser immediately after
+
+## FILE
+
+
+
+## SYNTAX
+
+**Ron** is [Markdown]() with the following constraints and additions:
+
+  1. 
+
+## SEE ALSO
+
+manpages(5), roff(7), man(1)
+
+## COPYRIGHT
+
+`ron` is Copyright (C) 2009 Ryan Tomayko <http://tomayko.com/about>
