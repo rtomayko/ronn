@@ -83,7 +83,6 @@ class Ron
           container = item
         end
         term, definition = container.inner_html.split(":\n", 2)
-        puts "term: #{term}"
 
         dt = item.before("<dt>#{term}</dt>").previous_sibling
         dt['class'] = 'flush' if dt.content.length <= 10
