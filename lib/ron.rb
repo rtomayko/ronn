@@ -67,31 +67,33 @@ class Ron
   # Convert special format unordered lists to definition lists.
   def definition_list_filter(html)
     doc = Nokogiri::HTML(html)
-    doc.xpath('//ul').each do |ul|
+
+    # process all unordered lists depth-first
+    doc.xpath('//ul').to_a.reverse.each do |ul|
       items = ul.xpath('li')
       next if items.any? { |item| item.text.split("\n", 2).first !~ /:$/ }
 
       ul.name = 'dl'
       items.each do |item|
         if item.child.name == 'p'
-          para = item.child
-          term, definition = para.inner_html.split(":\n", 2)
-          item.before("<dt>#{term}</dt>")
-          dt = item.previous_sibling
-          dt['class'] = 'flush' if dt.content.length <= 10
-          item.name = 'dd'
-          para.inner_html = definition
+          wrap = '<p></p>'
+          container = item.child
         else
-          term, definition = item.inner_html.split(":\n", 2)
-          item.before("<dt>#{term}</dt>")
-          dt = item.previous_sibling
-          dt['class'] = 'flush' if dt.content.length <= 8
-          item.name = 'dd'
-          item.inner_html = definition
+          wrap = '<dd></dd>'
+          container = item
         end
+        term, definition = container.inner_html.split(":\n", 2)
+        puts "term: #{term}"
+
+        dt = item.before("<dt>#{term}</dt>").previous_sibling
+        dt['class'] = 'flush' if dt.content.length <= 10
+
+        item.name = 'dd'
+        container.swap(wrap.sub(/></, ">#{definition}<"))
       end
     end
-    doc.css('body').inner_html
+
+    doc.css('html > body').inner_html
   end
 
   # Convert Ron HTML to roff.
