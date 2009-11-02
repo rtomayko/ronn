@@ -9,37 +9,152 @@ ron(1) -- the opposite of roff
 
 ## DESCRIPTION
 
-`ron` is a humane text format for authoring man pages and things that
+**Ron** is a humane text format and toolchain for authoring manpages (and things
+that appear as manpages from a distance). It can be used to build and install
+standard UNIX roff manpages and to generate beautiful HTML manpages.
+
+The `ron` command converts one or more named input <em>FILE</em>s (or standard
+input if no files are named, or the file name `-` is given) from humane manpage
+markup to roff (for use with `man(1)`) or to HTML.
 
 ## OPTIONS
 
-`ron` expects Ron formatted text on _stdin_ and writes roff formatted
-text on _stdout_.
+`ron`'s default mode of operation is to read a single document from standard
+input and to write the generated output to standard output. The following
+arguments change this behavior:
 
-  * `--build`:
+  * `-b`, `--build`:
+    Write directly to output files instead of standard output. With the
+    `--html` option, write output to '_file_._section_.html', where _file_
+    is the name of the input _FILE_ minus any ".ron" file extension.
 
-  * `--roff`:
-    Generate roff output. This is the default.
+  * `-i`, `--install`:
+    Install the roff formatted manpage to the local system such that it can be
+    displayed by `man(1)`. The `MANHOME` environment variable is used to
+    determine the prefix where manpages should be installed when defined. If
+    `MANHOME` is not defined, `ron` installs manpages to _/usr/local/man_.
+
+  * `-m`, `--man`:
+    Display _FILE_ like `man(1)`. This simulates default man behavior by
+    piping the roff output through `groff(1)` and the paging program specified
+    by the `MANPAGER` environment variable.
+
+The following options control the output formats generated:
 
   * `--html`:
     Generate HTML output.
 
-  * `-O`:
-    Open the HTML version in a browser immediately after
-
-## FILE
-
-
+  * `--roff`:
+    Generate roff output. This is the default.
 
 ## SYNTAX
 
 **Ron** is [Markdown]() with the following constraints and additions:
 
-  1. 
+  1. The level 1 heading must be specified and must be the tagline.
+
+     ron(1) - the opposite of roff
+     =============================
+
+## EXAMPLES
+
+The following in `test.1.ron`:
+
+    test - condition evaluation utility
+    ===================================
+
+    ## SYNOPSIS
+
+    `test` _expression_
+    `[` _expression_ ]
+
+    ## DESCRIPTION
+
+    The `test` utility evaluates the expression and, if it evaluates to true,
+    returns a zero (true) exit status; otherwise it returns 1 (false).  If there
+    is no expression, test also returns 1 (false).
+
+    ## OPTIONS
+
+    All operators and flags are separate arguments to the `test` utility.
+
+    The following primaries are used to construct expressions:
+
+      * `-h` _file_:
+        True if file exists and is a symbolic link. This operator is
+        retained for compatibility with previous versions of this
+        program. Do not rely on its existence; use `-L` instead.
+
+      * `-n` _string_:
+        True if the length of string is nonzero.
+
+      * _file1_ `-nt` _file2_:
+        True if _file1_ exists and is newer than _file2_.
+
+      * _n1_ `!=` _n2_:
+        True if the strings s1 and s2 are not identical.
+
+    These primaries can be combined with the following operators:
+
+      * `!` _expression_:
+        True if _expression_ is false.
+
+      * _expression1_ `-a` _expression2_:
+        True if both _expression1_ and _expression2_ are true.
+
+      * `(`_expression_`)`:
+        True if expression is true.
+
+     ## GRAMMAR AMBIGUITY
+
+     The `test` grammar is inherently ambiguous. In order to assure a degree of
+     consistency, the cases described in IEEE Std 1003.2 (``POSIX.2'') section
+     4.62.4, are evaluated consistently according to the rules specified in the
+     standards document. All other cases are subject to the ambiguity in the
+     command semantics.
+
+     ## RETURN VALUES
+
+     The `test` utility exits with one of the following values:
+
+       * 0:
+         expression evaluated to true.
+
+       * 1:
+         expression evaluated to false or expression was missing.
+
+       * >1:
+         An error occurred.
+
+To generate a `roff(7)` file of _test.1_ file, suitable for use with `man(1)`:
+
+    $ ron -b test.1.ron
+    $ man test.1
+
+To generate a standalone HTML version:
+
+    $ ron -b --html test.1.ron
+    $ open test.1.html
+
+To build HTML versions of all `ron` files:
+
+    $ ron -b --html *.ron
+
+## ENVIRONMENT
+
+  * `MANHOME`=_PATH_:
+    Location where roff formatted manpages should be installed. Relevant
+    only when the `--installed` argument is provided. _PATH_ is to the base
+    of a man file hierarchy. e.g., `/usr/local/share/man`, `/home/rtomayko/man`.
+
+  * `MANPAGER`:
+
+  * `PAGER`:
+    Used instead of `MANPAGER` when `MANPAGER` is not defined.
 
 ## SEE ALSO
 
-manpages(5), roff(7), man(1)
+manpages(5), man(1), roff(7), groff(1)
 
 ## COPYRIGHT
 
