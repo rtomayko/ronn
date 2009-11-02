@@ -18,6 +18,7 @@ require 'optparse'
 format = 'roff'
 build = false
 install = false
+groff = "/usr/bin/groff -Wall -mtty-char -Tascii -mandoc -c"
 
 ARGV.options do |option|
   option.on("-5", "--html") { format = 'html' }
