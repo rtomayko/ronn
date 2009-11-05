@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ron(5) -- humane manpage authoring format</title>
+  <title>ron(5) -- humane manual page authoring format</title>
   <style type='text/css'>
     body {
       font-family:consolas,monospace;
@@ -33,128 +33,160 @@
 <h1>ron(5)</h1>
 
 <h2 id="NAME">NAME</h2>
-<p><code>ron</code> -- humane manpage authoring format</p>
+<p><code>ron</code> -- humane manual page authoring format</p>
 
 <h2>SYNOPSIS</h2>
 
-<p>A <code>ron</code></p>
+<pre><code>name(1) -- one sentence description
+===================================
 
-<p><em>name</em>(<em>section</em>) -- <em>tagline</em><br><code>======================</code><br><br><code>##</code> <em>SECTION HEADING</em> ...<br><br><em>paragraph</em> ...<br><br><code>*</code> <em>term</em><code>:</code><br>&nbsp;&nbsp;[ <em>definition</em> ]<br><code>*</code> <em>term</em><code>:</code><br>&nbsp;&nbsp;[ <em>definition</em> ]<br></p>
+## SECTION HEADING
+
+A normal paragraph. This can span multiple lines and is
+terminated with two or more line endings -- just like
+Markdown.
+
+## INLINE MARKUP
+
+Inline markup should be used for `code` (displayed in
+boldface) and _variables_ (displayed in underline).
+
+Manual page references like sh(1), markdown(5), roff(7), etc.
+are displayed in boldface and hyperlinked in HTML output.
+
+## DEFINITION LISTS
+
+Definition lists are used to define arguments, variables,
+or other terms:
+
+  * `-a`, `--arg1`=[_OPTION_]:
+    One or more paragraphs describing the 
+  * `-b`, `--arg2`:
+    Any number of these may be specified and they can be
+    nested.
+</code></pre>
 
 <h2>DESCRIPTION</h2>
 
-<p><code>ron</code> files are simple ASCII texts that document things in the style of UNIX
-manpages but with a syntax and feature-set less insane than that of <code>roff(7)</code>.
-<code>ron</code> files are piped through <code>ron(1)</code> to build and install traditional
-<code>roff(7)</code> manpages or to generate hyperlinked HTML documentation.</p>
+<p><code>Ron</code> files are simple ascii texts that document things in the
+style of UNIX man pages but with a syntax and feature-set less
+insane than that of roff(7). <code>Ron</code> files are piped through
+ron(1) to build and install traditional roff(7) man pages or
+to generate hyperlinked HTML documentation.</p>
 
-<p>All <code>ron</code> files must conform to a simple subset of the humane text format,
-markdown(5).</p>
-
-<p>It is neither possible nor desirable to express many of <code>roff(7)</code>'s complex
+<p>All <code>ron</code> files must conform to a simple subset of markdown(5), a
+humane text markup designed for writing on the web. It is neither
+possible nor desirable to express many of roff(7)'s complex
 typesetting features in <code>ron</code>.</p>
 
 <h2>MANPAGE TITLE</h2>
 
-<p>All manpages have a <em>name</em>, belong to a <em>section</em>, and have a single sentence
-<em>tagline</em> (useless but witty, preferably). <code>ron</code> files must begin with a
-first-level heading that includes all of this information. For example, this
-very manpage begins:</p>
+<p>All man pages have a <em>name</em>, belong to a <em>section</em>, and have a
+single sentence <em>tagline</em> (useless but witty, preferably). <code>Ron</code>
+files must begin with a first-level heading that includes all of
+this information. For example, this very man page begins:</p>
 
-<pre><code>ron(5) -- humane manpage authoring format
-=========================================
+<pre><code>ron(5) -- humane manual page authoring format
+=============================================
 </code></pre>
 
-<p>Here, we're saying that the manpage documents a thing named <code>ron</code> in manual
-section <code>5</code> -- the "file formats" section; see <code>manpages(5)</code> for full section
-list -- and that's quickly described as a "humane manpage authoring format".</p>
+<p>Here, we're saying that the man page documents a thing named <code>ron</code>
+in manual section <code>5</code> -- the "file formats" section; see
+manpages(5) for full section list -- and that's quickly
+described as a "humane manual page authoring format".</p>
 
-<p>These bits of information are used to fill in the document header, to create the
-<code>NAME</code> section, and also to establish output filenames when processed through
-<code>ron(1)</code>.</p>
+<p>These bits of information are used to fill in the document
+header, to create the <code>NAME</code> section, and also to establish
+output filenames when processed with ron(1).</p>
+
+<h2>SECTION HEADINGS</h2>
+
+<p>Man section headings are expressed with markdown level two
+headings. markdown(5) provides two syntaxes for level two
+headings. A hash prefix syntax:</p>
+
+<pre><code>## HEADING TEXT
+</code></pre>
+
+<p>Or, a dash underline syntax:</p>
+
+<pre><code>HEADING TEXT
+------------
+</code></pre>
+
+<p>Section headings should be in all uppercase and may not contain
+other inline markup.</p>
+
+<p>Most manual pages include at least one of the <code>SYNOPSIS</code>,
+<code>DESCRIPTION</code>, and/or <code>OPTIONS</code> sections. Additional sections
+commonly included are <code>SYNTAX</code>, <code>ENVIRONMENT</code>, <code>HISTORY</code>, <code>RETURN
+VALUES</code>, <code>BUGS</code>, <code>SECURITY CONSIDERATIONS</code>, <code>STANDARDS</code> /
+<code>CONFORMING TO</code>, <code>AUTHOR</code>, and <code>COPYRIGHT</code>. Finally, most man
+pages end with a <code>SEE ALSO</code> section that references other manual
+pages and external documents.</p>
 
 <h2>INLINE MARKUP</h2>
 
-<p>Manpages typically use a limited set of text formatting capabilities. There's
-basically <b>boldface</b> and <i>italics</i> (often displayed using
-<u>underline</u>).  <b>boldface</b> is used for flags, subcommands, and other
-noun-like things; <i>italics</i> is used for user-specified arguments,
-variables, or user input. <code>ron</code> uses backticks (<code>\`</code>) to denote
-<code>boldface</code> and underscores (<code>_</code>) to denote <em>italics</em>.</p>
+<p>Man pages typically use a limited set of text formatting
+capabilities. There's basically <b>boldface</b> and
+<i>italics</i> (often displayed using <u>underline</u>). Ron
+uses the following bits of markdown(5) to accomplish this:</p>
 
 <dl>
-<dt class="flush"><code>backticks</code></dt>
-<dd>Code, flags, commands, and nouns; typically displayed in in <b>boldface</b>.</dd>
+<dt><code>`backticks`</code></dt>
+<dd>Code, flags, commands, and noun-like things; typically
+displayed in in <b>boldface</b>. Note that all text included
+within <code>backticks</code> is displayed literally; other inline markup
+is not processed.</dd>
 <dt>
 <code>_</code><em>underbars</em><code>_</code>
 </dt>
-<dd>User-specified arguments, variables, or user input; typically displayed
-with <u>underline</u>.</dd>
+<dd>User-specified arguments, variables, or user input; typically
+displayed in <u>underline</u>.</dd>
 <dt><code>**double stars**</code></dt>
-<dd>Like <code>backticks</code> but processes other inline markup.</dd>
+<dd>Like <code>backticks</code> but may contain other inline markup.</dd>
 </dl>
-<p>Here is <code>grep(1)</code>'s DESCRIPTION section represented in <code>ron</code>:</p>
+<p>Here is grep(1)'s DESCRIPTION section represented in <code>ron</code>:</p>
 
-<pre><code>`Grep` searches the named input _FILE_ (or standard input if no
-files are named, or the file name `-` is given) for lines
+<pre><code>`Grep` searches the named input _FILE_ (or standard input if
+no files are named, or the file name `-` is given) for lines
 containing a match to the given _PATTERN_. By default, `grep`
 prints the matching lines.
 </code></pre>
 
-<p>Note that not only do <code>boldface</code></p>
-
-<p>Any argument surrounded by brackets is considered to be optional.  For
-example, [ filename ] would indicate an optional filename argument.</p>
-
-<h2>HEADINGS</h2>
-
-<p>Manpages typically have at least some of SYNOPSIS, DESCRIPTION, and
-OPTIONS sections.</p>
-
-<p>Additional sections include SYNTAX, ENVIRONMENT, HISTORY, BUGS,
-SECURITY CONSIDERATIONS, STANDARDS / CONFORMING TO, AUTHOR, and COPYRIGHT.</p>
-
-<p>Finally, most manpages have a SEE ALSO section.</p>
-
 <h2>DEFINITION LISTS</h2>
 
-<h2>EXAMPLES</h2>
+<p>Because definition lists are so often used in manual pages to
+describe arguments, options, and variables, the basic markdown(5)
+list syntax has been extended to support a definition list
+syntax.</p>
 
-<p>The following in <code>test.1.ron</code>:</p>
+<p>A definition list's syntax is exactly the same as markdown(5)'s
+unordered list syntax but requires that the first line of each
+list item be terminated with a colon "<code>:</code>". The first line
+(minus the colon) is the <em>term</em>; subsequent lines may be
+comprised of multiple paragraphs, code blocks, standard lists,
+and nested definition lists.</p>
 
-<pre><code>test - condition evaluation utility
-===================================
+<p>An example definition list, taken from test(1)'s <code>DESCRIPTION</code>
+section:</p>
 
-## SYNOPSIS
+<pre><code> The following primaries are used to construct expressions:
 
-`test` _expression_
-`[` _expression_ ]
+   * `-b` _file_:
+     True if _file_ exists and is a block special file.
 
-## DESCRIPTION
+   * `-c` _file_:
+     True if _file_ exists and is a character special file.
 
-The `test` utility evaluates the expression and, if it evaluates
-to true, returns a zero (true) exit status; otherwise it returns
-1 (false).  If there is no expression, test also returns 1
-(false).
-
-## OPTIONS
-
-All operators and flags are separate arguments to the `test`
-utility.
-
-The following primaries are used to construct expressions:
-
-  * `-h` _file_:
-    True if file exists and is a symbolic link. This operator is
-    retained for compatibility with previous versions of this
-    program. Do not rely on its existence; use `-L` instead.
-
-  * `-n` _string_:
-    True if the length of string is nonzero.
-
-  * _file1_ `-nt` _file2_:
-    True if _file1_ exists and is newer than _file2_.
+   * `-d` _file_:
+     True if file exists and is a directory.
 </code></pre>
+
+<p>The definition list syntax is intentionally backward compatible
+with markdown(5)'s list syntax. This allows <code>ron</code> documents to be
+piped through normal markdown processors with minor degradation
+in output formatting.</p>
 
 <h2>SEE ALSO</h2>
 
