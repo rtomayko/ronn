@@ -866,3 +866,16 @@ Markdown provides backslash escapes for the following characters:
     -   minus sign (hyphen)
     .   dot
     !   exclamation mark
+
+## AUTHOR
+
+Markdown was created by John Gruber.
+
+Manual page by Ryan Tomayko. It's pretty much a direct copy of the
+[Markdown Syntax Reference](http://daringfireball.net/projects/markdown/syntax),
+also by John Gruber.
+
+## SEE ALSO
+
+ron(5)  
+<http://daringfireball.net/projects/markdown/>
