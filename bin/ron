@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby
-## Usage: ron [OPTIONS] [FILE...]
-##        ron --build FILE...  
+## Usage: ron [ OPTIONS ] [ FILE ... ]
+##        ron --build FILE ...
+##        ron --install FILE ...
+##        ron --man FILE
 ## Convert ron file to roff or html.
 ##
 ## Options
 ##   -b, --build             write output to files instead of to stdout
 ##   -i, --install           write manpage to MAN_HOME or system man path
+##   -m, --man               show man page like man(1)
 ##
 ##       --roff              generate roff/man text; this is the default behavior
 ##   -5, --html              generate HTML
@@ -18,35 +21,72 @@ require 'optparse'
 formats = []
 build = false
 install = false
-groff = "/usr/bin/groff -Wall -mtty-char -Tascii -mandoc -c"
+man = false
+groff = "groff -Wall -mtty-char -mandoc -Tascii"
+pager = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
 
+def info(message, *args)
+  STDERR.puts message % args
+end
+
+def usage
+  puts File.read(__FILE__).
+    grep(/^##.*/).
+    map { |line| line.chomp[3..-1] }.
+    join("\n")
+end
+
+# parse command line options
 ARGV.options do |option|
   option.on("--roff") { formats << 'roff' }
   option.on("-5", "--html") { formats << 'html' }
   option.on("-b", "--build") { build = true }
   option.on("-i", "--install") { install = true }
+  option.on("-m", "--man") { man = true }
 
-  option.on_tail("--help") {
-    puts File.read(__FILE__).
-      grep(/^##.*/).
-      map { |line| line.chomp[3..-1] }.
-      join("\n")
-    exit
-  }
+  option.on_tail("--help") { usage ; exit }
   option.parse!
 end
 
+if ARGV.empty? && STDIN.tty?
+  usage
+  exit
+elsif ARGV.empty?
+  ARGV.push '-'
+end
+
 formats = ['roff'] if formats.empty?
+pid = nil
 
 require 'ron'
+wr = STDOUT
 ARGV.each do |file|
   doc = Ron.new(file) { file == '-' ? STDIN.read : File.read(file) }
+
+  # setup the man pipeline if the --man option was specified
+  if man && !build
+    rd, wr = IO.pipe
+    if pid = fork
+      rd.close
+    else
+      wr.close
+      STDIN.reopen rd
+      exec "#{groff} | #{pager}"
+    end
+  end
+
+  # write output for each format
   formats.each do |format|
     output = doc.convert(format)
     if build
       File.open(doc.path(format), 'wb') { |f| f.write(output) }
     else
-      $stdout.write(output)
+      wr.write(output)
     end
+  end
+
+  if pid
+    wr.close
+    Process.wait
   end
 end
