@@ -79,7 +79,9 @@ ARGV.each do |file|
   formats.each do |format|
     output = doc.convert(format)
     if build
-      File.open(doc.path(format), 'wb') { |f| f.write(output) }
+      path = doc.path(format)
+      info "building: #{path}"
+      File.open(path, 'wb') { |f| f.write(output) }
     else
       wr.write(output)
     end
