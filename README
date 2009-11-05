@@ -16,6 +16,64 @@ definition lists). The ron(5) manual page
 included with this distribution defines the
 format in more detail.
 
+INSTALL
+-------
+
+The easiest way to install ron is with
+rubygems:
+
+    $ [sudo] gem install ron -s gems.gemcutter.org
+
+Or, clone the git repository and install from
+source:
+
+    $ git clone git://github.com/rtomayko/ron.git
+    $ cd ron
+    $ rake install
+
+EXAMPLES
+--------
+
+The .ron files located under the repository's
+./man directory show off a wide range of ron
+capabilities. The HTML versions of these
+files are available at:
+
+    http://rtomayko.github.com/ron/ron.1.html
+    http://rtomayko.github.com/ron/ron.5.html
+    http://rtomayko.github.com/ron/markdown.5.html
+
+BASIC USAGE
+-----------
+
+To generate a roff man page from the included
+markdown.5.ron file and open it in man(1):
+
+    $ ron -b man/markdown.5.ron
+    building: man/markdown.5
+    $ man man/markdown.5
+
+To generate a standalone HTML version:
+
+    $ ron -b --html man/markdown.5.ron
+    building: man/markdown.5.html
+    $ open man/markdown.5.html
+
+To build roff and HTML versions of all ron
+files:
+
+    $ ron -b --roff --html man/*.ron
+
+If you just want to view a ron file as if it
+were a man page without building any
+intermediate files:
+
+    $ ron -m man/markdown.5.ron
+
+The ron(1) manual page included with this
+distribution includes full documentation on
+ron command line options.
+
 RATIONALE
 ---------
 
@@ -79,64 +137,6 @@ Ron aims to address many of the issues with
 man page creation while preserving the things
 that makes man pages a great form of
 documentation.
-
-INSTALL
--------
-
-The easiest way to install ron is with
-rubygems:
-
-    $ [sudo] gem install ron -s gems.gemcutter.org
-
-Or, clone the git repository and install from
-source:
-
-    $ git clone git://github.com/rtomayko/ron.git
-    $ cd ron
-    $ rake install
-
-EXAMPLES
---------
-
-The .ron files located under the repository's
-./man directory show off a wide range of ron
-capabilities. The HTML versions of these
-files are available at:
-
-    http://rtomayko.github.com/ron/ron.1.html
-    http://rtomayko.github.com/ron/ron.5.html
-    http://rtomayko.github.com/ron/markdown.5.html
-
-BASIC USAGE
------------
-
-To generate a roff man page from the included
-markdown.5.ron file and open it in man(1):
-
-    $ ron -b man/markdown.5.ron
-    building: man/markdown.5
-    $ man man/markdown.5
-
-To generate a standalone HTML version:
-
-    $ ron -b --html man/markdown.5.ron
-    building: man/markdown.5.html
-    $ open man/markdown.5.html
-
-To build roff and HTML versions of all ron
-files:
-
-    $ ron -b --roff --html man/*.ron
-
-If you just want to view a ron file as if it
-were a man page without building any
-intermediate files:
-
-    $ ron -m man/markdown.5.ron
-
-The ron(1) manual page included with this
-distribution includes full documentation on
-ron command line options.
 
 COPYRIGHT
 ---------
