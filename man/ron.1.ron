@@ -5,46 +5,64 @@ ron(1) -- the opposite of roff
 
 `ron` [ _OPTIONS_ ]  
 `ron` --build _FILE_ ...  
-`ron` --install _FILE_ ...
+`ron` --install _FILE_ ...  
+`ron` --man _FILE_
 
 ## DESCRIPTION
 
-`ron` is a humane text format and toolchain for authoring
-manpages (and things that appear as manpages from a distance). It
-can be used to build and install standard UNIX `roff(7)`
-formatted manpages and to generate beautiful HTML manpages.
+`Ron` is a humane text format and toolchain for authoring man pages
+(and things that appear as man pages from a distance). Use it to build
+and install standard UNIX / roff(7) formatted man pages and to
+generate nicely formatted HTML manual pages.
 
 The `ron` command converts one or more named input <em>FILE</em>s
 (or standard input when no files are named or the file name `-`
-is given) from humane manpage markup to roff (for use with
-`man(1)`) or to HTML.
+is given) from humane man page markup to one or more destination
+output formats. If no output format is selected explicitly, `ron`
+writes output in roff format.
+
+## FILES
+
+The `ron` command expects input to be formatted as ron(5) text.
+Source files are typically named '_name_._section_.ron' (e.g.,
+`hello.1.ron`). The _name_ and _section_ should match the name
+and section defined in _FILE_'s heading.
+
+When building roff and/or HTML output files with the `--build`
+argument, destination filenames are determined by taking the basename
+of the input _FILE_ and adding the appropriate file extension (or
+removing the file extension in the case of roff output).
+
+For example, the command `ron -b --html --roff hello.1.ron` would
+generate a `hello.1` file with roff output and a `hello.1.html` file
+with HTML output.
 
 ## OPTIONS
 
-`ron`'s default mode of operation is to read a single document
-from standard input and to write the generated output to standard
-output. The following arguments change this behavior:
+`Ron`'s default mode of operation is to read a single document from
+standard input and to write the generated output to standard output.
+The following arguments change this behavior:
 
   * `-b`, `--build`:
-    Write directly to output files instead of standard output.
-    With the `--html` option, write output to
-    '_file_._section_.html', where _file_ is the name of the
-    input _FILE_ minus any ".ron" file extension.
+    Write output directly to files instead of standard output. When
+    the `--roff` option is provided, writes roff output to
+    _file_._section_. When the `--html` option is provided, writes
+    output to '_file_._section_.html'.
 
   * `-i`, `--install`:
-    Install the roff formatted manpage to the local system such
-    that it can be displayed by `man(1)`. The `MANHOME`
+    Install the roff formatted man page to the local system such
+    that it can be displayed by man(1). The `MANHOME`
     environment variable is used to determine the prefix where
-    manpages should be installed when defined.
+    man pages should be installed when defined.
 
-    If `MANHOME` is not defined, `ron` installs manpages to
+    If `MANHOME` is not defined, `ron` installs man pages to
     _/usr/local/man_.
 
   * `-m`, `--man`:
-    Display _FILE_ like `man(1)`. This simulates default man
-    behavior by piping the roff output through `groff(1)` and the
-    paging program specified by the `MANPAGER` environment
-    variable.
+    Display _FILE_ as if man(1) were invoked on the roff output
+    file. This simulates default man behavior by piping the roff
+    output through groff(1) and the paging program specified by the
+    `MANPAGER` environment variable.
 
 The following options control the output formats generated:
 
@@ -52,42 +70,54 @@ The following options control the output formats generated:
     Generate HTML output.
 
   * `--roff`:
-    Generate roff output. This is the default.
-
-## SYNTAX
-
-**Ron** files are simple ascii documents that conform to subset
-of markdown(5) with the following constraints and additions:
-
-See `ron(5)`
+    Generate roff output. This is the default behavior when no
+    other format argument is provided.
 
 ## EXAMPLES
 
-To generate a `roff(7)` file of _test.1_ file, suitable for use
-with `man(1)`:
+Generate `roff(7)` output on stdout:
 
-    $ ron -b test.1.ron
-    $ man test.1
+    $ ron < hello.1.ron
 
-To generate a standalone HTML version:
+Build a roff file based on the input filename:
+
+    $ ron -b hello.1.ron
+    building: hello.1
+    $ man hello.1
+
+Build and open a standalone HTML file based on the input filename:
 
     $ ron -b --html test.1.ron
     $ open test.1.html
 
-To build HTML versions of all `ron` files:
+Build roff and HTML versions of all `.ron` files in the current
+directory:
 
-    $ ron -b --html *.ron
+    $ ron -b --roff --html *.ron
+    building: hello.1
+    building: hello.1.html
+    building: world.1
+    building: world.1.html
+
+View a ron file in the same way as man(1) without building a roff
+file:
+
+    $ ron -m hello.1.ron
+
+Install the roff man page for a ron file:
+
+    $ ron -i hello.1.ron
 
 ## ENVIRONMENT
 
   * `MANHOME`:
-    Location where roff formatted manpages should be installed.
+    Location where roff formatted man pages should be installed.
     Relevant only when the `--installed` argument is provided.
     _PATH_ is to the base of a man file hierarchy. e.g.,
     `/usr/local/share/man`, `/home/rtomayko/man`.
 
   * `MANPAGER`:
-    The paging program used for manpages. This is typically set
+    The paging program used for man pages. This is typically set
     to something like 'less -is'.
 
   * `PAGER`:
@@ -95,7 +125,7 @@ To build HTML versions of all `ron` files:
 
 ## BUGS
 
-Ruby
+Ron is written in Ruby.
 
 ## COPYRIGHT
 
@@ -103,4 +133,4 @@ Ruby
 
 ## SEE ALSO
 
-ron(5), manpages(5), man(1), roff(7), groff(1)
+ron(5), markdown(5), manpages(5), man(1), roff(7), groff(1)
