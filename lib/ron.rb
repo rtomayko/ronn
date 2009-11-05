@@ -114,13 +114,13 @@ class Ron
     emit_document_head
     roff_block_filter(doc)
     write "\n"
-    @buf.join.gsub(/\n{2,}/, "\n")
+    @buf.join
   end
 
   def roff_block_filter(node)
     prev = node.previous_sibling
     prev = prev.previous_sibling until prev.nil? || prev.element?
-    comment "block: %p, following: %p" % [node.name, prev && prev.name]
+    # comment "block: %p, following: %p" % [node.name, prev && prev.name]
 
     case node.name
     when '#document-fragment'
@@ -186,7 +186,7 @@ protected
   end
 
   def macro(name, value=nil)
-    write "\n.\n.#{[name, value].compact.join(' ')}\n.\n"
+    writeln ".\n.#{[name, value].compact.join(' ')}"
   end
 
   def escape(text)
@@ -197,12 +197,20 @@ protected
     "\"#{text}\""
   end
 
+  # write text to output buffer
   def write(text)
     @buf << text
   end
 
+  # write text to output buffer on a new line.
+  def writeln(text)
+    write "\n" if @buf.last && @buf.last[-1] != ?\n
+    write text
+    write "\n"
+  end
+
   def comment(text)
-    write %[\n.\\" #{text}\n]
+    writeln %[.\\" #{text}]
   end
 
   def warn(text, *args)
