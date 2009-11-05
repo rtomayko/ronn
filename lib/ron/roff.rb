@@ -112,7 +112,10 @@ module Ron
     def escape(text)
       text.
         gsub(/[\\-]/)  { |m| "\\#{m}" }.
-        gsub('&nbsp;') { ' ' }
+        gsub('&nbsp;', ' ').
+        gsub('&lt;',   '<').
+        gsub('&gt;',   '>').
+        gsub('&amp;',  '&')
     end
 
     def quote(text)
