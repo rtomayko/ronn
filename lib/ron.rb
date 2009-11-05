@@ -3,6 +3,7 @@ require 'rdiscount'
 require 'nokogiri'
 
 class Ron
+  VERSION = '0.1'
   attr_reader :filename, :data, :basename, :name, :section, :tagline
 
   def initialize(filename, &block)
