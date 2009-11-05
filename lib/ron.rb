@@ -174,6 +174,10 @@ class Ron
       write '\fR'
     when 'br'
       macro 'br'
+    when 'a'
+      write '\fI'
+      node.children.each { |ch| roff_inline_filter(ch) }
+      write '\fR'
     else
       warn "unrecognized inline tag: %p", node.name
     end
