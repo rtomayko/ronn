@@ -15,14 +15,14 @@
 ## See the ron(2)
 require 'optparse'
 
-format = 'roff'
+formats = []
 build = false
 install = false
 groff = "/usr/bin/groff -Wall -mtty-char -Tascii -mandoc -c"
 
 ARGV.options do |option|
-  option.on("-5", "--html") { format = 'html' }
-  option.on("--roff") { format = 'roff' }
+  option.on("--roff") { formats << 'roff' }
+  option.on("-5", "--html") { formats << 'html' }
   option.on("-b", "--build") { build = true }
   option.on("-i", "--install") { install = true }
 
@@ -36,15 +36,17 @@ ARGV.options do |option|
   option.parse!
 end
 
+formats = ['roff'] if formats.empty?
+
 require 'ron'
 ARGV.each do |file|
   doc = Ron.new(file) { file == '-' ? STDIN.read : File.read(file) }
-  html = doc.to_html
-  if build
-    File.open(doc.path('html'), 'wb') do |f|
-      f.write(html)
+  formats.each do |format|
+    output = doc.convert(format)
+    if build
+      File.open(doc.path(format), 'wb') { |f| f.write(output) }
+    else
+      $stdout.write(output)
     end
-  else
-    $stdout.write(html)
   end
 end

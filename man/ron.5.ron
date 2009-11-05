@@ -52,14 +52,14 @@ Manpages typically use a limited set of text formatting capabilities. There's
 basically <b>boldface</b> and <i>italics</i> (often displayed using
 <u>underline</u>).  <b>boldface</b> is used for flags, subcommands, and other
 noun-like things; <i>italics</i> is used for user-specified arguments,
-variables, or user input. `ron` uses backticks (`\``) to denote
-`boldface` and underscores (`_`) to denote _italics_.
+variables, or user input. `ron` uses backticks ("\`") to denote
+`boldface` and underscores ("`_`") to denote _italics_.
 
   * `backticks`:
     Code, flags, commands, and nouns; typically displayed in in <b>boldface</b>.
   * `_`_underbars_`_`:
     User-specified arguments, variables, or user input; typically displayed
-    with <u>underline</u>.
+    in <u>underline</u>.
   * `**double stars**`:
     Like `backticks` but processes other inline markup.
 

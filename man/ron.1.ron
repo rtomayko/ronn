@@ -32,8 +32,9 @@ arguments change this behavior:
   * `-i`, `--install`:
     Install the roff formatted manpage to the local system such that it can be
     displayed by `man(1)`. The `MANHOME` environment variable is used to
-    determine the prefix where manpages should be installed when defined. If
-    `MANHOME` is not defined, `ron` installs manpages to _/usr/local/man_.
+    determine the prefix where manpages should be installed when defined.
+
+    If `MANHOME` is not defined, `ron` installs manpages to _/usr/local/man_.
 
   * `-m`, `--man`:
     Display _FILE_ like `man(1)`. This simulates default man behavior by
