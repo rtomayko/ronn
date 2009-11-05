@@ -3,7 +3,7 @@ require 'nokogiri'
 module Ron
   class RoffFilter
     # Convert Ron HTML to roff.
-    def initialize(html, name, section, tagline, manual=nil, version=nil, date=Time.now)
+    def initialize(html, name, section, tagline, manual=nil, version=nil, date=nil)
       @buf = []
       title_heading name, section, tagline, manual, version, date
       block_filter(Nokogiri::HTML.fragment(html))
