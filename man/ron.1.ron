@@ -9,37 +9,42 @@ ron(1) -- the opposite of roff
 
 ## DESCRIPTION
 
-`ron` is a humane text format and toolchain for authoring manpages (and things
-that appear as manpages from a distance). It can be used to build and install
-standard UNIX `roff(7)` formatted manpages and to generate beautiful HTML
-manpages.
+`ron` is a humane text format and toolchain for authoring
+manpages (and things that appear as manpages from a distance). It
+can be used to build and install standard UNIX `roff(7)`
+formatted manpages and to generate beautiful HTML manpages.
 
-The `ron` command converts one or more named input <em>FILE</em>s (or standard
-input when no files are named or the file name `-` is given) from humane manpage
-markup to roff (for use with `man(1)`) or to HTML.
+The `ron` command converts one or more named input <em>FILE</em>s
+(or standard input when no files are named or the file name `-`
+is given) from humane manpage markup to roff (for use with
+`man(1)`) or to HTML.
 
 ## OPTIONS
 
-`ron`'s default mode of operation is to read a single document from standard
-input and to write the generated output to standard output. The following
-arguments change this behavior:
+`ron`'s default mode of operation is to read a single document
+from standard input and to write the generated output to standard
+output. The following arguments change this behavior:
 
   * `-b`, `--build`:
-    Write directly to output files instead of standard output. With the
-    `--html` option, write output to '_file_._section_.html', where _file_
-    is the name of the input _FILE_ minus any ".ron" file extension.
+    Write directly to output files instead of standard output.
+    With the `--html` option, write output to
+    '_file_._section_.html', where _file_ is the name of the
+    input _FILE_ minus any ".ron" file extension.
 
   * `-i`, `--install`:
-    Install the roff formatted manpage to the local system such that it can be
-    displayed by `man(1)`. The `MANHOME` environment variable is used to
-    determine the prefix where manpages should be installed when defined.
+    Install the roff formatted manpage to the local system such
+    that it can be displayed by `man(1)`. The `MANHOME`
+    environment variable is used to determine the prefix where
+    manpages should be installed when defined.
 
-    If `MANHOME` is not defined, `ron` installs manpages to _/usr/local/man_.
+    If `MANHOME` is not defined, `ron` installs manpages to
+    _/usr/local/man_.
 
   * `-m`, `--man`:
-    Display _FILE_ like `man(1)`. This simulates default man behavior by
-    piping the roff output through `groff(1)` and the paging program specified
-    by the `MANPAGER` environment variable.
+    Display _FILE_ like `man(1)`. This simulates default man
+    behavior by piping the roff output through `groff(1)` and the
+    paging program specified by the `MANPAGER` environment
+    variable.
 
 The following options control the output formats generated:
 
@@ -51,14 +56,15 @@ The following options control the output formats generated:
 
 ## SYNTAX
 
-**Ron** files are simple ascii documents that conform to subset of markdown(5)
-with the following constraints and additions:
+**Ron** files are simple ascii documents that conform to subset
+of markdown(5) with the following constraints and additions:
 
 See `ron(5)`
 
 ## EXAMPLES
 
-To generate a `roff(7)` file of _test.1_ file, suitable for use with `man(1)`:
+To generate a `roff(7)` file of _test.1_ file, suitable for use
+with `man(1)`:
 
     $ ron -b test.1.ron
     $ man test.1
@@ -75,13 +81,14 @@ To build HTML versions of all `ron` files:
 ## ENVIRONMENT
 
   * `MANHOME`:
-    Location where roff formatted manpages should be installed. Relevant
-    only when the `--installed` argument is provided. _PATH_ is to the base
-    of a man file hierarchy. e.g., `/usr/local/share/man`, `/home/rtomayko/man`.
+    Location where roff formatted manpages should be installed.
+    Relevant only when the `--installed` argument is provided.
+    _PATH_ is to the base of a man file hierarchy. e.g.,
+    `/usr/local/share/man`, `/home/rtomayko/man`.
 
   * `MANPAGER`:
-    The paging program used for manpages. This is typically set to something
-    like 'less -is'.
+    The paging program used for manpages. This is typically set
+    to something like 'less -is'.
 
   * `PAGER`:
     Used instead of `MANPAGER` when `MANPAGER` is not defined.
@@ -92,7 +99,7 @@ Ruby
 
 ## COPYRIGHT
 
-`ron` is Copyright (C) 2009 Ryan Tomayko <http://tomayko.com/about>
+`ron` is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
 
 ## SEE ALSO
 

@@ -3,10 +3,8 @@ ron(5) -- humane manpage authoring format
 
 ## SYNOPSIS
 
-A `ron`
-
 _name_(_section_) -- _tagline_<br>
-`======================`<br>
+`========================`<br>
 <br>
 `##` _SECTION HEADING_ ...<br>
 <br>
@@ -17,49 +15,53 @@ _paragraph_ ...<br>
 
 ## DESCRIPTION
 
-`ron` files are simple ASCII texts that document things in the style of UNIX
-manpages but with a syntax and feature-set less insane than that of `roff(7)`.
-`ron` files are piped through `ron(1)` to build and install traditional
-`roff(7)` manpages or to generate hyperlinked HTML documentation.
+`ron` files are simple ASCII texts that document things in the
+style of UNIX manpages but with a syntax and feature-set less
+insane than that of `roff(7)`.  `ron` files are piped through
+`ron(1)` to build and install traditional `roff(7)` manpages or
+to generate hyperlinked HTML documentation.
 
-All `ron` files must conform to a simple subset of the humane text format,
-markdown(5).
+All `ron` files must conform to a simple subset of the humane
+text format, markdown(5).
 
-It is neither possible nor desirable to express many of `roff(7)`'s complex
-typesetting features in `ron`.
+It is neither possible nor desirable to express many of
+`roff(7)`'s complex typesetting features in `ron`.
 
 ## MANPAGE TITLE
 
-All manpages have a _name_, belong to a _section_, and have a single sentence
-_tagline_ (useless but witty, preferably). `ron` files must begin with a
-first-level heading that includes all of this information. For example, this
-very manpage begins:
+All manpages have a _name_, belong to a _section_, and have a
+single sentence _tagline_ (useless but witty, preferably). `ron`
+files must begin with a first-level heading that includes all of
+this information. For example, this very manpage begins:
 
     ron(5) -- humane manpage authoring format
     =========================================
 
-Here, we're saying that the manpage documents a thing named `ron` in manual
-section `5` -- the "file formats" section; see `manpages(5)` for full section
-list -- and that's quickly described as a "humane manpage authoring format".
+Here, we're saying that the manpage documents a thing named `ron`
+in manual section `5` -- the "file formats" section; see
+`manpages(5)` for full section list -- and that's quickly
+described as a "humane manpage authoring format".
 
-These bits of information are used to fill in the document header, to create the
-`NAME` section, and also to establish output filenames when processed through
-`ron(1)`.
+These bits of information are used to fill in the document
+header, to create the `NAME` section, and also to establish
+output filenames when processed through `ron(1)`.
 
 ## INLINE MARKUP
 
-Manpages typically use a limited set of text formatting capabilities. There's
-basically <b>boldface</b> and <i>italics</i> (often displayed using
-<u>underline</u>).  <b>boldface</b> is used for flags, subcommands, and other
-noun-like things; <i>italics</i> is used for user-specified arguments,
-variables, or user input. `ron` uses backticks ("\`") to denote
-`boldface` and underscores ("`_`") to denote _italics_.
+Manpages typically use a limited set of text formatting
+capabilities. There's basically <b>boldface</b> and
+<i>italics</i> (often displayed using <u>underline</u>).
+<b>boldface</b> is used for flags, subcommands, and other
+noun-like things; <i>italics</i> is used for user-specified
+arguments, variables, or user input. `ron` uses backticks ("\`")
+to denote `boldface` and underscores ("`_`") to denote _italics_.
 
   * `backticks`:
-    Code, flags, commands, and nouns; typically displayed in in <b>boldface</b>.
+    Code, flags, commands, and nouns; typically displayed
+    in in <b>boldface</b>.
   * `_`_underbars_`_`:
-    User-specified arguments, variables, or user input; typically displayed
-    in <u>underline</u>.
+    User-specified arguments, variables, or user input; typically
+    displayed in <u>underline</u>.
   * `**double stars**`:
     Like `backticks` but processes other inline markup.
 
@@ -72,16 +74,18 @@ Here is `grep(1)`'s DESCRIPTION section represented in `ron`:
 
 Note that not only do `boldface`
 
-Any argument surrounded by brackets is considered to be optional.  For
-example, [ filename ] would indicate an optional filename argument.
+Any argument surrounded by brackets is considered to be optional.
+For example, [ filename ] would indicate an optional filename
+argument.
 
 ## HEADINGS
 
-Manpages typically have at least some of SYNOPSIS, DESCRIPTION, and
-OPTIONS sections.
+Manpages typically have at least some of SYNOPSIS, DESCRIPTION,
+and OPTIONS sections.
 
 Additional sections include SYNTAX, ENVIRONMENT, HISTORY, BUGS,
-SECURITY CONSIDERATIONS, STANDARDS / CONFORMING TO, AUTHOR, and COPYRIGHT.
+SECURITY CONSIDERATIONS, STANDARDS / CONFORMING TO, AUTHOR, and
+COPYRIGHT.
 
 Finally, most manpages have a SEE ALSO section.
 
