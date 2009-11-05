@@ -50,7 +50,7 @@ def source_version
   line.match(/.*VERSION = '(.*)'/)[1]
 end
 
-task 'ron.gemspec' => FileList['{lib,test}/**','Rakefile'] do |f|
+file 'ron.gemspec' => FileList['{lib,test}/**','Rakefile'] do |f|
   # read spec file and split out manifest section
   spec = File.read(f.name)
   head, manifest, tail = spec.split("  # = MANIFEST =\n")

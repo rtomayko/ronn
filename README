@@ -29,7 +29,8 @@ source:
 
     $ git clone git://github.com/rtomayko/ron.git
     $ cd ron
-    $ rake install
+    $ rake package
+    $ [sudo] rake install
 
 EXAMPLES
 --------

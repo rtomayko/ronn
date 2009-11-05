@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
 
   s.name = 'ron'
   s.version = '0.1'
-  s.date = '2009-11-04'
+  s.date = '2009-11-05'
 
   s.description = "The opposite of roff"
   s.summary     = "The opposite of roff"
@@ -15,19 +15,27 @@ Gem::Specification.new do |s|
   # = MANIFEST =
   s.files = %w[
     COPYING
+    README
     Rakefile
     bin/ron
     lib/ron.rb
+    lib/ron/document.rb
     lib/ron/layout.html
+    lib/ron/roff.rb
+    man/markdown.5.ron
     man/ron.1.ron
     man/ron.5.ron
     ron.gemspec
+    test/document_test.rb
+    test/ron_test.rb
+    test/simple.ron
   ]
   # = MANIFEST =
 
+  s.executables = ['ron']
   s.test_files = s.files.select { |path| path =~ /^test\/.*_test.rb/ }
 
-  s.extra_rdoc_files = %w[LICENSE]
+  s.extra_rdoc_files = %w[README COPYING]
   s.add_dependency 'nokogiri',    '~> 1.4'
   s.add_dependency 'rdiscount',   '~> 1.3'
   s.add_development_dependency 'contest', '~> 0.1'
