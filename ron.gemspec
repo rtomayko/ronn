@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w[LICENSE]
   s.add_dependency 'nokogiri',    '~> 1.4'
   s.add_dependency 'rdiscount',   '~> 1.3'
+  s.add_development_dependency 'contest', '~> 0.1'
 
   s.has_rdoc = true
   s.homepage = "http://github.com/rtomayko/ron/"

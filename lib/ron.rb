@@ -1,7 +1,3 @@
-#!/usr/bin/env ruby
-require 'rdiscount'
-require 'nokogiri'
-
 # Ron is a humane text format and toolchain for authoring manpages (and
 # things that appear as manpages from a distance). Use it to build /
 # install standard UNIX roff(7) formatted manpages or to generate

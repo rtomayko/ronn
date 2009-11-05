@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module Ron
   class RoffFilter
     # Convert Ron HTML to roff.

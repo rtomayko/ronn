@@ -1,3 +1,5 @@
+require 'nokogiri'
+require 'rdiscount'
 require 'ron/roff'
 
 module Ron
