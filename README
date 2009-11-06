@@ -22,7 +22,7 @@ INSTALL
 The easiest way to install ron is with
 rubygems:
 
-    $ [sudo] gem install ron -s gems.gemcutter.org
+    $ [sudo] gem install ron -s http://gemcutter.org
 
 Or, clone the git repository and install from
 source:
