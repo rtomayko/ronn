@@ -125,7 +125,8 @@ Install the roff man page for a ron file:
 
 ## BUGS
 
-Ron is written in Ruby.
+Ron is written in Ruby. C and/or standalone Perl implementations
+would be preferable for ease of packaging and distribution.
 
 ## COPYRIGHT
 
