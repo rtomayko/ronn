@@ -24,6 +24,6 @@ class RonTest < Test::Unit::TestCase
 
   test "produces html instead of roff with the --html argument" do
     output = `echo '# hello(1) -- hello world' | ron --html`
-    assert_match(/<h2 id="NAME">NAME<\/h2>/, output)
+    assert_match(/<h2 id='NAME'>NAME<\/h2>/, output)
   end
 end

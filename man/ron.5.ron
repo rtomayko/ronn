@@ -99,11 +99,13 @@ uses the following bits of markdown(5) to accomplish this:
     displayed in in <b>boldface</b>. Note that all text included
     within `backticks` is displayed literally; other inline markup
     is not processed.
+  * `**double-stars**`:
+    Like `backticks` but may contain other inline markup.
   * `_`_underbars_`_`:
     User-specified arguments, variables, or user input; typically
-    displayed in <u>underline</u>.
-  * `**double stars**`:
-    Like `backticks` but may contain other inline markup.
+    displayed with <u>underline</u>.
+  * `<angle-quotes>`:
+    Same as _underbars_. This is not compatible with Markdown.
 
 Here is grep(1)'s DESCRIPTION section represented in `ron`:
 

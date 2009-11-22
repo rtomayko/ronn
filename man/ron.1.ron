@@ -3,10 +3,10 @@ ron(1) -- the opposite of roff
 
 ## SYNOPSIS
 
-`ron` [ _OPTIONS_ ]  
-`ron` --build _FILE_ ...  
-`ron` --install _FILE_ ...  
-`ron` --man _FILE_
+`ron` [ <OPTIONS> ]  
+`ron` --build <FILE> ...  
+`ron` --install <FILE> ...  
+`ron` --man <FILE>
 
 ## DESCRIPTION
 
@@ -15,7 +15,7 @@ ron(1) -- the opposite of roff
 and install standard UNIX / roff(7) formatted man pages and to
 generate nicely formatted HTML manual pages.
 
-The `ron` command converts one or more named input <em>FILE</em>s
+The `ron` command converts one or more named input <FILE>s
 (or standard input when no files are named or the file name `-`
 is given) from humane man page markup to one or more destination
 output formats. If no output format is selected explicitly, `ron`
@@ -24,13 +24,13 @@ writes output in roff format.
 ## FILES
 
 The `ron` command expects input to be formatted as ron(5) text.
-Source files are typically named '_name_._section_.ron' (e.g.,
-`hello.1.ron`). The _name_ and _section_ should match the name
-and section defined in _FILE_'s heading.
+Source files are typically named '<name>.<section>.ron' (e.g.,
+`hello.1.ron`). The <name> and <section> should match the name
+and section defined in <FILE>'s heading.
 
 When building roff and/or HTML output files with the `--build`
 argument, destination filenames are determined by taking the basename
-of the input _FILE_ and adding the appropriate file extension (or
+of the input <FILE> and adding the appropriate file extension (or
 removing the file extension in the case of roff output).
 
 For example, the command `ron -b --html --roff hello.1.ron` would
@@ -46,8 +46,8 @@ The following arguments change this behavior:
   * `-b`, `--build`:
     Write output directly to files instead of standard output. When
     the `--roff` option is provided, writes roff output to
-    _file_._section_. When the `--html` option is provided, writes
-    output to '_file_._section_.html'.
+    <file>.<section>. When the `--html` option is provided, writes
+    output to '<file>.<section>.html'.
 
   * `-i`, `--install`:
     Install the roff formatted man page to the local system such
@@ -59,7 +59,7 @@ The following arguments change this behavior:
     _/usr/local/man_.
 
   * `-m`, `--man`:
-    Display _FILE_ as if man(1) were invoked on the roff output
+    Display <FILE> as if man(1) were invoked on the roff output
     file. This simulates default man behavior by piping the roff
     output through groff(1) and the paging program specified by the
     `MANPAGER` environment variable.
@@ -113,7 +113,7 @@ Install the roff man page for a ron file:
   * `MANHOME`:
     Location where roff formatted man pages should be installed.
     Relevant only when the `--installed` argument is provided.
-    _PATH_ is to the base of a man file hierarchy. e.g.,
+    <PATH> is to the base of a man file hierarchy. e.g.,
     `/usr/local/share/man`, `/home/rtomayko/man`.
 
   * `MANPAGER`:
