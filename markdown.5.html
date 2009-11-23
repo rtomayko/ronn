@@ -1,40 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ron/v0.1'>
   <title>markdown(5) -- humane markup syntax</title>
   <style type='text/css'>
-    body {
+    body {margin:0}
+    #man, #man code, #man pre, #man tt, #man kbd, #man samp {
       font-family:consolas,monospace;
-      font-size:18px;
+      font-size:16px;
       line-height:1.25;
-      color:#111
-    }
-    #man { max-width:42em;text-align:justify;margin:25px }
-    #man h1, #man h2, #man h3, #man strong, #man code { color:#111 }
-    #man h1 { text-align:center }
-    #man h2 { font-size:20px;margin-bottom:0 }
-    #man h3 { font-size:18px;margin:0 0 0 50px }
-    #man p, #man ul, #man ol, #man dl, #man pre
-    { margin:0 0 24px 0; }
-    #man pre { color:#555;font-size:16px }
-    #man > p, #man > ul, #man > ol, #man > dl, #man > pre
-    { margin:0 0 24px 80px; }
-    #man dt { margin:0;clear:left }
-    #man dt.flush { float:left;width:105px }
-    #man dd { margin:0 0 0 105px }
-    #man code { font-weight:bold; }
-    #man pre code { font-weight:normal;color:#555 }
-    #man em { font-style:normal;text-decoration:underline }
+      color:#434241;
+      background:#fff; }
+    #man { max-width:85ex; text-align:justify; margin:0 25px 25px 25px }
+    #man h1, #man h2, #man h3 { color:#232221;clear:left }
+    #man h1 { font-size:28px; margin:10px 0 30px 0; text-align:center }
+    #man h2 { font-size:18px; margin-bottom:2px; margin-top:10px; line-height:1.2; }
+    #man h3 { font-size:16px; margin:0 0 0 4ex; }
+    #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
+    #man pre {
+      color:#333231;
+      background:#edeceb;
+      padding:5px 10px;
+      border-left:2ex solid #ddd;
+      margin-top:-10px;
+      margin-bottom:12px; }
+    #man > p, #man > ul, #man > ol, #man > dl, #man > pre { margin-left:8ex; }
+    #man dt { margin:0; clear:left }
+    #man dt.flush { float:left; width:8ex }
+    #man dd { margin:0 0 0 9ex }
+    #man code, #man strong, #man b { font-weight:bold; color:#131211; }
+    #man pre code { font-weight:normal; color:#232221; background:inherit }
+    #man em, var, u {
+      font-style:normal; color:#333231; border-bottom:1px solid #999; }
+    #man h1.man-title { display:none; }
+    #man ol.man, #man ol.man li { margin:2px 0 10px 0; padding:0;
+      float:left; width:33%; list-style-type:none;
+      text-transform:uppercase; font-size:18px; color:#999;
+      letter-spacing:1px;}
+    #man ol.man { width:100%; }
+    #man ol.man li.tl { text-align:left }
+    #man ol.man li.tc { text-align:center;letter-spacing:4px }
+    #man ol.man li.tr { text-align:right }
+    #man ol.man a { color:#999 }
+    #man ol.man a:hover { color:#333231 }
   </style>
 </head>
 <body>
 <div id='man'>
 
-<h1>markdown(5)</h1>
+<h1 class='man-title'>markdown(5)</h1>
 
-<h2 id="NAME">NAME</h2>
+<ol class='head man'>
+  <li class='tl'>markdown(5)</li>
+  <li class='tc'>Ron Manual</li>
+  <li class='tr'>markdown(5)</li>
+</ol>
+
+<h2 id='NAME'>NAME</h2>
 <p><code>markdown</code> -- humane markup syntax</p>
-
 <h2>SYNOPSIS</h2>
 
 <pre><code># Header 1 #
@@ -641,6 +665,8 @@ indented from the left margin using up to three spaces);</li>
 <li>optionally followed by a title attribute for the link, enclosed
 in double or single quotes, or enclosed in parentheses.</li>
 </ul>
+
+
 <p>The following three link definitions are equivalent:</p>
 
 <pre><code>[foo]: http://example.com/  "Optional Title Here"
@@ -889,6 +915,8 @@ attribute text for the image;</li>
 the image, and an optional <code>title</code> attribute enclosed in double
 or single quotes.</li>
 </ul>
+
+
 <p>Reference-style image syntax looks like this:</p>
 
 <pre><code>![Alt text][id]
@@ -978,7 +1006,14 @@ also by John Gruber.</p>
 
 <h2>SEE ALSO</h2>
 
-<p>ron(5)<br><a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a></p>
+<p>ron(5)<br>
+<a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a></p>
+
+<ol class='foot man'>
+  <li class='tl'>Ryan Tomayko</li>
+  <li class='tc'>November 2009</li>
+  <li class='tr'>markdown(5)</li>
+</ol>
 
 </div>
 </body>
