@@ -74,6 +74,22 @@ module Ron
         end
         write "\n"
 
+      # ordered/unordered lists
+      # when 'ul'
+      #   # macro "IP", '\(bu'
+      #   block_filter(node.children)
+      # when 'ol'
+      #   macro "IP", '1.'
+      #   block_filter(node.children)
+      # when 'li'
+      #   macro "IP" unless prev.nil?
+      #   if node.search('p').any?
+      #     block_filter(node.children)
+      #   else
+      #     inline_filter(node.children)
+      #   end
+      #   write "\n"
+
       else
         warn "unrecognized block tag: %p", node.name
       end
