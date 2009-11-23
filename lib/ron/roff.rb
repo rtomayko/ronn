@@ -88,11 +88,11 @@ module Ron
       case node.name
       when 'text'
         write escape(node.to_s.sub(/\n+$/, ' '))
-      when 'code', 'b', 'strong'
+      when 'code', 'b', 'strong', 'kbd', 'samp'
         write '\fB'
         inline_filter(node.children)
         write '\fR'
-      when 'em', 'i', 'u'
+      when 'var', 'em', 'i', 'u'
         write '\fI'
         inline_filter(node.children)
         write '\fR'

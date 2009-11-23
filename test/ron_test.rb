@@ -39,9 +39,11 @@ class RonTest < Test::Unit::TestCase
     wrong = source.sub(/ron$/, "wrong")
     test File.basename(source, '.ron') do
       html = `ron --html --fragment #{source}`
-      if File.read(dest) != html
+      expected = File.read(dest) rescue ''
+      if expected != html
         File.open(wrong, 'wb') { |f| f.write(html) }
-        diff = `diff -u #{dest} #{wrong}`
+        diff = `diff -u #{dest} #{wrong} 2>/dev/null`
+        fail "the #{dest} file does not exist" if diff.empty?
         flunk diff
       elsif File.exist?(wrong)
         File.unlink(wrong)

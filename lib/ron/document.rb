@@ -127,7 +127,7 @@ module Ron
     def definition_list_filter(html)
       doc = parse_html(html)
       # process all unordered lists depth-first
-      doc.search('//ul').to_a.reverse.each do |ul|
+      doc.search('ul').to_a.reverse.each do |ul|
         items = ul.search('li')
         next if items.any? { |item| item.text.split("\n", 2).first !~ /:$/ }
 
