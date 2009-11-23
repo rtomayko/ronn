@@ -1,4 +1,5 @@
 require 'contest'
+require 'ron'
 
 class RonTest < Test::Unit::TestCase
   testdir = File.dirname(__FILE__)
@@ -9,13 +10,13 @@ class RonTest < Test::Unit::TestCase
   SIMPLE_FILE = "#{File.dirname(__FILE__)}/simple.ron"
 
   test "takes ron text on stdin and produces roff on stdout" do
-    output = `echo '# hello(1) -- hello world' | ron`
+    output = `echo '# hello(1) -- hello world' | ron --date=2009-11-23`
     lines = output.split("\n")
     assert_equal 7, lines.size
-    assert_equal %[.\\" generated with Ron], lines.shift 
+    assert_equal %[.\\" generated with Ron/v#{Ron::VERSION}], lines.shift 
     assert_equal %[.\\" http://github.com/rtomayko/ron/], lines.shift
     assert_equal %[.], lines.shift
-    assert_equal %[.TH "HELLO" 1 "" "" ""], lines.shift
+    assert_equal %[.TH "HELLO" 1 "November 2009" "" ""], lines.shift
     assert_equal %[.], lines.shift
     assert_equal %[.SH "NAME"], lines.shift
     assert_equal %[\\fBhello\\fR \\-\\- hello world], lines.shift

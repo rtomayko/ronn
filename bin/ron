@@ -78,6 +78,11 @@ elsif ARGV.empty?
   ARGV.push '-'
 end
 
+# turn the --date arg into
+if options[:date]
+  options[:date] = Date.strptime(options[:date], '%Y-%m-%d')
+end
+
 formats = ['roff'] if formats.empty?
 formats.delete('html') if formats.include?('html_fragment')
 pid = nil
