@@ -166,8 +166,6 @@ module Ron
         )
         node.replace(new)
       end
-
-      doc.search('ron-var').each { |node| node.name = 'var' }
       doc
     end
 
@@ -190,7 +188,7 @@ module Ron
     # Convert all <WORD> to <var>WORD</var> but only if WORD
     # isn't an HTML tag.
     def angle_quote_pre_filter(data)
-      data.gsub(/\<(.+?)\>/) do |match|
+      data.gsub(/\<([^:.\/]+?)\>/) do |match|
         contents = $1
         tag, attrs = contents.split(' ', 2)
         if attrs =~ /\/=/ ||

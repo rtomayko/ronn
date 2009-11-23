@@ -8,3 +8,5 @@ A <WORD> in angle brackets is converted to <var>WORD</var>,
     code block,
 
 or when `<WORD>` is enclosed in backticks.
+
+or when <WORD> has a <dot.> or <foo:colon>.
