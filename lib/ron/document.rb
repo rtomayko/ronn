@@ -192,12 +192,20 @@ module Ron
     def markdown_filter(data)
       html = Markdown.new(data).to_html
       @tagline, html = html.split("</h1>\n", 2)
-      @tagline.sub!('<h1>', '')
-
-      # grab name and section from title
-      if @tagline =~ /([\w_:-]+)\((\d\w*)\) -- (.*)/
-        @name, @section = $1, $2
-        @tagline = $3
+      if html.nil?
+        html = @tagline
+        @tagline = nil
+      else
+        # grab name and section from title
+        @tagline.sub!('<h1>', '')
+        if @tagline =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*--?\s*(.*)/
+          @name = $1
+          @section = $2
+          @tagline = $3
+        elsif @tagline =~ /([\w_.\[\]~+=@:-]+)\s+--\s+(.*)/
+          @name = $1
+          @tagline = $2
+        end
       end
 
       html.to_s
