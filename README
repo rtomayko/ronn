@@ -1,4 +1,8 @@
-         ron -- the opposite of roff
+ron -- the opposite of roff
+===========================
+
+DESCRIPTION
+-----------
 
 Ron is a humane text format and toolchain for
 creating UNIX man pages -- and things that
@@ -19,10 +23,9 @@ format in more detail.
 INSTALL
 -------
 
-The easiest way to install ron is with
-rubygems:
+Ron can be installed using rubygems:
 
-    $ [sudo] gem install ron -s http://gemcutter.org
+    $ [sudo] gem install ron
 
 Or, clone the git repository and install from
 source:
@@ -48,7 +51,7 @@ BASIC USAGE
 -----------
 
 To generate a roff man page from the included
-markdown.5.ron file and open it in man(1):
+`markdown.5.ron` file and open it in man(1):
 
     $ ron -b man/markdown.5.ron
     building: man/markdown.5

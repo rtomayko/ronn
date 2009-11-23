@@ -152,11 +152,11 @@ module Ron
     # or <style> tags.
     def to_html_fragment
       buf = []
-      if name?
+      if name? && section?
         buf << "<h2 id='NAME'>NAME</h2>"
         buf << "<p><code>#{name}</code> -- #{tagline}</p>"
       elsif tagline
-        buf << "<h1>#{tagline}</h1>"
+        buf << "<h1>#{[name, tagline].compact.join(' -- ')}</h1>"
       end
       buf << @fragment.to_s
       buf.join("\n")
