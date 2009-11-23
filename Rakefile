@@ -11,6 +11,13 @@ Rake::TestTask.new(:test) do |t|
   t.ruby_opts = ['-rubygems'] if defined? Gem
 end
 
+# DOCS =================================================================
+
+desc 'Build the manual'
+task 'man' do
+  sh "ron -br5 --manual='Ron Manual' --organization='Ryan Tomayko' man/*.ron"
+end
+
 # PACKAGING ============================================================
 
 require 'rubygems/specification'

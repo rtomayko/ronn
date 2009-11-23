@@ -16,7 +16,7 @@
     #man h1, #man h2, #man h3 { color:#232221;clear:left }
     #man h1 { font-size:28px; margin:10px 0 30px 0; text-align:center }
     #man h2 { font-size:18px; margin-bottom:2px; margin-top:10px; line-height:1.2; }
-    #man h3 { font-size:16px; margin:0 0 0 6ex; }
+    #man h3 { font-size:16px; margin:0 0 0 4ex; }
     #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
     #man pre {
       color:#333231;
@@ -52,9 +52,9 @@
 <h1 class='man-title'>#{name}(#{section})</h1>
 
 <ol class='head man'>
-  <li class='tl'>#{name}(#{section})</li>
+  <li class='tl'>#{name if section}#{"("+section+")" if name and section}</li>
   <li class='tc'>#{manual}</li>
-  <li class='tr'>#{name}(#{section})</li>
+  <li class='tr'>#{name if section}#{"("+section+")" if name and section}</li>
 </ol>
 
 #{html}
@@ -62,7 +62,7 @@
 <ol class='foot man'>
   <li class='tl'>#{organization}</li>
   <li class='tc'>#{date.strftime('%B %Y')}</li>
-  <li class='tr'>#{name}(#{section})</li>
+  <li class='tr'>#{name if section}#{"("+section+")" if name and section}</li>
 </ol>
 
 </div>

@@ -1,5 +1,5 @@
-ron(1) -- the opposite of roff
-==============================
+ron(1) -- build markdown-based man pages
+========================================
 
 ## SYNOPSIS
 
@@ -24,8 +24,8 @@ writes output in roff format.
 ## FILES
 
 The `ron` command expects input to be formatted as ron(5) text.
-Source files are typically named '<name>.<section>.ron' (e.g.,
-`hello.1.ron`). The <name> and <section> should match the name
+Source files are typically named '<NAME>.<SECTION>.ron' (e.g.,
+`hello.1.ron`). The <NAME> and <SECTION> should match the name
 and section defined in <FILE>'s heading.
 
 When building roff and/or HTML output files with the `--build`
