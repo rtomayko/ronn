@@ -59,19 +59,41 @@ The following arguments change this behavior:
     _/usr/local/man_.
 
   * `-m`, `--man`:
-    Display <FILE> as if man(1) were invoked on the roff output
+    Display <FILE>s as if man(1) were invoked on the roff output
     file. This simulates default man behavior by piping the roff
     output through groff(1) and the paging program specified by the
     `MANPAGER` environment variable.
 
-The following options control the output formats generated:
+These options control the format used in generated output:
 
-  * `--html`:
-    Generate HTML output.
-
-  * `--roff`:
+  * `-r`, `--roff`:
     Generate roff output. This is the default behavior when no
     other format argument is provided.
+
+  * `-5`, `--html`:
+    Generate output in HTML format.
+
+  * `-f`, `--fragment`:
+    Generate output in HTML format but only the document
+    fragment, not the header, title, or footer.
+
+All document attributes displayed in the header and footer areas
+of generated content can be specified with these options:
+
+  * `--manual`=<MANUAL>:
+    The name of the manual this man page belongs to; <MANUAL> is
+    prominently displayed top-center in the header area.
+
+  * `--organization`=<NAME>:
+    The name of the group, organization, or individual
+    responsible for publishing the document; <NAME> is displayed
+    in the bottom-left footer area.
+
+  * `--date`=<DATE>:
+    The document's published date; <DATE> must be formatted
+    `YYYY-MM-DD` and is displayed in the bottom-center footer
+    area. The <FILE> mtime is used when no <DATE> is given,
+    or the current time when no <FILE> is available.
 
 ## EXAMPLES
 

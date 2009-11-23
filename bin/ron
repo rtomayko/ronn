@@ -7,22 +7,31 @@
 ## output. With no FILE, ron reads from standard input. The build,
 ## install, and man forms accept multiple FILE arguments.
 ##
-## Options:
-##       --pipe          write to standard output (default behavior)
-##   -b, --build         write to files instead of standard output
-##   -i, --install       write to file in MAN_HOME or system man path
-##   -m, --man           open man page like man(1)
+## Modes:
+##       --pipe                write to standard output (default behavior)
+##   -b, --build               write to files instead of standard output
+##   -i, --install             write to file in MAN_HOME or system man path
+##   -m, --man                 open man page like man(1)
 ##
-## Combine format options to generate multiple output files:
-##       --roff          generate roff/man text; this is the default behavior
-##   -5, --html          generate entire HTML page with layout
-##   -f, --fragment      generate HTML fragment instead of entire HTML page
+## Formats:
+##       --roff                generate roff/man text; this is the default behavior
+##   -5, --html                generate entire HTML page with layout
+##   -f, --fragment            generate HTML fragment instead of entire HTML page
 ##
-##       --help          show this help message
+## Document attributes:
+##       --date=DATE           published date in YYYY-MM-DD format;
+##                             displayed bottom-center in footer
+##       --manual=NAME         name of the manual this document belongs to;
+##                             displayed top-center in header
+##       --organization=NAME   publishing group, organization, or individual;
+##                             displayed bottom-left in footer
+##
+##       --help                show this help message
 ##
 require 'optparse'
 
 formats = []
+options = {}
 build = false
 install = false
 man = false
@@ -42,14 +51,21 @@ end
 
 # parse command line options
 ARGV.options do |option|
+  # modes
   option.on("--pipe") { }
   option.on("-b", "--build") { build = true }
   option.on("-i", "--install") { install = true }
   option.on("-m", "--man") { man = true }
 
-  option.on("--roff") { formats << 'roff' }
+  # format options
+  option.on("-r", "--roff") { formats << 'roff' }
   option.on("-5", "--html") { formats << 'html' }
   option.on("-f", "--fragment") { formats << 'html_fragment' }
+
+  # manual attribute options
+  [:name, :section, :manual, :organization, :date].each do |option_attr|
+    option.on("--#{option_attr}=VALUE") { |val| options[option_attr] = val }
+  end
 
   option.on_tail("--help") { usage ; exit }
   option.parse!
@@ -69,7 +85,7 @@ pid = nil
 require 'ron'
 wr = STDOUT
 ARGV.each do |file|
-  doc = Ron.new(file) { file == '-' ? STDIN.read : File.read(file) }
+  doc = Ron.new(file, options) { file == '-' ? STDIN.read : File.read(file) }
 
   # setup the man pipeline if the --man option was specified
   if man && !build

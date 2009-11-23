@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ron/v#{Ron::VERSION}'>
   <title>#{name}(#{section})#{tagline ? " -- " + tagline : ''}</title>
   <style type='text/css'>
     body {margin:0}
@@ -40,6 +42,8 @@
     #man ol.man li.tl { text-align:left }
     #man ol.man li.tc { text-align:center;letter-spacing:4px }
     #man ol.man li.tr { text-align:right }
+    #man ol.man a { color:#999 }
+    #man ol.man a:hover { color:#333231 }
   </style>
 </head>
 <body>
@@ -49,15 +53,15 @@
 
 <ol class='head man'>
   <li class='tl'>#{name}(#{section})</li>
-  <li class='tc'>#{'Manual'}</li>
+  <li class='tc'>#{manual}</li>
   <li class='tr'>#{name}(#{section})</li>
 </ol>
 
 #{html}
 
 <ol class='foot man'>
-  <li class='tl'>#{'Ryan Tomayko'}</li>
-  <li class='tc'>#{Time.now.strftime('%b %d, %Y')}</li>
+  <li class='tl'>#{organization}</li>
+  <li class='tc'>#{date.strftime('%B %Y')}</li>
   <li class='tr'>#{name}(#{section})</li>
 </ol>
 

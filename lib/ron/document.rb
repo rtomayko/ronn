@@ -13,18 +13,47 @@ module Ron
   # generated documentation unless overridden by the information
   # extracted from the document's name section.
   class Document
-    attr_reader :path, :data, :tagline
+    attr_reader :path, :data
+
+    # The man pages name: usually a single word name of
+    # a program or filename; displayed along with the section in
+    # the left and right portions of the header as well as the bottom
+    # right section of the footer.
+    attr_accessor :name
+
+    # The man page's section: a string whose first character
+    # is numeric; displayed in parenthesis along with the name.
+    attr_accessor :section
+
+    # Single sentence description of the thing being described
+    # by this man page; displayed in the NAME section.
+    attr_accessor :tagline
+
+    # The manual this document belongs to; center displayed in
+    # the header.
+    attr_accessor :manual
+
+    # The name of the group, organization, or individual responsible
+    # for this document; displayed in the left portion of the footer.
+    attr_accessor :organization
+
+    # The date the document was published; center displayed in
+    # the document footer.
+    attr_accessor :date
 
     # Create a Ron::Document given a path or with the data returned by
     # calling the block. The document is loaded and preprocessed before
-    # intialize returns.
-    def initialize(path=nil, &block)
+    # the intialize method returns. The attributes hash may contain values
+    # for any writeable attributes defined on this class.
+    def initialize(path=nil, attributes={}, &block)
       @path = path
       @basename = path.to_s =~ /^-?$/ ? nil : File.basename(path)
       @reader = block || Proc.new { |f| File.read(f) }
       @data = @reader.call(path)
       @name, @section, @tagline = nil
+      @manual, @organization, @date = nil
       @fragment = preprocess
+      attributes.each { |attr_name,value| send("#{attr_name}=", value) }
     end
 
     # Generate a file basename of the form "<name>.<section>.<type>"
@@ -85,6 +114,15 @@ module Ron
       @section
     end
 
+    # The date the man page was published. If not set explicitly,
+    # this is the file's modified time or, if no file is given,
+    # the current time.
+    def date
+      return @date if @date
+      return File.mtime(path) if File.exist?(path)
+      Time.now
+    end
+
     # Convert the document to :roff, :html, or :html_fragment and
     # return the result as a string.
     def convert(format)
@@ -97,7 +135,10 @@ module Ron
         to_html_fragment,
         name,
         section,
-        tagline
+        tagline,
+        manual,
+        organization,
+        date
       ).to_s
     end
 
