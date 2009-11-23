@@ -1,0 +1,10 @@
+angle_bracket_syntax(5) -- angle bracket syntax test
+====================================================
+
+A <WORD> in angle brackets is converted to <var>WORD</var>,
+
+    except when <WORD> is
+    part of a preformatted
+    code block,
+
+or when `<WORD>` is enclosed in backticks.

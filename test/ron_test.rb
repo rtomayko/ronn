@@ -36,9 +36,16 @@ class RonTest < Test::Unit::TestCase
   # file based tests
   Dir[testdir + '/*.ron'].each do |source|
     dest = source.sub(/ron$/, 'html')
+    wrong = source.sub(/ron$/, "wrong")
     test File.basename(source, '.ron') do
       html = `ron --html --fragment #{source}`
-      assert_equal File.read(dest), html
+      if File.read(dest) != html
+        File.open(wrong, 'wb') { |f| f.write(html) }
+        diff = `diff -u #{dest} #{wrong}`
+        flunk diff
+      elsif File.exist?(wrong)
+        File.unlink(wrong)
+      end
     end
   end
 end

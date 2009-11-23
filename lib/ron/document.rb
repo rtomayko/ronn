@@ -157,11 +157,16 @@ module Ron
       doc = parse_html(html)
       # convert all angle quote vars nested in code blocks
       # back to the original text
-      doc.search('pre code var').each do |node|
-        node.before("&lt;#{node.inner_html}&gt;")
-        node.unlink
+      doc.search('code text()').each do |node|
+        next unless node.to_s.include?('var&gt;')
+        new = node.document.create_text_node(
+          node.to_s.
+            gsub('&lt;var&gt;', '<').
+            gsub("&lt;/var&gt;", '>')
+        )
+        node.replace(new)
       end
-      # convert remaining <ron-var> elements to <var>
+
       doc.search('ron-var').each { |node| node.name = 'var' }
       doc
     end
@@ -185,11 +190,13 @@ module Ron
     # Convert all <WORD> to <var>WORD</var> but only if WORD
     # isn't an HTML tag.
     def angle_quote_pre_filter(data)
-      data.gsub(/\<(.*?)\>/) do |match|
+      data.gsub(/\<(.+?)\>/) do |match|
         contents = $1
         tag, attrs = contents.split(' ', 2)
-        if attrs =~ /\/=/ || HTML.include?(tag) || data.include?("</#{tag}>")
-          match
+        if attrs =~ /\/=/ ||
+           HTML.include?(tag.sub(/^\//, '')) ||
+           data.include?("</#{tag}>")
+          match.to_s
         else
           "<var>#{contents}</var>"
         end
