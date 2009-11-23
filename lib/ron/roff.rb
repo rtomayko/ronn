@@ -101,9 +101,14 @@ module Ron
         return
       end
 
+      prev = node.previous_sibling
+      prev = prev.previous_sibling until prev.nil? || prev.element?
+
       case node.name
       when 'text'
-        write escape(node.to_s.sub(/\n+$/, ' '))
+        text = node.content
+        text = text.sub(/^\n+/m, '') if prev && prev.name == 'br'
+        write escape(text.sub(/\n+$/, ' '))
       when 'code', 'b', 'strong', 'kbd', 'samp'
         write '\fB'
         inline_filter(node.children)
