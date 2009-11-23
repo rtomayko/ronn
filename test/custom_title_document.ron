@@ -1,0 +1,5 @@
+This is a custom title
+======================
+
+It doesn't define the name or section of this manual page and is
+output as a simple `<h1>` instead of a `NAME` section.

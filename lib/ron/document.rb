@@ -67,10 +67,22 @@ module Ron
       @name || path_name
     end
 
+    # Truthful when the name was extracted from the name section
+    # of the document.
+    def name?
+      @name
+    end
+
     # Returns the manual page section based first on the document's
     # contents and then on the path name.
     def section
       @section || path_section
+    end
+
+    # True when the section number was extracted from the name
+    # section of the document.
+    def section?
+      @section
     end
 
     # Convert the document to :roff, :html, or :html_fragment and
@@ -98,9 +110,15 @@ module Ron
     # as a string. The HTML does not include <html>, <head>,
     # or <style> tags.
     def to_html_fragment
-      "<h2 id='NAME'>NAME</h2>\n" +
-      "<p><code>#{name}</code> -- #{tagline}</p>\n" +
-      @fragment.to_s
+      buf = []
+      if name?
+        buf << "<h2 id='NAME'>NAME</h2>"
+        buf << "<p><code>#{name}</code> -- #{tagline}</p>"
+      elsif tagline
+        buf << "<h1>#{tagline}</h1>"
+      end
+      buf << @fragment.to_s
+      buf.join("\n")
     end
 
   protected
