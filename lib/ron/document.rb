@@ -143,7 +143,7 @@ module Ron
           term, definition = container.inner_html.split(":\n", 2)
 
           dt = item.before("<dt>#{term}</dt>").previous_sibling
-          dt['class'] = 'flush' if dt.content.length <= 10
+          dt['class'] = 'flush' if dt.content.length <= 7
 
           item.name = 'dd'
           container.swap(wrap.sub(/></, ">#{definition}<"))
