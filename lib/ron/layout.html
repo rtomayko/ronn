@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>#{name}(#{section}) -- #{tagline}</title>
+  <title>#{name}(#{section})#{tagline ? " -- " + tagline : ''}</title>
   <style type='text/css'>
+    body {margin:0}
     #man, #man code, #man pre, #man tt, #man kbd, #man samp {
       font-family:consolas,monospace;
       font-size:16px;
       line-height:1.5;
       color:#434241;
       background:#fff; }
-    #man { max-width:42em; text-align:justify; margin:25px }
-    #man h1, #man h2, #man h3 { color:#232221 }
+    #man { max-width:85ex; text-align:justify; margin:0 25px 25px 25px }
+    #man h1, #man h2, #man h3 { color:#232221;clear:left }
     #man h1 { text-align:center }
     #man h2 { font-size:18px; margin-bottom:0; line-height:1.2; }
     #man h3 { font-size:16px; margin:0 0 0 6ex; }
@@ -30,14 +31,35 @@
     #man pre code { font-weight:normal; color:#232221; background:inherit }
     #man em, var, u {
       font-style:normal; color:#333231; border-bottom:1px solid #999; }
+    #man h1.man-title { display:none; }
+    #man ol.man, #man ol.man li { margin:2px 0 10px 0; padding:0;
+      float:left; width:33%; list-style-type:none;
+      text-transform:uppercase; font-size:18px; color:#999;
+      letter-spacing:1px;}
+    #man ol.man { width:100%; }
+    #man ol.man li.tl { text-align:left }
+    #man ol.man li.tc { text-align:center;letter-spacing:4px }
+    #man ol.man li.tr { text-align:right }
   </style>
 </head>
 <body>
 <div id='man'>
 
-<h1>#{name}(#{section})</h1>
+<h1 class='man-title'>#{name}(#{section})</h1>
+
+<ol class='head man'>
+  <li class='tl'>#{name}(#{section})</li>
+  <li class='tc'>#{'Manual'}</li>
+  <li class='tr'>#{name}(#{section})</li>
+</ol>
 
 #{html}
+
+<ol class='foot man'>
+  <li class='tl'>#{'Ryan Tomayko'}</li>
+  <li class='tc'>#{Time.now.strftime('%b %d, %Y')}</li>
+  <li class='tr'>#{name}(#{section})</li>
+</ol>
 
 </div>
 </body>
