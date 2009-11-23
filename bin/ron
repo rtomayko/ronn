@@ -1,21 +1,25 @@
 #!/usr/bin/env ruby
-## Usage: ron [ OPTIONS ] [ FILE ... ]
+## Usage: ron [ OPTIONS ] [ FILE ]
 ##        ron --build FILE ...
 ##        ron --install FILE ...
-##        ron --man FILE
-## Convert ron file to roff or html.
+##        ron --man FILE ...
+## Convert ron FILE to roff man page or HTML and write to standard
+## output. With no FILE, ron reads from standard input. The build,
+## install, and man forms accept multiple FILE arguments.
 ##
-## Options
-##   -b, --build             write output to files instead of to stdout
-##   -i, --install           write manpage to MAN_HOME or system man path
-##   -m, --man               show man page like man(1)
+## Options:
+##       --pipe          write to standard output (default behavior)
+##   -b, --build         write to files instead of standard output
+##   -i, --install       write to file in MAN_HOME or system man path
+##   -m, --man           open man page like man(1)
 ##
-##       --roff              generate roff/man text; this is the default behavior
-##   -5, --html              generate HTML
+## Combine format options to generate multiple output files:
+##       --roff          generate roff/man text; this is the default behavior
+##   -5, --html          generate entire HTML page with layout
+##   -f, --fragment      generate HTML fragment instead of entire HTML page
 ##
-##       --help              show this help message
+##       --help          show this help message
 ##
-## See the ron(2)
 require 'optparse'
 
 formats = []
@@ -38,11 +42,14 @@ end
 
 # parse command line options
 ARGV.options do |option|
-  option.on("--roff") { formats << 'roff' }
-  option.on("-5", "--html") { formats << 'html' }
+  option.on("--pipe") { }
   option.on("-b", "--build") { build = true }
   option.on("-i", "--install") { install = true }
   option.on("-m", "--man") { man = true }
+
+  option.on("--roff") { formats << 'roff' }
+  option.on("-5", "--html") { formats << 'html' }
+  option.on("-f", "--fragment") { formats << 'html_fragment' }
 
   option.on_tail("--help") { usage ; exit }
   option.parse!
@@ -56,6 +63,7 @@ elsif ARGV.empty?
 end
 
 formats = ['roff'] if formats.empty?
+formats.delete('html') if formats.include?('html_fragment')
 pid = nil
 
 require 'ron'
@@ -79,11 +87,11 @@ ARGV.each do |file|
   formats.each do |format|
     output = doc.convert(format)
     if build
-      path = doc.path(format)
+      path = doc.path_for(format)
       info "building: #{path}"
-      File.open(path, 'wb') { |f| f.write(output) }
+      File.open(path, 'wb') { |f| f.puts(output) }
     else
-      wr.write(output)
+      wr.puts(output)
     end
   end
 

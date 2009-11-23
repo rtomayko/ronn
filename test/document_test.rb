@@ -2,7 +2,7 @@ require 'contest'
 require 'ron/document'
 
 class DocumentTest < Test::Unit::TestCase
-  SIMPLE_FILE = "#{File.dirname(__FILE__)}/simple.ron"
+  SIMPLE_FILE = "#{File.dirname(__FILE__)}/basic_document.ron"
 
   test "new with path" do
     doc = Ron::Document.new(SIMPLE_FILE)

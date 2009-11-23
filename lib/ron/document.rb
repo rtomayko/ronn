@@ -73,8 +73,8 @@ module Ron
       @section || path_section
     end
 
-    # Convert the document to :roff or :html and return the result
-    # as a string.
+    # Convert the document to :roff, :html, or :html_fragment and
+    # return the result as a string.
     def convert(format)
       send "to_#{format}"
     end

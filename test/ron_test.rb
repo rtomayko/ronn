@@ -1,10 +1,10 @@
 require 'contest'
 
-# ron command tests
 class RonTest < Test::Unit::TestCase
   testdir = File.dirname(__FILE__)
   bindir = File.dirname(testdir)
   ENV['PATH'] = "#{bindir}:#{ENV['PATH']}"
+  ENV['RUBYLIB'] = $LOAD_PATH.join(':')
 
   SIMPLE_FILE = "#{File.dirname(__FILE__)}/simple.ron"
 
@@ -25,5 +25,20 @@ class RonTest < Test::Unit::TestCase
   test "produces html instead of roff with the --html argument" do
     output = `echo '# hello(1) -- hello world' | ron --html`
     assert_match(/<h2 id='NAME'>NAME<\/h2>/, output)
+  end
+
+  test "produces html fragment with the --fragment argument" do
+    output = `echo '# hello(1) -- hello world' | ron --fragment`
+    assert_equal "<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> -- hello world</p>\n",
+      output
+  end
+
+  # file based tests
+  Dir[testdir + '/*.ron'].each do |source|
+    dest = source.sub(/ron$/, 'html')
+    test File.basename(source, '.ron') do
+      html = `ron --html --fragment #{source}`
+      assert_equal File.read(dest), html
+    end
   end
 end
