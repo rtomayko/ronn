@@ -3,8 +3,8 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
 
   s.name = 'ron'
-  s.version = '0.1'
-  s.date = '2009-11-05'
+  s.version = '0.2'
+  s.date = '2009-11-23'
 
   s.description = "The opposite of roff"
   s.summary     = "The opposite of roff"
@@ -25,10 +25,20 @@ Gem::Specification.new do |s|
     man/markdown.5.ron
     man/ron.1.ron
     man/ron.5.ron
+    man/ron.7.ron
     ron.gemspec
+    test/angle_bracket_syntax.html
+    test/angle_bracket_syntax.ron
+    test/basic_document.html
+    test/basic_document.ron
+    test/custom_title_document.html
+    test/custom_title_document.ron
+    test/definition_list_syntax.html
+    test/definition_list_syntax.ron
     test/document_test.rb
     test/ron_test.rb
-    test/simple.ron
+    test/titleless_document.html
+    test/titleless_document.ron
   ]
   # = MANIFEST =
 
