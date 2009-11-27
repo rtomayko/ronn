@@ -80,6 +80,7 @@ end
 
 # turn the --date arg into
 if options[:date]
+  require 'date'
   options[:date] = Date.strptime(options[:date], '%Y-%m-%d')
 end
 
