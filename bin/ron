@@ -88,7 +88,13 @@ formats = ['roff'] if formats.empty?
 formats.delete('html') if formats.include?('html_fragment')
 pid = nil
 
-require 'ron'
+begin
+  require 'ron'
+rescue LoadError
+  $:.unshift File.dirname(__FILE__) + "../lib"
+  require 'ron'
+end
+
 wr = STDOUT
 ARGV.each do |file|
   doc = Ron.new(file, options) { file == '-' ? STDIN.read : File.read(file) }
