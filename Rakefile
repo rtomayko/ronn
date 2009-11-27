@@ -15,7 +15,7 @@ task :test => :environment do
   if ENV['PATH'].split(':').any? { |p| File.executable?("#{p}/turn") }
     sh 'turn -Ilib test/*_test.rb'
   else
-    sh 'testrb -rubygems -Ilib test/*_test.rb'
+    sh 'testrb Ilib test/*_test.rb'
   end
 end
 
