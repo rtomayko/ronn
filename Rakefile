@@ -1,20 +1,26 @@
 require 'rake/clean'
-require 'rake/testtask'
 
 task :default => :test
-task :spec => :test
 
-# SPECS ===============================================================
-
-Rake::TestTask.new(:test) do |t|
-  t.test_files = FileList['test/*_test.rb']
-  t.ruby_opts = ['-rubygems'] if defined? Gem
+task :environment do
+  require_library 'contest'
+  require_library 'nokogiri'
+  require_library 'rdiscount'
+  ENV['RUBYLIB'] = "#{$:.join(':')}:#{ENV['RUBYLIB']}"
+  ENV['PATH'] = "bin:#{ENV['PATH']}"
 end
 
-# DOCS =================================================================
+desc 'Run tests'
+task :test => :environment do
+  if ENV['PATH'].split(':').any? { |p| File.executable?("#{p}/turn") }
+    sh 'turn -Ilib test/*_test.rb'
+  else
+    sh 'testrb -rubygems -Ilib test/*_test.rb'
+  end
+end
 
 desc 'Build the manual'
-task 'man' do
+task :man => :environment do
   sh "ron -br5 --manual='Ron Manual' --organization='Ryan Tomayko' man/*.ron"
 end
 
@@ -77,4 +83,12 @@ file 'ron.gemspec' => FileList['{lib,test}/**','Rakefile'] do |f|
   spec = [head,manifest,tail].join("  # = MANIFEST =\n")
   File.open(f.name, 'w') { |io| io.write(spec) }
   puts "updated #{f.name}"
+end
+
+# Misc ===============================================================
+
+def require_library(name)
+  require name
+rescue LoadError => boom
+  abort "fatal: the '#{name}' library is required (gem install #{name})"
 end
