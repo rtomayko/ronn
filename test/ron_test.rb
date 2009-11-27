@@ -1,13 +1,18 @@
 require 'contest'
-require 'ron'
 
 class RonTest < Test::Unit::TestCase
   testdir = File.dirname(__FILE__)
-  bindir = File.dirname(testdir)
-  ENV['PATH'] = "#{bindir}:#{ENV['PATH']}"
-  ENV['RUBYLIB'] = $LOAD_PATH.join(':')
 
-  SIMPLE_FILE = "#{File.dirname(__FILE__)}/simple.ron"
+  # setup PATH so that we execute the right ron command
+  bindir = File.dirname(testdir) + "/bin"
+  ENV['PATH'] = "#{bindir}:#{ENV['PATH']}"
+
+  # make sure the load path is setup correctly
+  libdir = File.expand_path("#{testdir}/../lib")
+  $:.unshift(libdir) unless $:.any? { |path| File.expand_path(path) == libdir }
+  ENV['RUBYLIB'] = $:.join(':')
+
+  require 'ron'
 
   test "takes ron text on stdin and produces roff on stdout" do
     output = `echo '# hello(1) -- hello world' | ron --date=2009-11-23`
