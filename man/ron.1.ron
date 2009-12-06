@@ -3,97 +3,96 @@ ron(1) -- build markdown-based man pages
 
 ## SYNOPSIS
 
-`ron` [ <OPTIONS> ]  
+`ron` [ <OPTIONS> ] <FILE> ...
 `ron` --build <FILE> ...  
 `ron` --install <FILE> ...  
 `ron` --man <FILE>
 
 ## DESCRIPTION
 
-`Ron` is a humane text format and toolchain for authoring man pages
-(and things that appear as man pages from a distance). Use it to build
-and install standard UNIX / roff(7) formatted man pages and to
-generate nicely formatted HTML manual pages.
+Ron is a humane text format and toolchain for authoring man pages, and
+things that appear as man pages from a distance. Use it to build and
+install standard UNIX / roff(7) formatted man pages and to generate
+nicely formatted HTML manual pages.
 
-The `ron` command converts one or more named input <FILE>s
-(or standard input when no files are named or the file name `-`
-is given) from humane man page markup to one or more destination
-output formats. If no output format is selected explicitly, `ron`
-writes output in roff format.
+The `ron` command converts one or more named input <FILE>s (or standard
+input when no files are named or the file name `-` is given) from humane
+man page markup to one or more destination output formats. If no output
+format is selected explicitly, `ron` writes output in roff format.
 
 ## FILES
 
-The `ron` command expects input to be formatted as ron(5) text.
-Source files are typically named '<NAME>.<SECTION>.ron' (e.g.,
-`hello.1.ron`). The <NAME> and <SECTION> should match the name
-and section defined in <FILE>'s heading.
+The `ron` command expects input to be formatted as ron(5) text.  Source
+files are typically named '<NAME>.<SECTION>.ron' (e.g., `hello.1.ron`).
+The <NAME> and <SECTION> should match the name and section defined in
+<FILE>'s heading.
 
-When building roff and/or HTML output files with the `--build`
-argument, destination filenames are determined by taking the basename
-of the input <FILE> and adding the appropriate file extension (or
-removing the file extension in the case of roff output).
+When building roff and/or HTML output files with the `--build` argument,
+destination filenames are determined by taking the basename of the input
+<FILE> and adding the appropriate file extension (or removing the file
+extension in the case of roff output).
 
-For example, the command `ron -b --html --roff hello.1.ron` would
-generate a `hello.1` file with roff output and a `hello.1.html` file
-with HTML output.
+For example, the command `ron -b --html --roff hello.1.ron` generates a
+`hello.1` file with roff output and a `hello.1.html` file with HTML
+output.
 
 ## OPTIONS
 
-`Ron`'s default mode of operation is to read a single document from
-standard input and to write the generated output to standard output.
-The following arguments change this behavior:
+`ron`'s default mode of operation is to read a single document from
+standard input and to write the result to standard output. The following
+arguments change this behavior:
 
   * `-b`, `--build`:
-    Write output directly to files instead of standard output. When
-    the `--roff` option is provided, writes roff output to
-    <file>.<section>. When the `--html` option is provided, writes
-    output to '<file>.<section>.html'.
+    Write output directly to files instead of standard output. When the
+    `--roff` option is provided, writes roff output to <file>.<section>.
+    When the `--html` option is provided, writes output to
+    '<file>.<section>.html'.
 
   * `-i`, `--install`:
-    Install the roff formatted man page to the local system such
-    that it can be displayed by man(1). The `MANHOME`
-    environment variable is used to determine the prefix where
-    man pages should be installed when defined.
+    Install the roff formatted man page to the local system such that it
+    can be displayed by man(1). The `MANHOME` environment variable is
+    used to determine the prefix where man pages should be installed
+    when defined.
 
     If `MANHOME` is not defined, `ron` installs man pages to
     _/usr/local/man_.
 
   * `-m`, `--man`:
-    Display <FILE>s as if man(1) were invoked on the roff output
-    file. This simulates default man behavior by piping the roff
-    output through groff(1) and the paging program specified by the
-    `MANPAGER` environment variable.
+    Display <FILE>s as if man(1) were invoked on the roff output file.
+    This simulates default man behavior by piping the roff output
+    through groff(1) and the paging program specified by the `MANPAGER`
+    environment variable.
 
 These options control the format used in generated output:
 
   * `-r`, `--roff`:
-    Generate roff output. This is the default behavior when no
-    other format argument is provided.
+    Generate roff output. This is the default behavior when no other
+    format argument is provided.
 
   * `-5`, `--html`:
     Generate output in HTML format.
 
   * `-f`, `--fragment`:
-    Generate output in HTML format but only the document
-    fragment, not the header, title, or footer.
+    Generate output in HTML format but only the document fragment, not
+    the header, title, or footer.
 
-All document attributes displayed in the header and footer areas
-of generated content can be specified with these options:
+All document attributes displayed in the header and footer areas of
+generated content can be specified with these options:
 
   * `--manual`=<MANUAL>:
     The name of the manual this man page belongs to; <MANUAL> is
     prominently displayed top-center in the header area.
 
   * `--organization`=<NAME>:
-    The name of the group, organization, or individual
-    responsible for publishing the document; <NAME> is displayed
-    in the bottom-left footer area.
+    The name of the group, organization, or individual responsible for
+    publishing the document; <NAME> is displayed in the bottom-left
+    footer area.
 
   * `--date`=<DATE>:
-    The document's published date; <DATE> must be formatted
-    `YYYY-MM-DD` and is displayed in the bottom-center footer
-    area. The <FILE> mtime is used when no <DATE> is given,
-    or the current time when no <FILE> is available.
+    The document's published date; <DATE> must be formatted `YYYY-MM-DD`
+    and is displayed in the bottom-center footer area. The <FILE> mtime
+    is used when no <DATE> is given, or the current time when no <FILE>
+    is available.
 
 ## EXAMPLES
 
@@ -121,8 +120,7 @@ directory:
     building: world.1
     building: world.1.html
 
-View a ron file in the same way as man(1) without building a roff
-file:
+View a ron file in the same way as man(1) without building a roff file:
 
     $ ron -m hello.1.ron
 
@@ -133,26 +131,27 @@ Install the roff man page for a ron file:
 ## ENVIRONMENT
 
   * `MANHOME`:
-    Location where roff formatted man pages should be installed.
-    Relevant only when the `--installed` argument is provided.
-    <PATH> is to the base of a man file hierarchy. e.g.,
-    `/usr/local/share/man`, `/home/rtomayko/man`.
+    Location where roff formatted man pages are installed.  Relevant
+    only when the `--install` argument is provided.  <PATH> is to the
+    base of a man file hierarchy. e.g., `/usr/local/share/man`,
+    `/home/rtomayko/man`.
 
   * `MANPAGER`:
-    The paging program used for man pages. This is typically set
-    to something like 'less -is'.
+    The paging program used for man pages. This is typically set to
+    something like 'less -is'.
 
   * `PAGER`:
     Used instead of `MANPAGER` when `MANPAGER` is not defined.
 
 ## BUGS
 
-Ron is written in Ruby. C and/or standalone Perl implementations
-would be preferable for ease of packaging and distribution.
+Ron is written in Ruby and depends on nokogiri and rdiscount, native
+extension libraries that are non-trivial to install on some systems. A
+more portable version of this program would be welcome.
 
 ## COPYRIGHT
 
-`ron` is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
+Ron is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
 
 ## SEE ALSO
 

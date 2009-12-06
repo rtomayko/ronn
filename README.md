@@ -6,14 +6,34 @@ pages, and things that appear as man pages from a distance. Use it
 to build and install standard UNIX roff man pages or to generate
 nicely formatted HTML manual pages for the web.
 
-The ron file format is based on Markdown. In fact, ron files are
-Markdown compatible but have a more rigidly defined structure and
-extend Markdown in some ways to provide features commonly found in
+The Ron file format is based on Markdown. In fact, Ron files are a
+compatible subset of Markdown syntax but have a more rigid structure
+and extend Markdown in some ways to provide features commonly found in
 man pages (e.g., definition lists). The
 [`ron(5)`](http://rtomayko.github.com/ron/ron.5.html) manual page
-included with this distribution defines the format in more detail.
+defines the format in more detail.
 
-## Installing
+## DOCUMENTATION
+
+The `.ron` files located under the [`man/`](./man) directory show
+off a wide range of ron capabilities and are the source of Ron's own
+documentation. The source files and generated HTML / roff output
+files are available at:
+
+  * [ron(1)](http://rtomayko.github.com/ron/ron.1.html) -
+    build markdown based manual pages at the command line.  
+    [source file](man/ron.1.ron), [roff output](man/ron.1.roff).
+
+  * [ron(5)](http://rtomayko.github.com/ron/ron.5.html) -
+    humane manual page authoring format syntax reference.  
+    [source file](man/ron.5.ron), [roff output](man/ron.5.roff)
+
+  * [markdown(5)](http://rtomayko.github.com/ron/markdown.5.html) -
+    humane text markup syntax (taken from:
+    <http://daringfireball.net/projects/markdown/syntax>)  
+    [source file](ron/markdown.5.ron), [roff output](man/markdown.5.roff)
+
+## INSTALL
 
 Install with Rubygems:
 
@@ -26,26 +46,7 @@ Or, clone the git repository:
     $ PATH=ron/bin:$PATH
     $ ron --help
 
-## Example Files
-
-The `.ron` files located under the [`man/`](./man) directory show
-off a wide range of ron capabilities and are the source of Ron's own
-documentation. The source files and generated HTML / roff output
-files are available at:
-
-  * [ron(1)](http://rtomayko.github.com/ron/ron.1.html) -
-    build markdown based manual pages at the command line.  
-    [source file](man/ron.1.ron), [roff output](man/ron.1.roff).
-    
-  * [ron(5)](http://rtomayko.github.com/ron/ron.5.html) -
-    humane manual page authoring format syntax reference.  
-    [source file](man/ron.5.ron), [roff output](man/ron.5.roff)
-  * [markdown(5)](http://rtomayko.github.com/ron/markdown.5.html) -
-    humane text markup syntax (taken from:
-    <http://daringfireball.net/projects/markdown/syntax>)  
-    [source file](ron/markdown.5.ron), [roff output](man/markdown.5.roff)
-
-## Basic Usage
+## BASIC USAGE
 
 To generate a roff man page from the included
 [`markdown.5.ron`](man/markdown.5.ron) file and open it with man(1):
@@ -72,7 +73,7 @@ building intermediate files:
 The [ron(1)](http://rtomayko.github.com/ron/ron.1.html) manual page
 includes comprehensive documentation on `ron` command line options.
 
-## Rationale
+## ABOUT
 
 Some people think UNIX manual pages are a poor and outdated style of
 documentation. I disagree:
@@ -117,7 +118,11 @@ Ron aims to address many of the issues with man page creation while
 preserving the things that makes man pages a great form of
 documentation.
 
-## Copying
+## COPYING
 
 Ron is Copyright (C) 2009 [Ryan Tomayko](http://tomayko.com/about)  
 See the file COPYING for information of licensing and distribution.
+
+## SEE ALSO
+
+ron(1), ron(5), markdown(5)

@@ -3,6 +3,8 @@ ron(5) -- humane manual page authoring format
 
 ## SYNOPSIS
 
+A basic manual page in Ron:
+
     name(1) -- one sentence description
     ===================================
 
@@ -14,50 +16,50 @@ ron(5) -- humane manual page authoring format
 
     ## INLINE MARKUP
 
-    Inline markup should be used for `code` (displayed in
-    boldface) and _variables_ (displayed in underline).
+    Inline markup is used for `code` and `user input` (displayed
+    in boldface), and also <variables> or _emphasis_.
 
     Manual page references like sh(1), markdown(5), roff(7), etc.
     are displayed in boldface and hyperlinked in HTML output.
 
     ## DEFINITION LISTS
 
-    Definition lists are used to define arguments, variables,
-    or other terms:
+    Definition lists are used to define options, arguments,
+    variables, and other type of terms:
 
       * `-a`, `--arg1`=[_OPTION_]:
-        One or more paragraphs describing the 
+        One or more paragraphs describing the argument.
       * `-b`, `--arg2`:
-        Any number of these may be specified and they can be
-        nested.
+        Any number of these may be specified and may
+        be nested.
 
 ## DESCRIPTION
 
-`Ron` files are simple ascii texts that document things in the
+Ron files are simple ascii texts that document things in the
 style of UNIX man pages but with a syntax and feature-set less
-insane than that of roff(7). `Ron` files are piped through
-ron(1) to build and install traditional roff(7) man pages or
-to generate hyperlinked HTML documentation.
+insane than that of roff(7). Ron files are piped through ron(1)
+to build and install traditional roff(7) man pages or to generate
+hyperlinked HTML documentation.
 
-All `ron` files must conform to a simple subset of markdown(5), a
-humane text markup designed for writing on the web. It is neither
-possible nor desirable to express many of roff(7)'s complex
-typesetting features in `ron`.
+All ron formatted files must conform to a simple subset of
+markdown(5), a humane text markup designed for writing on the
+web. It is neither possible nor desirable to express many of
+roff(7)'s complex typesetting features in ron.
 
 ## MANPAGE TITLE
 
-All man pages have a _name_, belong to a _section_, and have a
-single sentence _tagline_ (useless but witty, preferably). `Ron`
+All man pages have a <name>, belong to a <section>, and have a
+single sentence <tagline> (useless but witty, preferably). Ron
 files must begin with a first-level heading that includes all of
 this information. For example, this very man page begins:
 
     ron(5) -- humane manual page authoring format
     =============================================
 
-Here, we're saying that the man page documents a thing named `ron`
-in manual section `5` -- the "file formats" section; see
-manpages(5) for full section list -- and that's quickly
-described as a "humane manual page authoring format".
+Here, we're saying that the man page documents a thing named
+`ron` in manual section `5` (the "file formats" section; see
+manpages(5) for full section list) and that's quickly described
+as a "humane manual page authoring format".
 
 These bits of information are used to fill in the document
 header, to create the `NAME` section, and also to establish
@@ -89,10 +91,10 @@ pages and external documents.
 
 ## INLINE MARKUP
 
-Man pages typically use a limited set of text formatting
-capabilities. There's basically <b>boldface</b> and
-<i>italics</i> (often displayed using <u>underline</u>). Ron
-uses the following bits of markdown(5) to accomplish this:
+Man pages have a limited set of text formatting capabilities at
+their disposal. There's basically <b>boldface</b> and
+<i>italics</i> (often displayed using <u>underline</u>). Ron uses
+the following bits of markdown(5) to accomplish this:
 
   * <code>\`backticks\`</code>:
     Code, flags, commands, and noun-like things; typically
@@ -100,7 +102,7 @@ uses the following bits of markdown(5) to accomplish this:
     within `backticks` is displayed literally; other inline markup
     is not processed.
   * `**double-stars**`:
-    Like `backticks` but may contain other inline markup.
+    Like `backticks` but inline markup is processed.
   * `_`_underbars_`_`:
     User-specified arguments, variables, or user input; typically
     displayed with <u>underline</u>.
@@ -121,15 +123,15 @@ describe arguments, options, and variables, the basic markdown(5)
 list syntax has been extended to support a definition list
 syntax.
 
-A definition list's syntax is exactly the same as markdown(5)'s
+Definition list syntax is exactly the same as markdown(5)'s
 unordered list syntax but requires that the first line of each
-list item be terminated with a colon "`:`". The first line
-(minus the colon) is the _term_; subsequent lines may be
-comprised of multiple paragraphs, code blocks, standard lists,
-and nested definition lists.
+list item be terminated with a colon "`:`". The first line (minus
+the colon) is the <term>; subsequent lines may be comprised of
+multiple paragraphs, code blocks, standard lists, and nested
+definition lists.
 
-An example definition list, taken from test(1)'s `DESCRIPTION`
-section:
+An example definition list, taken from BSD test(1)'s
+`DESCRIPTION` section:
 
      The following primaries are used to construct expressions:
 
