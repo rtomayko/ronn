@@ -3,7 +3,6 @@ require 'rake/clean'
 task :default => :test
 
 task :environment do
-  require_library 'contest'
   require_library 'nokogiri'
   require_library 'rdiscount'
   ENV['RUBYLIB'] = "#{$:.join(':')}:#{ENV['RUBYLIB']}"
@@ -12,6 +11,7 @@ end
 
 desc 'Run tests'
 task :test => :environment do
+  require_library 'contest'
   if ENV['PATH'].split(':').any? { |p| File.executable?("#{p}/turn") }
     sh 'turn -Ilib test/*_test.rb'
   else
