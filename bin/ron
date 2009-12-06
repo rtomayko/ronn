@@ -14,7 +14,7 @@
 ##   -m, --man                 open man page like man(1)
 ##
 ## Formats:
-##       --roff                generate roff/man text; this is the default behavior
+##   -r, --roff                generate roff/man text; this is the default behavior
 ##   -5, --html                generate entire HTML page with layout
 ##   -f, --fragment            generate HTML fragment instead of entire HTML page
 ##
@@ -28,6 +28,7 @@
 ##
 ##       --help                show this help message
 ##
+require 'date'
 require 'optparse'
 
 formats = []
@@ -78,11 +79,8 @@ elsif ARGV.empty?
   ARGV.push '-'
 end
 
-# turn the --date arg into
-if options[:date]
-  require 'date'
-  options[:date] = Date.strptime(options[:date], '%Y-%m-%d')
-end
+# turn the --date arg into a real date object
+options[:date] &&= Date.strptime(options[:date], '%Y-%m-%d')
 
 formats = ['roff'] if formats.empty?
 formats.delete('html') if formats.include?('html_fragment')
