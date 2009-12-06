@@ -2,29 +2,34 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ron/v0.1'>
+  <meta name='generator' value='Ron/v0.2'>
   <title>ron(1) -- build markdown-based man pages</title>
   <style type='text/css'>
     body {margin:0}
     #man, #man code, #man pre, #man tt, #man kbd, #man samp {
       font-family:consolas,monospace;
       font-size:16px;
-      line-height:1.25;
-      color:#434241;
+      line-height:1.3;
+      color:#343331;
       background:#fff; }
-    #man { max-width:85ex; text-align:justify; margin:0 25px 25px 25px }
+    #man { max-width:89ex; text-align:justify; margin:0 25px 25px 25px }
     #man h1, #man h2, #man h3 { color:#232221;clear:left }
-    #man h1 { font-size:28px; margin:10px 0 30px 0; text-align:center }
-    #man h2 { font-size:18px; margin-bottom:2px; margin-top:10px; line-height:1.2; }
+    #man h1 { font-size:28px; margin:15px 0 30px 0; text-align:center }
+    #man h2 { font-size:18px; margin-bottom:0; margin-top:10px; line-height:1.3; }
     #man h3 { font-size:16px; margin:0 0 0 4ex; }
     #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
     #man pre {
       color:#333231;
       background:#edeceb;
-      padding:5px 10px;
-      border-left:2ex solid #ddd;
-      margin-top:-10px;
-      margin-bottom:12px; }
+      padding:5px 7px;
+      margin:0px 0 20px 0;
+      border-left:2ex solid #ddd}
+    #man pre + h2, #man pre + h3 {
+      margin-top:22px;
+    }
+    #man h2 + pre, #man h3 + pre {
+      margin-top:5px;
+    }
     #man > p, #man > ul, #man > ol, #man > dl, #man > pre { margin-left:8ex; }
     #man dt { margin:0; clear:left }
     #man dt.flush { float:left; width:8ex }
@@ -61,62 +66,61 @@
 <p><code>ron</code> -- build markdown-based man pages</p>
 <h2>SYNOPSIS</h2>
 
-<p><code>ron</code> [ <var>OPTIONS</var> ]<br>
+<p><code>ron</code> [ <var>OPTIONS</var> ] <var>FILE</var> ...
 <code>ron</code> --build <var>FILE</var> ...<br>
 <code>ron</code> --install <var>FILE</var> ...<br>
 <code>ron</code> --man <var>FILE</var></p>
 
 <h2>DESCRIPTION</h2>
 
-<p><code>Ron</code> is a humane text format and toolchain for authoring man pages
-(and things that appear as man pages from a distance). Use it to build
-and install standard UNIX / roff(7) formatted man pages and to
-generate nicely formatted HTML manual pages.</p>
+<p>Ron is a humane text format and toolchain for authoring man pages, and
+things that appear as man pages from a distance. Use it to build and
+install standard UNIX / roff(7) formatted man pages and to generate
+nicely formatted HTML manual pages.</p>
 
-<p>The <code>ron</code> command converts one or more named input <var>FILE</var>s
-(or standard input when no files are named or the file name <code>-</code>
-is given) from humane man page markup to one or more destination
-output formats. If no output format is selected explicitly, <code>ron</code>
-writes output in roff format.</p>
+<p>The <code>ron</code> command converts one or more named input <var>FILE</var>s (or standard
+input when no files are named or the file name <code>-</code> is given) from humane
+man page markup to one or more destination output formats. If no output
+format is selected explicitly, <code>ron</code> writes output in roff format.</p>
 
 <h2>FILES</h2>
 
-<p>The <code>ron</code> command expects input to be formatted as ron(5) text.
-Source files are typically named '<var>NAME</var>.<var>SECTION</var>.ron' (e.g.,
-<code>hello.1.ron</code>). The <var>NAME</var> and <var>SECTION</var> should match the name
-and section defined in <var>FILE</var>'s heading.</p>
+<p>The <code>ron</code> command expects input to be formatted as ron(5) text.  Source
+files are typically named '<var>NAME</var>.<var>SECTION</var>.ron' (e.g., <code>hello.1.ron</code>).
+The <var>NAME</var> and <var>SECTION</var> should match the name and section defined in
+<var>FILE</var>'s heading.</p>
 
-<p>When building roff and/or HTML output files with the <code>--build</code>
-argument, destination filenames are determined by taking the basename
-of the input <var>FILE</var> and adding the appropriate file extension (or
-removing the file extension in the case of roff output).</p>
+<p>When building roff and/or HTML output files with the <code>--build</code> argument,
+destination filenames are determined by taking the basename of the input
+<var>FILE</var> and adding the appropriate file extension (or removing the file
+extension in the case of roff output).</p>
 
-<p>For example, the command <code>ron -b --html --roff hello.1.ron</code> would
-generate a <code>hello.1</code> file with roff output and a <code>hello.1.html</code> file
-with HTML output.</p>
+<p>For example, the command <code>ron -b --html --roff hello.1.ron</code> generates a
+<code>hello.1</code> file with roff output and a <code>hello.1.html</code> file with HTML
+output.</p>
 
 <h2>OPTIONS</h2>
 
-<p><code>Ron</code>'s default mode of operation is to read a single document from
-standard input and to write the generated output to standard output.
-The following arguments change this behavior:</p>
+<p><code>ron</code>'s default mode of operation is to read a single document from
+standard input and to write the result to standard output. The following
+arguments change this behavior:</p>
 
 <dl>
 <dt>
 <code>-b</code>, <code>--build</code>
 </dt>
-<dd><p>Write output directly to files instead of standard output. When
-the <code>--roff</code> option is provided, writes roff output to
-<var>file</var>.<var>section</var>. When the <code>--html</code> option is provided, writes
-output to '<var>file</var>.<var>section</var>.html'.</p></dd>
+<dd><p>Write output directly to files instead of standard output. When the
+<code>--roff</code> option is provided, writes roff output to <var>file</var>.<var>section</var>.
+When the <code>--html</code> option is provided, writes output to
+'<var>file</var>.<var>section</var>.html'.</p></dd>
 <dt>
 <code>-i</code>, <code>--install</code>
 </dt>
 <dd>
-<p>Install the roff formatted man page to the local system such
-that it can be displayed by man(1). The <code>MANHOME</code>
-environment variable is used to determine the prefix where
-man pages should be installed when defined.</p>
+<p>Install the roff formatted man page to the local system such that it
+can be displayed by man(1). The <code>MANHOME</code> environment variable is
+used to determine the prefix where man pages should be installed
+when defined.</p>
 
 <p>If <code>MANHOME</code> is not defined, <code>ron</code> installs man pages to
 <em>/usr/local/man</em>.</p>
@@ -124,10 +128,10 @@ man pages should be installed when defined.</p>
 <dt>
 <code>-m</code>, <code>--man</code>
 </dt>
-<dd><p>Display <var>FILE</var>s as if man(1) were invoked on the roff output
-file. This simulates default man behavior by piping the roff
-output through groff(1) and the paging program specified by the
-<code>MANPAGER</code> environment variable.</p></dd>
+<dd><p>Display <var>FILE</var>s as if man(1) were invoked on the roff output file.
+This simulates default man behavior by piping the roff output
+through groff(1) and the paging program specified by the <code>MANPAGER</code>
+environment variable.</p></dd>
 </dl>
 
 
@@ -137,8 +141,8 @@ output through groff(1) and the paging program specified by the
 <dt>
 <code>-r</code>, <code>--roff</code>
 </dt>
-<dd><p>Generate roff output. This is the default behavior when no
-other format argument is provided.</p></dd>
+<dd><p>Generate roff output. This is the default behavior when no other
+format argument is provided.</p></dd>
 <dt>
 <code>-5</code>, <code>--html</code>
 </dt>
@@ -146,13 +150,13 @@ other format argument is provided.</p></dd>
 <dt>
 <code>-f</code>, <code>--fragment</code>
 </dt>
-<dd><p>Generate output in HTML format but only the document
-fragment, not the header, title, or footer.</p></dd>
+<dd><p>Generate output in HTML format but only the document fragment, not
+the header, title, or footer.</p></dd>
 </dl>
 
 
-<p>All document attributes displayed in the header and footer areas
-of generated content can be specified with these options:</p>
+<p>All document attributes displayed in the header and footer areas of
+generated content can be specified with these options:</p>
 
 <dl>
 <dt>
@@ -163,16 +167,16 @@ prominently displayed top-center in the header area.</p></dd>
 <dt>
 <code>--organization</code>=<var>NAME</var>
 </dt>
-<dd><p>The name of the group, organization, or individual
-responsible for publishing the document; <var>NAME</var> is displayed
-in the bottom-left footer area.</p></dd>
+<dd><p>The name of the group, organization, or individual responsible for
+publishing the document; <var>NAME</var> is displayed in the bottom-left
+footer area.</p></dd>
 <dt>
 <code>--date</code>=<var>DATE</var>
 </dt>
-<dd><p>The document's published date; <var>DATE</var> must be formatted
-<code>YYYY-MM-DD</code> and is displayed in the bottom-center footer
-area. The <var>FILE</var> mtime is used when no <var>DATE</var> is given,
-or the current time when no <var>FILE</var> is available.</p></dd>
+<dd><p>The document's published date; <var>DATE</var> must be formatted <code>YYYY-MM-DD</code>
+and is displayed in the bottom-center footer area. The <var>FILE</var> mtime
+is used when no <var>DATE</var> is given, or the current time when no <var>FILE</var>
+is available.</p></dd>
 </dl>
 
 
@@ -206,8 +210,7 @@ building: world.1
 building: world.1.html
 </code></pre>
 
-<p>View a ron file in the same way as man(1) without building a roff
-file:</p>
+<p>View a ron file in the same way as man(1) without building a roff file:</p>
 
 <pre><code>$ ron -m hello.1.ron
 </code></pre>
@@ -221,13 +224,13 @@ file:</p>
 
 <dl>
 <dt class="flush"><code>MANHOME</code></dt>
-<dd><p>Location where roff formatted man pages should be installed.
-Relevant only when the <code>--installed</code> argument is provided.
-<var>PATH</var> is to the base of a man file hierarchy. e.g.,
-<code>/usr/local/share/man</code>, <code>/home/rtomayko/man</code>.</p></dd>
+<dd><p>Location where roff formatted man pages are installed.  Relevant
+only when the <code>--install</code> argument is provided.  <var>PATH</var> is to the
+base of a man file hierarchy. e.g., <code>/usr/local/share/man</code>,
+<code>/home/rtomayko/man</code>.</p></dd>
 <dt><code>MANPAGER</code></dt>
-<dd><p>The paging program used for man pages. This is typically set
-to something like 'less -is'.</p></dd>
+<dd><p>The paging program used for man pages. This is typically set to
+something like 'less -is'.</p></dd>
 <dt class="flush"><code>PAGER</code></dt>
 <dd><p>Used instead of <code>MANPAGER</code> when <code>MANPAGER</code> is not defined.</p></dd>
 </dl>
@@ -235,12 +238,13 @@ to something like 'less -is'.</p></dd>
 
 <h2>BUGS</h2>
 
-<p>Ron is written in Ruby. C and/or standalone Perl implementations
-would be preferable for ease of packaging and distribution.</p>
+<p>Ron is written in Ruby and depends on nokogiri and rdiscount, native
+extension libraries that are non-trivial to install on some systems. A
+more portable version of this program would be welcome.</p>
 
 <h2>COPYRIGHT</h2>
 
-<p><code>ron</code> is Copyright (C) 2009 Ryan Tomayko &lt;tomayko.com/about&gt;</p>
+<p>Ron is Copyright (C) 2009 Ryan Tomayko &lt;tomayko.com/about&gt;</p>
 
 <h2>SEE ALSO</h2>
 
@@ -248,7 +252,7 @@ would be preferable for ease of packaging and distribution.</p>
 
 <ol class='foot man'>
   <li class='tl'>Ryan Tomayko</li>
-  <li class='tc'>November 2009</li>
+  <li class='tc'>December 2009</li>
   <li class='tr'>ron(1)</li>
 </ol>
 

@@ -2,29 +2,34 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ron/v0.1'>
+  <meta name='generator' value='Ron/v0.2'>
   <title>ron(7) -- the opposite of roff</title>
   <style type='text/css'>
     body {margin:0}
     #man, #man code, #man pre, #man tt, #man kbd, #man samp {
       font-family:consolas,monospace;
       font-size:16px;
-      line-height:1.25;
-      color:#434241;
+      line-height:1.3;
+      color:#343331;
       background:#fff; }
-    #man { max-width:85ex; text-align:justify; margin:0 25px 25px 25px }
+    #man { max-width:89ex; text-align:justify; margin:0 25px 25px 25px }
     #man h1, #man h2, #man h3 { color:#232221;clear:left }
-    #man h1 { font-size:28px; margin:10px 0 30px 0; text-align:center }
-    #man h2 { font-size:18px; margin-bottom:2px; margin-top:10px; line-height:1.2; }
+    #man h1 { font-size:28px; margin:15px 0 30px 0; text-align:center }
+    #man h2 { font-size:18px; margin-bottom:0; margin-top:10px; line-height:1.3; }
     #man h3 { font-size:16px; margin:0 0 0 4ex; }
     #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
     #man pre {
       color:#333231;
       background:#edeceb;
-      padding:5px 10px;
-      border-left:2ex solid #ddd;
-      margin-top:-10px;
-      margin-bottom:12px; }
+      padding:5px 7px;
+      margin:0px 0 20px 0;
+      border-left:2ex solid #ddd}
+    #man pre + h2, #man pre + h3 {
+      margin-top:22px;
+    }
+    #man h2 + pre, #man h3 + pre {
+      margin-top:5px;
+    }
     #man > p, #man > ul, #man > ol, #man > dl, #man > pre { margin-left:8ex; }
     #man dt { margin:0; clear:left }
     #man dt.flush { float:left; width:8ex }
@@ -61,54 +66,58 @@
 <p><code>ron</code> -- the opposite of roff</p>
 <h2>DESCRIPTION</h2>
 
-<p>Ron is a humane text format and toolchain for
-creating UNIX man pages -- and things that
-appear as man pages from a distance. Use it
-to build and install standard UNIX roff man
-pages or to generate nicely formatted HTML
-manual pages for the web.</p>
+<p>Ron is a humane text format and toolchain for creating UNIX man
+pages, and things that appear as man pages from a distance. Use it
+to build and install standard UNIX roff man pages or to generate
+nicely formatted HTML manual pages for the web.</p>
 
-<p>The ron file format is based on Markdown. In
-fact, ron files are 100% Markdown compatible
-but have a more rigidly defined structure and
-extend Markdown in some ways to provide
-features commonly found in man pages (e.g.,
-definition lists). The ron(5) manual page
-included with this distribution defines the
-format in more detail.</p>
+<p>The Ron file format is based on Markdown. In fact, Ron files are a
+compatible subset of Markdown syntax but have a more rigid structure
+and extend Markdown in some ways to provide features commonly found in
+man pages (e.g., definition lists). The
+<a href="http://rtomayko.github.com/ron/ron.5.html"><code>ron(5)</code></a> manual page
+defines the format in more detail.</p>
+
+<h2>DOCUMENTATION</h2>
+
+<p>The <code>.ron</code> files located under the <a href="./man"><code>man/</code></a> directory show
+off a wide range of ron capabilities and are the source of Ron's own
+documentation. The source files and generated HTML / roff output
+files are available at:</p>
+
+<ul>
+<li><p><a href="http://rtomayko.github.com/ron/ron.1.html">ron(1)</a> -
+build markdown based manual pages at the command line.<br>
+<a href="man/ron.1.ron">source file</a>, <a href="man/ron.1.roff">roff output</a>.</p></li>
+<li><p><a href="http://rtomayko.github.com/ron/ron.5.html">ron(5)</a> -
+humane manual page authoring format syntax reference.<br>
+<a href="man/ron.5.ron">source file</a>, <a href="man/ron.5.roff">roff output</a></p></li>
+<li><p><a href="http://rtomayko.github.com/ron/markdown.5.html">markdown(5)</a> -
+humane text markup syntax (taken from:
+<a href="http://daringfireball.net/projects/markdown/syntax">http://daringfireball.net/projects/markdown/syntax</a>)<br>
+<a href="ron/markdown.5.ron">source file</a>, <a href="man/markdown.5.roff">roff output</a></p></li>
+</ul>
+
 
 <h2>INSTALL</h2>
 
-<p>Ron can be installed using rubygems:</p>
+<p>Install with Rubygems:</p>
 
 <pre><code>$ [sudo] gem install ron
+$ ron --help
 </code></pre>
 
-<p>Or, clone the git repository and install from
-source:</p>
+<p>Or, clone the git repository:</p>
 
 <pre><code>$ git clone git://github.com/rtomayko/ron.git
-$ cd ron
-$ rake package
-$ [sudo] rake install
-</code></pre>
-
-<h2>EXAMPLES</h2>
-
-<p>The .ron files located under the repository's
-./man directory show off a wide range of ron
-capabilities. The HTML versions of these
-files are available at:</p>
-
-<pre><code>http://rtomayko.github.com/ron/ron.1.html
-http://rtomayko.github.com/ron/ron.5.html
-http://rtomayko.github.com/ron/markdown.5.html
+$ PATH=ron/bin:$PATH
+$ ron --help
 </code></pre>
 
 <h2>BASIC USAGE</h2>
 
 <p>To generate a roff man page from the included
-<code>markdown.5.ron</code> file and open it in man(1):</p>
+<a href="man/markdown.5.ron"><code>markdown.5.ron</code></a> file and open it with man(1):</p>
 
 <pre><code>$ ron -b man/markdown.5.ron
 building: man/markdown.5
@@ -122,92 +131,75 @@ building: man/markdown.5.html
 $ open man/markdown.5.html
 </code></pre>
 
-<p>To build roff and HTML versions of all ron
-files:</p>
+<p>To build roff and HTML versions of all ron files:</p>
 
 <pre><code>$ ron -b --roff --html man/*.ron
 </code></pre>
 
-<p>If you just want to view a ron file as if it
-were a man page without building any
-intermediate files:</p>
+<p>If you just want to view a ron file as if it were a man page without
+building intermediate files:</p>
 
 <pre><code>$ ron -m man/markdown.5.ron
 </code></pre>
 
-<p>The ron(1) manual page included with this
-distribution includes full documentation on
-ron command line options.</p>
+<p>The <a href="http://rtomayko.github.com/ron/ron.1.html">ron(1)</a> manual page
+includes comprehensive documentation on <code>ron</code> command line options.</p>
 
-<h2>RATIONALE</h2>
+<h2>ABOUT</h2>
 
-<p>Some people think UNIX manual pages are a
-poor and outdated form of documentation. I
-disagree.</p>
+<p>Some people think UNIX manual pages are a poor and outdated style of
+documentation. I disagree:</p>
 
 <ul>
-<li><p>Man pages typically follow a well defined
-structure that's immediately familiar and
-provides a useful starting point for
-developers documenting new tools,
-libraries, and formats.</p></li>
-<li><p>Man pages get to the point. Because they're
-written in an inverted style, with a
-SYNOPSIS section followed by additional
-detail, prose, and finally references to
-other sources of information, man pages
-provide the best of both cheat sheet and
-reference style documentation.</p></li>
-<li><p>Man pages have very limited text formatting
-capabilities. This is a feature. You get
-bold and underline, basically, and they're
-typically applied consistently across man
+<li><p>Man pages follow a well defined structure that's immediately
+familiar and provides a useful starting point for developers
+documenting new tools, libraries, and formats.</p></li>
+<li><p>Man pages get to the point. Because they're written in an inverted
+style, with a SYNOPSIS section followed by additional detail,
+prose and references to other sources of information, man pages
+provide the best of both cheat sheet and reference style
+documentation.</p></li>
+<li><p>Man pages have extremely -- unbelievably -- limited text
+formatting capabilities. You get a couple of headings, lists, bold,
+underline and no more. This is a feature.</p></li>
+<li><p>Although two levels of section hierarchy are technically
+supported, most man pages use only a single level. Unwieldy
+document hierarchies complicate otherwise good documentation.
+Feynman covered all of physics -- heavenly bodies through QED --
+with only two levels of document hierarchy (<em>The Feynman Lectures
+on Physics</em>, 1970).</p></li>
+<li><p>Man pages have a simple referencing syntax; e.g., sh(1), fork(2),
+markdown(5). HTML versions can use this to generate links between
 pages.</p></li>
-<li><p>Most man pages use only a single level of
-section hierarchy (although two levels are
-technically supported). Hierarchy destroys
-otherwise good documentation by adding
-unnecessary complexity. Feynman described
-the whole of quantum electro dynamics with
-only two levels of hierarchy. How can you
-possibly need more? Man pages force you to
-keep it simple.</p></li>
-<li><p>Man pages have a simple referencing syntax;
-e.g., sh(1), fork(2), markdown(5).  HTML
-versions can use this to generate links
-between pages.</p></li>
-<li><p>The classical terminal man page display is
-typographically well thought out. Big bold
-section headings, justified monospaced
-text, nicely indented paragraphs,
-intelligently aligned definition lists, and
-an informational header and footer.</p></li>
+<li><p>The classical terminal man page display is typographically well
+thought out. Big bold section headings, justified monospace text,
+nicely indented paragraphs, intelligently aligned definition
+lists, and an informational header and footer.</p></li>
 </ul>
 
 
-<p>All that being said, trying to figure out how
-to create a man page can be a really tedious
-process. The roff/man macro languages are
-highly extensible, fractured between multiple
-dialects, and include a bunch of stuff that's
-entirely irrelevant to modern man page
-creation. It's also horribly ugly compared to
-today's humane text formats or even HTML
-(just sayin').</p>
+<p>Unfortunately, trying to figure out how to create a man page is a
+fairly tedious process. The roff/man macro languages are highly
+extensible, fractured between multiple dialects, and include a bunch
+of device specific stuff that's entirely irrelevant to modern
+publishing tools.</p>
 
-<p>Ron aims to address many of the issues with
-man page creation while preserving the things
-that makes man pages a great form of
+<p>Ron aims to address many of the issues with man page creation while
+preserving the things that makes man pages a great form of
 documentation.</p>
 
-<h2>COPYRIGHT</h2>
+<h2>COPYING</h2>
 
-<p>Ron is Copyright (C) 2009 Ryan Tomayko
-See the file COPYING for more information.</p>
+<p>Ron is Copyright (C) 2009 <a href="http://tomayko.com/about">Ryan Tomayko</a><br>
+See the file COPYING for information of licensing and distribution.</p>
+
+<h2>SEE ALSO</h2>
+
+<p>ron(1), ron(5), markdown(5)</p>
 
 <ol class='foot man'>
   <li class='tl'>Ryan Tomayko</li>
-  <li class='tc'>November 2009</li>
+  <li class='tc'>December 2009</li>
   <li class='tr'>ron(7)</li>
 </ol>
 
