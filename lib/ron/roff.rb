@@ -106,9 +106,14 @@ module Ron
 
       case node.name
       when 'text'
-        text = node.content
-        text = text.sub(/^\n+/m, '') if prev && prev.name == 'br'
-        write escape(text.sub(/\n+$/, ' '))
+        text = node.content.dup
+        text.sub!(/^\n+/m, '') if prev && prev.name == 'br'
+        if node.previous_sibling.nil? && node.next_sibling
+          text.sub!(/\n+$/m, '')
+        else
+          text.sub!(/\n+$/m, ' ')
+        end
+        write escape(text)
       when 'code', 'b', 'strong', 'kbd', 'samp'
         write '\fB'
         inline_filter(node.children)
@@ -147,7 +152,7 @@ module Ron
 
     # write text to output buffer
     def write(text)
-      @buf << text
+      @buf << text unless text.nil? || text.empty?
     end
 
     # write text to output buffer on a new line.
