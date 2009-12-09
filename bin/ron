@@ -111,12 +111,14 @@ ARGV.each do |file|
 
   # write output for each format
   formats.each do |format|
-    output = doc.convert(format)
     if build
       path = doc.path_for(format)
-      info "building: #{path}"
+      info "building: #{path}" if build
+      output = doc.convert(format)
       File.open(path, 'wb') { |f| f.puts(output) }
+      system "man #{path}" if man && format == 'roff'
     else
+      output = doc.convert(format)
       wr.puts(output)
     end
   end
