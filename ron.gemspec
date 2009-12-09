@@ -55,7 +55,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'contest', '~> 0.1'
 
   s.has_rdoc = true
-  s.homepage = "http://github.com/rtomayko/ron/"
+  s.homepage = "http://rtomayko.github.com/ron/"
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Ron"]
   s.require_paths = %w[lib]
   s.rubygems_version = '1.1.1'
