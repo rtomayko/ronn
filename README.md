@@ -23,16 +23,20 @@ at:
 
   * [ron(1)](http://rtomayko.github.com/ron/ron.1.html) -
     build markdown based manual pages at the command line.  
-    [source file](man/ron.1.ron), [roff output](man/ron.1.roff).
+    [source file](http://github.com/rtomayko/ron/blob/master/man/ron.1.ron),
+    [roff output](http://github.com/rtomayko/ron/blob/master/man/ron.1)
 
   * [ron(5)](http://rtomayko.github.com/ron/ron.5.html) -
     humane manual page authoring format syntax reference.  
-    [source file](man/ron.5.ron), [roff output](man/ron.5.roff)
+    [source file](http://github.com/rtomayko/ron/blob/master/man/ron.5.ron),
+    [roff output](http://github.com/rtomayko/ron/blob/master/man/ron.5)
 
   * [markdown(5)](http://rtomayko.github.com/ron/markdown.5.html) -
-    humane text markup syntax (taken from:
-    <http://daringfireball.net/projects/markdown/syntax>)  
-    [source file](ron/markdown.5.ron), [roff output](man/markdown.5.roff)
+    humane text markup syntax (taken from
+    [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax),
+    John Gruber)  
+    [source file](http://github.com/rtomayko/ron/blob/master/man/ron.5.ron),
+    [roff output](http://github.com/rtomayko/ron/blob/master/man/ron.5)
 
 ## INSTALL
 
