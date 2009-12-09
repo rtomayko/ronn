@@ -1,7 +1,7 @@
 .\" generated with Ron/v0.2
 .\" http://github.com/rtomayko/ron/
 .
-.TH "RON" 1 "December 2009" "Ryan Tomayko" "Ron Manual"
+.TH "RON" "1" "December 2009" "Ryan Tomayko" "Ron Manual"
 .
 .SH "NAME"
 \fBron\fR \-\- build markdown\-based man pages
@@ -50,13 +50,13 @@ standard input and to write the result to standard output. The following
 arguments change this behavior:
 .
 .TP
- \fB\-b\fR, \fB\-\-build\fR 
-Write output directly to files instead of standard output. When the \fB\-\-roff\fR option is provided, writes roff output to \fIfile\fR.\fIsection\fR.
+\fB\-b\fR, \fB\-\-build\fR 
+Write output directly to files instead of standard output. When the\fB\-\-roff\fR option is provided, writes roff output to \fIfile\fR.\fIsection\fR.
 When the \fB\-\-html\fR option is provided, writes output to
 '\fIfile\fR.\fIsection\fR.html'.
 .
 .TP
- \fB\-i\fR, \fB\-\-install\fR 
+\fB\-i\fR, \fB\-\-install\fR 
 Install the roff formatted man page to the local system such that it
 can be displayed by man(1). The \fBMANHOME\fR environment variable is
 used to determine the prefix where man pages should be installed
@@ -66,7 +66,7 @@ when defined.
 If \fBMANHOME\fR is not defined, \fBron\fR installs man pages to \fI/usr/local/man\fR.
 .
 .TP
- \fB\-m\fR, \fB\-\-man\fR 
+\fB\-m\fR, \fB\-\-man\fR 
 Display \fIFILE\fRs as if man(1) were invoked on the roff output file.
 This simulates default man behavior by piping the roff output
 through groff(1) and the paging program specified by the \fBMANPAGER\fR
@@ -76,16 +76,16 @@ environment variable.
 These options control the format used in generated output:
 .
 .TP
- \fB\-r\fR, \fB\-\-roff\fR 
+\fB\-r\fR, \fB\-\-roff\fR 
 Generate roff output. This is the default behavior when no other
 format argument is provided.
 .
 .TP
- \fB\-5\fR, \fB\-\-html\fR 
+\fB\-5\fR, \fB\-\-html\fR 
 Generate output in HTML format.
 .
 .TP
- \fB\-f\fR, \fB\-\-fragment\fR 
+\fB\-f\fR, \fB\-\-fragment\fR 
 Generate output in HTML format but only the document fragment, not
 the header, title, or footer.
 .
@@ -94,18 +94,18 @@ All document attributes displayed in the header and footer areas of
 generated content can be specified with these options:
 .
 .TP
- \fB\-\-manual\fR=\fIMANUAL\fR 
+\fB\-\-manual\fR=\fIMANUAL\fR 
 The name of the manual this man page belongs to; \fIMANUAL\fR is
 prominently displayed top\-center in the header area.
 .
 .TP
- \fB\-\-organization\fR=\fINAME\fR 
+\fB\-\-organization\fR=\fINAME\fR 
 The name of the group, organization, or individual responsible for
 publishing the document; \fINAME\fR is displayed in the bottom\-left
 footer area.
 .
 .TP
- \fB\-\-date\fR=\fIDATE\fR 
+\fB\-\-date\fR=\fIDATE\fR 
 The document's published date; \fIDATE\fR must be formatted \fBYYYY\-MM\-DD\fR
 and is displayed in the bottom\-center footer area. The \fIFILE\fR mtime
 is used when no \fIDATE\fR is given, or the current time when no \fIFILE\fR
@@ -114,35 +114,53 @@ is available.
 .SH "EXAMPLES"
 Generate \fBroff(7)\fR output on stdout:
 .
+.IP "" 4
+.
 .nf
+
 $ ron < hello.1.ron 
 .
 .fi
 .
+.IP "" 0
+.
 .P
 Build a roff file based on the input filename:
 .
+.IP "" 4
+.
 .nf
+
 $ ron \-b hello.1.ron
 building: hello.1
 $ man hello.1 
 .
 .fi
 .
+.IP "" 0
+.
 .P
 Build and open a standalone HTML file based on the input filename:
 .
+.IP "" 4
+.
 .nf
+
 $ ron \-b \-\-html test.1.ron
 $ open test.1.html 
 .
 .fi
 .
+.IP "" 0
+.
 .P
 Build roff and HTML versions of all \fB.ron\fR files in the current
 directory:
 .
+.IP "" 4
+.
 .nf
+
 $ ron \-b \-\-roff \-\-html *.ron
 building: hello.1
 building: hello.1.html
@@ -151,21 +169,33 @@ building: world.1.html
 .
 .fi
 .
+.IP "" 0
+.
 .P
 View a ron file in the same way as man(1) without building a roff file:
 .
+.IP "" 4
+.
 .nf
+
 $ ron \-m hello.1.ron 
 .
 .fi
 .
+.IP "" 0
+.
 .P
 Install the roff man page for a ron file:
 .
+.IP "" 4
+.
 .nf
+
 $ ron \-i hello.1.ron 
 .
 .fi
+.
+.IP "" 0
 .
 .SH "ENVIRONMENT"
 .

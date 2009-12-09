@@ -1,7 +1,7 @@
 .\" generated with Ron/v0.2
 .\" http://github.com/rtomayko/ron/
 .
-.TH "RON" 5 "December 2009" "Ryan Tomayko" "Ron Manual"
+.TH "RON" "5" "December 2009" "Ryan Tomayko" "Ron Manual"
 .
 .SH "NAME"
 \fBron\fR \-\- humane manual page authoring format
@@ -9,7 +9,10 @@
 .SH "SYNOPSIS"
 A basic manual page in Ron:
 .
+.IP "" 4
+.
 .nf
+
 name(1) \-\- one sentence description
 =================================== 
 ## SECTION HEADING
@@ -39,6 +42,8 @@ variables, and other type of terms:
 .
 .fi
 .
+.IP "" 0
+.
 .SH "DESCRIPTION"
 Ron files are simple ascii texts that document things in the
 style of UNIX man pages but with a syntax and feature\-set less
@@ -58,14 +63,19 @@ single sentence \fItagline\fR (useless but witty, preferably). Ron
 files must begin with a first\-level heading that includes all of
 this information. For example, this very man page begins:
 .
+.IP "" 4
+.
 .nf
+
 ron(5) \-\- humane manual page authoring format
 ============================================= 
 .
 .fi
 .
+.IP "" 0
+.
 .P
-Here, we're saying that the man page documents a thing named \fBron\fR in manual section \fB5\fR (the "file formats" section; see
+Here, we're saying that the man page documents a thing named\fBron\fR in manual section \fB5\fR (the "file formats" section; see
 manpages(5) for full section list) and that's quickly described
 as a "humane manual page authoring format".
 .
@@ -79,19 +89,29 @@ Man section headings are expressed with markdown level two
 headings. markdown(5) provides two syntaxes for level two
 headings. A hash prefix syntax:
 .
+.IP "" 4
+.
 .nf
+
 ## HEADING TEXT 
 .
 .fi
 .
+.IP "" 0
+.
 .P
 Or, a dash underline syntax:
 .
+.IP "" 4
+.
 .nf
+
 HEADING TEXT
 \-\-\-\-\-\-\-\-\-\-\-\- 
 .
 .fi
+.
+.IP "" 0
 .
 .P
 Section headings should be in all uppercase and may not contain
@@ -121,7 +141,7 @@ is not processed.
 Like \fBbackticks\fR but inline markup is processed.
 .
 .TP
- \fB_\fR\fIunderbars\fR\fB_\fR 
+\fB_\fR\fIunderbars\fR\fB_\fR 
 User\-specified arguments, variables, or user input; typically
 displayed with \fIunderline\fR.
 .
@@ -132,13 +152,18 @@ Same as \fIunderbars\fR. This is not compatible with Markdown.
 .P
 Here is grep(1)'s DESCRIPTION section represented in \fBron\fR:
 .
+.IP "" 4
+.
 .nf
+
 `Grep` searches the named input _FILE_ (or standard input if
 no files are named, or the file name `\-` is given) for lines
 containing a match to the given _PATTERN_. By default, `grep`
 prints the matching lines. 
 .
 .fi
+.
+.IP "" 0
 .
 .SH "DEFINITION LISTS"
 Because definition lists are so often used in manual pages to
@@ -155,9 +180,12 @@ multiple paragraphs, code blocks, standard lists, and nested
 definition lists.
 .
 .P
-An example definition list, taken from BSD test(1)'s \fBDESCRIPTION\fR section:
+An example definition list, taken from BSD test(1)'s\fBDESCRIPTION\fR section:
+.
+.IP "" 4
 .
 .nf
+
  The following primaries are used to construct expressions: 
    * `\-b` _file_:
      True if _file_ exists and is a block special file.
@@ -169,6 +197,8 @@ An example definition list, taken from BSD test(1)'s \fBDESCRIPTION\fR section:
      True if file exists and is a directory.
 .
 .fi
+.
+.IP "" 0
 .
 .P
 The definition list syntax is intentionally backward compatible

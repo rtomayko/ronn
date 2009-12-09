@@ -1,7 +1,7 @@
 .\" generated with Ron/v0.2
 .\" http://github.com/rtomayko/ron/
 .
-.TH "RON" 7 "December 2009" "Ryan Tomayko" "Ron Manual"
+.TH "RON" "7" "December 2009" "Ryan Tomayko" "Ron Manual"
 .
 .SH "NAME"
 \fBron\fR \-\- the opposite of roff
@@ -25,61 +25,115 @@ range of ron capabilities and are the source of Ron's own documentation.
 The source files and generated HTML / roff output files are available
 at:
 .
+.IP "\(bu" 4
+\fIron(1)\fR \-
+build markdown based manual pages at the command line.
+.
+.br
+\fIsource file\fR, \fIroff output\fR
+.
+.IP "\(bu" 4
+\fIron(5)\fR \-
+humane manual page authoring format syntax reference.
+.
+.br
+\fIsource file\fR, \fIroff output\fR
+.
+.IP "\(bu" 4
+\fImarkdown(5)\fR \-
+humane text markup syntax (taken from \fIMarkdown Syntax\fR,
+John Gruber)
+.
+.br
+\fIsource file\fR, \fIroff output\fR
+.
+.IP "" 0
+.
 .SH "INSTALL"
 Install with Rubygems:
 .
+.IP "" 4
+.
 .nf
+
 $ [sudo] gem install ron
 $ ron \-\-help 
 .
 .fi
 .
+.IP "" 0
+.
 .P
 Or, clone the git repository:
 .
+.IP "" 4
+.
 .nf
+
 $ git clone git://github.com/rtomayko/ron.git
 $ PATH=ron/bin:$PATH
 $ ron \-\-help 
 .
 .fi
 .
+.IP "" 0
+.
 .SH "BASIC USAGE"
-To generate a roff man page from the included \fI\fBmarkdown.5.ron\fR\fR file and open it with man(1):
+To generate a roff man page from the included\fI\fBmarkdown.5.ron\fR\fR file and open it with man(1):
+.
+.IP "" 4
 .
 .nf
+
 $ ron \-b man/markdown.5.ron
 building: man/markdown.5
 $ man man/markdown.5 
 .
 .fi
 .
+.IP "" 0
+.
 .P
 To generate a standalone HTML version:
 .
+.IP "" 4
+.
 .nf
+
 $ ron \-b \-\-html man/markdown.5.ron
 building: man/markdown.5.html
 $ open man/markdown.5.html 
 .
 .fi
 .
+.IP "" 0
+.
 .P
 To build roff and HTML versions of all ron files:
 .
+.IP "" 4
+.
 .nf
+
 $ ron \-b \-\-roff \-\-html man/*.ron 
 .
 .fi
+.
+.IP "" 0
 .
 .P
 If you just want to view a ron file as if it were a man page without
 building intermediate files:
 .
+.IP "" 4
+.
 .nf
+
 $ ron \-m man/markdown.5.ron 
 .
 .fi
+.
+.IP "" 0
 .
 .P
 The \fIron(1)\fR manual page
@@ -88,6 +142,44 @@ includes comprehensive documentation on \fBron\fR command line options.
 .SH "ABOUT"
 Some people think UNIX manual pages are a poor and outdated style of
 documentation. I disagree:
+.
+.IP "\(bu" 4
+Man pages follow a well defined structure that's immediately
+familiar and provides a useful starting point for developers
+documenting new tools, libraries, and formats.
+.
+.IP "\(bu" 4
+Man pages get to the point. Because they're written in an inverted
+style, with a SYNOPSIS section followed by additional detail,
+prose and references to other sources of information, man pages
+provide the best of both cheat sheet and reference style
+documentation.
+.
+.IP "\(bu" 4
+Man pages have extremely \-\- unbelievably \-\- limited text
+formatting capabilities. You get a couple of headings, lists, bold,
+underline and no more. This is a feature.
+.
+.IP "\(bu" 4
+Although two levels of section hierarchy are technically
+supported, most man pages use only a single level. Unwieldy
+document hierarchies complicate otherwise good documentation.
+Feynman covered all of physics \-\- heavenly bodies through QED \-\-
+with only two levels of document hierarchy (\fIThe Feynman Lectures
+on Physics\fR, 1970).
+.
+.IP "\(bu" 4
+Man pages have a simple referencing syntax; e.g., sh(1), fork(2),
+markdown(5). HTML versions can use this to generate links between
+pages.
+.
+.IP "\(bu" 4
+The classical terminal man page display is typographically well
+thought out. Big bold section headings, justified monospace text,
+nicely indented paragraphs, intelligently aligned definition
+lists, and an informational header and footer.
+.
+.IP "" 0
 .
 .P
 Unfortunately, trying to figure out how to create a man page is a
