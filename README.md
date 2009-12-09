@@ -120,7 +120,7 @@ documentation.
 
 ## COPYING
 
-Ron is Copyright (C) 2009 [Ryan Tomayko](http://tomayko.com/about)  
+Ron is Copyright (C) 2009 [Ryan Tomayko](http://tomayko.com/about)
 See the file COPYING for information of licensing and distribution.
 
 ## SEE ALSO
