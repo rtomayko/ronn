@@ -18,7 +18,7 @@ module Ron
     def title_heading(name, section, tagline, manual, version, date)
       comment "generated with Ron/v#{Ron::VERSION}"
       comment "http://github.com/rtomayko/ron/"
-      macro "TH", %["#{escape(name.upcase)}" #{section} "#{date.strftime('%B %Y')}" "#{version}" "#{manual}"]
+      macro "TH", %["#{escape(name.upcase)}" "#{section}" "#{date.strftime('%B %Y')}" "#{version}" "#{manual}"]
     end
 
     def block_filter(node)

@@ -21,7 +21,7 @@ class RonTest < Test::Unit::TestCase
     assert_equal %[.\\" generated with Ron/v#{Ron::VERSION}], lines.shift 
     assert_equal %[.\\" http://github.com/rtomayko/ron/], lines.shift
     assert_equal %[.], lines.shift
-    assert_equal %[.TH "HELLO" 1 "November 2009" "" ""], lines.shift
+    assert_equal %[.TH "HELLO" "1" "November 2009" "" ""], lines.shift
     assert_equal %[.], lines.shift
     assert_equal %[.SH "NAME"], lines.shift
     assert_equal %[\\fBhello\\fR \\-\\- hello world], lines.shift
