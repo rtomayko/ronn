@@ -3,8 +3,8 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
 
   s.name = 'ron'
-  s.version = '0.2'
-  s.date = '2009-11-23'
+  s.version = '0.3'
+  s.date = '2009-12-09'
 
   s.description = "The opposite of roff"
   s.summary     = "The opposite of roff"
@@ -15,16 +15,20 @@ Gem::Specification.new do |s|
   # = MANIFEST =
   s.files = %w[
     COPYING
-    README
+    README.md
     Rakefile
     bin/ron
     lib/ron.rb
     lib/ron/document.rb
     lib/ron/layout.html
     lib/ron/roff.rb
+    man/markdown.5
     man/markdown.5.ron
+    man/ron.1
     man/ron.1.ron
+    man/ron.5
     man/ron.5.ron
+    man/ron.7
     man/ron.7.ron
     ron.gemspec
     test/angle_bracket_syntax.html
@@ -45,7 +49,7 @@ Gem::Specification.new do |s|
   s.executables = ['ron']
   s.test_files = s.files.select { |path| path =~ /^test\/.*_test.rb/ }
 
-  s.extra_rdoc_files = %w[README COPYING]
+  s.extra_rdoc_files = %w[COPYING]
   s.add_dependency 'nokogiri',    '~> 1.4'
   s.add_dependency 'rdiscount',   '~> 1.3'
   s.add_development_dependency 'contest', '~> 0.1'
