@@ -1,0 +1,109 @@
+.\" generated with Ron/v0.2
+.\" http://github.com/rtomayko/ron/
+.
+.TH "RON" 7 "December 2009" "Ryan Tomayko" "Ron Manual"
+.
+.SH "NAME"
+\fBron\fR \-\- the opposite of roff
+.
+.SH "DESCRIPTION"
+Ron is a humane text format and toolchain for creating UNIX man
+pages, and things that appear as man pages from a distance. Use it
+to build and install standard UNIX roff man pages or to generate
+nicely formatted HTML manual pages for the web.
+.
+.P
+The Ron file format is based on Markdown. In fact, Ron files are a
+compatible subset of Markdown syntax but have a more rigid structure and
+extend Markdown in some ways to provide features commonly found in man
+pages (e.g., definition lists). The ron(5) manual page defines the
+format in more detail.
+.
+.SH "DOCUMENTATION"
+The \fB.ron\fR files located under the \fBman/\fR directory show off a wide
+range of ron capabilities and are the source of Ron's own documentation.
+The source files and generated HTML / roff output files are available
+at:
+.
+.SH "INSTALL"
+Install with Rubygems:
+.
+.nf
+$ [sudo] gem install ron
+$ ron \-\-help 
+.
+.fi
+.
+.P
+Or, clone the git repository:
+.
+.nf
+$ git clone git://github.com/rtomayko/ron.git
+$ PATH=ron/bin:$PATH
+$ ron \-\-help 
+.
+.fi
+.
+.SH "BASIC USAGE"
+To generate a roff man page from the included \fI\fBmarkdown.5.ron\fR\fR file and open it with man(1):
+.
+.nf
+$ ron \-b man/markdown.5.ron
+building: man/markdown.5
+$ man man/markdown.5 
+.
+.fi
+.
+.P
+To generate a standalone HTML version:
+.
+.nf
+$ ron \-b \-\-html man/markdown.5.ron
+building: man/markdown.5.html
+$ open man/markdown.5.html 
+.
+.fi
+.
+.P
+To build roff and HTML versions of all ron files:
+.
+.nf
+$ ron \-b \-\-roff \-\-html man/*.ron 
+.
+.fi
+.
+.P
+If you just want to view a ron file as if it were a man page without
+building intermediate files:
+.
+.nf
+$ ron \-m man/markdown.5.ron 
+.
+.fi
+.
+.P
+The \fIron(1)\fR manual page
+includes comprehensive documentation on \fBron\fR command line options.
+.
+.SH "ABOUT"
+Some people think UNIX manual pages are a poor and outdated style of
+documentation. I disagree:
+.
+.P
+Unfortunately, trying to figure out how to create a man page is a
+fairly tedious process. The roff/man macro languages are highly
+extensible, fractured between multiple dialects, and include a bunch
+of device specific stuff that's entirely irrelevant to modern
+publishing tools.
+.
+.P
+Ron aims to address many of the issues with man page creation while
+preserving the things that makes man pages a great form of
+documentation.
+.
+.SH "COPYING"
+Ron is Copyright (C) 2009 \fIRyan Tomayko\fR
+See the file COPYING for information of licensing and distribution.
+.
+.SH "SEE ALSO"
+ron(1), ron(5), markdown(5)

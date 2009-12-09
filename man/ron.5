@@ -1,0 +1,180 @@
+.\" generated with Ron/v0.2
+.\" http://github.com/rtomayko/ron/
+.
+.TH "RON" 5 "December 2009" "Ryan Tomayko" "Ron Manual"
+.
+.SH "NAME"
+\fBron\fR \-\- humane manual page authoring format
+.
+.SH "SYNOPSIS"
+A basic manual page in Ron:
+.
+.nf
+name(1) \-\- one sentence description
+=================================== 
+## SECTION HEADING
+
+A normal paragraph. This can span multiple lines and is
+terminated with two or more line endings \-\- just like
+Markdown.
+
+## INLINE MARKUP
+
+Inline markup is used for `code` and `user input` (displayed
+in boldface), and also <variables> or _emphasis_.
+
+Manual page references like sh(1), markdown(5), roff(7), etc.
+are displayed in boldface and hyperlinked in HTML output.
+
+## DEFINITION LISTS
+
+Definition lists are used to define options, arguments,
+variables, and other type of terms:
+
+  * `\-a`, `\-\-arg1`=[_OPTION_]:
+    One or more paragraphs describing the argument.
+  * `\-b`, `\-\-arg2`:
+    Any number of these may be specified and may
+    be nested.
+.
+.fi
+.
+.SH "DESCRIPTION"
+Ron files are simple ascii texts that document things in the
+style of UNIX man pages but with a syntax and feature\-set less
+insane than that of roff(7). Ron files are piped through ron(1)
+to build and install traditional roff(7) man pages or to generate
+hyperlinked HTML documentation.
+.
+.P
+All ron formatted files must conform to a simple subset of
+markdown(5), a humane text markup designed for writing on the
+web. It is neither possible nor desirable to express many of
+roff(7)'s complex typesetting features in ron.
+.
+.SH "MANPAGE TITLE"
+All man pages have a \fIname\fR, belong to a \fIsection\fR, and have a
+single sentence \fItagline\fR (useless but witty, preferably). Ron
+files must begin with a first\-level heading that includes all of
+this information. For example, this very man page begins:
+.
+.nf
+ron(5) \-\- humane manual page authoring format
+============================================= 
+.
+.fi
+.
+.P
+Here, we're saying that the man page documents a thing named \fBron\fR in manual section \fB5\fR (the "file formats" section; see
+manpages(5) for full section list) and that's quickly described
+as a "humane manual page authoring format".
+.
+.P
+These bits of information are used to fill in the document
+header, to create the \fBNAME\fR section, and also to establish
+output filenames when processed with ron(1).
+.
+.SH "SECTION HEADINGS"
+Man section headings are expressed with markdown level two
+headings. markdown(5) provides two syntaxes for level two
+headings. A hash prefix syntax:
+.
+.nf
+## HEADING TEXT 
+.
+.fi
+.
+.P
+Or, a dash underline syntax:
+.
+.nf
+HEADING TEXT
+\-\-\-\-\-\-\-\-\-\-\-\- 
+.
+.fi
+.
+.P
+Section headings should be in all uppercase and may not contain
+other inline markup.
+.
+.P
+Most manual pages include at least one of the \fBSYNOPSIS\fR, \fBDESCRIPTION\fR, and/or \fBOPTIONS\fR sections. Additional sections
+commonly included are \fBSYNTAX\fR, \fBENVIRONMENT\fR, \fBHISTORY\fR, \fBRETURN
+VALUES\fR, \fBBUGS\fR, \fBSECURITY CONSIDERATIONS\fR, \fBSTANDARDS\fR / \fBCONFORMING TO\fR, \fBAUTHOR\fR, and \fBCOPYRIGHT\fR. Finally, most man
+pages end with a \fBSEE ALSO\fR section that references other manual
+pages and external documents.
+.
+.SH "INLINE MARKUP"
+Man pages have a limited set of text formatting capabilities at
+their disposal. There's basically \fBboldface\fR and \fIitalics\fR (often displayed using \fIunderline\fR). Ron uses
+the following bits of markdown(5) to accomplish this:
+.
+.TP
+\fB`backticks`\fR
+Code, flags, commands, and noun\-like things; typically
+displayed in in \fBboldface\fR. Note that all text included
+within \fBbackticks\fR is displayed literally; other inline markup
+is not processed.
+.
+.TP
+\fB**double\-stars**\fR
+Like \fBbackticks\fR but inline markup is processed.
+.
+.TP
+ \fB_\fR\fIunderbars\fR\fB_\fR 
+User\-specified arguments, variables, or user input; typically
+displayed with \fIunderline\fR.
+.
+.TP
+\fB<angle\-quotes>\fR
+Same as \fIunderbars\fR. This is not compatible with Markdown.
+.
+.P
+Here is grep(1)'s DESCRIPTION section represented in \fBron\fR:
+.
+.nf
+`Grep` searches the named input _FILE_ (or standard input if
+no files are named, or the file name `\-` is given) for lines
+containing a match to the given _PATTERN_. By default, `grep`
+prints the matching lines. 
+.
+.fi
+.
+.SH "DEFINITION LISTS"
+Because definition lists are so often used in manual pages to
+describe arguments, options, and variables, the basic markdown(5)
+list syntax has been extended to support a definition list
+syntax.
+.
+.P
+Definition list syntax is exactly the same as markdown(5)'s
+unordered list syntax but requires that the first line of each
+list item be terminated with a colon "\fB:\fR". The first line (minus
+the colon) is the \fIterm\fR; subsequent lines may be comprised of
+multiple paragraphs, code blocks, standard lists, and nested
+definition lists.
+.
+.P
+An example definition list, taken from BSD test(1)'s \fBDESCRIPTION\fR section:
+.
+.nf
+ The following primaries are used to construct expressions: 
+   * `\-b` _file_:
+     True if _file_ exists and is a block special file.
+
+   * `\-c` _file_:
+     True if _file_ exists and is a character special file.
+
+   * `\-d` _file_:
+     True if file exists and is a directory.
+.
+.fi
+.
+.P
+The definition list syntax is intentionally backward compatible
+with markdown(5)'s list syntax. This allows \fBron\fR documents to be
+piped through normal markdown processors with minor degradation
+in output formatting.
+.
+.SH "SEE ALSO"
+ron(1), markdown(5), manpages(5)

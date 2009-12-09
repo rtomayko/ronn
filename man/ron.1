@@ -1,0 +1,196 @@
+.\" generated with Ron/v0.2
+.\" http://github.com/rtomayko/ron/
+.
+.TH "RON" 1 "December 2009" "Ryan Tomayko" "Ron Manual"
+.
+.SH "NAME"
+\fBron\fR \-\- build markdown\-based man pages
+.
+.SH "SYNOPSIS"
+\fBron\fR [ \fIOPTIONS\fR ] \fIFILE\fR ...
+.
+.br
+\fBron\fR \-\-build \fIFILE\fR ...
+.
+.br
+\fBron\fR \-\-install \fIFILE\fR ...
+.
+.br
+\fBron\fR \-\-man \fIFILE\fR
+.
+.SH "DESCRIPTION"
+Ron is a humane text format and toolchain for authoring man pages, and
+things that appear as man pages from a distance. Use it to build and
+install standard UNIX / roff(7) formatted man pages and to generate
+nicely formatted HTML manual pages.
+.
+.P
+The \fBron\fR command converts one or more named input \fIFILE\fRs (or standard
+input when no files are named or the file name \fB\-\fR is given) from humane
+man page markup to one or more destination output formats. If no output
+format is selected explicitly, \fBron\fR writes output in roff format.
+.
+.SH "FILES"
+The \fBron\fR command expects input to be formatted as ron(5) text.  Source
+files are typically named '\fINAME\fR.\fISECTION\fR.ron' (e.g., \fBhello.1.ron\fR).
+The \fINAME\fR and \fISECTION\fR should match the name and section defined in \fIFILE\fR's heading.
+.
+.P
+When building roff and/or HTML output files with the \fB\-\-build\fR argument,
+destination filenames are determined by taking the basename of the input \fIFILE\fR and adding the appropriate file extension (or removing the file
+extension in the case of roff output).
+.
+.P
+For example, the command \fBron \-b \-\-html \-\-roff hello.1.ron\fR generates a \fBhello.1\fR file with roff output and a \fBhello.1.html\fR file with HTML
+output.
+.
+.SH "OPTIONS"
+\fBron\fR's default mode of operation is to read a single document from
+standard input and to write the result to standard output. The following
+arguments change this behavior:
+.
+.TP
+ \fB\-b\fR, \fB\-\-build\fR 
+Write output directly to files instead of standard output. When the \fB\-\-roff\fR option is provided, writes roff output to \fIfile\fR.\fIsection\fR.
+When the \fB\-\-html\fR option is provided, writes output to
+'\fIfile\fR.\fIsection\fR.html'.
+.
+.TP
+ \fB\-i\fR, \fB\-\-install\fR 
+Install the roff formatted man page to the local system such that it
+can be displayed by man(1). The \fBMANHOME\fR environment variable is
+used to determine the prefix where man pages should be installed
+when defined.
+.
+.IP
+If \fBMANHOME\fR is not defined, \fBron\fR installs man pages to \fI/usr/local/man\fR.
+.
+.TP
+ \fB\-m\fR, \fB\-\-man\fR 
+Display \fIFILE\fRs as if man(1) were invoked on the roff output file.
+This simulates default man behavior by piping the roff output
+through groff(1) and the paging program specified by the \fBMANPAGER\fR
+environment variable.
+.
+.P
+These options control the format used in generated output:
+.
+.TP
+ \fB\-r\fR, \fB\-\-roff\fR 
+Generate roff output. This is the default behavior when no other
+format argument is provided.
+.
+.TP
+ \fB\-5\fR, \fB\-\-html\fR 
+Generate output in HTML format.
+.
+.TP
+ \fB\-f\fR, \fB\-\-fragment\fR 
+Generate output in HTML format but only the document fragment, not
+the header, title, or footer.
+.
+.P
+All document attributes displayed in the header and footer areas of
+generated content can be specified with these options:
+.
+.TP
+ \fB\-\-manual\fR=\fIMANUAL\fR 
+The name of the manual this man page belongs to; \fIMANUAL\fR is
+prominently displayed top\-center in the header area.
+.
+.TP
+ \fB\-\-organization\fR=\fINAME\fR 
+The name of the group, organization, or individual responsible for
+publishing the document; \fINAME\fR is displayed in the bottom\-left
+footer area.
+.
+.TP
+ \fB\-\-date\fR=\fIDATE\fR 
+The document's published date; \fIDATE\fR must be formatted \fBYYYY\-MM\-DD\fR
+and is displayed in the bottom\-center footer area. The \fIFILE\fR mtime
+is used when no \fIDATE\fR is given, or the current time when no \fIFILE\fR
+is available.
+.
+.SH "EXAMPLES"
+Generate \fBroff(7)\fR output on stdout:
+.
+.nf
+$ ron < hello.1.ron 
+.
+.fi
+.
+.P
+Build a roff file based on the input filename:
+.
+.nf
+$ ron \-b hello.1.ron
+building: hello.1
+$ man hello.1 
+.
+.fi
+.
+.P
+Build and open a standalone HTML file based on the input filename:
+.
+.nf
+$ ron \-b \-\-html test.1.ron
+$ open test.1.html 
+.
+.fi
+.
+.P
+Build roff and HTML versions of all \fB.ron\fR files in the current
+directory:
+.
+.nf
+$ ron \-b \-\-roff \-\-html *.ron
+building: hello.1
+building: hello.1.html
+building: world.1
+building: world.1.html 
+.
+.fi
+.
+.P
+View a ron file in the same way as man(1) without building a roff file:
+.
+.nf
+$ ron \-m hello.1.ron 
+.
+.fi
+.
+.P
+Install the roff man page for a ron file:
+.
+.nf
+$ ron \-i hello.1.ron 
+.
+.fi
+.
+.SH "ENVIRONMENT"
+.
+.TP
+\fBMANHOME\fR
+Location where roff formatted man pages are installed.  Relevant
+only when the \fB\-\-install\fR argument is provided.  \fIPATH\fR is to the
+base of a man file hierarchy. e.g., \fB/usr/local/share/man\fR, \fB/home/rtomayko/man\fR.
+.
+.TP
+\fBMANPAGER\fR
+The paging program used for man pages. This is typically set to
+something like 'less \-is'.
+.
+.TP
+\fBPAGER\fR
+Used instead of \fBMANPAGER\fR when \fBMANPAGER\fR is not defined.
+.
+.SH "BUGS"
+Ron is written in Ruby and depends on nokogiri and rdiscount, native
+extension libraries that are non\-trivial to install on some systems. A
+more portable version of this program would be welcome.
+.
+.SH "COPYRIGHT"
+Ron is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
+.
+.SH "SEE ALSO"
+ron(5), markdown(5), manpages(5), man(1), roff(7), groff(1)
