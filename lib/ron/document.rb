@@ -99,7 +99,7 @@ module Ron
     # Truthful when the name was extracted from the name section
     # of the document.
     def name?
-      @name
+      !name.nil?
     end
 
     # Returns the manual page section based first on the document's
@@ -111,7 +111,7 @@ module Ron
     # True when the section number was extracted from the name
     # section of the document.
     def section?
-      @section
+      !section.nil?
     end
 
     # The date the man page was published. If not set explicitly,

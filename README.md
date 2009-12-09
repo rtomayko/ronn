@@ -1,24 +1,25 @@
 ron -- the opposite of roff
 ===========================
 
+## DESCRIPTION
+
 Ron is a humane text format and toolchain for creating UNIX man
 pages, and things that appear as man pages from a distance. Use it
 to build and install standard UNIX roff man pages or to generate
 nicely formatted HTML manual pages for the web.
 
 The Ron file format is based on Markdown. In fact, Ron files are a
-compatible subset of Markdown syntax but have a more rigid structure
-and extend Markdown in some ways to provide features commonly found in
-man pages (e.g., definition lists). The
-[`ron(5)`](http://rtomayko.github.com/ron/ron.5.html) manual page
-defines the format in more detail.
+compatible subset of Markdown syntax but have a more rigid structure and
+extend Markdown in some ways to provide features commonly found in man
+pages (e.g., definition lists). The ron(5) manual page defines the
+format in more detail.
 
 ## DOCUMENTATION
 
-The `.ron` files located under the [`man/`](./man) directory show
-off a wide range of ron capabilities and are the source of Ron's own
-documentation. The source files and generated HTML / roff output
-files are available at:
+The `.ron` files located under the `man/` directory show off a wide
+range of ron capabilities and are the source of Ron's own documentation.
+The source files and generated HTML / roff output files are available
+at:
 
   * [ron(1)](http://rtomayko.github.com/ron/ron.1.html) -
     build markdown based manual pages at the command line.  
