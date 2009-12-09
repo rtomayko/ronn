@@ -35,8 +35,8 @@ at:
     humane text markup syntax (taken from
     [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax),
     John Gruber)  
-    [source file](http://github.com/rtomayko/ron/blob/master/man/ron.5.ron),
-    [roff output](http://github.com/rtomayko/ron/blob/master/man/ron.5)
+    [source file](http://github.com/rtomayko/ron/blob/master/man/markdown.5.ron),
+    [roff output](http://github.com/rtomayko/ron/blob/master/man/markdown.5)
 
 ## INSTALL
 
@@ -130,4 +130,6 @@ See the file COPYING for information of licensing and distribution.
 
 ## SEE ALSO
 
-ron(1), ron(5), markdown(5)
+[ron(1)](http://rtomayko.github.com/ron/ron.1.html),
+[ron(5)](http://rtomayko.github.com/ron/ron.5.html),
+[markdown(5)](http://rtomayko.github.com/ron/markdown.5.html)
