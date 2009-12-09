@@ -54,9 +54,13 @@ module Ron
         end
         inline_filter(node.children)
       when 'pre'
+        indent = prev.nil? || !%w[h1 h2 h3].include?(prev.name)
+        macro "IP", %w["" 4] if indent
         macro "nf"
+        write "\n"
         inline_filter(node.search('code').children)
         macro "fi"
+        macro "IP", %w["" 0] if indent
 
       # definition lists
       when 'dl'
