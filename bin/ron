@@ -44,7 +44,7 @@ def info(message, *args)
 end
 
 def usage
-  puts File.read(__FILE__).
+  puts File.readlines(__FILE__).
     grep(/^##.*/).
     map { |line| line.chomp[3..-1] }.
     join("\n")
