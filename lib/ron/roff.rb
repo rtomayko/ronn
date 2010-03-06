@@ -58,7 +58,7 @@ module Ron
         macro "IP", %w["" 4] if indent
         macro "nf"
         write "\n"
-        inline_filter(node.search('code').children)
+        inline_filter(node.search('code'))
         macro "fi"
         macro "IP", %w["" 0] if indent
 
@@ -102,9 +102,9 @@ module Ron
       end
     end
 
-    def inline_filter(node)
+    def inline_filter(node, should_escape=true)
       if node.kind_of?(Nokogiri::XML::NodeSet)
-        node.each { |ch| inline_filter(ch) }
+        node.each { |ch| inline_filter(ch, should_escape) }
         return
       end
 
@@ -120,8 +120,12 @@ module Ron
         else
           text.sub!(/\n+$/m, ' ')
         end
-        write escape(text)
-      when 'code', 'b', 'strong', 'kbd', 'samp'
+        write should_escape ? escape(text) : text
+      when 'code'
+        write '\fB'
+        inline_filter(node.children, should_escape=false)
+        write '\fR'
+      when 'b', 'strong', 'kbd', 'samp'
         write '\fB'
         inline_filter(node.children)
         write '\fR'
