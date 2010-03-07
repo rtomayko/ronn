@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.specification_version = 2 if s.respond_to? :specification_version=
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
 
-  s.name = 'ron'
+  s.name = 'ronn'
   s.version = '0.3'
   s.date = '2009-12-09'
 
@@ -17,36 +17,36 @@ Gem::Specification.new do |s|
     COPYING
     README.md
     Rakefile
-    bin/ron
-    lib/ron.rb
-    lib/ron/document.rb
-    lib/ron/layout.html
-    lib/ron/roff.rb
+    bin/ronn
+    lib/ronn.rb
+    lib/ronn/document.rb
+    lib/ronn/layout.html
+    lib/ronn/roff.rb
     man/markdown.5
-    man/markdown.5.ron
-    man/ron.1
-    man/ron.1.ron
-    man/ron.5
-    man/ron.5.ron
-    man/ron.7
-    man/ron.7.ron
-    ron.gemspec
+    man/markdown.5.ronn
+    man/ronn.1
+    man/ronn.1.ronn
+    man/ronn.5
+    man/ronn.5.ronn
+    man/ronn.7
+    man/ronn.7.ronn
+    ronn.gemspec
     test/angle_bracket_syntax.html
-    test/angle_bracket_syntax.ron
+    test/angle_bracket_syntax.ronn
     test/basic_document.html
-    test/basic_document.ron
+    test/basic_document.ronn
     test/custom_title_document.html
-    test/custom_title_document.ron
+    test/custom_title_document.ronn
     test/definition_list_syntax.html
-    test/definition_list_syntax.ron
+    test/definition_list_syntax.ronn
     test/document_test.rb
-    test/ron_test.rb
+    test/ronn_test.rb
     test/titleless_document.html
-    test/titleless_document.ron
+    test/titleless_document.ronn
   ]
   # = MANIFEST =
 
-  s.executables = ['ron']
+  s.executables = ['ronn']
   s.test_files = s.files.select { |path| path =~ /^test\/.*_test.rb/ }
 
   s.extra_rdoc_files = %w[COPYING]
@@ -55,8 +55,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'contest', '~> 0.1'
 
   s.has_rdoc = true
-  s.homepage = "http://rtomayko.github.com/ron/"
-  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Ron"]
+  s.homepage = "http://rtomayko.github.com/ronn/"
+  s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Ronn"]
   s.require_paths = %w[lib]
   s.rubygems_version = '1.1.1'
 end

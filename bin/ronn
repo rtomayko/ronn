@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
-## Usage: ron [ OPTIONS ] [ FILE ]
-##        ron --build FILE ...
-##        ron --install FILE ...
-##        ron --man FILE ...
-## Convert ron FILE to roff man page or HTML and write to standard
-## output. With no FILE, ron reads from standard input. The build,
+## Usage: ronn [ OPTIONS ] [ FILE ]
+##        ronn --build FILE ...
+##        ronn --install FILE ...
+##        ronn --man FILE ...
+## Convert ronn FILE to roff man page or HTML and write to standard
+## output. With no FILE, ronn reads from standard input. The build,
 ## install, and man forms accept multiple FILE arguments.
 ##
 ## Modes:
@@ -87,15 +87,15 @@ formats.delete('html') if formats.include?('html_fragment')
 pid = nil
 
 begin
-  require 'ron'
+  require 'ronn'
 rescue LoadError
   $:.unshift File.dirname(__FILE__) + "../lib"
-  require 'ron'
+  require 'ronn'
 end
 
 wr = STDOUT
 ARGV.each do |file|
-  doc = Ron.new(file, options) { file == '-' ? STDIN.read : File.read(file) }
+  doc = Ronn.new(file, options) { file == '-' ? STDIN.read : File.read(file) }
 
   # setup the man pipeline if the --man option was specified
   if man && !build
