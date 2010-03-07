@@ -63,7 +63,7 @@ module Ron
           macro "IP", %w["" 4] if indent
           macro "nf"
           write "\n"
-          inline_filter(node.search('code').children, decode_entities=false)
+          inline_filter(node.search('code > *'))
           macro "fi"
           macro "IP", %w["" 0] if indent
 
@@ -109,9 +109,9 @@ module Ron
       end
     end
 
-    def inline_filter(node, decode_entities=true)
+    def inline_filter(node)
       if node.kind_of?(Array) || node.kind_of?(Hpricot::Elements)
-        node.each { |ch| inline_filter(ch, decode_entities) }
+        node.each { |ch| inline_filter(ch) }
 
       elsif node.text?
         prev = previous(node)
@@ -122,30 +122,30 @@ module Ron
         else
           text.sub!(/\n+$/m, ' ')
         end
-        write escape(text, decode_entities)
+        write escape(text)
 
       elsif node.elem?
         case node.name
         when 'code'
           write '\fB'
-          inline_filter(node.children, decode_entities=false)
+          inline_filter(node.children)
           write '\fR'
 
         when 'b', 'strong', 'kbd', 'samp'
           write '\fB'
-          inline_filter(node.children, decode_entities)
+          inline_filter(node.children)
           write '\fR'
 
         when 'var', 'em', 'i', 'u'
           write '\fI'
-          inline_filter(node.children, decode_entities)
+          inline_filter(node.children)
           write '\fR'
 
         when 'br'
           macro 'br'
         when 'a'
           write '\fI'
-          inline_filter(node.children, decode_entities)
+          inline_filter(node.children)
           write '\fR'
         else
           warn "unrecognized inline tag: %p", node.name
@@ -160,16 +160,13 @@ module Ron
       writeln ".\n.#{[name, value].compact.join(' ')}"
     end
 
-    def escape(text, decode_entities=true)
-      text = text.gsub(/[\\-]/)  { |m| "\\#{m}" }
-      if decode_entities
-        text = text.
-          gsub('&nbsp;', ' ').
-          gsub('&lt;',   '<').
-          gsub('&gt;',   '>').
-          gsub('&amp;',  '&')
-      end
-      text
+    def escape(text)
+      text.
+        gsub(/[\\-]/)  { |m| "\\#{m}" }.
+        gsub('&nbsp;', ' ').
+        gsub('&lt;',   '<').
+        gsub('&gt;',   '>').
+        gsub('&amp;',  '&')
     end
 
     def quote(text)
