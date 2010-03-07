@@ -63,7 +63,8 @@ class RonTest < Test::Unit::TestCase
     next unless File.exist?(dest)
     wrong = dest + '.wrong'
     test File.basename(source, '.ron') + ' roff' do
-      output = `ron #{source}`
+      output = `ron --date=1979-01-01 #{source}`.
+        split("\n", 4).last # remove ron version comments
       expected = File.read(dest) rescue ''
       if expected != output
         File.open(wrong, 'wb') { |f| f.write(output) }

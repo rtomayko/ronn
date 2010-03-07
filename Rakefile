@@ -92,3 +92,11 @@ def require_library(name)
 rescue LoadError => boom
   abort "fatal: the '#{name}' library is required (gem install #{name})"
 end
+
+# make .wrong test files right
+task :right do
+  Dir['test/*.wrong'].each do |file|
+    dest = file.sub(/\.wrong$/, '')
+    mv file, dest
+  end
+end
