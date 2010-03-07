@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
     README.md
     Rakefile
     bin/ronn
+    bin/ron
     lib/ronn.rb
     lib/ronn/document.rb
     lib/ronn/layout.html
@@ -46,7 +47,7 @@ Gem::Specification.new do |s|
   ]
   # = MANIFEST =
 
-  s.executables = ['ronn']
+  s.executables = ['ronn', 'ron']
   s.test_files = s.files.select { |path| path =~ /^test\/.*_test.rb/ }
 
   s.extra_rdoc_files = %w[COPYING]
