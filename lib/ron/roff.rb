@@ -1,4 +1,4 @@
-require 'nokogiri'
+require 'hpricot'
 
 module Ron
   class RoffFilter
@@ -6,7 +6,8 @@ module Ron
     def initialize(html, name, section, tagline, manual=nil, version=nil, date=nil)
       @buf = []
       title_heading name, section, tagline, manual, version, date
-      block_filter(Nokogiri::HTML.fragment(html))
+      html = Hpricot(html)
+      block_filter(html)
       write "\n"
     end
 
@@ -15,6 +16,14 @@ module Ron
     end
 
   protected
+    def previous(node)
+      if node.respond_to?(:previous)
+        prev = node.previous
+        prev = prev.previous until prev.nil? || prev.elem?
+        prev
+      end
+    end
+
     def title_heading(name, section, tagline, manual, version, date)
       comment "generated with Ron/v#{Ron::VERSION}"
       comment "http://github.com/rtomayko/ron/"
@@ -22,125 +31,128 @@ module Ron
     end
 
     def block_filter(node)
-      if node.kind_of?(Nokogiri::XML::NodeSet)
+      if node.kind_of?(Array) || node.kind_of?(Hpricot::Elements)
         node.each { |ch| block_filter(ch) }
-        return
-      end
 
-      prev = node.previous_sibling
-      prev = prev.previous_sibling until prev.nil? || prev.element?
-
-      case node.name
-
-      # non-element nodes
-      when '#document-fragment'
+      elsif node.doc?
         block_filter(node.children)
-      when 'text'
-        return if node.text =~ /^\s*$/m
-        warn "unexpected text: %p",  node.text
 
-      # headings
-      when 'h2'
-        macro "SH", quote(escape(node.content))
-      when 'h3'
-        macro "SS", quote(escape(node.content))
+      elsif node.text?
+        return if node.to_s =~ /^\s*$/m
+        warn "unexpected text: %p",  node
 
-      # paragraphs
-      when 'p'
-        if prev && %w[dd li].include?(node.parent.name)
-          macro "IP"
-        elsif prev && !%w[h1 h2 h3].include?(prev.name)
-          macro "P"
-        end
-        inline_filter(node.children)
-      when 'pre'
-        indent = prev.nil? || !%w[h1 h2 h3].include?(prev.name)
-        macro "IP", %w["" 4] if indent
-        macro "nf"
-        write "\n"
-        inline_filter(node.search('code').children, decode_entities=false)
-        macro "fi"
-        macro "IP", %w["" 0] if indent
+      elsif node.elem?
+        case node.name
+        when 'h2'
+          macro "SH", quote(escape(node.html))
+        when 'h3'
+          macro "SS", quote(escape(node.html))
 
-      # definition lists
-      when 'dl'
-        macro "TP"
-        block_filter(node.children)
-      when 'dt'
-        macro "TP" unless prev.nil?
-        inline_filter(node.children)
-        write "\n"
-      when 'dd'
-        if node.search('p').any?
-          block_filter(node.children)
-        else
+        when 'p'
+          prev = previous(node)
+          if prev && %w[dd li].include?(node.parent.name)
+            macro "IP"
+          elsif prev && !%w[h1 h2 h3].include?(prev.name)
+            macro "P"
+          end
           inline_filter(node.children)
-        end
-        write "\n"
 
-      # ordered/unordered lists
-      # when 'ol'
-      #   macro "IP", '1.'
-      #   block_filter(node.children)
-      when 'ul'
-        block_filter(node.children)
-        macro "IP", %w["" 0]
-      when 'li'
-        case node.parent.name
+        when 'pre'
+          prev = previous(node)
+          indent = prev.nil? || !%w[h1 h2 h3].include?(prev.name)
+          macro "IP", %w["" 4] if indent
+          macro "nf"
+          write "\n"
+          inline_filter(node.search('code').children, decode_entities=false)
+          macro "fi"
+          macro "IP", %w["" 0] if indent
+
+        when 'dl'
+          macro "TP"
+          block_filter(node.children)
+        when 'dt'
+          macro "TP" unless prev.nil?
+          inline_filter(node.children)
+          write "\n"
+        when 'dd'
+          if node.search('p').any?
+            block_filter(node.children)
+          else
+            inline_filter(node.children)
+          end
+          write "\n"
+
+        # when 'ol'
+        #   macro "IP", '1.'
+        #   block_filter(node.children)
         when 'ul'
-          macro "IP", %w["\(bu" 4]
-        end
-        if node.search('p', 'ol', 'ul', 'dl', 'div').any?
           block_filter(node.children)
+          macro "IP", %w["" 0]
+        when 'li'
+          case node.parent.name
+          when 'ul'
+            macro "IP", %w["\(bu" 4]
+          end
+          if node.search('p|ol|ul|dl|div').any?
+            block_filter(node.children)
+          else
+            inline_filter(node.children)
+          end
+          write "\n"
+
         else
-          inline_filter(node.children)
+          warn "unrecognized block tag: %p", node.name
         end
-        write "\n"
 
       else
-        warn "unrecognized block tag: %p", node.name
+        fail "unexpected node: #{node.inspect}"
       end
     end
 
     def inline_filter(node, decode_entities=true)
-      if node.kind_of?(Nokogiri::XML::NodeSet)
+      if node.kind_of?(Array) || node.kind_of?(Hpricot::Elements)
         node.each { |ch| inline_filter(ch, decode_entities) }
-        return
-      end
 
-      prev = node.previous_sibling
-      prev = prev.previous_sibling until prev.nil? || prev.element?
-
-      case node.name
-      when 'text'
-        text = node.content.dup
+      elsif node.text?
+        prev = previous(node)
+        text = node.html.dup
         text.sub!(/^\n+/m, '') if prev && prev.name == 'br'
-        if node.previous_sibling.nil? && node.next_sibling
+        if node.previous.nil? && node.next
           text.sub!(/\n+$/m, '')
         else
           text.sub!(/\n+$/m, ' ')
         end
         write escape(text, decode_entities)
-      when 'code'
-        write '\fB'
-        inline_filter(node.children, decode_entities=false)
-        write '\fR'
-      when 'b', 'strong', 'kbd', 'samp'
-        write '\fB'
-        inline_filter(node.children)
-        write '\fR'
-      when 'var', 'em', 'i', 'u'
-        write '\fI'
-        inline_filter(node.children)
-        write '\fR'
-      when 'br'
-        macro 'br'
-      when 'a'
-        write '\fI'
-        inline_filter(node.children)
-        write '\fR'
+
+      elsif node.elem?
+        case node.name
+        when 'code'
+          write '\fB'
+          inline_filter(node.children, decode_entities=false)
+          write '\fR'
+
+        when 'b', 'strong', 'kbd', 'samp'
+          write '\fB'
+          inline_filter(node.children, decode_entities)
+          write '\fR'
+
+        when 'var', 'em', 'i', 'u'
+          write '\fI'
+          inline_filter(node.children, decode_entities)
+          write '\fR'
+
+        when 'br'
+          macro 'br'
+        when 'a'
+          write '\fI'
+          inline_filter(node.children, decode_entities)
+          write '\fR'
+        else
+          warn "unrecognized inline tag: %p", node.name
+        end
+
       else
-        warn "unrecognized inline tag: %p", node.name
+        fail "unexpected node: #{node.inspect}"
       end
     end
 
