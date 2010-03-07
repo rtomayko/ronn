@@ -39,17 +39,35 @@ class RonTest < Test::Unit::TestCase
       output
   end
 
-  # file based tests
+  # ron -> HTML file based tests
   Dir[testdir + '/*.ron'].each do |source|
     dest = source.sub(/ron$/, 'html')
-    wrong = source.sub(/ron$/, "wrong")
-    test File.basename(source, '.ron') do
-      html = `ron --html --fragment #{source}`
+    next unless File.exist?(dest)
+    wrong = dest + '.wrong'
+    test File.basename(source, '.ron') + ' HTML' do
+      output = `ron --html --fragment #{source}`
       expected = File.read(dest) rescue ''
-      if expected != html
-        File.open(wrong, 'wb') { |f| f.write(html) }
+      if expected != output
+        File.open(wrong, 'wb') { |f| f.write(output) }
         diff = `diff -u #{dest} #{wrong} 2>/dev/null`
-        fail "the #{dest} file does not exist" if diff.empty?
+        flunk diff
+      elsif File.exist?(wrong)
+        File.unlink(wrong)
+      end
+    end
+  end
+
+  # ron -> roff file based tests
+  Dir[testdir + '/*.ron'].each do |source|
+    dest = source.sub(/ron$/, 'roff')
+    next unless File.exist?(dest)
+    wrong = dest + '.wrong'
+    test File.basename(source, '.ron') + ' roff' do
+      output = `ron #{source}`
+      expected = File.read(dest) rescue ''
+      if expected != output
+        File.open(wrong, 'wb') { |f| f.write(output) }
+        diff = `diff -u #{dest} #{wrong} 2>/dev/null`
         flunk diff
       elsif File.exist?(wrong)
         File.unlink(wrong)
