@@ -38,7 +38,7 @@ module Ron
         block_filter(node.children)
 
       elsif node.text?
-        return if node.to_s =~ /^\s*$/m
+        return if node.to_html =~ /^\s*$/m
         warn "unexpected text: %p",  node
 
       elsif node.elem?
@@ -115,7 +115,7 @@ module Ron
 
       elsif node.text?
         prev = previous(node)
-        text = node.html.dup
+        text = node.to_html.dup
         text.sub!(/^\n+/m, '') if prev && prev.name == 'br'
         if node.previous.nil? && node.next
           text.sub!(/\n+$/m, '')
