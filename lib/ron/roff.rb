@@ -11,7 +11,7 @@ module Ron
     end
 
     def to_s
-      @buf.join
+      @buf.join.gsub(/\s+$/, '')
     end
 
   protected
