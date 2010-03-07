@@ -145,9 +145,10 @@ Install the roff man page for a ron file:
 
 ## BUGS
 
-Ron is written in Ruby and depends on nokogiri and rdiscount, native
-extension libraries that are non-trivial to install on some systems. A
-more portable version of this program would be welcome.
+Ron is written in Ruby and depends on hpricot and rdiscount,
+extension libraries that are non-trivial to install on some
+systems. A more portable version of this program would be
+welcome.
 
 ## COPYRIGHT
 
