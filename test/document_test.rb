@@ -85,28 +85,4 @@ class DocumentTest < Test::Unit::TestCase
       assert_equal "./hello.1", @doc.path_for(nil)
     end
   end
-
-  context "a document with entities" do
-    setup do
-      @doc = Ron::Document.new('hello.1.ron') { <<doc }
-# hello(1) -- hello world
-
-Your output &lt;i&gt;might&lt;/i&gt; look like this:
-
-    * Chris
-    *
-    * &lt;b&gt;GitHub&lt;/b&gt;
-    * <b>GitHub</b>
-doc
-      @roff = @doc.to_roff
-    end
-
-    test "doesn't convert entities in code blocks" do
-      assert @roff.include? "* &lt;b&gt;GitHub&lt;/b&gt;"
-    end
-
-    test "converts entities elsewhere" do
-      assert @roff.include? "Your output <i>might</i> look"
-    end
-  end
 end
