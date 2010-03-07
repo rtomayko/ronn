@@ -58,7 +58,7 @@ module Ron
         macro "IP", %w["" 4] if indent
         macro "nf"
         write "\n"
-        inline_filter(node.search('code'))
+        inline_filter(node.search('code').children, decode_entities=false)
         macro "fi"
         macro "IP", %w["" 0] if indent
 
@@ -102,9 +102,9 @@ module Ron
       end
     end
 
-    def inline_filter(node, should_escape=true)
+    def inline_filter(node, decode_entities=true)
       if node.kind_of?(Nokogiri::XML::NodeSet)
-        node.each { |ch| inline_filter(ch, should_escape) }
+        node.each { |ch| inline_filter(ch, decode_entities) }
         return
       end
 
@@ -120,10 +120,10 @@ module Ron
         else
           text.sub!(/\n+$/m, ' ')
         end
-        write should_escape ? escape(text) : text
+        write escape(text, decode_entities)
       when 'code'
         write '\fB'
-        inline_filter(node.children, should_escape=false)
+        inline_filter(node.children, decode_entities=false)
         write '\fR'
       when 'b', 'strong', 'kbd', 'samp'
         write '\fB'
@@ -148,13 +148,16 @@ module Ron
       writeln ".\n.#{[name, value].compact.join(' ')}"
     end
 
-    def escape(text)
-      text.
-        gsub(/[\\-]/)  { |m| "\\#{m}" }.
-        gsub('&nbsp;', ' ').
-        gsub('&lt;',   '<').
-        gsub('&gt;',   '>').
-        gsub('&amp;',  '&')
+    def escape(text, decode_entities=true)
+      text = text.gsub(/[\\-]/)  { |m| "\\#{m}" }
+      if decode_entities
+        text = text.
+          gsub('&nbsp;', ' ').
+          gsub('&lt;',   '<').
+          gsub('&gt;',   '>').
+          gsub('&amp;',  '&')
+      end
+      text
     end
 
     def quote(text)
