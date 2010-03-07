@@ -1,29 +1,29 @@
-ron(1) -- build markdown-based man pages
+ronn(1) -- build markdown-based man pages
 ========================================
 
 ## SYNOPSIS
 
-`ron` [ <OPTIONS> ] <FILE> ...  
-`ron` --build <FILE> ...  
-`ron` --install <FILE> ...  
-`ron` --man <FILE>
+`ronn` [ <OPTIONS> ] <FILE> ...  
+`ronn` --build <FILE> ...  
+`ronn` --install <FILE> ...  
+`ronn` --man <FILE>
 
 ## DESCRIPTION
 
-Ron is a humane text format and toolchain for authoring man pages, and
+Ronn is a humane text format and toolchain for authoring man pages, and
 things that appear as man pages from a distance. Use it to build and
 install standard UNIX / roff(7) formatted man pages and to generate
 nicely formatted HTML manual pages.
 
-The `ron` command converts one or more named input <FILE>s (or standard
+The `ronn` command converts one or more named input <FILE>s (or standard
 input when no files are named or the file name `-` is given) from humane
 man page markup to one or more destination output formats. If no output
-format is selected explicitly, `ron` writes output in roff format.
+format is selected explicitly, `ronn` writes output in roff format.
 
 ## FILES
 
-The `ron` command expects input to be formatted as ron(5) text.  Source
-files are typically named '<NAME>.<SECTION>.ron' (e.g., `hello.1.ron`).
+The `ronn` command expects input to be formatted as ronn(5) text.  Source
+files are typically named '<NAME>.<SECTION>.ronn' (e.g., `hello.1.ronn`).
 The <NAME> and <SECTION> should match the name and section defined in
 <FILE>'s heading.
 
@@ -32,13 +32,13 @@ destination filenames are determined by taking the basename of the input
 <FILE> and adding the appropriate file extension (or removing the file
 extension in the case of roff output).
 
-For example, the command `ron -b --html --roff hello.1.ron` generates a
+For example, the command `ronn -b --html --roff hello.1.ronn` generates a
 `hello.1` file with roff output and a `hello.1.html` file with HTML
 output.
 
 ## OPTIONS
 
-`ron`'s default mode of operation is to read a single document from
+`ronn`'s default mode of operation is to read a single document from
 standard input and to write the result to standard output. The following
 arguments change this behavior:
 
@@ -54,7 +54,7 @@ arguments change this behavior:
     used to determine the prefix where man pages should be installed
     when defined.
 
-    If `MANHOME` is not defined, `ron` installs man pages to
+    If `MANHOME` is not defined, `ronn` installs man pages to
     _/usr/local/man_.
 
   * `-m`, `--man`:
@@ -98,35 +98,35 @@ generated content can be specified with these options:
 
 Generate `roff(7)` output on stdout:
 
-    $ ron < hello.1.ron
+    $ ronn < hello.1.ronn
 
 Build a roff file based on the input filename:
 
-    $ ron -b hello.1.ron
+    $ ronn -b hello.1.ronn
     building: hello.1
     $ man hello.1
 
 Build and open a standalone HTML file based on the input filename:
 
-    $ ron -b --html test.1.ron
+    $ ronn -b --html test.1.ronn
     $ open test.1.html
 
-Build roff and HTML versions of all `.ron` files in the current
+Build roff and HTML versions of all `.ronn` files in the current
 directory:
 
-    $ ron -b --roff --html *.ron
+    $ ronn -b --roff --html *.ronn
     building: hello.1
     building: hello.1.html
     building: world.1
     building: world.1.html
 
-View a ron file in the same way as man(1) without building a roff file:
+View a ronn file in the same way as man(1) without building a roff file:
 
-    $ ron -m hello.1.ron
+    $ ronn -m hello.1.ronn
 
-Install the roff man page for a ron file:
+Install the roff man page for a ronn file:
 
-    $ ron -i hello.1.ron
+    $ ronn -i hello.1.ronn
 
 ## ENVIRONMENT
 
@@ -145,14 +145,14 @@ Install the roff man page for a ron file:
 
 ## BUGS
 
-Ron is written in Ruby and depends on nokogiri and rdiscount, native
+Ronn is written in Ruby and depends on nokogiri and rdiscount, native
 extension libraries that are non-trivial to install on some systems. A
 more portable version of this program would be welcome.
 
 ## COPYRIGHT
 
-Ron is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
+Ronn is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
 
 ## SEE ALSO
 
-ron(5), markdown(5), manpages(5), man(1), roff(7), groff(1)
+ronn(5), markdown(5), manpages(5), man(1), roff(7), groff(1)

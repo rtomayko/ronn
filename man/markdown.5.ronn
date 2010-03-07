@@ -877,5 +877,5 @@ also by John Gruber.
 
 ## SEE ALSO
 
-ron(5)  
+ronn(5)  
 <http://daringfireball.net/projects/markdown/>
