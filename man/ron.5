@@ -12,28 +12,20 @@ A basic manual page in Ron:
 .IP "" 4
 .
 .nf
-
 name(1) \-\- one sentence description
-=================================== 
+===================================
 ## SECTION HEADING
-
 A normal paragraph. This can span multiple lines and is
 terminated with two or more line endings \-\- just like
 Markdown.
-
 ## INLINE MARKUP
-
 Inline markup is used for `code` and `user input` (displayed
 in boldface), and also <variables> or _emphasis_.
-
 Manual page references like sh(1), markdown(5), roff(7), etc.
 are displayed in boldface and hyperlinked in HTML output.
-
 ## DEFINITION LISTS
-
 Definition lists are used to define options, arguments,
 variables, and other type of terms:
-
   * `\-a`, `\-\-arg1`=[_OPTION_]:
     One or more paragraphs describing the argument.
   * `\-b`, `\-\-arg2`:
@@ -66,9 +58,8 @@ this information. For example, this very man page begins:
 .IP "" 4
 .
 .nf
-
 ron(5) \-\- humane manual page authoring format
-============================================= 
+=============================================
 .
 .fi
 .
@@ -92,8 +83,7 @@ headings. A hash prefix syntax:
 .IP "" 4
 .
 .nf
-
-## HEADING TEXT 
+## HEADING TEXT
 .
 .fi
 .
@@ -105,9 +95,8 @@ Or, a dash underline syntax:
 .IP "" 4
 .
 .nf
-
 HEADING TEXT
-\-\-\-\-\-\-\-\-\-\-\-\- 
+\-\-\-\-\-\-\-\-\-\-\-\-
 .
 .fi
 .
@@ -141,7 +130,7 @@ is not processed.
 Like \fBbackticks\fR but inline markup is processed.
 .
 .TP
-\fB_\fR\fIunderbars\fR\fB_\fR 
+\fB_\fR\fIunderbars\fR\fB_\fR
 User\-specified arguments, variables, or user input; typically
 displayed with \fIunderline\fR.
 .
@@ -155,11 +144,10 @@ Here is grep(1)'s DESCRIPTION section represented in \fBron\fR:
 .IP "" 4
 .
 .nf
-
 `Grep` searches the named input _FILE_ (or standard input if
 no files are named, or the file name `\-` is given) for lines
 containing a match to the given _PATTERN_. By default, `grep`
-prints the matching lines. 
+prints the matching lines.
 .
 .fi
 .
@@ -185,14 +173,11 @@ An example definition list, taken from BSD test(1)'s\fBDESCRIPTION\fR section:
 .IP "" 4
 .
 .nf
-
- The following primaries are used to construct expressions: 
+ The following primaries are used to construct expressions:
    * `\-b` _file_:
      True if _file_ exists and is a block special file.
-
    * `\-c` _file_:
      True if _file_ exists and is a character special file.
-
    * `\-d` _file_:
      True if file exists and is a directory.
 .

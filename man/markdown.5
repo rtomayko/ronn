@@ -9,29 +9,22 @@
 .SH "SYNOPSIS"
 .
 .nf
-
 # Header 1 #
 ## Header 2 ##
 ### Header 3 ###             (Hashes on right are optional)
 #### Header 4 ####
-##### Header 5 ##### 
+##### Header 5 #####
 This is a paragraph, which is text surrounded by whitespace.
 Paragraphs can be on one line (or many), and can drone on for
-hours.  
-
+hours.
 [Reference style links][1] and [inline links](http://example.com)
 [1]: http://example.com "Title is optional"
-
 Inline markup like _italics_,  **bold**, and `code()`.
-
-![picture alt](/images/photo.jpeg "Title is optional")     
-
+![picture alt](/images/photo.jpeg "Title is optional")
 > Blockquotes are like quoted text in email replies
 >> And, they can be nested
-
     code blocks are for preformatted
     text and must be indented with four spaces
-
 * Bullet lists are easy too
   * You can
   * even
@@ -94,14 +87,12 @@ For example, to add an HTML table to a Markdown article:
 .IP "" 4
 .
 .nf
-
-This is a regular paragraph. 
+This is a regular paragraph.
 <table>
     <tr>
         <td>Foo</td>
     </tr>
 </table>
-
 This is another regular paragraph.
 .
 .fi
@@ -128,18 +119,17 @@ span\-level tags.
 In HTML, there are two characters that demand special treatment: \fB<\fR
 and \fB&\fR. Left angle brackets are used to start tags; ampersands are
 used to denote HTML entities. If you want to use them as literal
-characters, you must escape them as entities, e.g. \fB<\fR, and \fB&\fR.
+characters, you must escape them as entities, e.g. \fB&lt;\fR, and \fB&amp;\fR.
 .
 .P
 Ampersands in particular are bedeviling for web writers. If you want to
-write about 'AT&T', you need to write '\fBAT&T\fR'. You even need to
+write about 'AT&T', you need to write '\fBAT&amp;T\fR'. You even need to
 escape ampersands within URLs. Thus, if you want to link to:
 .
 .IP "" 4
 .
 .nf
-
-http://images.google.com/images?num=30&q=larry+bird 
+http://images.google.com/images?num=30&q=larry+bird
 .
 .fi
 .
@@ -151,8 +141,7 @@ you need to encode the URL as:
 .IP "" 4
 .
 .nf
-
-http://images.google.com/images?num=30&q=larry+bird 
+http://images.google.com/images?num=30&amp;q=larry+bird
 .
 .fi
 .
@@ -167,7 +156,7 @@ errors in otherwise well\-marked\-up web sites.
 Markdown allows you to use these characters naturally, taking care of
 all the necessary escaping for you. If you use an ampersand as part of
 an HTML entity, it remains unchanged; otherwise it will be translated
-into \fB&\fR.
+into \fB&amp;\fR.
 .
 .P
 So, if you want to include a copyright symbol in your article, you can write:
@@ -175,8 +164,7 @@ So, if you want to include a copyright symbol in your article, you can write:
 .IP "" 4
 .
 .nf
-
-&copy; 
+&copy;
 .
 .fi
 .
@@ -188,8 +176,7 @@ and Markdown will leave it alone. But if you write:
 .IP "" 4
 .
 .nf
-
-AT&T 
+AT&T
 .
 .fi
 .
@@ -201,8 +188,7 @@ Markdown will translate it to:
 .IP "" 4
 .
 .nf
-
-AT&T 
+AT&amp;T
 .
 .fi
 .
@@ -216,8 +202,7 @@ such. But if you write:
 .IP "" 4
 .
 .nf
-
-4 < 5 
+4 < 5
 .
 .fi
 .
@@ -229,8 +214,7 @@ Markdown will translate it to:
 .IP "" 4
 .
 .nf
-
-4 < 5 
+4 &lt; 5
 .
 .fi
 .
@@ -278,9 +262,8 @@ headers) and dashes (for second\-level headers). For example:
 .IP "" 4
 .
 .nf
-
 This is an H1
-============= 
+=============
 This is an H2
 \-\-\-\-\-\-\-\-\-\-\-\-\-
 .
@@ -298,10 +281,8 @@ corresponding to header levels 1\-6. For example:
 .IP "" 4
 .
 .nf
-
-# This is an H1 
+# This is an H1
 ## This is an H2
-
 ###### This is an H6
 .
 .fi
@@ -318,10 +299,8 @@ determines the header level.) :
 .IP "" 4
 .
 .nf
-
-# This is an H1 # 
+# This is an H1 #
 ## This is an H2 ##
-
 ### This is an H3 ######
 .
 .fi
@@ -337,13 +316,12 @@ wrap the text and put a \fB>\fR before every line:
 .IP "" 4
 .
 .nf
-
 > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
 > consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
 > Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-> 
+>
 > Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-> id sem consectetuer libero luctus adipiscing. 
+> id sem consectetuer libero luctus adipiscing.
 .
 .fi
 .
@@ -356,10 +334,9 @@ line of a hard\-wrapped paragraph:
 .IP "" 4
 .
 .nf
-
 > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
 consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
-Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus. 
+Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
 > Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
 id sem consectetuer libero luctus adipiscing.
 .
@@ -374,12 +351,11 @@ adding additional levels of \fB>\fR:
 .IP "" 4
 .
 .nf
-
 > This is the first level of quoting.
 >
 > > This is nested blockquote.
 >
-> Back to the first level. 
+> Back to the first level.
 .
 .fi
 .
@@ -392,15 +368,14 @@ and code blocks:
 .IP "" 4
 .
 .nf
-
 > ## This is a header.
-> 
+>
 > 1.   This is the first list item.
 > 2.   This is the second list item.
-> 
+>
 > Here's some example code:
-> 
->     return shell_exec("echo $input | $markdown_script"); 
+>
+>     return shell_exec("echo $input | $markdown_script");
 .
 .fi
 .
@@ -421,10 +396,9 @@ Unordered lists use asterisks, pluses, and hyphens \-\- interchangably
 .IP "" 4
 .
 .nf
-
 *   Red
 *   Green
-*   Blue 
+*   Blue
 .
 .fi
 .
@@ -436,10 +410,9 @@ is equivalent to:
 .IP "" 4
 .
 .nf
-
 +   Red
 +   Green
-+   Blue 
++   Blue
 .
 .fi
 .
@@ -451,10 +424,9 @@ and:
 .IP "" 4
 .
 .nf
-
 \-   Red
 \-   Green
-\-   Blue 
+\-   Blue
 .
 .fi
 .
@@ -466,10 +438,9 @@ Ordered lists use numbers followed by periods:
 .IP "" 4
 .
 .nf
-
 1.  Bird
 2.  McHale
-3.  Parish 
+3.  Parish
 .
 .fi
 .
@@ -483,12 +454,11 @@ Markdown produces from the above list is:
 .IP "" 4
 .
 .nf
-
 <ol>
 <li>Bird</li>
 <li>McHale</li>
 <li>Parish</li>
-</ol> 
+</ol>
 .
 .fi
 .
@@ -500,10 +470,9 @@ If you instead wrote the list in Markdown like this:
 .IP "" 4
 .
 .nf
-
 1.  Bird
 1.  McHale
-1.  Parish 
+1.  Parish
 .
 .fi
 .
@@ -515,10 +484,9 @@ or even:
 .IP "" 4
 .
 .nf
-
 3. Bird
 1. McHale
-8. Parish 
+8. Parish
 .
 .fi
 .
@@ -546,12 +514,11 @@ To make lists look nice, you can wrap items with hanging indents:
 .IP "" 4
 .
 .nf
-
 *   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
     viverra nec, fringilla in, laoreet vitae, risus.
 *   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-    Suspendisse id sem consectetuer libero luctus adipiscing. 
+    Suspendisse id sem consectetuer libero luctus adipiscing.
 .
 .fi
 .
@@ -563,12 +530,11 @@ But if you want to be lazy, you don't have to:
 .IP "" 4
 .
 .nf
-
 *   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
 viverra nec, fringilla in, laoreet vitae, risus.
 *   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-Suspendisse id sem consectetuer libero luctus adipiscing. 
+Suspendisse id sem consectetuer libero luctus adipiscing.
 .
 .fi
 .
@@ -581,38 +547,7 @@ items in \fB<p>\fR tags in the HTML output. For example, this input:
 .IP "" 4
 .
 .nf
-
 *   Bird
-*   Magic 
-.
-.fi
-.
-.IP "" 0
-.
-.P
-will turn into:
-.
-.IP "" 4
-.
-.nf
-
-<ul>
-<li>Bird</li>
-<li>Magic</li>
-</ul> 
-.
-.fi
-.
-.IP "" 0
-.
-.P
-But this:
-.
-.IP "" 4
-.
-.nf
-
-*   Bird 
 *   Magic
 .
 .fi
@@ -625,11 +560,38 @@ will turn into:
 .IP "" 4
 .
 .nf
-
+<ul>
+<li>Bird</li>
+<li>Magic</li>
+</ul>
+.
+.fi
+.
+.IP "" 0
+.
+.P
+But this:
+.
+.IP "" 4
+.
+.nf
+*   Bird
+*   Magic
+.
+.fi
+.
+.IP "" 0
+.
+.P
+will turn into:
+.
+.IP "" 4
+.
+.nf
 <ul>
 <li><p>Bird</p></li>
 <li><p>Magic</p></li>
-</ul> 
+</ul>
 .
 .fi
 .
@@ -643,14 +605,12 @@ or one tab:
 .IP "" 4
 .
 .nf
-
 1.  This is a list item with two paragraphs. Lorem ipsum dolor
     sit amet, consectetuer adipiscing elit. Aliquam hendrerit
-    mi posuere lectus. 
+    mi posuere lectus.
     Vestibulum enim wisi, viverra nec, fringilla in, laoreet
     vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
     sit amet velit.
-
 2.  Suspendisse id sem consectetuer libero luctus adipiscing.
 .
 .fi
@@ -665,12 +625,10 @@ lazy:
 .IP "" 4
 .
 .nf
-
-*   This is a list item with two paragraphs. 
+*   This is a list item with two paragraphs.
     This is the second paragraph in the list item. You're
 only required to indent the first line. Lorem ipsum dolor
 sit amet, consectetuer adipiscing elit.
-
 *   Another item in the same list.
 .
 .fi
@@ -684,8 +642,7 @@ delimiters need to be indented:
 .IP "" 4
 .
 .nf
-
-*   A list item with a blockquote: 
+*   A list item with a blockquote:
     > This is a blockquote
     > inside a list item.
 .
@@ -700,8 +657,7 @@ to be indented \fItwice\fR \-\- 8 spaces or two tabs:
 .IP "" 4
 .
 .nf
-
-*   A list item with a code block: 
+*   A list item with a code block:
         <code goes here>
 .
 .fi
@@ -715,8 +671,7 @@ accident, by writing something like this:
 .IP "" 4
 .
 .nf
-
-1986. What a great season. 
+1986. What a great season.
 .
 .fi
 .
@@ -729,8 +684,7 @@ line. To avoid this, you can backslash\-escape the period:
 .IP "" 4
 .
 .nf
-
-1986\\. What a great season. 
+1986\\. What a great season.
 .
 .fi
 .
@@ -749,8 +703,7 @@ block by at least 4 spaces or 1 tab. For example, given this input:
 .IP "" 4
 .
 .nf
-
-This is a normal paragraph: 
+This is a normal paragraph:
     This is a code block.
 .
 .fi
@@ -763,8 +716,7 @@ Markdown will generate:
 .IP "" 4
 .
 .nf
-
-<p>This is a normal paragraph:</p> 
+<p>This is a normal paragraph:</p>
 <pre><code>This is a code block.
 </code></pre>
 .
@@ -779,8 +731,7 @@ line of the code block. For example, this:
 .IP "" 4
 .
 .nf
-
-Here is an example of AppleScript: 
+Here is an example of AppleScript:
     tell application "Foo"
         beep
     end tell
@@ -795,8 +746,7 @@ will turn into:
 .IP "" 4
 .
 .nf
-
-<p>Here is an example of AppleScript:</p> 
+<p>Here is an example of AppleScript:</p>
 <pre><code>tell application "Foo"
     beep
 end tell
@@ -820,10 +770,9 @@ ampersands and angle brackets. For example, this:
 .IP "" 4
 .
 .nf
-
     <div class="footer">
         &copy; 2004 Foo Corporation
-    </div> 
+    </div>
 .
 .fi
 .
@@ -835,11 +784,10 @@ will turn into:
 .IP "" 4
 .
 .nf
-
-<pre><code><div class="footer">
-    &copy; 2004 Foo Corporation
-</div>
-</code></pre> 
+<pre><code>&lt;div class="footer"&gt;
+    &amp;copy; 2004 Foo Corporation
+&lt;/div&gt;
+</code></pre>
 .
 .fi
 .
@@ -859,14 +807,10 @@ following lines will produce a horizontal rule:
 .IP "" 4
 .
 .nf
-
-* * * 
+* * *
 ***
-
 *****
-
 \- \- \-
-
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
 .
 .fi
@@ -890,8 +834,7 @@ title for the link, surrounded in quotes. For example:
 .IP "" 4
 .
 .nf
-
-This is [an example](http://example.com/ "Title") inline link. 
+This is [an example](http://example.com/ "Title") inline link.
 [This link](http://example.net/) has no title attribute.
 .
 .fi
@@ -904,9 +847,8 @@ Will produce:
 .IP "" 4
 .
 .nf
-
 <p>This is <a href="http://example.com/" title="Title">
-an example</a> inline link.</p> 
+an example</a> inline link.</p>
 <p><a href="http://example.net/">This link</a> has no
 title attribute.</p>
 .
@@ -921,8 +863,7 @@ use relative paths:
 .IP "" 4
 .
 .nf
-
-See my [About](/about/) page for details.    
+See my [About](/about/) page for details.
 .
 .fi
 .
@@ -935,8 +876,7 @@ which you place a label of your choosing to identify the link:
 .IP "" 4
 .
 .nf
-
-This is [an example][id] reference\-style link. 
+This is [an example][id] reference\-style link.
 .
 .fi
 .
@@ -948,8 +888,7 @@ You can optionally use a space to separate the sets of brackets:
 .IP "" 4
 .
 .nf
-
-This is [an example] [id] reference\-style link. 
+This is [an example] [id] reference\-style link.
 .
 .fi
 .
@@ -962,8 +901,7 @@ on a line by itself:
 .IP "" 4
 .
 .nf
-
-[id]: http://example.com/  "Optional Title Here" 
+[id]: http://example.com/  "Optional Title Here"
 .
 .fi
 .
@@ -997,10 +935,9 @@ The following three link definitions are equivalent:
 .IP "" 4
 .
 .nf
-
 [foo]: http://example.com/  "Optional Title Here"
 [foo]: http://example.com/  'Optional Title Here'
-[foo]: http://example.com/  (Optional Title Here) 
+[foo]: http://example.com/  (Optional Title Here)
 .
 .fi
 .
@@ -1016,8 +953,7 @@ The link URL may, optionally, be surrounded by angle brackets:
 .IP "" 4
 .
 .nf
-
-[id]: <http://example.com/>  "Optional Title Here" 
+[id]: <http://example.com/>  "Optional Title Here"
 .
 .fi
 .
@@ -1030,9 +966,8 @@ or tabs for padding, which tends to look better with longer URLs:
 .IP "" 4
 .
 .nf
-
 [id]: http://example.com/longish/path/to/resource/here
-    "Optional Title Here" 
+    "Optional Title Here"
 .
 .fi
 .
@@ -1050,9 +985,8 @@ links:
 .IP "" 4
 .
 .nf
-
 [link text][a]
-[link text][A] 
+[link text][A]
 .
 .fi
 .
@@ -1070,8 +1004,7 @@ Just use an empty set of square brackets \-\- e.g., to link the word
 .IP "" 4
 .
 .nf
-
-[Google][] 
+[Google][]
 .
 .fi
 .
@@ -1083,8 +1016,7 @@ And then define the link:
 .IP "" 4
 .
 .nf
-
-[Google]: http://google.com/ 
+[Google]: http://google.com/
 .
 .fi
 .
@@ -1097,8 +1029,7 @@ multiple words in the link text:
 .IP "" 4
 .
 .nf
-
-Visit [Daring Fireball][] for more information. 
+Visit [Daring Fireball][] for more information.
 .
 .fi
 .
@@ -1110,8 +1041,7 @@ And then define the link:
 .IP "" 4
 .
 .nf
-
-[Daring Fireball]: http://daringfireball.net/ 
+[Daring Fireball]: http://daringfireball.net/
 .
 .fi
 .
@@ -1129,9 +1059,8 @@ Here's an example of reference links in action:
 .IP "" 4
 .
 .nf
-
 I get 10 times more traffic from [Google] [1] than from
-[Yahoo] [2] or [MSN] [3]. 
+[Yahoo] [2] or [MSN] [3].
   [1]: http://google.com/        "Google"
   [2]: http://search.yahoo.com/  "Yahoo Search"
   [3]: http://search.msn.com/    "MSN Search"
@@ -1146,9 +1075,8 @@ Using the implicit link name shortcut, you could instead write:
 .IP "" 4
 .
 .nf
-
 I get 10 times more traffic from [Google][] than from
-[Yahoo][] or [MSN][]. 
+[Yahoo][] or [MSN][].
   [google]: http://google.com/        "Google"
   [yahoo]:  http://search.yahoo.com/  "Yahoo Search"
   [msn]:    http://search.msn.com/    "MSN Search"
@@ -1163,11 +1091,10 @@ Both of the above examples will produce the following HTML output:
 .IP "" 4
 .
 .nf
-
 <p>I get 10 times more traffic from <a href="http://google.com/"
 title="Google">Google</a> than from
 <a href="http://search.yahoo.com/" title="Yahoo Search">Yahoo</a>
-or <a href="http://search.msn.com/" title="MSN Search">MSN</a>.</p> 
+or <a href="http://search.msn.com/" title="MSN Search">MSN</a>.</p>
 .
 .fi
 .
@@ -1180,10 +1107,9 @@ Markdown's inline link style:
 .IP "" 4
 .
 .nf
-
 I get 10 times more traffic from [Google](http://google.com/ "Google")
 than from [Yahoo](http://search.yahoo.com/ "Yahoo Search") or
-[MSN](http://search.msn.com/ "MSN Search"). 
+[MSN](http://search.msn.com/ "MSN Search").
 .
 .fi
 .
@@ -1213,12 +1139,9 @@ HTML \fB<em>\fR tag; double \fB*\fR's or \fB_\fR's will be wrapped with an HTML 
 .IP "" 4
 .
 .nf
-
-*single asterisks* 
+*single asterisks*
 _single underscores_
-
 **double asterisks**
-
 __double underscores__
 .
 .fi
@@ -1231,12 +1154,9 @@ will produce:
 .IP "" 4
 .
 .nf
-
-<em>single asterisks</em> 
+<em>single asterisks</em>
 <em>single underscores</em>
-
 <strong>double asterisks</strong>
-
 <strong>double underscores</strong>
 .
 .fi
@@ -1253,8 +1173,7 @@ Emphasis can be used in the middle of a word:
 .IP "" 4
 .
 .nf
-
-un*frigging*believable 
+un*frigging*believable
 .
 .fi
 .
@@ -1272,8 +1191,7 @@ escape it:
 .IP "" 4
 .
 .nf
-
-\\*this text is surrounded by literal asterisks\\* 
+\\*this text is surrounded by literal asterisks\\*
 .
 .fi
 .
@@ -1287,8 +1205,7 @@ normal paragraph. For example:
 .IP "" 4
 .
 .nf
-
-Use the `printf()` function. 
+Use the `printf()` function.
 .
 .fi
 .
@@ -1300,8 +1217,7 @@ will produce:
 .IP "" 4
 .
 .nf
-
-<p>Use the <code>printf()</code> function.</p> 
+<p>Use the <code>printf()</code> function.</p>
 .
 .fi
 .
@@ -1314,8 +1230,7 @@ multiple backticks as the opening and closing delimiters:
 .IP "" 4
 .
 .nf
-
-``There is a literal backtick (`) here.`` 
+``There is a literal backtick (`) here.``
 .
 .fi
 .
@@ -1327,8 +1242,7 @@ which will produce this:
 .IP "" 4
 .
 .nf
-
-<p><code>There is a literal backtick (`) here.</code></p> 
+<p><code>There is a literal backtick (`) here.</code></p>
 .
 .fi
 .
@@ -1342,8 +1256,7 @@ literal backtick characters at the beginning or end of a code span:
 .IP "" 4
 .
 .nf
-
-A single backtick in a code span: `` ` `` 
+A single backtick in a code span: `` ` ``
 A backtick\-delimited string in a code span: `` `foo` ``
 .
 .fi
@@ -1356,8 +1269,7 @@ will produce:
 .IP "" 4
 .
 .nf
-
-<p>A single backtick in a code span: <code>`</code></p> 
+<p>A single backtick in a code span: <code>`</code></p>
 <p>A backtick\-delimited string in a code span: <code>`foo`</code></p>
 .
 .fi
@@ -1372,8 +1284,7 @@ tags. Markdown will turn this:
 .IP "" 4
 .
 .nf
-
-Please don't use any `<blink>` tags. 
+Please don't use any `<blink>` tags.
 .
 .fi
 .
@@ -1385,8 +1296,7 @@ into:
 .IP "" 4
 .
 .nf
-
-<p>Please don't use any <code><blink></code> tags.</p> 
+<p>Please don't use any <code>&lt;blink&gt;</code> tags.</p>
 .
 .fi
 .
@@ -1398,8 +1308,7 @@ You can write this:
 .IP "" 4
 .
 .nf
-
-`&#8212;` is the decimal\-encoded equivalent of `&mdash;`. 
+`&#8212;` is the decimal\-encoded equivalent of `&mdash;`.
 .
 .fi
 .
@@ -1411,9 +1320,8 @@ to produce:
 .IP "" 4
 .
 .nf
-
-<p><code>&#8212;</code> is the decimal\-encoded
-equivalent of <code>&mdash;</code>.</p> 
+<p><code>&amp;#8212;</code> is the decimal\-encoded
+equivalent of <code>&amp;mdash;</code>.</p>
 .
 .fi
 .
@@ -1433,8 +1341,7 @@ Inline image syntax looks like this:
 .IP "" 4
 .
 .nf
-
-![Alt text](/path/to/img.jpg) 
+![Alt text](/path/to/img.jpg)
 ![Alt text](/path/to/img.jpg "Optional title")
 .
 .fi
@@ -1464,8 +1371,7 @@ Reference\-style image syntax looks like this:
 .IP "" 4
 .
 .nf
-
-![Alt text][id] 
+![Alt text][id]
 .
 .fi
 .
@@ -1478,8 +1384,7 @@ are defined using syntax identical to link references:
 .IP "" 4
 .
 .nf
-
-[id]: url/to/image  "Optional title attribute" 
+[id]: url/to/image  "Optional title attribute"
 .
 .fi
 .
@@ -1498,8 +1403,7 @@ Markdown supports a shortcut style for creating "automatic" links for URLs and e
 .IP "" 4
 .
 .nf
-
-<http://example.com/> 
+<http://example.com/>
 .
 .fi
 .
@@ -1511,8 +1415,7 @@ Markdown will turn this into:
 .IP "" 4
 .
 .nf
-
-<a href="http://example.com/">http://example.com/</a> 
+<a href="http://example.com/">http://example.com/</a>
 .
 .fi
 .
@@ -1527,8 +1430,7 @@ spambots. For example, Markdown will turn this:
 .IP "" 4
 .
 .nf
-
-<address@example.com> 
+<address@example.com>
 .
 .fi
 .
@@ -1540,11 +1442,10 @@ into something like this:
 .IP "" 4
 .
 .nf
-
 <a href="&#x6D;&#x61;i&#x6C;&#x74;&#x6F;:&#x61;&#x64;&#x64;&#x72;&#x65;
 &#115;&#115;&#64;&#101;&#120;&#x61;&#109;&#x70;&#x6C;e&#x2E;&#99;&#111;
 &#109;">&#x61;&#x64;&#x64;&#x72;&#x65;&#115;&#115;&#64;&#101;&#120;&#x61;
-&#109;&#x70;&#x6C;e&#x2E;&#99;&#111;&#109;</a> 
+&#109;&#x70;&#x6C;e&#x2E;&#99;&#111;&#109;</a>
 .
 .fi
 .
@@ -1569,8 +1470,7 @@ backslashes before the asterisks, like this:
 .IP "" 4
 .
 .nf
-
-\\*literal asterisks\\* 
+\\*literal asterisks\\*
 .
 .fi
 .
@@ -1582,7 +1482,6 @@ Markdown provides backslash escapes for the following characters:
 .IP "" 4
 .
 .nf
-
 \\   backslash
 `   backtick
 *   asterisk
@@ -1594,7 +1493,7 @@ _   underscore
 +   plus sign
 \-   minus sign (hyphen)
 .   dot
-!   exclamation mark 
+!   exclamation mark
 .
 .fi
 .
