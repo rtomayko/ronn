@@ -12,11 +12,7 @@ end
 desc 'Run tests'
 task :test => :environment do
   require_library 'contest'
-  if ENV['PATH'].split(':').any? { |p| File.executable?("#{p}/turn") }
-    sh 'turn -Ilib test/*_test.rb'
-  else
-    sh 'testrb Ilib test/*_test.rb'
-  end
+  Dir['test/*_test.rb'].each { |test| require test }
 end
 
 desc 'Build the manual'
