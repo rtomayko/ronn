@@ -217,12 +217,12 @@ module Ron
       # convert all angle quote vars nested in code blocks
       # back to the original text
       doc.search('code').search('text()').each do |node|
-        next unless node.html.include?('var&gt;')
+        next unless node.to_html.include?('var&gt;')
         new =
-          node.html.
-            gsub('&lt;var&gt;', '<').
+          node.to_html.
+            gsub('&lt;var&gt;', '&lt;').
             gsub("&lt;/var&gt;", '>')
-        node.replace(new)
+        node.swap(new)
       end
       doc
     end
