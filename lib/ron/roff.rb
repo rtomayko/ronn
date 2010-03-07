@@ -71,6 +71,7 @@ module Ron
           macro "TP"
           block_filter(node.children)
         when 'dt'
+          prev = previous(node)
           macro "TP" unless prev.nil?
           inline_filter(node.children)
           write "\n"
