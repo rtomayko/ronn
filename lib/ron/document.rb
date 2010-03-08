@@ -1,5 +1,5 @@
 require 'set'
-require 'nokogiri'
+require 'hpricot'
 require 'rdiscount'
 require 'ron/roff'
 
@@ -188,21 +188,21 @@ module Ron
       # process all unordered lists depth-first
       doc.search('ul').to_a.reverse.each do |ul|
         items = ul.search('li')
-        next if items.any? { |item| item.text.split("\n", 2).first !~ /:$/ }
+        next if items.any? { |item| item.inner_text.split("\n", 2).first !~ /:$/ }
 
         ul.name = 'dl'
         items.each do |item|
-          if item.child.name == 'p'
+          if child = item.at('p')
             wrap = '<p></p>'
-            container = item.child
+            container = child
           else
             wrap = '<dd></dd>'
             container = item
           end
           term, definition = container.inner_html.split(":\n", 2)
 
-          dt = item.before("<dt>#{term}</dt>").previous_sibling
-          dt['class'] = 'flush' if dt.content.length <= 7
+          dt = item.before("<dt>#{term}</dt>").first
+          dt.attributes['class'] = 'flush' if dt.inner_text.length <= 7
 
           item.name = 'dd'
           container.swap(wrap.sub(/></, ">#{definition}<"))
@@ -216,14 +216,13 @@ module Ron
       doc = parse_html(html)
       # convert all angle quote vars nested in code blocks
       # back to the original text
-      doc.search('code text()').each do |node|
-        next unless node.to_s.include?('var&gt;')
-        new = node.document.create_text_node(
-          node.to_s.
-            gsub('&lt;var&gt;', '<').
+      doc.search('code').search('text()').each do |node|
+        next unless node.to_html.include?('var&gt;')
+        new =
+          node.to_html.
+            gsub('&lt;var&gt;', '&lt;').
             gsub("&lt;/var&gt;", '>')
-        )
-        node.replace(new)
+        node.swap(new)
       end
       doc
     end
@@ -279,10 +278,10 @@ module Ron
 
   private
     def parse_html(html)
-      if html.kind_of?(Nokogiri::HTML::DocumentFragment)
+      if html.respond_to?(:doc?) && html.doc?
         html
       else
-        Nokogiri::HTML.fragment(html.to_s)
+        Hpricot(html.to_s)
       end
     end
   end

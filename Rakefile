@@ -3,7 +3,7 @@ require 'rake/clean'
 task :default => :test
 
 task :environment do
-  require_library 'nokogiri'
+  require_library 'hpricot'
   require_library 'rdiscount'
   ENV['RUBYLIB'] = "#{$:.join(':')}:#{ENV['RUBYLIB']}"
   ENV['PATH'] = "bin:#{ENV['PATH']}"

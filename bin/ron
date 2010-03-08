@@ -88,7 +88,8 @@ pid = nil
 
 begin
   require 'ron'
-rescue LoadError
+rescue LoadError => boom
+  raise unless boom.to_s.include?('ron')
   $:.unshift File.dirname(__FILE__) + "../lib"
   require 'ron'
 end

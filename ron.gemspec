@@ -50,8 +50,8 @@ Gem::Specification.new do |s|
   s.test_files = s.files.select { |path| path =~ /^test\/.*_test.rb/ }
 
   s.extra_rdoc_files = %w[COPYING]
-  s.add_dependency 'nokogiri',    '~> 1.4'
-  s.add_dependency 'rdiscount',   '~> 1.3'
+  s.add_dependency 'hpricot',    '~> 0.8.2'
+  s.add_dependency 'rdiscount',   '~> 1.5.8'
   s.add_development_dependency 'contest', '~> 0.1'
 
   s.has_rdoc = true
