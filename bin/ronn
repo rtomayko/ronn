@@ -87,11 +87,27 @@ formats.delete('html') if formats.include?('html_fragment')
 pid = nil
 
 begin
+  require 'hpricot'
+  require 'rdiscount'
+rescue LoadError
+  if !defined?(Gem)
+    warn "warn: #{$!.to_s}. trying again with rubygems."
+    require 'rubygems'
+    retry
+  end
+end
+
+begin
   require 'ronn'
-rescue LoadError => boom
-  raise unless boom.to_s.include?('ronn')
-  $:.unshift File.dirname(__FILE__) + "../lib"
-  require 'ronn'
+rescue LoadError
+  raise if $!.to_s !~ /ronn/
+  libdir = File.expand_path("../../lib", __FILE__).sub(/^#{Dir.pwd}/, '.')
+  if !$:.include?(libdir)
+    warn "warn: #{$!.to_s}. trying again with #{libdir} on load path."
+    $:.unshift libdir
+    retry
+  end
+  raise
 end
 
 wr = STDOUT
