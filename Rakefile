@@ -7,6 +7,7 @@ LIBDIR  = "#{ROOTDIR}/lib"
 BINDIR  = "#{ROOTDIR}/bin"
 
 task :environment do
+  $LOAD_PATH.unshift ROOTDIR if !$:.include?(ROOTDIR)
   $LOAD_PATH.unshift LIBDIR if !$:.include?(LIBDIR)
   require_library 'hpricot'
   require_library 'rdiscount'
@@ -27,44 +28,43 @@ end
 
 # PACKAGING ============================================================
 
-require 'rubygems/specification'
-$spec = eval(File.read('ronn.gemspec'))
+if defined?(Gem)
+  $spec = eval(File.read('ronn.gemspec'))
 
-def package(ext='')
-  "pkg/ronn-#{$spec.version}" + ext
+  def package(ext='')
+    "pkg/ronn-#{$spec.version}" + ext
+  end
+
+  desc 'Build packages'
+  task :package => %w[.gem .tar.gz].map { |ext| package(ext) }
+
+  desc 'Build and install as local gem'
+  task :install => package('.gem') do
+    sh "gem install #{package('.gem')}"
+  end
+
+  directory 'pkg/'
+  CLOBBER.include('pkg')
+
+  file package('.gem') => %w[pkg/ ronn.gemspec] + $spec.files do |f|
+    sh "gem build ronn.gemspec"
+    mv File.basename(f.name), f.name
+  end
+
+  file package('.tar.gz') => %w[pkg/] + $spec.files do |f|
+    sh <<-SH
+      git archive --prefix=ronn-#{source_version}/ --format=tar HEAD |
+      gzip > #{f.name}
+    SH
+  end
 end
-
-desc 'Build packages'
-task :package => %w[.gem .tar.gz].map { |ext| package(ext) }
-
-desc 'Build and install as local gem'
-task :install => package('.gem') do
-  sh "gem install #{package('.gem')}"
-end
-
-directory 'pkg/'
-CLOBBER.include('pkg')
-
-file package('.gem') => %w[pkg/ ronn.gemspec] + $spec.files do |f|
-  sh "gem build ronn.gemspec"
-  mv File.basename(f.name), f.name
-end
-
-file package('.tar.gz') => %w[pkg/] + $spec.files do |f|
-  sh <<-SH
-    git archive --prefix=ronn-#{source_version}/ --format=tar HEAD |
-    gzip > #{f.name}
-  SH
-end
-
-# Gemspec Helpers ====================================================
 
 def source_version
   line = File.read('lib/ronn.rb')[/^\s*VERSION = .*/]
   line.match(/.*VERSION = '(.*)'/)[1]
 end
 
-file 'ronn.gemspec' => FileList['{lib,test}/**','Rakefile'] do |f|
+file 'ronn.gemspec' => FileList['{lib,test,bin}/**','Rakefile'] do |f|
   # read spec file and split out manifest section
   spec = File.read(f.name)
   head, manifest, tail = spec.split("  # = MANIFEST =\n")
