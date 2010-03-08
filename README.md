@@ -21,17 +21,17 @@ range of ronn capabilities and are the source of Ronn's own documentation.
 The source files and generated HTML / roff output files are available
 at:
 
-  * [ronn(1)](http://rtomayko.github.com/ronn/ronn.1.html) -
+  * [ronn(1)](http://rtomayko.github.com/ronn/ronn.1) -
     build markdown based manual pages at the command line.  
     [source file](http://github.com/rtomayko/ronn/blob/master/man/ronn.1.ronn),
     [roff output](http://github.com/rtomayko/ronn/blob/master/man/ronn.1)
 
-  * [ronn(5)](http://rtomayko.github.com/ronn/ronn.5.html) -
+  * [ronn(5)](http://rtomayko.github.com/ronn/ronn.5) -
     humane manual page authoring format syntax reference.  
     [source file](http://github.com/rtomayko/ronn/blob/master/man/ronn.5.ronn),
     [roff output](http://github.com/rtomayko/ronn/blob/master/man/ronn.5)
 
-  * [markdown(5)](http://rtomayko.github.com/ronn/markdown.5.html) -
+  * [markdown(5)](http://rtomayko.github.com/ronn/markdown.5) -
     humane text markup syntax (taken from
     [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax),
     John Gruber)  
@@ -53,8 +53,8 @@ Or, clone the git repository:
 
 ## BASIC USAGE
 
-To generate a roff man page from the included
-[`markdown.5.ronn`](man/markdown.5.ronn) file and open it with man(1):
+To generate a roff man page from the included `markdown.5.ronn` file and
+open it with man(1):
 
     $ ronn -b man/markdown.5.ronn
     building: man/markdown.5
@@ -75,7 +75,7 @@ building intermediate files:
 
     $ ronn -m man/markdown.5.ronn
 
-The [ronn(1)](http://rtomayko.github.com/ronn/ronn.1.html) manual page
+The [ronn(1)](http://rtomayko.github.com/ronn/ronn.1) manual page
 includes comprehensive documentation on `ronn` command line options.
 
 ## ABOUT
@@ -130,6 +130,6 @@ See the file COPYING for information of licensing and distribution.
 
 ## SEE ALSO
 
-[ronn(1)](http://rtomayko.github.com/ronn/ronn.1.html),
-[ronn(5)](http://rtomayko.github.com/ronn/ronn.5.html),
-[markdown(5)](http://rtomayko.github.com/ronn/markdown.5.html)
+[ronn(1)](http://rtomayko.github.com/ronn/ronn.1),
+[ronn(5)](http://rtomayko.github.com/ronn/ronn.5),
+[markdown(5)](http://rtomayko.github.com/ronn/markdown.5)
