@@ -1,42 +1,38 @@
 .\" generated with Ronn/v0.3
 .\" http://github.com/rtomayko/ronn/
 .
-<<<<<<< HEAD:man/ron.1
-.TH "RON" "1" "March 2010" "Ryan Tomayko" "Ron Manual"
-=======
-.TH "RON" "1" "March 2010" "Ryan Tomayko" "Ronn Manual"
->>>>>>> ronn:man/ronn.1
+.TH "RONN" "1" "March 2010" "Ryan Tomayko" "Ronn Manual"
 .
 .SH "NAME"
-\fBron\fR \-\- build markdown\-based man pages
+\fBronn\fR \-\- build markdown\-based man pages
 .
 .SH "SYNOPSIS"
-\fBron\fR [ \fIOPTIONS\fR ] \fIFILE\fR ...
+\fBronn\fR [ \fIOPTIONS\fR ] \fIFILE\fR ...
 .
 .br
-\fBron\fR \-\-build \fIFILE\fR ...
+\fBronn\fR \-\-build \fIFILE\fR ...
 .
 .br
-\fBron\fR \-\-install \fIFILE\fR ...
+\fBronn\fR \-\-install \fIFILE\fR ...
 .
 .br
-\fBron\fR \-\-man \fIFILE\fR
+\fBronn\fR \-\-man \fIFILE\fR
 .
 .SH "DESCRIPTION"
-Ron is a humane text format and toolchain for authoring man pages, and
+Ronn is a humane text format and toolchain for authoring man pages, and
 things that appear as man pages from a distance. Use it to build and
 install standard UNIX / roff(7) formatted man pages and to generate
 nicely formatted HTML manual pages.
 .
 .P
-The \fBron\fR command converts one or more named input \fIFILE\fRs (or standard
+The \fBronn\fR command converts one or more named input \fIFILE\fRs (or standard
 input when no files are named or the file name \fB\-\fR is given) from humane
 man page markup to one or more destination output formats. If no output
-format is selected explicitly, \fBron\fR writes output in roff format.
+format is selected explicitly, \fBronn\fR writes output in roff format.
 .
 .SH "FILES"
-The \fBron\fR command expects input to be formatted as ron(5) text.  Source
-files are typically named '\fINAME\fR.\fISECTION\fR.ron' (e.g., \fBhello.1.ron\fR).
+The \fBronn\fR command expects input to be formatted as ronn(5) text.  Source
+files are typically named '\fINAME\fR.\fISECTION\fR.ronn' (e.g., \fBhello.1.ronn\fR).
 The \fINAME\fR and \fISECTION\fR should match the name and section defined in \fIFILE\fR's heading.
 .
 .P
@@ -45,11 +41,11 @@ destination filenames are determined by taking the basename of the input \fIFILE
 extension in the case of roff output).
 .
 .P
-For example, the command \fBron \-b \-\-html \-\-roff hello.1.ron\fR generates a \fBhello.1\fR file with roff output and a \fBhello.1.html\fR file with HTML
+For example, the command \fBronn \-b \-\-html \-\-roff hello.1.ronn\fR generates a \fBhello.1\fR file with roff output and a \fBhello.1.html\fR file with HTML
 output.
 .
 .SH "OPTIONS"
-\fBron\fR's default mode of operation is to read a single document from
+\fBronn\fR's default mode of operation is to read a single document from
 standard input and to write the result to standard output. The following
 arguments change this behavior:
 .
@@ -67,7 +63,7 @@ used to determine the prefix where man pages should be installed
 when defined.
 .
 .IP
-If \fBMANHOME\fR is not defined, \fBron\fR installs man pages to \fI/usr/local/man\fR.
+If \fBMANHOME\fR is not defined, \fBronn\fR installs man pages to \fI/usr/local/man\fR.
 .
 .TP
 \fB\-m\fR, \fB\-\-man\fR
@@ -121,7 +117,7 @@ Generate \fBroff(7)\fR output on stdout:
 .IP "" 4
 .
 .nf
-$ ron < hello.1.ron
+$ ronn < hello.1.ronn
 .
 .fi
 .
@@ -133,7 +129,7 @@ Build a roff file based on the input filename:
 .IP "" 4
 .
 .nf
-$ ron \-b hello.1.ron
+$ ronn \-b hello.1.ronn
 building: hello.1
 $ man hello.1
 .
@@ -147,7 +143,7 @@ Build and open a standalone HTML file based on the input filename:
 .IP "" 4
 .
 .nf
-$ ron \-b \-\-html test.1.ron
+$ ronn \-b \-\-html test.1.ronn
 $ open test.1.html
 .
 .fi
@@ -155,13 +151,13 @@ $ open test.1.html
 .IP "" 0
 .
 .P
-Build roff and HTML versions of all \fB.ron\fR files in the current
+Build roff and HTML versions of all \fB.ronn\fR files in the current
 directory:
 .
 .IP "" 4
 .
 .nf
-$ ron \-b \-\-roff \-\-html *.ron
+$ ronn \-b \-\-roff \-\-html *.ronn
 building: hello.1
 building: hello.1.html
 building: world.1
@@ -172,24 +168,24 @@ building: world.1.html
 .IP "" 0
 .
 .P
-View a ron file in the same way as man(1) without building a roff file:
+View a ronn file in the same way as man(1) without building a roff file:
 .
 .IP "" 4
 .
 .nf
-$ ron \-m hello.1.ron
+$ ronn \-m hello.1.ronn
 .
 .fi
 .
 .IP "" 0
 .
 .P
-Install the roff man page for a ron file:
+Install the roff man page for a ronn file:
 .
 .IP "" 4
 .
 .nf
-$ ron \-i hello.1.ron
+$ ronn \-i hello.1.ronn
 .
 .fi
 .
@@ -213,13 +209,12 @@ something like 'less \-is'.
 Used instead of \fBMANPAGER\fR when \fBMANPAGER\fR is not defined.
 .
 .SH "BUGS"
-Ron is written in Ruby and depends on hpricot and rdiscount,
-extension libraries that are non\-trivial to install on some
-systems. A more portable version of this program would be
-welcome.
+Ronn is written in Ruby and depends on hpricot and rdiscount, extension
+libraries that are non\-trivial to install on some systems. A more portable
+version of this program would be welcome.
 .
 .SH "COPYRIGHT"
-Ron is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
+Ronn is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
 .
 .SH "SEE ALSO"
-ron(5), markdown(5), manpages(5), man(1), roff(7), groff(1)
+ronn(5), markdown(5), manpages(5), man(1), roff(7), groff(1)
