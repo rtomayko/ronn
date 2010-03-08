@@ -1,8 +1,8 @@
 require 'hpricot'
 
-module Ron
+module Ronn
   class RoffFilter
-    # Convert Ron HTML to roff.
+    # Convert Ronn HTML to roff.
     def initialize(html, name, section, tagline, manual=nil, version=nil, date=nil)
       @buf = []
       title_heading name, section, tagline, manual, version, date
@@ -25,8 +25,8 @@ module Ron
     end
 
     def title_heading(name, section, tagline, manual, version, date)
-      comment "generated with Ron/v#{Ron::VERSION}"
-      comment "http://github.com/rtomayko/ron/"
+      comment "generated with Ronn/v#{Ronn::VERSION}"
+      comment "http://github.com/rtomayko/ronn/"
       macro "TH", %["#{escape(name.upcase)}" "#{section}" "#{date.strftime('%B %Y')}" "#{version}" "#{manual}"]
     end
 

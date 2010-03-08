@@ -1,0 +1,131 @@
+#!/usr/bin/env ruby
+## Usage: ronn [ OPTIONS ] [ FILE ]
+##        ronn --build FILE ...
+##        ronn --install FILE ...
+##        ronn --man FILE ...
+## Convert ronn FILE to roff man page or HTML and write to standard
+## output. With no FILE, ronn reads from standard input. The build,
+## install, and man forms accept multiple FILE arguments.
+##
+## Modes:
+##       --pipe                write to standard output (default behavior)
+##   -b, --build               write to files instead of standard output
+##   -i, --install             write to file in MAN_HOME or system man path
+##   -m, --man                 open man page like man(1)
+##
+## Formats:
+##   -r, --roff                generate roff/man text; this is the default behavior
+##   -5, --html                generate entire HTML page with layout
+##   -f, --fragment            generate HTML fragment instead of entire HTML page
+##
+## Document attributes:
+##       --date=DATE           published date in YYYY-MM-DD format;
+##                             displayed bottom-center in footer
+##       --manual=NAME         name of the manual this document belongs to;
+##                             displayed top-center in header
+##       --organization=NAME   publishing group, organization, or individual;
+##                             displayed bottom-left in footer
+##
+##       --help                show this help message
+##
+require 'date'
+require 'optparse'
+
+formats = []
+options = {}
+build = false
+install = false
+man = false
+groff = "groff -Wall -mtty-char -mandoc -Tascii"
+pager = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
+
+def info(message, *args)
+  STDERR.puts message % args
+end
+
+def usage
+  puts File.readlines(__FILE__).
+    grep(/^##.*/).
+    map { |line| line.chomp[3..-1] }.
+    join("\n")
+end
+
+# parse command line options
+ARGV.options do |option|
+  # modes
+  option.on("--pipe") { }
+  option.on("-b", "--build") { build = true }
+  option.on("-i", "--install") { install = true }
+  option.on("-m", "--man") { man = true }
+
+  # format options
+  option.on("-r", "--roff") { formats << 'roff' }
+  option.on("-5", "--html") { formats << 'html' }
+  option.on("-f", "--fragment") { formats << 'html_fragment' }
+
+  # manual attribute options
+  [:name, :section, :manual, :organization, :date].each do |option_attr|
+    option.on("--#{option_attr}=VALUE") { |val| options[option_attr] = val }
+  end
+
+  option.on_tail("--help") { usage ; exit }
+  option.parse!
+end
+
+if ARGV.empty? && STDIN.tty?
+  usage
+  exit
+elsif ARGV.empty?
+  ARGV.push '-'
+end
+
+# turn the --date arg into a real date object
+options[:date] &&= Date.strptime(options[:date], '%Y-%m-%d')
+
+formats = ['roff'] if formats.empty?
+formats.delete('html') if formats.include?('html_fragment')
+pid = nil
+
+begin
+  require 'ronn'
+rescue LoadError => boom
+  raise unless boom.to_s.include?('ronn')
+  $:.unshift File.dirname(__FILE__) + "../lib"
+  require 'ronn'
+end
+
+wr = STDOUT
+ARGV.each do |file|
+  doc = Ronn.new(file, options) { file == '-' ? STDIN.read : File.read(file) }
+
+  # setup the man pipeline if the --man option was specified
+  if man && !build
+    rd, wr = IO.pipe
+    if pid = fork
+      rd.close
+    else
+      wr.close
+      STDIN.reopen rd
+      exec "#{groff} | #{pager}"
+    end
+  end
+
+  # write output for each format
+  formats.each do |format|
+    if build
+      path = doc.path_for(format)
+      info "building: #{path}" if build
+      output = doc.convert(format)
+      File.open(path, 'wb') { |f| f.puts(output) }
+      system "man #{path}" if man && format == 'roff'
+    else
+      output = doc.convert(format)
+      wr.puts(output)
+    end
+  end
+
+  if pid
+    wr.close
+    Process.wait
+  end
+end

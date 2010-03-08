@@ -1,82 +1,82 @@
-ron -- the opposite of roff
+ronn -- the opposite of roff
 ===========================
 
 ## DESCRIPTION
 
-Ron is a humane text format and toolchain for creating UNIX man
+Ronn is a humane text format and toolchain for creating UNIX man
 pages, and things that appear as man pages from a distance. Use it
 to build and install standard UNIX roff man pages or to generate
 nicely formatted HTML manual pages for the web.
 
-The Ron file format is based on Markdown. In fact, Ron files are a
+The Ronn file format is based on Markdown. In fact, Ronn files are a
 compatible subset of Markdown syntax but have a more rigid structure and
 extend Markdown in some ways to provide features commonly found in man
-pages (e.g., definition lists). The ron(5) manual page defines the
+pages (e.g., definition lists). The ronn(5) manual page defines the
 format in more detail.
 
 ## DOCUMENTATION
 
-The `.ron` files located under the `man/` directory show off a wide
-range of ron capabilities and are the source of Ron's own documentation.
+The `.ronn` files located under the `man/` directory show off a wide
+range of ronn capabilities and are the source of Ronn's own documentation.
 The source files and generated HTML / roff output files are available
 at:
 
-  * [ron(1)](http://rtomayko.github.com/ron/ron.1.html) -
+  * [ronn(1)](http://rtomayko.github.com/ronn/ronn.1.html) -
     build markdown based manual pages at the command line.  
-    [source file](http://github.com/rtomayko/ron/blob/master/man/ron.1.ron),
-    [roff output](http://github.com/rtomayko/ron/blob/master/man/ron.1)
+    [source file](http://github.com/rtomayko/ronn/blob/master/man/ronn.1.ronn),
+    [roff output](http://github.com/rtomayko/ronn/blob/master/man/ronn.1)
 
-  * [ron(5)](http://rtomayko.github.com/ron/ron.5.html) -
+  * [ronn(5)](http://rtomayko.github.com/ronn/ronn.5.html) -
     humane manual page authoring format syntax reference.  
-    [source file](http://github.com/rtomayko/ron/blob/master/man/ron.5.ron),
-    [roff output](http://github.com/rtomayko/ron/blob/master/man/ron.5)
+    [source file](http://github.com/rtomayko/ronn/blob/master/man/ronn.5.ronn),
+    [roff output](http://github.com/rtomayko/ronn/blob/master/man/ronn.5)
 
-  * [markdown(5)](http://rtomayko.github.com/ron/markdown.5.html) -
+  * [markdown(5)](http://rtomayko.github.com/ronn/markdown.5.html) -
     humane text markup syntax (taken from
     [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax),
     John Gruber)  
-    [source file](http://github.com/rtomayko/ron/blob/master/man/markdown.5.ron),
-    [roff output](http://github.com/rtomayko/ron/blob/master/man/markdown.5)
+    [source file](http://github.com/rtomayko/ronn/blob/master/man/markdown.5.ronn),
+    [roff output](http://github.com/rtomayko/ronn/blob/master/man/markdown.5)
 
 ## INSTALL
 
 Install with Rubygems:
 
-    $ [sudo] gem install ron
-    $ ron --help
+    $ [sudo] gem install ronn
+    $ ronn --help
 
 Or, clone the git repository:
 
-    $ git clone git://github.com/rtomayko/ron.git
-    $ PATH=ron/bin:$PATH
-    $ ron --help
+    $ git clone git://github.com/rtomayko/ronn.git
+    $ PATH=ronn/bin:$PATH
+    $ ronn --help
 
 ## BASIC USAGE
 
 To generate a roff man page from the included
-[`markdown.5.ron`](man/markdown.5.ron) file and open it with man(1):
+[`markdown.5.ronn`](man/markdown.5.ronn) file and open it with man(1):
 
-    $ ron -b man/markdown.5.ron
+    $ ronn -b man/markdown.5.ronn
     building: man/markdown.5
     $ man man/markdown.5
 
 To generate a standalone HTML version:
 
-    $ ron -b --html man/markdown.5.ron
+    $ ronn -b --html man/markdown.5.ronn
     building: man/markdown.5.html
     $ open man/markdown.5.html
 
-To build roff and HTML versions of all ron files:
+To build roff and HTML versions of all ronn files:
 
-    $ ron -b --roff --html man/*.ron
+    $ ronn -b --roff --html man/*.ronn
 
-If you just want to view a ron file as if it were a man page without
+If you just want to view a ronn file as if it were a man page without
 building intermediate files:
 
-    $ ron -m man/markdown.5.ron
+    $ ronn -m man/markdown.5.ronn
 
-The [ron(1)](http://rtomayko.github.com/ron/ron.1.html) manual page
-includes comprehensive documentation on `ron` command line options.
+The [ronn(1)](http://rtomayko.github.com/ronn/ronn.1.html) manual page
+includes comprehensive documentation on `ronn` command line options.
 
 ## ABOUT
 
@@ -119,17 +119,17 @@ extensible, fractured between multiple dialects, and include a bunch
 of device specific stuff that's entirely irrelevant to modern
 publishing tools.
 
-Ron aims to address many of the issues with man page creation while
+Ronn aims to address many of the issues with man page creation while
 preserving the things that makes man pages a great form of
 documentation.
 
 ## COPYING
 
-Ron is Copyright (C) 2009 [Ryan Tomayko](http://tomayko.com/about)
+Ronn is Copyright (C) 2009 [Ryan Tomayko](http://tomayko.com/about)
 See the file COPYING for information of licensing and distribution.
 
 ## SEE ALSO
 
-[ron(1)](http://rtomayko.github.com/ron/ron.1.html),
-[ron(5)](http://rtomayko.github.com/ron/ron.5.html),
-[markdown(5)](http://rtomayko.github.com/ron/markdown.5.html)
+[ronn(1)](http://rtomayko.github.com/ronn/ronn.1.html),
+[ronn(5)](http://rtomayko.github.com/ronn/ronn.5.html),
+[markdown(5)](http://rtomayko.github.com/ronn/markdown.5.html)

@@ -17,16 +17,16 @@ end
 
 desc 'Build the manual'
 task :man => :environment do
-  sh "ron -br5 --manual='Ron Manual' --organization='Ryan Tomayko' man/*.ron"
+  sh "ronn -br5 --manual='Ronn Manual' --organization='Ryan Tomayko' man/*.ronn"
 end
 
 # PACKAGING ============================================================
 
 require 'rubygems/specification'
-$spec = eval(File.read('ron.gemspec'))
+$spec = eval(File.read('ronn.gemspec'))
 
 def package(ext='')
-  "pkg/ron-#{$spec.version}" + ext
+  "pkg/ronn-#{$spec.version}" + ext
 end
 
 desc 'Build packages'
@@ -40,14 +40,14 @@ end
 directory 'pkg/'
 CLOBBER.include('pkg')
 
-file package('.gem') => %w[pkg/ ron.gemspec] + $spec.files do |f|
-  sh "gem build ron.gemspec"
+file package('.gem') => %w[pkg/ ronn.gemspec] + $spec.files do |f|
+  sh "gem build ronn.gemspec"
   mv File.basename(f.name), f.name
 end
 
 file package('.tar.gz') => %w[pkg/] + $spec.files do |f|
   sh <<-SH
-    git archive --prefix=ron-#{source_version}/ --format=tar HEAD |
+    git archive --prefix=ronn-#{source_version}/ --format=tar HEAD |
     gzip > #{f.name}
   SH
 end
@@ -55,11 +55,11 @@ end
 # Gemspec Helpers ====================================================
 
 def source_version
-  line = File.read('lib/ron.rb')[/^\s*VERSION = .*/]
+  line = File.read('lib/ronn.rb')[/^\s*VERSION = .*/]
   line.match(/.*VERSION = '(.*)'/)[1]
 end
 
-file 'ron.gemspec' => FileList['{lib,test}/**','Rakefile'] do |f|
+file 'ronn.gemspec' => FileList['{lib,test}/**','Rakefile'] do |f|
   # read spec file and split out manifest section
   spec = File.read(f.name)
   head, manifest, tail = spec.split("  # = MANIFEST =\n")

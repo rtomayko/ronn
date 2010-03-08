@@ -1,9 +1,7 @@
-ron(5) -- humane manual page authoring format
-=============================================
+ronn(5) -- humane manual page authoring format
+==============================================
 
 ## SYNOPSIS
-
-A basic manual page in Ron:
 
     name(1) -- one sentence description
     ===================================
@@ -35,35 +33,35 @@ A basic manual page in Ron:
 
 ## DESCRIPTION
 
-Ron files are simple ascii texts that document things in the
+Ronn files are simple ascii texts that document things in the
 style of UNIX man pages but with a syntax and feature-set less
-insane than that of roff(7). Ron files are piped through ron(1)
+insane than that of roff(7). Ronn files are piped through ronn(1)
 to build and install traditional roff(7) man pages or to generate
 hyperlinked HTML documentation.
 
-All ron formatted files must conform to a simple subset of
+All ronn formatted files must conform to a simple subset of
 markdown(5), a humane text markup designed for writing on the
 web. It is neither possible nor desirable to express many of
-roff(7)'s complex typesetting features in ron.
+roff(7)'s complex typesetting features in ronn.
 
 ## MANPAGE TITLE
 
 All man pages have a <name>, belong to a <section>, and have a
-single sentence <tagline> (useless but witty, preferably). Ron
+single sentence <tagline> (useless but witty, preferably). Ronn
 files must begin with a first-level heading that includes all of
 this information. For example, this very man page begins:
 
-    ron(5) -- humane manual page authoring format
+    ronn(5) -- humane manual page authoring format
     =============================================
 
 Here, we're saying that the man page documents a thing named
-`ron` in manual section `5` (the "file formats" section; see
+`ronn` in manual section `5` (the "file formats" section; see
 manpages(5) for full section list) and that's quickly described
 as a "humane manual page authoring format".
 
 These bits of information are used to fill in the document
 header, to create the `NAME` section, and also to establish
-output filenames when processed with ron(1).
+output filenames when processed with ronn(1).
 
 ## SECTION HEADINGS
 
@@ -93,7 +91,7 @@ pages and external documents.
 
 Man pages have a limited set of text formatting capabilities at
 their disposal. There's basically <b>boldface</b> and
-<i>italics</i> (often displayed using <u>underline</u>). Ron uses
+<i>italics</i> (often displayed using <u>underline</u>). Ronn uses
 the following bits of markdown(5) to accomplish this:
 
   * <code>\`backticks\`</code>:
@@ -109,7 +107,7 @@ the following bits of markdown(5) to accomplish this:
   * `<angle-quotes>`:
     Same as _underbars_. This is not compatible with Markdown.
 
-Here is grep(1)'s DESCRIPTION section represented in `ron`:
+Here is grep(1)'s DESCRIPTION section represented in `ronn`:
 
     `Grep` searches the named input _FILE_ (or standard input if
     no files are named, or the file name `-` is given) for lines
@@ -145,10 +143,10 @@ An example definition list, taken from BSD test(1)'s
          True if file exists and is a directory.
 
 The definition list syntax is intentionally backward compatible
-with markdown(5)'s list syntax. This allows `ron` documents to be
+with markdown(5)'s list syntax. This allows `ronn` documents to be
 piped through normal markdown processors with minor degradation
 in output formatting.
 
 ## SEE ALSO
 
-ron(1), markdown(5), manpages(5)
+ronn(1), markdown(5), manpages(5)

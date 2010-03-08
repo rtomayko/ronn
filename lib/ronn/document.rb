@@ -1,15 +1,15 @@
 require 'set'
 require 'hpricot'
 require 'rdiscount'
-require 'ron/roff'
+require 'ronn/roff'
 
-module Ron
-  # The Document class can be used to load and inspect a ron document
-  # and to convert a ron document into other formats, like roff or
+module Ronn
+  # The Document class can be used to load and inspect a ronn document
+  # and to convert a ronn document into other formats, like roff or
   # HTML.
   #
-  # Ron files may optionally follow the naming convention:
-  # "<name>.<section>.ron". The <name> and <section> are used in
+  # Ronn files may optionally follow the naming convention:
+  # "<name>.<section>.ronn". The <name> and <section> are used in
   # generated documentation unless overridden by the information
   # extracted from the document's name section.
   class Document
@@ -41,7 +41,7 @@ module Ron
     # the document footer.
     attr_accessor :date
 
-    # Create a Ron::Document given a path or with the data returned by
+    # Create a Ronn::Document given a path or with the data returned by
     # calling the block. The document is loaded and preprocessed before
     # the intialize method returns. The attributes hash may contain values
     # for any writeable attributes defined on this class.
