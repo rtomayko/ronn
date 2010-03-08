@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.3'>
+  <title>ronn(1) -- build markdown-based man pages</title>
+  <style type='text/css'>
+    body {margin:0}
+    #man, #man code, #man pre, #man tt, #man kbd, #man samp {
+      font-family:consolas,monospace;
+      font-size:16px;
+      line-height:1.3;
+      color:#343331;
+      background:#fff; }
+    #man { max-width:89ex; text-align:justify; margin:0 25px 25px 25px }
+    #man h1, #man h2, #man h3 { color:#232221;clear:left }
+    #man h1 { font-size:28px; margin:15px 0 30px 0; text-align:center }
+    #man h2 { font-size:18px; margin-bottom:0; margin-top:10px; line-height:1.3; }
+    #man h3 { font-size:16px; margin:0 0 0 4ex; }
+    #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
+    #man pre {
+      color:#333231;
+      background:#edeceb;
+      padding:5px 7px;
+      margin:0px 0 20px 0;
+      border-left:2ex solid #ddd}
+    #man pre + h2, #man pre + h3 {
+      margin-top:22px;
+    }
+    #man h2 + pre, #man h3 + pre {
+      margin-top:5px;
+    }
+    #man > p, #man > ul, #man > ol, #man > dl, #man > pre { margin-left:8ex; }
+    #man dt { margin:0; clear:left }
+    #man dt.flush { float:left; width:8ex }
+    #man dd { margin:0 0 0 9ex }
+    #man code, #man strong, #man b { font-weight:bold; color:#131211; }
+    #man pre code { font-weight:normal; color:#232221; background:inherit }
+    #man em, var, u {
+      font-style:normal; color:#333231; border-bottom:1px solid #999; }
+    #man h1.man-title { display:none; }
+    #man ol.man, #man ol.man li { margin:2px 0 10px 0; padding:0;
+      float:left; width:33%; list-style-type:none;
+      text-transform:uppercase; font-size:18px; color:#999;
+      letter-spacing:1px;}
+    #man ol.man { width:100%; }
+    #man ol.man li.tl { text-align:left }
+    #man ol.man li.tc { text-align:center;letter-spacing:4px }
+    #man ol.man li.tr { text-align:right }
+    #man ol.man a { color:#999 }
+    #man ol.man a:hover { color:#333231 }
+  </style>
+</head>
+<body>
+<div id='man'>
+
+<h1 class='man-title'>ronn(1)</h1>
+
+<ol class='head man'>
+  <li class='tl'>ronn(1)</li>
+  <li class='tc'>Ronn Manual</li>
+  <li class='tr'>ronn(1)</li>
+</ol>
+
+<h2 id='NAME'>NAME</h2>
+<p><code>ronn</code> -- build markdown-based man pages</p>
+
+<h2>SYNOPSIS</h2>
+
+<p><code>ronn</code> [ <var>OPTIONS</var> ] <var>FILE</var> ...<br />
+<code>ronn</code> --build <var>FILE</var> ...<br />
+<code>ronn</code> --install <var>FILE</var> ...<br />
+<code>ronn</code> --man <var>FILE</var></p>
+
+<h2>DESCRIPTION</h2>
+
+<p>Ronn is a humane text format and toolchain for authoring man pages, and
+things that appear as man pages from a distance. Use it to build and
+install standard UNIX / roff(7) formatted man pages and to generate
+nicely formatted HTML manual pages.</p>
+
+<p>The <code>ronn</code> command converts one or more named input <var>FILE</var>s (or standard
+input when no files are named or the file name <code>-</code> is given) from humane
+man page markup to one or more destination output formats. If no output
+format is selected explicitly, <code>ronn</code> writes output in roff format.</p>
+
+<h2>FILES</h2>
+
+<p>The <code>ronn</code> command expects input to be formatted as ronn(5) text.  Source
+files are typically named '<var>NAME</var>.<var>SECTION</var>.ronn' (e.g., <code>hello.1.ronn</code>).
+The <var>NAME</var> and <var>SECTION</var> should match the name and section defined in
+<var>FILE</var>'s heading.</p>
+
+<p>When building roff and/or HTML output files with the <code>--build</code> argument,
+destination filenames are determined by taking the basename of the input
+<var>FILE</var> and adding the appropriate file extension (or removing the file
+extension in the case of roff output).</p>
+
+<p>For example, the command <code>ronn -b --html --roff hello.1.ronn</code> generates a
+<code>hello.1</code> file with roff output and a <code>hello.1.html</code> file with HTML
+output.</p>
+
+<h2>OPTIONS</h2>
+
+<p><code>ronn</code>'s default mode of operation is to read a single document from
+standard input and to write the result to standard output. The following
+arguments change this behavior:</p>
+
+<dl>
+<dt><code>-b</code>, <code>--build</code></dt><dd><p>Write output directly to files instead of standard output. When the
+<code>--roff</code> option is provided, writes roff output to <var>file</var>.<var>section</var>.
+When the <code>--html</code> option is provided, writes output to
+'<var>file</var>.<var>section</var>.html'.</p></dd>
+<dt><code>-i</code>, <code>--install</code></dt><dd><p>Install the roff formatted man page to the local system such that it
+can be displayed by man(1). The <code>MANHOME</code> environment variable is
+used to determine the prefix where man pages should be installed
+when defined.</p>
+
+<p>If <code>MANHOME</code> is not defined, <code>ronn</code> installs man pages to
+<em>/usr/local/man</em>.</p></dd>
+<dt><code>-m</code>, <code>--man</code></dt><dd><p>Display <var>FILE</var>s as if man(1) were invoked on the roff output file.
+This simulates default man behavior by piping the roff output
+through groff(1) and the paging program specified by the <code>MANPAGER</code>
+environment variable.</p></dd>
+</dl>
+
+
+<p>These options control the format used in generated output:</p>
+
+<dl>
+<dt><code>-r</code>, <code>--roff</code></dt><dd><p>Generate roff output. This is the default behavior when no other
+format argument is provided.</p></dd>
+<dt><code>-5</code>, <code>--html</code></dt><dd><p>Generate output in HTML format.</p></dd>
+<dt><code>-f</code>, <code>--fragment</code></dt><dd><p>Generate output in HTML format but only the document fragment, not
+the header, title, or footer.</p></dd>
+</dl>
+
+
+<p>All document attributes displayed in the header and footer areas of
+generated content can be specified with these options:</p>
+
+<dl>
+<dt><code>--manual</code>=<var>MANUAL</var></dt><dd><p>The name of the manual this man page belongs to; <var>MANUAL</var> is
+prominently displayed top-center in the header area.</p></dd>
+<dt><code>--organization</code>=<var>NAME</var></dt><dd><p>The name of the group, organization, or individual responsible for
+publishing the document; <var>NAME</var> is displayed in the bottom-left
+footer area.</p></dd>
+<dt><code>--date</code>=<var>DATE</var></dt><dd><p>The document's published date; <var>DATE</var> must be formatted <code>YYYY-MM-DD</code>
+and is displayed in the bottom-center footer area. The <var>FILE</var> mtime
+is used when no <var>DATE</var> is given, or the current time when no <var>FILE</var>
+is available.</p></dd>
+</dl>
+
+
+<h2>EXAMPLES</h2>
+
+<p>Generate <code>roff(7)</code> output on stdout:</p>
+
+<pre><code>$ ronn &lt; hello.1.ronn
+</code></pre>
+
+<p>Build a roff file based on the input filename:</p>
+
+<pre><code>$ ronn -b hello.1.ronn
+building: hello.1
+$ man hello.1
+</code></pre>
+
+<p>Build and open a standalone HTML file based on the input filename:</p>
+
+<pre><code>$ ronn -b --html test.1.ronn
+$ open test.1.html
+</code></pre>
+
+<p>Build roff and HTML versions of all <code>.ronn</code> files in the current
+directory:</p>
+
+<pre><code>$ ronn -b --roff --html *.ronn
+building: hello.1
+building: hello.1.html
+building: world.1
+building: world.1.html
+</code></pre>
+
+<p>View a ronn file in the same way as man(1) without building a roff file:</p>
+
+<pre><code>$ ronn -m hello.1.ronn
+</code></pre>
+
+<p>Install the roff man page for a ronn file:</p>
+
+<pre><code>$ ronn -i hello.1.ronn
+</code></pre>
+
+<h2>ENVIRONMENT</h2>
+
+<dl>
+<dt class="flush"><code>MANHOME</code></dt><dd><p>Location where roff formatted man pages are installed.  Relevant
+only when the <code>--install</code> argument is provided.  <var>PATH</var> is to the
+base of a man file hierarchy. e.g., <code>/usr/local/share/man</code>,
+<code>/home/rtomayko/man</code>.</p></dd>
+<dt><code>MANPAGER</code></dt><dd><p>The paging program used for man pages. This is typically set to
+something like 'less -is'.</p></dd>
+<dt class="flush"><code>PAGER</code></dt><dd><p>Used instead of <code>MANPAGER</code> when <code>MANPAGER</code> is not defined.</p></dd>
+</dl>
+
+
+<h2>BUGS</h2>
+
+<p>Ronn is written in Ruby and depends on hpricot and rdiscount, extension
+libraries that are non-trivial to install on some systems. A more portable
+version of this program would be welcome.</p>
+
+<h2>COPYRIGHT</h2>
+
+<p>Ronn is Copyright (C) 2009 Ryan Tomayko &lt;tomayko.com/about></p>
+
+<h2>SEE ALSO</h2>
+
+<p>ronn(5), markdown(5), manpages(5), man(1), roff(7), groff(1)</p>
+
+
+<ol class='foot man'>
+  <li class='tl'>Ryan Tomayko</li>
+  <li class='tc'>March 2010</li>
+  <li class='tr'>ronn(1)</li>
+</ol>
+
+</div>
+</body>
+</html>

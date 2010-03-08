@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ron/v0.2'>
+  <meta name='generator' value='Ronn/v0.3'>
   <title>markdown(5) -- humane markup syntax</title>
   <style type='text/css'>
     body {margin:0}
@@ -58,12 +58,13 @@
 
 <ol class='head man'>
   <li class='tl'>markdown(5)</li>
-  <li class='tc'>Ron Manual</li>
+  <li class='tc'>Ronn Manual</li>
   <li class='tr'>markdown(5)</li>
 </ol>
 
 <h2 id='NAME'>NAME</h2>
 <p><code>markdown</code> -- humane markup syntax</p>
+
 <h2>SYNOPSIS</h2>
 
 <pre><code># Header 1 #
@@ -74,14 +75,14 @@
 
 This is a paragraph, which is text surrounded by whitespace.
 Paragraphs can be on one line (or many), and can drone on for
-hours.  
+hours.
 
 [Reference style links][1] and [inline links](http://example.com)
 [1]: http://example.com "Title is optional"
 
 Inline markup like _italics_,  **bold**, and `code()`.
 
-![picture alt](/images/photo.jpeg "Title is optional")     
+![picture alt](/images/photo.jpeg "Title is optional")
 
 &gt; Blockquotes are like quoted text in email replies
 &gt;&gt; And, they can be nested
@@ -160,7 +161,7 @@ This is another regular paragraph.
 HTML tags. E.g., you can't use Markdown-style <code>*emphasis*</code> inside an
 HTML block.</p>
 
-<p>Span-level HTML tags -- e.g. <code>&lt;span&gt;</code>, <code>&lt;cite&gt;</code>, or <code>&lt;del&gt;</code> -- can be
+<p>Span-level HTML tags -- e.g. <code>&lt;span&gt;</code>, <code>&lt;cite&gt;</code>, or <code>&lt;del></code> -- can be
 used anywhere in a Markdown paragraph, list item, or header. If you
 want, you can even use HTML tags instead of Markdown formatting; e.g. if
 you'd prefer to use HTML <code>&lt;a&gt;</code> or <code>&lt;img&gt;</code> tags instead of Markdown's
@@ -303,7 +304,7 @@ wrap the text and put a <code>&gt;</code> before every line:</p>
 <pre><code>&gt; This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
 &gt; consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
 &gt; Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-&gt; 
+&gt;
 &gt; Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
 &gt; id sem consectetuer libero luctus adipiscing.
 </code></pre>
@@ -333,12 +334,12 @@ adding additional levels of <code>&gt;</code>:</p>
 and code blocks:</p>
 
 <pre><code>&gt; ## This is a header.
-&gt; 
+&gt;
 &gt; 1.   This is the first list item.
 &gt; 2.   This is the second list item.
-&gt; 
+&gt;
 &gt; Here's some example code:
-&gt; 
+&gt;
 &gt;     return shell_exec("echo $input | $markdown_script");
 </code></pre>
 
@@ -568,7 +569,7 @@ end tell
 <p>A code block continues until it reaches a line that is not indented
 (or the end of the article).</p>
 
-<p>Within a code block, ampersands (<code>&amp;</code>) and angle brackets (<code>&lt;</code> and <code>&gt;</code>)
+<p>Within a code block, ampersands (<code>&amp;</code>) and angle brackets (<code>&lt;</code> and <code>></code>)
 are automatically converted into HTML entities. This makes it very
 easy to include example HTML source code using Markdown -- just paste
 it and indent it, and Markdown will handle the hassle of encoding the
@@ -639,7 +640,7 @@ title attribute.&lt;/p&gt;
 <p>If you're referring to a local resource on the same server, you can
 use relative paths:</p>
 
-<pre><code>See my [About](/about/) page for details.   
+<pre><code>See my [About](/about/) page for details.
 </code></pre>
 
 <p>Reference-style links use a second set of square brackets, inside
@@ -876,7 +877,7 @@ A backtick-delimited string in a code span: `` `foo` ``
 entities automatically, which makes it easy to include example HTML
 tags. Markdown will turn this:</p>
 
-<pre><code>Please don't use any `&lt;blink&gt;` tags.
+<pre><code>Please don't use any `&lt;blink>` tags.
 </code></pre>
 
 <p>into:</p>
@@ -1011,12 +1012,13 @@ also by John Gruber.</p>
 
 <h2>SEE ALSO</h2>
 
-<p>ron(5)<br>
+<p>ronn(5)<br />
 <a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a></p>
+
 
 <ol class='foot man'>
   <li class='tl'>Ryan Tomayko</li>
-  <li class='tc'>December 2009</li>
+  <li class='tc'>March 2010</li>
   <li class='tr'>markdown(5)</li>
 </ol>
 

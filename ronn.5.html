@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.3'>
+  <title>ronn(5) -- humane manual page authoring format</title>
+  <style type='text/css'>
+    body {margin:0}
+    #man, #man code, #man pre, #man tt, #man kbd, #man samp {
+      font-family:consolas,monospace;
+      font-size:16px;
+      line-height:1.3;
+      color:#343331;
+      background:#fff; }
+    #man { max-width:89ex; text-align:justify; margin:0 25px 25px 25px }
+    #man h1, #man h2, #man h3 { color:#232221;clear:left }
+    #man h1 { font-size:28px; margin:15px 0 30px 0; text-align:center }
+    #man h2 { font-size:18px; margin-bottom:0; margin-top:10px; line-height:1.3; }
+    #man h3 { font-size:16px; margin:0 0 0 4ex; }
+    #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
+    #man pre {
+      color:#333231;
+      background:#edeceb;
+      padding:5px 7px;
+      margin:0px 0 20px 0;
+      border-left:2ex solid #ddd}
+    #man pre + h2, #man pre + h3 {
+      margin-top:22px;
+    }
+    #man h2 + pre, #man h3 + pre {
+      margin-top:5px;
+    }
+    #man > p, #man > ul, #man > ol, #man > dl, #man > pre { margin-left:8ex; }
+    #man dt { margin:0; clear:left }
+    #man dt.flush { float:left; width:8ex }
+    #man dd { margin:0 0 0 9ex }
+    #man code, #man strong, #man b { font-weight:bold; color:#131211; }
+    #man pre code { font-weight:normal; color:#232221; background:inherit }
+    #man em, var, u {
+      font-style:normal; color:#333231; border-bottom:1px solid #999; }
+    #man h1.man-title { display:none; }
+    #man ol.man, #man ol.man li { margin:2px 0 10px 0; padding:0;
+      float:left; width:33%; list-style-type:none;
+      text-transform:uppercase; font-size:18px; color:#999;
+      letter-spacing:1px;}
+    #man ol.man { width:100%; }
+    #man ol.man li.tl { text-align:left }
+    #man ol.man li.tc { text-align:center;letter-spacing:4px }
+    #man ol.man li.tr { text-align:right }
+    #man ol.man a { color:#999 }
+    #man ol.man a:hover { color:#333231 }
+  </style>
+</head>
+<body>
+<div id='man'>
+
+<h1 class='man-title'>ronn(5)</h1>
+
+<ol class='head man'>
+  <li class='tl'>ronn(5)</li>
+  <li class='tc'>Ronn Manual</li>
+  <li class='tr'>ronn(5)</li>
+</ol>
+
+<h2 id='NAME'>NAME</h2>
+<p><code>ronn</code> -- humane manual page authoring format</p>
+
+<h2>SYNOPSIS</h2>
+
+<pre><code>name(1) -- one sentence description
+===================================
+
+## SECTION HEADING
+
+A normal paragraph. This can span multiple lines and is
+terminated with two or more line endings -- just like
+Markdown.
+
+## INLINE MARKUP
+
+Inline markup is used for `code` and `user input` (displayed
+in boldface), and also &lt;variables> or _emphasis_.
+
+Manual page references like sh(1), markdown(5), roff(7), etc.
+are displayed in boldface and hyperlinked in HTML output.
+
+## DEFINITION LISTS
+
+Definition lists are used to define options, arguments,
+variables, and other type of terms:
+
+  * `-a`, `--arg1`=[_OPTION_]:
+    One or more paragraphs describing the argument.
+  * `-b`, `--arg2`:
+    Any number of these may be specified and may
+    be nested.
+</code></pre>
+
+<h2>DESCRIPTION</h2>
+
+<p>Ronn files are simple ascii texts that document things in the
+style of UNIX man pages but with a syntax and feature-set less
+insane than that of roff(7). Ronn files are piped through ronn(1)
+to build and install traditional roff(7) man pages or to generate
+hyperlinked HTML documentation.</p>
+
+<p>All ronn formatted files must conform to a simple subset of
+markdown(5), a humane text markup designed for writing on the
+web. It is neither possible nor desirable to express many of
+roff(7)'s complex typesetting features in ronn.</p>
+
+<h2>MANPAGE TITLE</h2>
+
+<p>All man pages have a <var>name</var>, belong to a <var>section</var>, and have a
+single sentence <var>tagline</var> (useless but witty, preferably). Ronn
+files must begin with a first-level heading that includes all of
+this information. For example, this very man page begins:</p>
+
+<pre><code>ronn(5) -- humane manual page authoring format
+=============================================
+</code></pre>
+
+<p>Here, we're saying that the man page documents a thing named
+<code>ronn</code> in manual section <code>5</code> (the "file formats" section; see
+manpages(5) for full section list) and that's quickly described
+as a "humane manual page authoring format".</p>
+
+<p>These bits of information are used to fill in the document
+header, to create the <code>NAME</code> section, and also to establish
+output filenames when processed with ronn(1).</p>
+
+<h2>SECTION HEADINGS</h2>
+
+<p>Man section headings are expressed with markdown level two
+headings. markdown(5) provides two syntaxes for level two
+headings. A hash prefix syntax:</p>
+
+<pre><code>## HEADING TEXT
+</code></pre>
+
+<p>Or, a dash underline syntax:</p>
+
+<pre><code>HEADING TEXT
+------------
+</code></pre>
+
+<p>Section headings should be in all uppercase and may not contain
+other inline markup.</p>
+
+<p>Most manual pages include at least one of the <code>SYNOPSIS</code>,
+<code>DESCRIPTION</code>, and/or <code>OPTIONS</code> sections. Additional sections
+commonly included are <code>SYNTAX</code>, <code>ENVIRONMENT</code>, <code>HISTORY</code>, <code>RETURN
+VALUES</code>, <code>BUGS</code>, <code>SECURITY CONSIDERATIONS</code>, <code>STANDARDS</code> /
+<code>CONFORMING TO</code>, <code>AUTHOR</code>, and <code>COPYRIGHT</code>. Finally, most man
+pages end with a <code>SEE ALSO</code> section that references other manual
+pages and external documents.</p>
+
+<h2>INLINE MARKUP</h2>
+
+<p>Man pages have a limited set of text formatting capabilities at
+their disposal. There's basically <b>boldface</b> and
+<i>italics</i> (often displayed using <u>underline</u>). Ronn uses
+the following bits of markdown(5) to accomplish this:</p>
+
+<dl>
+<dt><code>`backticks`</code></dt><dd>Code, flags, commands, and noun-like things; typically
+displayed in in <b>boldface</b>. Note that all text included
+within <code>backticks</code> is displayed literally; other inline markup
+is not processed.</dd>
+<dt><code>**double-stars**</code></dt><dd>Like <code>backticks</code> but inline markup is processed.</dd>
+<dt><code>_</code><em>underbars</em><code>_</code></dt><dd>User-specified arguments, variables, or user input; typically
+displayed with <u>underline</u>.</dd>
+<dt><code>&lt;angle-quotes></code></dt><dd>Same as <em>underbars</em>. This is not compatible with Markdown.</dd>
+</dl>
+
+
+<p>Here is grep(1)'s DESCRIPTION section represented in <code>ronn</code>:</p>
+
+<pre><code>`Grep` searches the named input _FILE_ (or standard input if
+no files are named, or the file name `-` is given) for lines
+containing a match to the given _PATTERN_. By default, `grep`
+prints the matching lines.
+</code></pre>
+
+<h2>DEFINITION LISTS</h2>
+
+<p>Because definition lists are so often used in manual pages to
+describe arguments, options, and variables, the basic markdown(5)
+list syntax has been extended to support a definition list
+syntax.</p>
+
+<p>Definition list syntax is exactly the same as markdown(5)'s
+unordered list syntax but requires that the first line of each
+list item be terminated with a colon "<code>:</code>". The first line (minus
+the colon) is the <var>term</var>; subsequent lines may be comprised of
+multiple paragraphs, code blocks, standard lists, and nested
+definition lists.</p>
+
+<p>An example definition list, taken from BSD test(1)'s
+<code>DESCRIPTION</code> section:</p>
+
+<pre><code> The following primaries are used to construct expressions:
+
+   * `-b` _file_:
+     True if _file_ exists and is a block special file.
+
+   * `-c` _file_:
+     True if _file_ exists and is a character special file.
+
+   * `-d` _file_:
+     True if file exists and is a directory.
+</code></pre>
+
+<p>The definition list syntax is intentionally backward compatible
+with markdown(5)'s list syntax. This allows <code>ronn</code> documents to be
+piped through normal markdown processors with minor degradation
+in output formatting.</p>
+
+<h2>SEE ALSO</h2>
+
+<p>ronn(1), markdown(5), manpages(5)</p>
+
+
+<ol class='foot man'>
+  <li class='tl'>Ryan Tomayko</li>
+  <li class='tc'>March 2010</li>
+  <li class='tr'>ronn(5)</li>
+</ol>
+
+</div>
+</body>
+</html>
