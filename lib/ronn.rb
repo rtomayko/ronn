@@ -3,7 +3,7 @@
 # install standard UNIX roff(7) formatted manpages or to generate
 # beautiful HTML manpages.
 module Ronn
-  VERSION = '0.3'
+  VERSION = '0.4'
 
   require 'ronn/document'
   require 'ronn/roff'

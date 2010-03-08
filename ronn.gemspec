@@ -3,8 +3,8 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
 
   s.name = 'ronn'
-  s.version = '0.3'
-  s.date = '2009-12-09'
+  s.version = '0.4'
+  s.date = '2010-03-08'
 
   s.description = "The opposite of roff"
   s.summary     = "The opposite of roff"
@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
     COPYING
     README.md
     Rakefile
-    bin/ronn
     bin/ron
+    bin/ronn
     lib/ronn.rb
     lib/ronn/document.rb
     lib/ronn/layout.html
@@ -41,6 +41,12 @@ Gem::Specification.new do |s|
     test/definition_list_syntax.html
     test/definition_list_syntax.ronn
     test/document_test.rb
+    test/entity_encoding_test.html
+    test/entity_encoding_test.roff
+    test/entity_encoding_test.ronn
+    test/middle_paragraph.html
+    test/middle_paragraph.roff
+    test/middle_paragraph.ronn
     test/ronn_test.rb
     test/titleless_document.html
     test/titleless_document.ronn
