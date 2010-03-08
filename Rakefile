@@ -51,6 +51,12 @@ if defined?(Gem)
     mv File.basename(f.name), f.name
   end
 
+  file 'pkg/ron-0.4.gem' => %w[pkg/ ron.gemspec] do |f|
+    sh "gem build ron.gemspec"
+    mv 'ron-0.4.gem', f.name
+  end
+  task :package => 'pkg/ron-0.4.gem'
+
   file package('.tar.gz') => %w[pkg/] + $spec.files do |f|
     sh <<-SH
       git archive --prefix=ronn-#{source_version}/ --format=tar HEAD |
