@@ -2,11 +2,16 @@ require 'rake/clean'
 
 task :default => :test
 
+ROOTDIR = File.expand_path('..', __FILE__).sub(/#{Dir.pwd}(?=\/)/, '.')
+LIBDIR  = "#{ROOTDIR}/lib"
+BINDIR  = "#{ROOTDIR}/bin"
+
 task :environment do
+  $LOAD_PATH.unshift LIBDIR if !$:.include?(LIBDIR)
   require_library 'hpricot'
   require_library 'rdiscount'
-  ENV['RUBYLIB'] = "#{$:.join(':')}:#{ENV['RUBYLIB']}"
-  ENV['PATH'] = "bin:#{ENV['PATH']}"
+  ENV['RUBYLIB'] = $LOAD_PATH.join(':')
+  ENV['PATH'] = "#{BINDIR}:#{ENV['PATH']}"
 end
 
 desc 'Run tests'
@@ -86,6 +91,11 @@ end
 def require_library(name)
   require name
 rescue LoadError => boom
+  if !defined?(Gem)
+    warn "warn: #{boom}. trying again with rubygems."
+    require 'rubygems'
+    retry
+  end
   abort "fatal: the '#{name}' library is required (gem install #{name})"
 end
 
