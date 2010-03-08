@@ -17,9 +17,7 @@ Gem::Specification.new do |s|
     COPYING
     README.md
     Rakefile
-    bin/ron
     bin/ronn
-    lib/ron.rb
     lib/ronn.rb
     lib/ronn/document.rb
     lib/ronn/layout.html
@@ -32,7 +30,6 @@ Gem::Specification.new do |s|
     man/ronn.5.ronn
     man/ronn.7
     man/ronn.7.ronn
-    ron.gemspec
     ronn.gemspec
     test/angle_bracket_syntax.html
     test/angle_bracket_syntax.ronn
