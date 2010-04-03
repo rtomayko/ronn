@@ -1,4 +1,5 @@
 require 'rake/clean'
+require 'date'
 
 task :default => :test
 
