@@ -3,8 +3,8 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
 
   s.name = 'ronn'
-  s.version = '0.4.1'
-  s.date = '2010-03-08'
+  s.version = '0.5'
+  s.date = '2010-04-02'
 
   s.description = "The opposite of roff"
   s.summary     = "The opposite of roff"
@@ -52,7 +52,7 @@ Gem::Specification.new do |s|
   ]
   # = MANIFEST =
 
-  s.executables = ['ronn', 'ron']
+  s.executables = ['ronn']
   s.test_files = s.files.select { |path| path =~ /^test\/.*_test.rb/ }
 
   s.extra_rdoc_files = %w[COPYING]

@@ -1,4 +1,4 @@
-.\" generated with Ronn/v0.3
+.\" generated with Ronn/v0.4.2
 .\" http://github.com/rtomayko/ronn/
 .
 .TH "RONN" "7" "March 2010" "Ryan Tomayko" "Ronn Manual"
@@ -55,6 +55,7 @@ Install with Rubygems:
 .IP "" 4
 .
 .nf
+
 $ [sudo] gem install ronn
 $ ronn \-\-help
 .
@@ -68,6 +69,7 @@ Or, clone the git repository:
 .IP "" 4
 .
 .nf
+
 $ git clone git://github.com/rtomayko/ronn.git
 $ PATH=ronn/bin:$PATH
 $ ronn \-\-help
@@ -77,11 +79,13 @@ $ ronn \-\-help
 .IP "" 0
 .
 .SH "BASIC USAGE"
-To generate a roff man page from the included\fI\fBmarkdown.5.ronn\fR\fR file and open it with man(1):
+To generate a roff man page from the included \fBmarkdown.5.ronn\fR file and
+open it with man(1):
 .
 .IP "" 4
 .
 .nf
+
 $ ronn \-b man/markdown.5.ronn
 building: man/markdown.5
 $ man man/markdown.5
@@ -96,6 +100,7 @@ To generate a standalone HTML version:
 .IP "" 4
 .
 .nf
+
 $ ronn \-b \-\-html man/markdown.5.ronn
 building: man/markdown.5.html
 $ open man/markdown.5.html
@@ -110,6 +115,7 @@ To build roff and HTML versions of all ronn files:
 .IP "" 4
 .
 .nf
+
 $ ronn \-b \-\-roff \-\-html man/*.ronn
 .
 .fi
@@ -123,6 +129,7 @@ building intermediate files:
 .IP "" 4
 .
 .nf
+
 $ ronn \-m man/markdown.5.ronn
 .
 .fi

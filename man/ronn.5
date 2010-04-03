@@ -1,4 +1,4 @@
-.\" generated with Ronn/v0.3
+.\" generated with Ronn/v0.4.2
 .\" http://github.com/rtomayko/ronn/
 .
 .TH "RONN" "5" "March 2010" "Ryan Tomayko" "Ronn Manual"
@@ -9,20 +9,29 @@
 .SH "SYNOPSIS"
 .
 .nf
+
 name(1) \-\- one sentence description
 ===================================
+
 ## SECTION HEADING
+
 A normal paragraph. This can span multiple lines and is
 terminated with two or more line endings \-\- just like
 Markdown.
+
 ## INLINE MARKUP
+
 Inline markup is used for `code` and `user input` (displayed
 in boldface), and also <variables> or _emphasis_.
+
 Manual page references like sh(1), markdown(5), roff(7), etc.
 are displayed in boldface and hyperlinked in HTML output.
+
 ## DEFINITION LISTS
+
 Definition lists are used to define options, arguments,
 variables, and other type of terms:
+
   * `\-a`, `\-\-arg1`=[_OPTION_]:
     One or more paragraphs describing the argument.
   * `\-b`, `\-\-arg2`:
@@ -53,6 +62,7 @@ this information. For example, this very man page begins:
 .IP "" 4
 .
 .nf
+
 ronn(5) \-\- humane manual page authoring format
 =============================================
 .
@@ -61,7 +71,7 @@ ronn(5) \-\- humane manual page authoring format
 .IP "" 0
 .
 .P
-Here, we're saying that the man page documents a thing named\fBronn\fR in manual section \fB5\fR (the "file formats" section; see
+Here, we're saying that the man page documents a thing named \fBronn\fR in manual section \fB5\fR (the "file formats" section; see
 manpages(5) for full section list) and that's quickly described
 as a "humane manual page authoring format".
 .
@@ -78,6 +88,7 @@ headings. A hash prefix syntax:
 .IP "" 4
 .
 .nf
+
 ## HEADING TEXT
 .
 .fi
@@ -90,6 +101,7 @@ Or, a dash underline syntax:
 .IP "" 4
 .
 .nf
+
 HEADING TEXT
 \-\-\-\-\-\-\-\-\-\-\-\-
 .
@@ -139,6 +151,7 @@ Here is grep(1)'s DESCRIPTION section represented in \fBronn\fR:
 .IP "" 4
 .
 .nf
+
 `Grep` searches the named input _FILE_ (or standard input if
 no files are named, or the file name `\-` is given) for lines
 containing a match to the given _PATTERN_. By default, `grep`
@@ -163,16 +176,20 @@ multiple paragraphs, code blocks, standard lists, and nested
 definition lists.
 .
 .P
-An example definition list, taken from BSD test(1)'s\fBDESCRIPTION\fR section:
+An example definition list, taken from BSD test(1)'s \fBDESCRIPTION\fR section:
 .
 .IP "" 4
 .
 .nf
+
  The following primaries are used to construct expressions:
+
    * `\-b` _file_:
      True if _file_ exists and is a block special file.
+
    * `\-c` _file_:
      True if _file_ exists and is a character special file.
+
    * `\-d` _file_:
      True if file exists and is a directory.
 .

@@ -1,7 +1,7 @@
-.\" generated with Ronn/v0.3
+.\" generated with Ronn/v0.4.2
 .\" http://github.com/rtomayko/ronn/
 .
-.TH "RONN" "1" "March 2010" "Ryan Tomayko" "Ronn Manual"
+.TH "RONN" "1" "April 2010" "Ryan Tomayko" "Ronn Manual"
 .
 .SH "NAME"
 \fBronn\fR \-\- build markdown\-based man pages
@@ -51,7 +51,7 @@ arguments change this behavior:
 .
 .TP
 \fB\-b\fR, \fB\-\-build\fR
-Write output directly to files instead of standard output. When the\fB\-\-roff\fR option is provided, writes roff output to \fIfile\fR.\fIsection\fR.
+Write output directly to files instead of standard output. When the \fB\-\-roff\fR option is provided, writes roff output to \fIfile\fR.\fIsection\fR.
 When the \fB\-\-html\fR option is provided, writes output to
 '\fIfile\fR.\fIsection\fR.html'.
 .
@@ -117,6 +117,7 @@ Generate \fBroff(7)\fR output on stdout:
 .IP "" 4
 .
 .nf
+
 $ ronn < hello.1.ronn
 .
 .fi
@@ -129,6 +130,7 @@ Build a roff file based on the input filename:
 .IP "" 4
 .
 .nf
+
 $ ronn \-b hello.1.ronn
 building: hello.1
 $ man hello.1
@@ -143,6 +145,7 @@ Build and open a standalone HTML file based on the input filename:
 .IP "" 4
 .
 .nf
+
 $ ronn \-b \-\-html test.1.ronn
 $ open test.1.html
 .
@@ -157,6 +160,7 @@ directory:
 .IP "" 4
 .
 .nf
+
 $ ronn \-b \-\-roff \-\-html *.ronn
 building: hello.1
 building: hello.1.html
@@ -173,6 +177,7 @@ View a ronn file in the same way as man(1) without building a roff file:
 .IP "" 4
 .
 .nf
+
 $ ronn \-m hello.1.ronn
 .
 .fi
@@ -185,6 +190,7 @@ Install the roff man page for a ronn file:
 .IP "" 4
 .
 .nf
+
 $ ronn \-i hello.1.ronn
 .
 .fi
