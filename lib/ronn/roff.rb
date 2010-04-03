@@ -12,7 +12,7 @@ module Ronn
     end
 
     def to_s
-      @buf.join.gsub(/\s+$/, '')
+      @buf.join.gsub(/[ \t]+$/, '')
     end
 
   protected
@@ -22,6 +22,17 @@ module Ronn
         prev = prev.previous until prev.nil? || prev.elem?
         prev
       end
+    end
+
+    def child_of?(node, tag)
+      while node
+        if node.name && node.name.downcase == tag
+          return true
+        else
+          node = node.parent
+        end
+      end
+      false
     end
 
     def title_heading(name, section, tagline, manual, version, date)
@@ -63,7 +74,7 @@ module Ronn
           macro "IP", %w["" 4] if indent
           macro "nf"
           write "\n"
-          inline_filter(node.search('code > *'))
+          inline_filter(node.children)
           macro "fi"
           macro "IP", %w["" 0] if indent
 
@@ -118,7 +129,9 @@ module Ronn
         prev = previous(node)
         text = node.to_html.dup
         text.sub!(/^\n+/m, '') if prev && prev.name == 'br'
-        if node.previous.nil? && node.next
+        if child_of?(node, 'pre')
+          # leave the text alone
+        elsif node.previous.nil? && node.next.nil?
           text.sub!(/\n+$/m, '')
         else
           text.sub!(/\n+$/m, ' ')
@@ -128,9 +141,13 @@ module Ronn
       elsif node.elem?
         case node.name
         when 'code'
-          write '\fB'
-          inline_filter(node.children)
-          write '\fR'
+          if child_of?(node, 'pre')
+            inline_filter(node.children)
+          else
+            write '\fB'
+            inline_filter(node.children)
+            write '\fR'
+          end
 
         when 'b', 'strong', 'kbd', 'samp'
           write '\fB'
