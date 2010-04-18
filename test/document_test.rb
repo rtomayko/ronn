@@ -50,6 +50,24 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal 'brandy.5.foo', doc.path_for(:foo)
   end
 
+  1.upto(5) do |i|
+    dashes = '-' * i
+
+    test "new with no path and #{i} dashes in name" do
+      doc = Ronn::Document.new { "# brandy #{dashes} wootderitis" }
+      assert_equal 'brandy', doc.name
+      assert_equal nil, doc.section
+      assert_equal 'wootderitis', doc.tagline
+    end
+
+    test "new with no path and a name section and #{i} dashes in name" do
+      doc = Ronn::Document.new { "# brandy(5) #{dashes} wootderitis" }
+      assert_equal 'brandy', doc.name
+      assert_equal '5', doc.section
+      assert_equal 'wootderitis', doc.tagline
+    end
+  end
+
   context "simple conventionally named document" do
     setup do
       @doc = Ronn::Document.new('hello.1.ronn') { "# hello(1) -- hello world" }

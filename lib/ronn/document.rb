@@ -238,11 +238,11 @@ module Ronn
       else
         # grab name and section from title
         @tagline.sub!('<h1>', '')
-        if @tagline =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*--?\s*(.*)/
+        if @tagline =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*-+\s*(.*)/
           @name = $1
           @section = $2
           @tagline = $3
-        elsif @tagline =~ /([\w_.\[\]~+=@:-]+)\s+--\s+(.*)/
+        elsif @tagline =~ /([\w_.\[\]~+=@:-]+)\s+-+\s+(.*)/
           @name = $1
           @tagline = $2
         end
