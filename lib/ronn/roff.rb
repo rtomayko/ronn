@@ -162,9 +162,23 @@ module Ronn
         when 'br'
           macro 'br'
         when 'a'
-          write '\fI'
-          inline_filter(node.children)
-          write '\fR'
+          if href = node.attributes['href'] and
+             text = node.inner_text and
+             # prevent "foo://bar foo://bar" output
+             href != text and
+             # prevent "foo@bar mailto:foo@bar" output
+             escape(href) != "mailto:#{escape(text)}"
+          then
+            inline_filter(node.children)
+            write ' '
+            write '\fI'
+            write escape(href)
+            write '\fR'
+          else
+            write '\fI'
+            inline_filter(node.children)
+            write '\fR'
+          end
         else
           warn "unrecognized inline tag: %p", node.name
         end
