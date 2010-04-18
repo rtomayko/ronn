@@ -171,7 +171,8 @@ module Ronn
         :angle_quote_pre_filter,
         :markdown_filter,
         :angle_quote_post_filter,
-        :definition_list_filter
+        :definition_list_filter,
+        :heading_anchor_filter
       ].inject(data) { |res,filter| send(filter, res) }
     end
 
@@ -180,6 +181,15 @@ module Ronn
       template_file = File.dirname(__FILE__) + "/layout.html"
       template = File.read(template_file)
       eval("%Q{#{template}}", binding, template_file)
+    end
+
+    # Add URL anchors to all HTML heading elements.
+    def heading_anchor_filter(html)
+      doc = parse_html(html)
+      doc.search('h1|h2|h3|h4|h5|h6').not('[@id]').each do |heading|
+        heading.set_attribute('id', heading.inner_text.gsub(/\W+/, '-'))
+      end
+      doc
     end
 
     # Convert special format unordered lists to definition lists.
