@@ -86,13 +86,13 @@ class DocumentTest < Test::Unit::TestCase
     end
 
     should "convert to an HTML fragment" do
-      assert_equal %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> -- hello world</p>\n],
+      assert_equal %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>\n],
         @doc.to_html_fragment
     end
 
     should "convert to HTML with a layout" do
       assert_match %r{^<!DOCTYPE html.*}m, @doc.to_html
-      assert_match %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> -- hello world</p>],
+      assert_match %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>],
         @doc.to_html
     end
 
