@@ -1,4 +1,5 @@
 require 'set'
+require 'cgi'
 require 'hpricot'
 require 'rdiscount'
 require 'ronn/roff'
@@ -172,7 +173,8 @@ module Ronn
         :markdown_filter,
         :angle_quote_post_filter,
         :definition_list_filter,
-        :heading_anchor_filter
+        :heading_anchor_filter,
+        :annotate_bare_links_filter
       ].inject(data) { |res,filter| send(filter, res) }
     end
 
@@ -181,6 +183,23 @@ module Ronn
       template_file = File.dirname(__FILE__) + "/layout.html"
       template = File.read(template_file)
       eval("%Q{#{template}}", binding, template_file)
+    end
+
+    # Add a 'data-bare-link' attribute to hyperlinks
+    # whose text labels are the same as their href URLs.
+    def annotate_bare_links_filter(html)
+      doc = parse_html(html)
+      doc.search('a[@href]').each do |node|
+        href = node.attributes['href']
+        text = node.inner_text
+
+        if href == text ||
+          CGI.unescapeHTML(href) == "mailto:#{CGI.unescapeHTML(text)}"
+        then
+          node.set_attribute('data-bare-link', 'true')
+        end
+      end
+      doc
     end
 
     # Add URL anchors to all HTML heading elements.

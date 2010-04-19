@@ -65,6 +65,9 @@
   <style type='text/css' media='print'>
     #man { max-width:none }
     #man div.man-navigation { display:none }
+    #man a[href]:not([href^="#"]):not([data-bare-link]):after {
+      content:" " attr(href);
+    }
   </style>
 </head>
 <body>

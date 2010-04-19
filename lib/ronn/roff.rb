@@ -162,21 +162,15 @@ module Ronn
         when 'br'
           macro 'br'
         when 'a'
-          if href = node.attributes['href'] and
-             text = node.inner_text and
-             # prevent "foo://bar foo://bar" output
-             href != text and
-             # prevent "foo@bar mailto:foo@bar" output
-             escape(href) != "mailto:#{escape(text)}"
-          then
+          if node.has_attribute?('data-bare-link')
+            write '\fI'
+            inline_filter(node.children)
+            write '\fR'
+          else
             inline_filter(node.children)
             write ' '
             write '\fI'
-            write escape(href)
-            write '\fR'
-          else
-            write '\fI'
-            inline_filter(node.children)
+            write escape(node.attributes['href'])
             write '\fR'
           end
         else
