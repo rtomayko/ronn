@@ -94,14 +94,13 @@ module Ronn
           end
           write "\n"
 
-        # when 'ol'
-        #   macro "IP", '1.'
-        #   block_filter(node.children)
-        when 'ul'
+        when 'ol', 'ul'
           block_filter(node.children)
           macro "IP", %w["" 0]
         when 'li'
           case node.parent.name
+          when 'ol'
+            macro "IP", %W["#{node.position + 1}." 4]
           when 'ul'
             macro "IP", %w["\(bu" 4]
           end
