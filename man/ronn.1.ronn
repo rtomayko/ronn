@@ -3,8 +3,8 @@ ronn(1) -- build markdown-based man pages
 
 ## SYNOPSIS
 
-`ronn` [ <OPTIONS> ] <FILE> ...  
-`ronn` --build <FILE> ...  
+`ronn` [ <OPTIONS> ] <FILE> ...<br>
+`ronn` --build <FILE> ...<br>
 `ronn` --man <FILE>
 
 ## DESCRIPTION
