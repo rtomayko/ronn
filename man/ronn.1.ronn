@@ -155,4 +155,4 @@ Ronn is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
 
 ## SEE ALSO
 
-ronn(5), markdown(5), manpages(5), man(1), roff(7), groff(1)
+ronn(5), markdown(7), manpages(5), man(1), roff(7), groff(1)

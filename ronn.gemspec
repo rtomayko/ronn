@@ -22,8 +22,6 @@ Gem::Specification.new do |s|
     lib/ronn/document.rb
     lib/ronn/layout.html
     lib/ronn/roff.rb
-    man/markdown.5
-    man/markdown.5.ronn
     man/ronn.1
     man/ronn.1.ronn
     man/ronn.5

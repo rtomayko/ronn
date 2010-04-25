@@ -17,7 +17,7 @@ ronn(5) -- humane manual page authoring format
     Inline markup is used for `code` and `user input` (displayed
     in boldface), and also <variables> or _emphasis_.
 
-    Manual page references like sh(1), markdown(5), roff(7), etc.
+    Manual page references like sh(1), markdown(7), roff(7), etc.
     are displayed in boldface and hyperlinked in HTML output.
 
     ## DEFINITION LISTS
@@ -40,7 +40,7 @@ to build and install traditional roff(7) man pages or to generate
 hyperlinked HTML documentation.
 
 All ronn formatted files must conform to a simple subset of
-markdown(5), a humane text markup designed for writing on the
+markdown(7), a humane text markup designed for writing on the
 web. It is neither possible nor desirable to express many of
 roff(7)'s complex typesetting features in ronn.
 
@@ -66,7 +66,7 @@ output filenames when processed with ronn(1).
 ## SECTION HEADINGS
 
 Man section headings are expressed with markdown level two
-headings. markdown(5) provides two syntaxes for level two
+headings. markdown(7) provides two syntaxes for level two
 headings. A hash prefix syntax:
 
     ## HEADING TEXT
@@ -92,7 +92,7 @@ pages and external documents.
 Man pages have a limited set of text formatting capabilities at
 their disposal. There's basically <b>boldface</b> and
 <i>italics</i> (often displayed using <u>underline</u>). Ronn uses
-the following bits of markdown(5) to accomplish this:
+the following bits of markdown(7) to accomplish this:
 
   * <code>\`backticks\`</code>:
     Code, flags, commands, and noun-like things; typically
@@ -117,11 +117,11 @@ Here is grep(1)'s DESCRIPTION section represented in `ronn`:
 ## DEFINITION LISTS
 
 Because definition lists are so often used in manual pages to
-describe arguments, options, and variables, the basic markdown(5)
+describe arguments, options, and variables, the basic markdown(7)
 list syntax has been extended to support a definition list
 syntax.
 
-Definition list syntax is exactly the same as markdown(5)'s
+Definition list syntax is exactly the same as markdown(7)'s
 unordered list syntax but requires that the first line of each
 list item be terminated with a colon "`:`". The first line (minus
 the colon) is the <term>; subsequent lines may be comprised of
@@ -143,10 +143,10 @@ An example definition list, taken from BSD test(1)'s
          True if file exists and is a directory.
 
 The definition list syntax is intentionally backward compatible
-with markdown(5)'s list syntax. This allows `ronn` documents to be
+with markdown(7)'s list syntax. This allows `ronn` documents to be
 piped through normal markdown processors with minor degradation
 in output formatting.
 
 ## SEE ALSO
 
-ronn(1), markdown(5), manpages(5)
+ronn(1), markdown(7), manpages(5)

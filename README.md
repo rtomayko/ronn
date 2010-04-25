@@ -31,13 +31,6 @@ at:
     [source file](http://github.com/rtomayko/ronn/blob/master/man/ronn.5.ronn),
     [roff output](http://github.com/rtomayko/ronn/blob/master/man/ronn.5)
 
-  * [markdown(5)](http://rtomayko.github.com/ronn/markdown.5) -
-    humane text markup syntax (taken from
-    [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax),
-    John Gruber)  
-    [source file](http://github.com/rtomayko/ronn/blob/master/man/markdown.5.ronn),
-    [roff output](http://github.com/rtomayko/ronn/blob/master/man/markdown.5)
-
 ## INSTALL
 
 Install with Rubygems:
@@ -105,7 +98,7 @@ documentation. I disagree:
   on Physics_, 1970).
 
 - Man pages have a simple referencing syntax; e.g., sh(1), fork(2),
-  markdown(5). HTML versions can use this to generate links between
+  markdown(7). HTML versions can use this to generate links between
   pages.
 
 - The classical terminal man page display is typographically well
@@ -132,4 +125,4 @@ See the file COPYING for information of licensing and distribution.
 
 [ronn(1)](http://rtomayko.github.com/ronn/ronn.1),
 [ronn(5)](http://rtomayko.github.com/ronn/ronn.5),
-[markdown(5)](http://rtomayko.github.com/ronn/markdown.5)
+markdown(5)
