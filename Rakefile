@@ -29,35 +29,34 @@ end
 
 # PACKAGING ============================================================
 
-if defined?(Gem)
-  $spec = eval(File.read('ronn.gemspec'))
+require 'rubygems'
+$spec = eval(File.read('ronn.gemspec'))
 
-  def package(ext='')
-    "pkg/ronn-#{$spec.version}" + ext
-  end
+def package(ext='')
+  "pkg/ronn-#{$spec.version}" + ext
+end
 
-  desc 'Build packages'
-  task :package => %w[.gem .tar.gz].map { |ext| package(ext) }
+desc 'Build packages'
+task :package => %w[.gem .tar.gz].map { |ext| package(ext) }
 
-  desc 'Build and install as local gem'
-  task :install => package('.gem') do
-    sh "gem install #{package('.gem')}"
-  end
+desc 'Build and install as local gem'
+task :install => package('.gem') do
+  sh "gem install #{package('.gem')}"
+end
 
-  directory 'pkg/'
-  CLOBBER.include('pkg')
+directory 'pkg/'
+CLOBBER.include('pkg')
 
-  file package('.gem') => %w[pkg/ ronn.gemspec] + $spec.files do |f|
-    sh "gem build ronn.gemspec"
-    mv File.basename(f.name), f.name
-  end
+file package('.gem') => %w[pkg/ ronn.gemspec] + $spec.files do |f|
+  sh "gem build ronn.gemspec"
+  mv File.basename(f.name), f.name
+end
 
-  file package('.tar.gz') => %w[pkg/] + $spec.files do |f|
-    sh <<-SH
-      git archive --prefix=ronn-#{source_version}/ --format=tar HEAD |
-      gzip > #{f.name}
-    SH
-  end
+file package('.tar.gz') => %w[pkg/] + $spec.files do |f|
+  sh <<-SH
+    git archive --prefix=ronn-#{source_version}/ --format=tar HEAD |
+    gzip > #{f.name}
+  SH
 end
 
 def source_version
