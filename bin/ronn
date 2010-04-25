@@ -31,14 +31,6 @@
 require 'date'
 require 'optparse'
 
-formats = []
-options = {}
-build = false
-install = false
-man = false
-groff = "groff -Wall -mtty-char -mandoc -Tascii"
-pager = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
-
 def info(message, *args)
   STDERR.puts message % args
 end
@@ -50,7 +42,18 @@ def usage
     join("\n")
 end
 
-# parse command line options
+#
+# Argument Parsing
+#
+
+formats = []
+options = {}
+build = false
+install = false
+man = false
+groff = "groff -Wall -mtty-char -mandoc -Tascii"
+pager = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
+
 ARGV.options do |option|
   # modes
   option.on("--pipe") { }
