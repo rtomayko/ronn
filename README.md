@@ -46,30 +46,35 @@ Or, clone the git repository:
 
 ## BASIC USAGE
 
-To generate a roff man page from the included `markdown.5.ronn` file and
+To generate a roff man page from the included `ronn.5.ronn` file and
 open it with man(1):
 
-    $ ronn -b man/markdown.5.ronn
-    building: man/markdown.5
-    $ man man/markdown.5
+    $ ronn man/ronn.5.ronn
+    roff: man/ronn.5
+    html: man/ronn.5.html
 
-To generate a standalone HTML version:
+    # view the generated roff manpage with man(1):
+    $ man man/ronn.5
 
-    $ ronn -b --html man/markdown.5.ronn
-    building: man/markdown.5.html
-    $ open man/markdown.5.html
+    # view the generated HTML manpage
+    $ open man/ronn.5.html
 
-To build roff and HTML versions of all ronn files:
+To generate only a standalone HTML version of the manpage:
 
-    $ ronn -b --roff --html man/*.ronn
+    $ ronn --html man/markdown.5.ronn
+    html: man/markdown.5.html
 
-If you just want to view a ronn file as if it were a man page without
-building intermediate files:
+To build roff versions of all ronn files in a directory:
+
+    $ ronn --roff man/*.ronn
+
+If you just want to view a ronn file as if it were a man page without building
+intermediate files:
 
     $ ronn -m man/markdown.5.ronn
 
-The [ronn(1)](http://rtomayko.github.com/ronn/ronn.1) manual page
-includes comprehensive documentation on `ronn` command line options.
+The [ronn(1)](http://rtomayko.github.com/ronn/ronn.1) manual page includes
+comprehensive documentation on `ronn` command line options.
 
 ## ABOUT
 

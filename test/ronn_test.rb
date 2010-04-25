@@ -45,7 +45,7 @@ class RonnTest < Test::Unit::TestCase
     next unless File.exist?(dest)
     wrong = dest + '.wrong'
     test File.basename(source, '.ronn') + ' HTML' do
-      output = `ronn --html --fragment #{source}`
+      output = `ronn --pipe --html --fragment #{source}`
       expected = File.read(dest) rescue ''
       if expected != output
         File.open(wrong, 'wb') { |f| f.write(output) }
@@ -63,7 +63,7 @@ class RonnTest < Test::Unit::TestCase
     next unless File.exist?(dest)
     wrong = dest + '.wrong'
     test File.basename(source, '.ronn') + ' roff' do
-      output = `ronn --date=1979-01-01 #{source}`.
+      output = `ronn --pipe --roff --date=1979-01-01 #{source}`.
         split("\n", 4).last # remove ronn version comments
       expected = File.read(dest) rescue ''
       if expected != output

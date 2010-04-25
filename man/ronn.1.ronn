@@ -3,86 +3,84 @@ ronn(1) -- build markdown-based man pages
 
 ## SYNOPSIS
 
-`ronn` [<OPTIONS>] <FILE> ...<br>
-`ronn` --build <FILE> ...<br>
-`ronn` --man <FILE>
+`ronn`<br>
+`ronn` [<OPTIONS>] <FILE>...<br>
+`ronn` --man <FILE>...
 
 ## DESCRIPTION
 
-Ronn is a humane text format and toolchain for authoring man pages, and
-things that appear as man pages from a distance. Use it to build and
-install standard UNIX / roff(7) formatted man pages and to generate
-nicely formatted HTML manual pages.
+The `ronn` utility converts ronn(5)-formatted source files to roff and HTML
+manpages.
 
-The `ronn` command converts one or more named input <FILE>s (or standard
-input when no files are named or the file name `-` is given) from humane
-man page markup to one or more destination output formats. If no output
-format is selected explicitly, `ronn` writes output in roff format.
+Under the first synopsis form -- with no <FILE> arguments -- `ronn` acts as
+simple filter, reading ronn source text on standard input and writing
+roff(5)-formatted text to standard output.
+
+Under the second synopsis form, `ronn` builds HTML and roff output files based
+on one or more input <FILE> names. The `--roff`, `--html`, and `--fragment`
+options specify which output files should be generated.
+
+Under the third synopsis form, `ronn` converts one or more <FILE>s to roff
+and displays on the current console as with man(1).
 
 ## FILES
 
 The `ronn` command expects input to be formatted as ronn(5) text.  Source
 files are typically named '<NAME>.<SECTION>.ronn' (e.g., `hello.1.ronn`).
-The <NAME> and <SECTION> should match the name and section defined in
+The <NAME> and <SECTION> should match the name and section defined in the
 <FILE>'s heading.
 
-When building roff and/or HTML output files with the `--build` argument,
-destination filenames are determined by taking the basename of the input
-<FILE> and adding the appropriate file extension (or removing the file
-extension in the case of roff output).
-
-For example, the command `ronn -b --html --roff hello.1.ronn` generates a
-`hello.1` file with roff output and a `hello.1.html` file with HTML
-output.
+When building roff and/or HTML output files, destination filenames are
+determined by taking the basename of the input <FILE> and adding the appropriate
+file extension (or removing the file extension in the case of roff output).  For
+example, executing `ronn hello.1.ronn` generates a `hello.1` file with roff
+output and a `hello.1.html` file with HTML output.
 
 ## OPTIONS
 
-`ronn`'s default mode of operation is to read a single document from
-standard input and to write the result to standard output. The following
-arguments change this behavior:
+The following arguments can be used to control the default output modes
+described in the _DESCRIPTION_ section:
 
-  * `-b`, `--build`:
-    Write output directly to files instead of standard output. When the
-    `--roff` option is provided, writes roff output to <file>.<section>.
-    When the `--html` option is provided, writes output to
-    '<file>.<section>.html'.
+  * `--pipe`:
+    Write generated output to standard output instead of to filename based on
+    the input files. This is the default behavior when ronn source text is piped
+    in on standard input and no <FILE> arguments are provided.
 
   * `-m`, `--man`:
-    Display <FILE>s as if man(1) were invoked on the roff output file.
-    This simulates default man behavior by piping the roff output
-    through groff(1) and the paging program specified by the `MANPAGER`
-    environment variable.
+    Display <FILE>s as if man(1) were invoked on the roff output file. This
+    simulates default man behavior by piping the roff output through groff(1)
+    and the paging program specified by the `MANPAGER` environment variable.
 
-These options control the format used in generated output:
+Format options control what files `ronn` generates or the output format when the
+`--pipe` argument is specified. When no format options are given, both `--roff`
+and `--html` are assumed.
 
   * `-r`, `--roff`:
-    Generate roff output. This is the default behavior when no other
-    format argument is provided.
+    Generate roff output. This is the default behavior when no <FILE>s are given
+    and ronn source text is read from standard input.
 
   * `-5`, `--html`:
     Generate output in HTML format.
 
   * `-f`, `--fragment`:
-    Generate output in HTML format but only the document fragment, not
-    the header, title, or footer.
+    Generate output in HTML format but only the document fragment, not the
+    header, title, or footer.
 
-All document attributes displayed in the header and footer areas of
-generated content can be specified with these options:
+All document attributes displayed in the header and footer areas of generated
+content can be specified with these options:
 
   * `--manual`=<MANUAL>:
-    The name of the manual this man page belongs to; <MANUAL> is
-    prominently displayed top-center in the header area.
+    The name of the manual this man page belongs to; <MANUAL> is prominently
+    displayed top-center in the header area.
 
   * `--organization`=<NAME>:
     The name of the group, organization, or individual responsible for
-    publishing the document; <NAME> is displayed in the bottom-left
-    footer area.
+    publishing the document; <NAME> is displayed in the bottom-left footer area.
 
   * `--date`=<DATE>:
-    The document's published date; <DATE> must be formatted `YYYY-MM-DD`
-    and is displayed in the bottom-center footer area. The <FILE> mtime
-    is used when no <DATE> is given, or the current time when no <FILE>
-    is available.
+    The document's published date; <DATE> must be formatted `YYYY-MM-DD` and is
+    displayed in the bottom-center footer area. The <FILE> mtime is used when no
+    <DATE> is given, or the current time when no <FILE> is available.
 
 ## EXAMPLES
 
@@ -90,25 +88,24 @@ Generate `roff(7)` output on stdout:
 
     $ ronn < hello.1.ronn
 
-Build a roff file based on the input filename:
+Build roff and HTML output files based on the input filename and view the roff
+manpage using man(1):
 
-    $ ronn -b hello.1.ronn
-    building: hello.1
-    $ man hello.1
+    $ ronn hello.1.ronn
+    roff: hello.1
+    html: hello.1.html
+    $ man ./hello.1
 
-Build and open a standalone HTML file based on the input filename:
+Build only the HTML manpage:
 
-    $ ronn -b --html test.1.ronn
-    $ open test.1.html
+    $ ronn --html test.1.ronn
+    html: hello.1.html
 
-Build roff and HTML versions of all `.ronn` files in the current
-directory:
+Build only the roff manpage for all `.ronn` files in the current directory:
 
-    $ ronn -b --roff --html *.ronn
-    building: hello.1
-    building: hello.1.html
-    building: world.1
-    building: world.1.html
+    $ ronn --roff *.ronn
+    roff: hello.1
+    roff: world.1
 
 View a ronn file in the same way as man(1) without building a roff file:
 
@@ -125,7 +122,7 @@ View a ronn file in the same way as man(1) without building a roff file:
 
 ## BUGS
 
-Ronn is written in Ruby and depends on hpricot and rdiscount, extension
+**Ronn** is written in Ruby and depends on hpricot and rdiscount, extension
 libraries that are non-trivial to install on some systems. A more portable
 version of this program would be welcome.
 
