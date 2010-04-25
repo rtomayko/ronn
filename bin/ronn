@@ -3,9 +3,9 @@
 ##        ronn --build FILE ...
 ##        ronn --install FILE ...
 ##        ronn --man FILE ...
-## Convert ronn FILE to roff man page or HTML and write to standard
-## output. With no FILE, ronn reads from standard input. The build,
-## install, and man forms accept multiple FILE arguments.
+## Convert ronn FILE to roff man page or HTML and write to standard output. With
+## no FILE, ronn reads from standard input. The build, install, and man forms
+## accept multiple FILE arguments.
 ##
 ## Modes:
 ##       --pipe                write to standard output (default behavior)
@@ -19,8 +19,8 @@
 ##   -f, --fragment            generate HTML fragment instead of entire HTML page
 ##
 ## Document attributes:
-##       --date=DATE           published date in YYYY-MM-DD format;
-##                             displayed bottom-center in footer
+##       --date=DATE           published date in YYYY-MM-DD format; displayed
+##                             bottom-center in footer
 ##       --manual=NAME         name of the manual this document belongs to;
 ##                             displayed top-center in header
 ##       --organization=NAME   publishing group, organization, or individual;
