@@ -1,16 +1,14 @@
 #!/usr/bin/env ruby
 ## Usage: ronn [ OPTIONS ] [ FILE ]
 ##        ronn --build FILE ...
-##        ronn --install FILE ...
 ##        ronn --man FILE ...
 ## Convert ronn FILE to roff man page or HTML and write to standard output. With
-## no FILE, ronn reads from standard input. The build, install, and man forms
-## accept multiple FILE arguments.
+## no FILE, ronn reads from standard input. The build and man forms accept multiple
+## FILE arguments.
 ##
 ## Modes:
 ##       --pipe                write to standard output (default behavior)
 ##   -b, --build               write to files instead of standard output
-##   -i, --install             write to file in MAN_HOME or system man path
 ##   -m, --man                 open man page like man(1)
 ##
 ## Formats:

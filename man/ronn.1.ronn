@@ -5,7 +5,6 @@ ronn(1) -- build markdown-based man pages
 
 `ronn` [ <OPTIONS> ] <FILE> ...  
 `ronn` --build <FILE> ...  
-`ronn` --install <FILE> ...  
 `ronn` --man <FILE>
 
 ## DESCRIPTION
@@ -47,15 +46,6 @@ arguments change this behavior:
     `--roff` option is provided, writes roff output to <file>.<section>.
     When the `--html` option is provided, writes output to
     '<file>.<section>.html'.
-
-  * `-i`, `--install`:
-    Install the roff formatted man page to the local system such that it
-    can be displayed by man(1). The `MANHOME` environment variable is
-    used to determine the prefix where man pages should be installed
-    when defined.
-
-    If `MANHOME` is not defined, `ronn` installs man pages to
-    _/usr/local/man_.
 
   * `-m`, `--man`:
     Display <FILE>s as if man(1) were invoked on the roff output file.
@@ -124,17 +114,7 @@ View a ronn file in the same way as man(1) without building a roff file:
 
     $ ronn -m hello.1.ronn
 
-Install the roff man page for a ronn file:
-
-    $ ronn -i hello.1.ronn
-
 ## ENVIRONMENT
-
-  * `MANHOME`:
-    Location where roff formatted man pages are installed.  Relevant
-    only when the `--install` argument is provided.  <PATH> is to the
-    base of a man file hierarchy. e.g., `/usr/local/share/man`,
-    `/home/rtomayko/man`.
 
   * `MANPAGER`:
     The paging program used for man pages. This is typically set to
