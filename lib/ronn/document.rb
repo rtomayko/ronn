@@ -1,4 +1,5 @@
 require 'set'
+require 'cgi'
 require 'hpricot'
 require 'rdiscount'
 require 'ronn/roff'
@@ -154,9 +155,9 @@ module Ronn
       buf = []
       if name? && section?
         buf << "<h2 id='NAME'>NAME</h2>"
-        buf << "<p><code>#{name}</code> -- #{tagline}</p>"
+        buf << "<p><code>#{name}</code> - #{tagline}</p>"
       elsif tagline
-        buf << "<h1>#{[name, tagline].compact.join(' -- ')}</h1>"
+        buf << "<h1>#{[name, tagline].compact.join(' - ')}</h1>"
       end
       buf << @fragment.to_s
       buf.join("\n")
@@ -171,7 +172,9 @@ module Ronn
         :angle_quote_pre_filter,
         :markdown_filter,
         :angle_quote_post_filter,
-        :definition_list_filter
+        :definition_list_filter,
+        :heading_anchor_filter,
+        :annotate_bare_links_filter
       ].inject(data) { |res,filter| send(filter, res) }
     end
 
@@ -180,6 +183,32 @@ module Ronn
       template_file = File.dirname(__FILE__) + "/layout.html"
       template = File.read(template_file)
       eval("%Q{#{template}}", binding, template_file)
+    end
+
+    # Add a 'data-bare-link' attribute to hyperlinks
+    # whose text labels are the same as their href URLs.
+    def annotate_bare_links_filter(html)
+      doc = parse_html(html)
+      doc.search('a[@href]').each do |node|
+        href = node.attributes['href']
+        text = node.inner_text
+
+        if href == text ||
+          CGI.unescapeHTML(href) == "mailto:#{CGI.unescapeHTML(text)}"
+        then
+          node.set_attribute('data-bare-link', 'true')
+        end
+      end
+      doc
+    end
+
+    # Add URL anchors to all HTML heading elements.
+    def heading_anchor_filter(html)
+      doc = parse_html(html)
+      doc.search('h1|h2|h3|h4|h5|h6').not('[@id]').each do |heading|
+        heading.set_attribute('id', heading.inner_text.gsub(/\W+/, '-'))
+      end
+      doc
     end
 
     # Convert special format unordered lists to definition lists.
@@ -238,11 +267,11 @@ module Ronn
       else
         # grab name and section from title
         @tagline.sub!('<h1>', '')
-        if @tagline =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*--?\s*(.*)/
+        if @tagline =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*-+\s*(.*)/
           @name = $1
           @section = $2
           @tagline = $3
-        elsif @tagline =~ /([\w_.\[\]~+=@:-]+)\s+--\s+(.*)/
+        elsif @tagline =~ /([\w_.\[\]~+=@:-]+)\s+-+\s+(.*)/
           @name = $1
           @tagline = $2
         end

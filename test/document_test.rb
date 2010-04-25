@@ -50,6 +50,24 @@ class DocumentTest < Test::Unit::TestCase
     assert_equal 'brandy.5.foo', doc.path_for(:foo)
   end
 
+  1.upto(5) do |i|
+    dashes = '-' * i
+
+    test "new with no path and #{i} dashes in name" do
+      doc = Ronn::Document.new { "# brandy #{dashes} wootderitis" }
+      assert_equal 'brandy', doc.name
+      assert_equal nil, doc.section
+      assert_equal 'wootderitis', doc.tagline
+    end
+
+    test "new with no path and a name section and #{i} dashes in name" do
+      doc = Ronn::Document.new { "# brandy(5) #{dashes} wootderitis" }
+      assert_equal 'brandy', doc.name
+      assert_equal '5', doc.section
+      assert_equal 'wootderitis', doc.tagline
+    end
+  end
+
   context "simple conventionally named document" do
     setup do
       @doc = Ronn::Document.new('hello.1.ronn') { "# hello(1) -- hello world" }
@@ -68,13 +86,13 @@ class DocumentTest < Test::Unit::TestCase
     end
 
     should "convert to an HTML fragment" do
-      assert_equal %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> -- hello world</p>\n],
+      assert_equal %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>\n],
         @doc.to_html_fragment
     end
 
     should "convert to HTML with a layout" do
       assert_match %r{^<!DOCTYPE html.*}m, @doc.to_html
-      assert_match %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> -- hello world</p>],
+      assert_match %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>],
         @doc.to_html
     end
 
