@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-## Usage: ronn [ OPTIONS ] [ FILE ]
+## Usage: ronn [OPTIONS] [FILE]
 ##        ronn --build FILE ...
 ##        ronn --man FILE ...
 ## Convert ronn FILE to roff man page or HTML and write to standard output. With
