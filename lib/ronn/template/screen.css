@@ -1,12 +1,15 @@
-
 /* STRUCTURE, INDENT, MARGINS */
 
 body                                { margin:0 }
-#man                                { max-width:87ex; margin:0 3ex 1ex 3ex }
+#man                                { max-width:92ex; padding:0 2ex 1ex 2ex }
 
 #man p, #man pre,
-#man ul, #man ol, #man dl           { margin:0 0 18px 0 }
+#man ul, #man ol, #man dl           { margin:0 0 20px 0 }
 #man h2                             { margin:10px 0 0 0 }
+
+#man > p, #man > pre,
+#man > ul, #man > ol, #man > dl     { margin-left:8ex }
+#man h3                             { margin:0 0 0 4ex }
 
 #man dt                             { margin:0; clear:left }
 #man dt.flush                       { float:left; width:8ex }
@@ -17,10 +20,6 @@ body                                { margin:0 }
 #man pre+h2, #man pre+h3            { margin-top:22px }
 #man h2+pre, #man h3+pre            { margin-top:5px }
 
-#man > p, #man > pre,
-#man > ul, #man > ol, #man > dl     { margin-left:8ex }
-#man h3                             { margin:0 0 0 4ex }
-
 #man img                            { display:block;margin:auto }
 #man h1.man-title                   { display:none }
 
@@ -30,11 +29,17 @@ body                                { margin:0 }
 #man tt, #man kbd, #man samp,
 #man h3, #man h4 {
     font-family:monospace;
-    font-size:16px;
-    line-height:1.3;
+    font-size:14px;
+    line-height:1.42857142857143;
 }
-#man h1                            { font-size:28px }
-#man h2                            { font-size:18px;line-height:1.3 }
+#man h2, #man ol.man, #man .man-navigation a {
+  font-size:16px;
+  line-height:1.25
+}
+#man h1 {
+  font-size:20px;
+  line-height:2;
+}
 
 /* TEXT STYLES */
 
@@ -72,13 +77,12 @@ body                                { margin:0 }
 /* DOCUMENT HEADER AND FOOTER AREAS */
 
 #man ol.man, #man ol.man li {
-    margin:2px 0 10px 0;
+    margin:3px 0 10px 0;
     padding:0;
     float:left;
     width:33%;
     list-style-type:none;
     text-transform:uppercase;
-    font-size:18px;
     color:#999;
     letter-spacing:1px;
 }
@@ -92,11 +96,11 @@ body                                { margin:0 }
 #man div.man-navigation {
     position:fixed;
     top:0;
-    left:93ex;
+    left:106ex;
     height:100%;
     width:100%;
     padding:1ex 0 0 2ex;
-    border-left:0.5ex solid #DCDCDC;
+    border-left:0.25ex solid #DCDCDC;
     background-color: #F5F5F5;
 }
 #man div.man-navigation a { display:block; margin-bottom:1.5ex }
