@@ -74,8 +74,8 @@
 <div id='man'>
 
 <div class='man-navigation'>#{
-  parse_html(html).search('h2[@id]').map do |heading|
-    "<a href='##{heading.attributes['id']}'>#{heading.inner_text}</a>"
+  section_heads.map do |id, text|
+    "<a href='##{id}'>#{text}</a>"
   end.join(' ')
 }</div>
 

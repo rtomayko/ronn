@@ -103,4 +103,19 @@ class DocumentTest < Test::Unit::TestCase
       assert_equal "./hello.1", @doc.path_for(nil)
     end
   end
+
+  test 'extracting section heads' do
+    @doc = Ronn::Document.new(File.expand_path('../markdown_syntax.ronn', __FILE__))
+    expected = [
+      ["NAME", "NAME"],
+      ["SYNOPSIS", "SYNOPSIS"],
+      ["DESCRIPTION", "DESCRIPTION"],
+      ["BLOCK-ELEMENTS", "BLOCK ELEMENTS"],
+      ["SPAN-ELEMENTS", "SPAN ELEMENTS"],
+      ["MISCELLANEOUS", "MISCELLANEOUS"],
+      ["AUTHOR", "AUTHOR"],
+      ["SEE-ALSO", "SEE ALSO"]
+    ]
+    assert_equal expected, @doc.section_heads
+  end
 end

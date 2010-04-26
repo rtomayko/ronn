@@ -124,6 +124,15 @@ module Ronn
       Time.now
     end
 
+    # Retrieve a list of top-level section headings in the document and return
+    # as an array of +[id, text]+ tuples, where +id+ is the element's generated
+    # id and +text+ is the inner text of the heading element.
+    def section_heads
+      parse_html(to_html_fragment).search('h2[@id]').map do |heading|
+        [heading.attributes['id'], heading.inner_text]
+      end
+    end
+
     # Convert the document to :roff, :html, or :html_fragment and
     # return the result as a string.
     def convert(format)
