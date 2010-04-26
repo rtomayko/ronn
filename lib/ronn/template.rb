@@ -62,5 +62,18 @@ module Ronn
         { :id => id, :text => text }
       end
     end
+
+    def stylesheet(name)
+      path = File.expand_path("../template/#{name}.css", __FILE__)
+      File.read(path)
+    end
+
+    def screen_styles
+      stylesheet 'screen'
+    end
+
+    def print_styles
+      stylesheet 'print'
+    end
   end
 end
