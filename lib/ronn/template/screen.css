@@ -47,9 +47,10 @@ body                                { margin:0 }
   text-align:justify;
   background:#fff;
 }
-#man, #man code, #man pre,
-#man tt, #man kbd, #man samp            { color:#343331 }
-#man h1, #man h2, #man h3, #man h4      { color:#232221 }
+#man, #man code, #man pre, #man pre code,
+#man tt, #man kbd, #man samp            { color:#131211 }
+#man h1, #man h2, #man h3, #man h4      { color:#030201 }
+#man ol.man, #man ol.man li             { color:#636261 }
 
 #man code, #man strong, #man b {
     font-weight:bold;
@@ -63,14 +64,12 @@ body                                { margin:0 }
 }
 
 #man pre {
-    color:#333231;
     background:#edeceb;
-    padding:5px 7px;
-    border-left:2ex solid #ddd;
+    padding:5px 1ex;
+    border-left:1ex solid #ddd;
 }
 #man pre code {
     font-weight:normal;
-    color:#232221;
     background:inherit;
 }
 
