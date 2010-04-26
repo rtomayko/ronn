@@ -56,6 +56,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w[COPYING]
   s.add_dependency 'hpricot',     '>= 0.8.2'
   s.add_dependency 'rdiscount',   '>= 1.5.8'
+  s.add_dependency 'mustache',    '>= 0.7.0'
   s.add_development_dependency 'contest', '~> 0.1'
 
   s.has_rdoc = true
