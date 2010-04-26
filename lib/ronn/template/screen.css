@@ -58,9 +58,9 @@ body                                { margin:0 }
 }
 
 #man em, #man var, #man u {
-    font-style:normal;
-    color:#333231;
-    border-bottom:1px solid #999;
+    font-style:italic;
+    color:#434241;
+    text-decoration:none;
 }
 
 #man pre {
