@@ -66,14 +66,26 @@ module Ronn
       end
     end
 
-    def stylesheet(name)
+    ##
+    # TEMPLATE CSS LOADING
+
+    def inline_stylesheet(name, media='all')
       path = File.expand_path("../template/#{name}.css", __FILE__)
       data = File.read(path)
       data.gsub!(/(?<=[;{]) *\n/m, '')
       data.gsub!(/(?<=[;{]) +/m, '')
       data.gsub!(/[; ]+}/, '}')
       data.gsub!(/^/, '  ')
-      data.strip
+      "<stylesheet type=text/css media=#{media}>\n#{data}</stylesheet>"
+    end
+
+    def remote_stylesheet(name, media='all')
+      path = File.expand_path("../template/#{name}.css", __FILE__)
+      "<link rel=stylesheet type=text/css media=#{media} href='#{path}'>"
+    end
+
+    def stylesheet(name, media='all')
+      inline_stylesheet(name, media)
     end
 
     def screen_styles
@@ -81,7 +93,7 @@ module Ronn
     end
 
     def print_styles
-      stylesheet 'print'
+      stylesheet 'print', media='print'
     end
   end
 end
