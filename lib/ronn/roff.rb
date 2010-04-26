@@ -121,6 +121,8 @@ module Ronn
     end
 
     def inline_filter(node)
+      return unless node # is an empty node
+
       if node.kind_of?(Array) || node.kind_of?(Hpricot::Elements)
         node.each { |ch| inline_filter(ch) }
 
