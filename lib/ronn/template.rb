@@ -68,7 +68,12 @@ module Ronn
 
     def stylesheet(name)
       path = File.expand_path("../template/#{name}.css", __FILE__)
-      File.read(path)
+      data = File.read(path)
+      data.gsub!(/(?<=[;{]) *\n/m, '')
+      data.gsub!(/(?<=[;{]) +/m, '')
+      data.gsub!(/[; ]+}/, '}')
+      data.gsub!(/^/, '  ')
+      data.strip
     end
 
     def screen_styles
