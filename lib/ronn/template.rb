@@ -76,12 +76,12 @@ module Ronn
       data.gsub!(/(?<=[;{]) +/m, '')
       data.gsub!(/[; ]+}/, '}')
       data.gsub!(/^/, '  ')
-      "<stylesheet type=text/css media=#{media}>\n#{data}</stylesheet>"
+      "<style type='text/css' media='#{media}'>\n#{data}  </style>"
     end
 
     def remote_stylesheet(name, media='all')
       path = File.expand_path("../template/#{name}.css", __FILE__)
-      "<link rel=stylesheet type=text/css media=#{media} href='#{path}'>"
+      "<link rel='stylesheet' type='text/css' media='#{media}' href='#{path}'>"
     end
 
     def stylesheet(name, media='all')
