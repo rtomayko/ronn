@@ -58,8 +58,11 @@ module Ronn
     end
 
     def section_heads
-      @document.section_heads.each do |id, text|
-        { :id => id, :text => text }
+      @document.section_heads.map do |id, text|
+        {
+          :id   => id,
+          :text => text
+        }
       end
     end
 
