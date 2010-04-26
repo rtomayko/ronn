@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v#{Ronn::VERSION}'>
-  <title>#{name}(#{section})#{tagline ? " - " + tagline : ''}</title>
+  <meta name='generator' value='{{ generator }}'>
+  <title>{{ title }}</title>
   <style type='text/css'>
     body {margin:0}
     #man, #man code, #man pre, #man tt, #man kbd, #man samp {
@@ -73,26 +73,26 @@
 <body>
 <div id='man'>
 
-<div class='man-navigation'>#{
-  section_heads.map do |id, text|
-    "<a href='##{id}'>#{text}</a>"
-  end.join(' ')
-}</div>
+<div class='man-navigation'>
+  {{#section_heads}}
+  <a href="{{id}}">{{text}}</a>
+  {{/section_heads}}
+</div>
 
-<h1 class='man-title'>#{name}(#{section})</h1>
+<h1 class='man-title'>{{ page_name }}</h1>
 
 <ol class='head man'>
-  <li class='tl'>#{name if section}#{"("+section+")" if name and section}</li>
-  <li class='tc'>#{manual}</li>
-  <li class='tr'>#{name if section}#{"("+section+")" if name and section}</li>
+  <li class='tl'>{{ page_name }}</li>
+  <li class='tc'>{{ manual }}</li>
+  <li class='tr'>{{ page_name }}</li>
 </ol>
 
-#{html}
+{{{ html }}}
 
 <ol class='foot man'>
-  <li class='tl'>#{organization}</li>
-  <li class='tc'>#{date.strftime('%B %Y')}</li>
-  <li class='tr'>#{name if section}#{"("+section+")" if name and section}</li>
+  <li class='tl'>{{ organization }}</li>
+  <li class='tc'>{{ date }}</li>
+  <li class='tr'>{{ page_name }}</li>
 </ol>
 
 </div>

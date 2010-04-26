@@ -3,6 +3,7 @@ require 'cgi'
 require 'hpricot'
 require 'rdiscount'
 require 'ronn/roff'
+require 'ronn/template'
 
 module Ronn
   # The Document class can be used to load and inspect a ronn document
@@ -154,7 +155,8 @@ module Ronn
 
     # Convert the document to HTML and return the result as a string.
     def to_html
-      layout_filter(to_html_fragment)
+      template = Ronn::Template.new(self)
+      template.render('default')
     end
 
     # Convert the document to HTML and return the result
@@ -185,13 +187,6 @@ module Ronn
         :heading_anchor_filter,
         :annotate_bare_links_filter
       ].inject(data) { |res,filter| send(filter, res) }
-    end
-
-    # Apply the standard HTML layout template.
-    def layout_filter(html)
-      template_file = File.dirname(__FILE__) + "/layout.html"
-      template = File.read(template_file)
-      eval("%Q{#{template}}", binding, template_file)
     end
 
     # Add a 'data-bare-link' attribute to hyperlinks
