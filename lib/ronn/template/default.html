@@ -7,31 +7,31 @@
   {{{ screen_styles }}}
   {{{ print_styles }}}
 </head>
-<body>
-<div id='man'>
+<body id='manpage'>
+  <div id='man'>
 
-<div class='man-navigation'>
-  {{#section_heads}}
-  <a href="#{{id}}">{{text}}</a>
-  {{/section_heads}}
-</div>
+  <div class='man-navigation'>
+    {{#section_heads}}
+    <a href="#{{id}}">{{text}}</a>
+    {{/section_heads}}
+  </div>
 
-<h1 class='man-title'>{{ page_name }}</h1>
+  <h1 class='man-title'>{{ page_name }}</h1>
 
-<ol class='head man'>
-  <li class='tl'>{{ page_name }}</li>
-  <li class='tc'>{{ manual }}</li>
-  <li class='tr'>{{ page_name }}</li>
-</ol>
+  <ol class='man head'>
+    <li class='tl'>{{ page_name }}</li>
+    <li class='tc'>{{ manual }}</li>
+    <li class='tr'>{{ page_name }}</li>
+  </ol>
 
-{{{ html }}}
+  {{{ html }}}
 
-<ol class='foot man'>
-  <li class='tl'>{{ organization }}</li>
-  <li class='tc'>{{ date }}</li>
-  <li class='tr'>{{ page_name }}</li>
-</ol>
+  <ol class='man foot'>
+    <li class='tl'>{{ organization }}</li>
+    <li class='tc'>{{ date }}</li>
+    <li class='tr'>{{ page_name }}</li>
+  </ol>
 
-</div>
+  </div>
 </body>
 </html>
