@@ -1,7 +1,7 @@
 /* STRUCTURE, INDENT, MARGINS */
 
 body                                { margin:0 }
-#man                                { max-width:92ex; padding:0 2ex 1ex 2ex }
+#man                                { max-width:88ex; padding:0 2ex 1ex 2ex }
 
 #man p, #man pre,
 #man ul, #man ol, #man dl           { margin:0 0 20px 0 }
@@ -95,7 +95,7 @@ body                                { margin:0 }
 #man div.man-navigation {
     position:fixed;
     top:0;
-    left:106ex;
+    left:96ex;
     height:100%;
     width:100%;
     padding:1ex 0 0 2ex;
