@@ -32,7 +32,7 @@ body                                { margin:0 }
     font-size:14px;
     line-height:1.42857142857143;
 }
-#man h2, #man ol.man, #man .man-navigation a {
+#man h2, #man ol.man {
   font-size:16px;
   line-height:1.25
 }
