@@ -72,9 +72,9 @@ module Ronn
     def inline_stylesheet(name, media='all')
       path = File.expand_path("../template/#{name}.css", __FILE__)
       data = File.read(path)
-      data.gsub!(/(?<=[;{]) *\n/m, '')
-      data.gsub!(/(?<=[;{]) +/m, '')
-      data.gsub!(/[; ]+}/, '}')
+      data.gsub!(/(<=[;{]) *\n/m, '')
+      data.gsub!(/(<=[;{]) +/m, '')
+      data.gsub!(/[; ]+\}/, '}')
       data.gsub!(/^/, '  ')
       "<style type='text/css' media='#{media}'>\n#{data}  </style>"
     end
