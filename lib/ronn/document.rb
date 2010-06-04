@@ -155,8 +155,15 @@ module Ronn
 
     # Convert the document to HTML and return the result as a string.
     def to_html
+      if layout = ENV['RONN_LAYOUT']
+        if !File.exist?(layout_path = File.expand_path(layout))
+          warn "warn: can't find #{layout}, using default layout."
+          layout_path = nil
+        end
+      end
+
       template = Ronn::Template.new(self)
-      template.render('default')
+      template.render(layout_path || 'default')
     end
 
     # Convert the document to HTML and return the result
