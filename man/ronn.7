@@ -1,10 +1,10 @@
-.\" generated with Ronn/v0.4.2
+.\" generated with Ronn/v0.5
 .\" http://github.com/rtomayko/ronn/
 .
-.TH "RONN" "7" "March 2010" "Ryan Tomayko" "Ronn Manual"
+.TH "RONN" "7" "April 2010" "Ryan Tomayko" "Ronn Manual"
 .
 .SH "NAME"
-\fBronn\fR \-\- the opposite of roff
+\fBronn\fR \- the opposite of roff
 .
 .SH "DESCRIPTION"
 Ronn is a humane text format and toolchain for creating UNIX man
@@ -26,26 +26,18 @@ The source files and generated HTML / roff output files are available
 at:
 .
 .IP "\(bu" 4
-\fIronn(1)\fR \-
+ronn(1) \fIhttp://rtomayko.github.com/ronn/ronn.1\fR \-
 build markdown based manual pages at the command line.
 .
 .br
-\fIsource file\fR, \fIroff output\fR
+source file \fIhttp://github.com/rtomayko/ronn/blob/master/man/ronn.1.ronn\fR, roff output \fIhttp://github.com/rtomayko/ronn/blob/master/man/ronn.1\fR
 .
 .IP "\(bu" 4
-\fIronn(5)\fR \-
+ronn(5) \fIhttp://rtomayko.github.com/ronn/ronn.5\fR \-
 humane manual page authoring format syntax reference.
 .
 .br
-\fIsource file\fR, \fIroff output\fR
-.
-.IP "\(bu" 4
-\fImarkdown(5)\fR \-
-humane text markup syntax (taken from \fIMarkdown Syntax\fR,
-John Gruber)
-.
-.br
-\fIsource file\fR, \fIroff output\fR
+source file \fIhttp://github.com/rtomayko/ronn/blob/master/man/ronn.5.ronn\fR, roff output \fIhttp://github.com/rtomayko/ronn/blob/master/man/ronn.5\fR
 .
 .IP "" 0
 .
@@ -79,52 +71,57 @@ $ ronn \-\-help
 .IP "" 0
 .
 .SH "BASIC USAGE"
-To generate a roff man page from the included \fBmarkdown.5.ronn\fR file and
+To generate a roff man page from the included \fBronn.5.ronn\fR file and
 open it with man(1):
 .
 .IP "" 4
 .
 .nf
 
-$ ronn \-b man/markdown.5.ronn
-building: man/markdown.5
-$ man man/markdown.5
+$ ronn man/ronn.5.ronn
+roff: man/ronn.5
+html: man/ronn.5.html
+
+# view the generated roff manpage with man(1):
+$ man man/ronn.5
+
+# view the generated HTML manpage
+$ open man/ronn.5.html
 .
 .fi
 .
 .IP "" 0
 .
 .P
-To generate a standalone HTML version:
+To generate only a standalone HTML version of the manpage:
 .
 .IP "" 4
 .
 .nf
 
-$ ronn \-b \-\-html man/markdown.5.ronn
-building: man/markdown.5.html
-$ open man/markdown.5.html
+$ ronn \-\-html man/markdown.5.ronn
+html: man/markdown.5.html
 .
 .fi
 .
 .IP "" 0
 .
 .P
-To build roff and HTML versions of all ronn files:
+To build roff versions of all ronn files in a directory:
 .
 .IP "" 4
 .
 .nf
 
-$ ronn \-b \-\-roff \-\-html man/*.ronn
+$ ronn \-\-roff man/*.ronn
 .
 .fi
 .
 .IP "" 0
 .
 .P
-If you just want to view a ronn file as if it were a man page without
-building intermediate files:
+If you just want to view a ronn file as if it were a man page without building
+intermediate files:
 .
 .IP "" 4
 .
@@ -137,8 +134,8 @@ $ ronn \-m man/markdown.5.ronn
 .IP "" 0
 .
 .P
-The \fIronn(1)\fR manual page
-includes comprehensive documentation on \fBronn\fR command line options.
+The ronn(1) \fIhttp://rtomayko.github.com/ronn/ronn.1\fR manual page includes
+comprehensive documentation on \fBronn\fR command line options.
 .
 .SH "ABOUT"
 Some people think UNIX manual pages are a poor and outdated style of
@@ -171,7 +168,7 @@ on Physics\fR, 1970).
 .
 .IP "\(bu" 4
 Man pages have a simple referencing syntax; e.g., sh(1), fork(2),
-markdown(5). HTML versions can use this to generate links between
+markdown(7). HTML versions can use this to generate links between
 pages.
 .
 .IP "\(bu" 4
@@ -195,8 +192,9 @@ preserving the things that makes man pages a great form of
 documentation.
 .
 .SH "COPYING"
-Ronn is Copyright (C) 2009 \fIRyan Tomayko\fR
+Ronn is Copyright (C) 2009 Ryan Tomayko \fIhttp://tomayko.com/about\fR
 See the file COPYING for information of licensing and distribution.
 .
 .SH "SEE ALSO"
-\fIronn(1)\fR, \fIronn(5)\fR, \fImarkdown(5)\fR
+ronn(1) \fIhttp://rtomayko.github.com/ronn/ronn.1\fR, ronn(5) \fIhttp://rtomayko.github.com/ronn/ronn.5\fR,
+markdown(5)
