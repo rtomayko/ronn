@@ -33,10 +33,6 @@
 require 'date'
 require 'optparse'
 
-def info(message, *args)
-  STDERR.puts message % args
-end
-
 def usage
   puts File.readlines(__FILE__).
     grep(/^##.*/).
@@ -144,7 +140,7 @@ ARGV.each do |file|
   formats.each do |format|
     if build
       path = doc.path_for(format)
-      info "#{format}: #{path}" if build
+      warn "#{format}: #{path}" if build
       output = doc.convert(format)
       File.open(path, 'wb') { |f| f.puts(output) }
       if format == 'roff'
