@@ -1,7 +1,12 @@
+/* man.css - core manpage styles */
+
 /* STRUCTURE, INDENT, MARGINS */
 
 body#manpage                        { margin:0 }
-.mp                                 { max-width:92ex; padding:0 2ex 1ex 2ex }
+.mp {
+    max-width:92ex;
+    padding:0 2ex 1ex 2ex;
+}
 
 .mp p,  .mp pre,
 .mp ul, .mp ol, .mp dl              { margin:0 0 20px 0 }
@@ -31,10 +36,9 @@ body#manpage                        { margin:0 }
     font-size:14px;
     line-height:1.42857142857143;
 }
-.mp h2, .mp ol.man,
-.man-navigation a {
+.mp h2, .mp ol.man {
   font-size:16px;
-  line-height:1.25
+  line-height:1.25;
 }
 .mp h1 {
   font-size:20px;
