@@ -1,0 +1,12 @@
+section_reference_links(1) - linking to sections
+================================================
+
+## SECTION 1
+
+See the following section.
+
+## SECTION 2
+
+See [SECTION 1][]
+or [to put it another way][SECTION 1]
+or even [link this](#SECTION-1)
