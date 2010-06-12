@@ -43,6 +43,9 @@ module Ronn
     # the document footer.
     attr_accessor :date
 
+    # Array of style modules to apply to the document.
+    attr_accessor :styles
+
     # Create a Ronn::Document given a path or with the data returned by
     # calling the block. The document is loaded and preprocessed before
     # the intialize method returns. The attributes hash may contain values
@@ -55,6 +58,8 @@ module Ronn
       @name, @section, @tagline = nil
       @manual, @organization, @date = nil
       @fragment = preprocess
+      @styles = %w[man]
+
       attributes.each { |attr_name,value| send("#{attr_name}=", value) }
     end
 
@@ -132,6 +137,12 @@ module Ronn
       parse_html(to_html_fragment).search('h2[@id]').map do |heading|
         [heading.attributes['id'], heading.inner_text]
       end
+    end
+
+    # Styles to insert in the generated HTML output. This is a simple Array of
+    # string module names or file paths.
+    def styles=(styles)
+      @styles = (%w[man] + styles).uniq
     end
 
     # Convert the document to :roff, :html, or :html_fragment and

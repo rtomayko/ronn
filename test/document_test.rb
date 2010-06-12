@@ -102,6 +102,10 @@ class DocumentTest < Test::Unit::TestCase
       assert_equal "./hello.1", @doc.path_for('')
       assert_equal "./hello.1", @doc.path_for(nil)
     end
+
+    test "uses default styles" do
+      assert_equal %w[man], @doc.styles
+    end
   end
 
   test 'extracting section heads' do
@@ -117,5 +121,10 @@ class DocumentTest < Test::Unit::TestCase
       ["SEE-ALSO", "SEE ALSO"]
     ]
     assert_equal expected, @doc.section_heads
+  end
+
+  test "passing a list of styles" do
+    @doc = Ronn::Document.new('hello.1.ronn', :styles => %w[test boom test]) { '' }
+    assert_equal %w[man test boom], @doc.styles
   end
 end

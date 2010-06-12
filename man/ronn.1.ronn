@@ -135,7 +135,6 @@ These styles are included with the distribution:
      terminal. The default display width causes lines to wrap at a gratuitous
      100 characters.
 
-
 ## EXAMPLES
 
 Generate `roff(7)` output on stdout:
