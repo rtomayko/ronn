@@ -125,6 +125,20 @@ View a ronn file in the same way as man(1) without building a roff file:
 
 ## ENVIRONMENT
 
+  * `RONN_MANUAL`:
+    A default manual name to be displayed in the top-center header area.
+    The `--manual` option takes precedence over this value.
+
+  * `RONN_ORGANIZATION`:
+    The default manual publishing group, organization, or individual to be
+    displayed in the bottom-left footer area. The `--organization` option takes
+    precedence over this value.
+
+  * `RONN_DATE`:
+    The default manual date in `YYYY-MM-DD` format. Displayed in the
+    bottom-center footer area. The `--date` option takes precedence over this
+    value.
+
   * `MANPAGER`:
     The paging program used for man pages. This is typically set to
     something like 'less -is'.

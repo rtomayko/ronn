@@ -51,6 +51,14 @@ options = {}
 groff = "groff -Wall -mtty-char -mandoc -Tascii"
 pager = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
 
+# these attributes are set initially to the values of the corresponding
+# RONN_XXX environment variables.
+%w[manual organization date].each do |attribute|
+  value = ENV["RONN_#{attribute.upcase}"]
+  next if value.nil? or value.empty?
+  options[attribute] = value
+end
+
 ARGV.options do |argv|
   # modes
   argv.on("--pipe")           { build = false }
@@ -88,7 +96,7 @@ elsif view
 end
 
 # turn the --date arg into a real date object
-options[:date] &&= Date.strptime(options[:date], '%Y-%m-%d')
+options['date'] &&= Date.strptime(options['date'], '%Y-%m-%d')
 
 formats.delete('html') if formats.include?('html_fragment')
 pid = nil
