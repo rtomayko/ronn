@@ -7,7 +7,7 @@ module Ronn
       @buf = []
       title_heading name, section, tagline, manual, version, date
       html = Hpricot(html)
-      block_filter(html)
+      block_filter(normalize_whitespace(html))
       write "\n"
     end
 
@@ -39,6 +39,29 @@ module Ronn
       comment "generated with Ronn/v#{Ronn::VERSION}"
       comment "http://github.com/rtomayko/ronn/"
       macro "TH", %["#{escape(name.upcase)}" "#{section}" "#{date.strftime('%B %Y')}" "#{version}" "#{manual}"]
+    end
+
+    def normalize_whitespace(node)
+      if node.kind_of?(Array) || node.kind_of?(Hpricot::Elements)
+        node.each { |ch| normalize_whitespace(ch) }
+      elsif node.doc? || (node.elem? && node.children)
+        normalize_whitespace(node.children)
+      elsif node.text? && !child_of?(node, 'pre')
+        node.content = node.content.gsub(/[\n ]+/m, ' ')
+        node_prev = previous(node)
+        if (node.previous && node.previous.elem?) &&
+           (node.next && node.next.elem?) &&
+           (node.content.strip == '')
+          node.content = ''
+        else
+          node.content = node.content.lstrip if node_prev.nil?
+          node.content = node.content.rstrip if node.next.nil?
+        end
+      elsif node.elem? || node.text?
+      else
+        warn "unrecognized tag: %p", node.name
+      end
+      node
     end
 
     def block_filter(node)
@@ -127,19 +150,6 @@ module Ronn
       elsif node.text?
         prev = previous(node)
         text = node.to_html.dup
-
-        case prev && prev.name
-        when 'br';       text.sub!(/^\n+/m, '')
-        when 'dt', 'dd'; text.strip!
-        end
-
-        if child_of?(node, 'pre')
-          # leave the text alone
-        elsif node.previous.nil? && node.next.nil?
-          text.sub!(/\n+$/m, '')
-        else
-          text.sub!(/\n+$/m, ' ')
-        end
         write escape(text)
 
       elsif node.elem?
