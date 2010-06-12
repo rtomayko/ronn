@@ -89,17 +89,3 @@ body                                { margin:0 }
 #man ol.man li.tl            { text-align:left }
 #man ol.man li.tc            { text-align:center; letter-spacing:4px }
 #man ol.man li.tr            { text-align:right; float:right }
-
-/* SECTION TOC NAVIGATION */
-
-#man div.man-navigation {
-    position:fixed;
-    top:0;
-    left:106ex;
-    height:100%;
-    width:100%;
-    padding:1ex 0 0 2ex;
-    border-left:0.25ex solid #DCDCDC;
-    background-color: #F5F5F5;
-}
-#man div.man-navigation a { display:block; margin-bottom:1.5ex }

@@ -123,7 +123,13 @@ module Ronn
       data.gsub!(%r|/\*.+?\*/|m, '')   # comments
       data.gsub!(/\n{2,}/m, "\n")      # collapse lines
       data.gsub!(/^/, '  ')
-      "<style type='text/css' media='#{media}'>\n#{data}  </style>"
+      data.strip!
+      [
+        "<style type='text/css' media='#{media}'>",
+        "/* style: #{File.basename(path, '.css')} */",
+        data,
+        "</style>"
+      ].join("\n  ")
     end
 
     def remote_stylesheet(name, media='all')

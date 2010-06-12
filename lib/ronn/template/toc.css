@@ -1,0 +1,21 @@
+/* toc.css - enable table of contents */
+
+/* SECTION TOC NAVIGATION */
+
+#man div.man-navigation {
+    position:fixed;
+    top:0;
+    left:106ex;
+    height:100%;
+    width:100%;
+    padding:1ex 0 0 2ex;
+    border-left:0.25ex solid #DCDCDC;
+    background-color: #F5F5F5;
+}
+#man div.man-navigation a {
+    display:block;
+    margin-bottom:1.5ex;
+}
+#man div.man-navigation {
+  display:block !important;
+}
