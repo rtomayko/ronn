@@ -51,26 +51,26 @@ options = {}
 groff = "groff -Wall -mtty-char -mandoc -Tascii"
 pager = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
 
-ARGV.options do |option|
+ARGV.options do |argv|
   # modes
-  option.on("--pipe")           { build = false }
-  option.on("-b", "--build")    { build = true }
-  option.on("-m", "--man")      { build = false; view = true }
-  option.on("-w", "--warnings") { groff += ' -ww' }
-  option.on("-W")               { groff += ' -Ww' }
+  argv.on("--pipe")           { build = false }
+  argv.on("-b", "--build")    { build = true }
+  argv.on("-m", "--man")      { build = false; view = true }
+  argv.on("-w", "--warnings") { groff += ' -ww' }
+  argv.on("-W")               { groff += ' -Ww' }
 
   # format options
-  option.on("-r", "--roff")     { formats << 'roff' }
-  option.on("-5", "--html")     { formats << 'html' }
-  option.on("-f", "--fragment") { formats << 'html_fragment' }
+  argv.on("-r", "--roff")     { formats << 'roff' }
+  argv.on("-5", "--html")     { formats << 'html' }
+  argv.on("-f", "--fragment") { formats << 'html_fragment' }
 
   # manual attribute options
-  [:name, :section, :manual, :organization, :date].each do |option_attr|
-    option.on("--#{option_attr}=VALUE") { |val| options[option_attr] = val }
+  %w[name section manual organization date].each do |attribute|
+    argv.on("--#{attribute}=VALUE") { |val| options[attribute] = val }
   end
 
-  option.on_tail("--help") { usage ; exit 0 }
-  option.parse!
+  argv.on_tail("--help") { usage ; exit 0 }
+  argv.parse!
 end
 
 if ARGV.empty? && STDIN.tty?
