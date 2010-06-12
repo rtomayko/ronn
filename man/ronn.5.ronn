@@ -154,6 +154,22 @@ The definition list syntax is intentionally backward compatible with
 markdown(7)'s list syntax. This allows `ronn` documents to be piped through
 normal markdown processors with minor degradation in output formatting.
 
+## LINKS
+
+All markdown(7) linking features are supported. Additionally, reference links
+are made available for each section heading:
+
+    ## SECTION 1
+
+    See the following section.
+
+    ## SECTION 2
+
+    See [SECTION 1][] or [to put it another way][SECTION 1].
+
+The anchor name in this case would be `#SECTION-1` and `#SECTION-2`. All
+non-word characters are removed and spaces are replaced by dashes.
+
 ## SEE ALSO
 
 ronn(1), markdown(7), manpages(5)
