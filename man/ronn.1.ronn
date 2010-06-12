@@ -4,35 +4,35 @@ ronn(1) -- build markdown-based man pages
 ## SYNOPSIS
 
 `ronn`<br>
-`ronn` [<OPTIONS>] <FILE>...<br>
-`ronn` --man <FILE>...
+`ronn` [<options>] <file>...<br>
+`ronn` --man <file>...
 
 ## DESCRIPTION
 
 The `ronn` utility converts ronn(5)-formatted source files to roff and HTML
 manpages.
 
-Under the first synopsis form -- with no <FILE> arguments -- `ronn` acts as
+Under the first synopsis form -- with no <file> arguments -- `ronn` acts as
 simple filter, reading ronn source text on standard input and writing
 roff(5)-formatted text to standard output.
 
 Under the second synopsis form, `ronn` builds HTML and roff output files based
-on one or more input <FILE> names. The `--roff`, `--html`, and `--fragment`
+on one or more input <file> names. The `--roff`, `--html`, and `--fragment`
 options specify which output files should be generated. Multiple format
 arguments may be specified to generate multiple output files.
 
-Under the third synopsis form, `ronn` converts one or more <FILE>s to roff
+Under the third synopsis form, `ronn` converts one or more <file>s to roff
 and displays on the current console as with man(1).
 
 ## FILES
 
 The `ronn` command expects input to be formatted as ronn(5) text.  Source
-files are typically named '<NAME>.<SECTION>.ronn' (e.g., `hello.1.ronn`).
-The <NAME> and <SECTION> should match the name and section defined in the
-<FILE>'s heading.
+files are typically named '<name>.<section>.ronn' (e.g., `hello.1.ronn`).
+The <name> and <section> should match the name and section defined in the
+<file>'s heading.
 
 When building roff and/or HTML output files, destination filenames are
-determined by taking the basename of the input <FILE> and adding the appropriate
+determined by taking the basename of the input <file> and adding the appropriate
 file extension (or removing the file extension in the case of roff output).  For
 example, executing `ronn hello.1.ronn` generates a `hello.1` file with roff
 output and a `hello.1.html` file with HTML output.
@@ -45,10 +45,10 @@ or piped directly to a man viewer.
   * `--pipe`:
     Write generated output to standard output instead of to filename based on
     the input files. This is the default behavior when ronn source text is piped
-    in on standard input and no <FILE> arguments are provided.
+    in on standard input and no <file> arguments are provided.
 
   * `-m`, `--man`:
-    Display <FILE>s as if man(1) were invoked on the roff output file. This
+    Display <file>s as if man(1) were invoked on the roff output file. This
     simulates default man behavior by piping the roff output through groff(1)
     and the paging program specified by the `MANPAGER` environment variable.
 
@@ -57,7 +57,7 @@ Format options control what files `ronn` generates or the output format when the
 and `--html` are assumed.
 
   * `-r`, `--roff`:
-    Generate roff output. This is the default behavior when no <FILE>s are given
+    Generate roff output. This is the default behavior when no <file>s are given
     and ronn source text is read from standard input.
 
   * `-5`, `--html`:
@@ -71,22 +71,22 @@ Document attributes displayed in the header and footer areas of generated
 content are specified with these options. (These values may also be set via
 the [ENVIRONMENT][].)
 
-  * `--manual`=<MANUAL>:
-    The name of the manual this man page belongs to; <MANUAL> is prominently
+  * `--manual`=<manual>:
+    The name of the manual this man page belongs to; <manual> is prominently
     displayed top-center in the header area.
 
-  * `--organization`=<NAME>:
+  * `--organization`=<name>:
     The name of the group, organization, or individual responsible for
-    publishing the document; <NAME> is displayed in the bottom-left footer area.
+    publishing the document; <name> is displayed in the bottom-left footer area.
 
-  * `--date`=<DATE>:
-    The document's published date; <DATE> must be formatted `YYYY-MM-DD` and is
-    displayed in the bottom-center footer area. The <FILE> mtime is used when no
-    <DATE> is given, or the current time when no <FILE> is available.
+  * `--date`=<date>:
+    The document's published date; <date> must be formatted `YYYY-MM-DD` and is
+    displayed in the bottom-center footer area. The <file> mtime is used when no
+    <date> is given, or the current time when no <file> is available.
 
 Miscellaneous options:
 
-  * `-w`, `--warnings`
+  * `-w`, `--warnings`:
     Show troff warnings on standard error when performing roff conversion. Most
     often, warnings are the result of a bug in ronn's HTML to roff conversion
     logic.
