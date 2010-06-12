@@ -4,7 +4,7 @@
     display:block !important;
     position:fixed;
     top:0;
-    left:106ex;
+    left:113ex; /* .mp width + padding */
     height:100%;
     width:100%;
     padding:1ex 0 0 2ex;

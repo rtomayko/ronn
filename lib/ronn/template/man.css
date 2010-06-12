@@ -4,8 +4,8 @@
 
 body#manpage                        { margin:0 }
 .mp {
-    max-width:92ex;
-    padding:0 2ex 1ex 2ex;
+    max-width:100ex;
+    padding:0 9ex 1ex 4ex;
 }
 
 .mp p,  .mp pre,
