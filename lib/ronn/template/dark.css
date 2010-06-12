@@ -16,6 +16,6 @@
     border-left:1ex solid #1a1a1a;
 }
 
-.mp a, .mp a:link, .mp a:hover {
-  color:#fff
-}
+.mp a, .mp a:link, .mp a:hover,
+.mp a code, .mp a pre, .mp a tt,
+.mp a kbd, .mp a samp              { color:#fff }

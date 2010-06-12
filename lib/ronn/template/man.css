@@ -74,6 +74,10 @@ body#manpage                        { margin:0 }
     background:inherit;
 }
 
+.mp a, .mp a:link, .mp a:hover,
+.mp a code, .mp a pre, .mp a tt,
+.mp a kbd, .mp a samp              { color:#0000ff }
+
 /* DOCUMENT HEADER AND FOOTER AREAS */
 
 ol.man-decor, ol.man-decor li {
