@@ -18,8 +18,8 @@ end
 
 desc 'Run tests'
 task :test => :environment do
-  require_library 'contest'
-  Dir['test/*_test.rb'].each { |test| require test }
+  $LOAD_PATH.unshift "#{ROOTDIR}/test"
+  Dir['test/*_test.rb'].each { |f| require(f) }
 end
 
 desc 'Build the manual'
