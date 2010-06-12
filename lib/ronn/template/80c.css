@@ -1,5 +1,6 @@
 /* 80c.css - condense width to emulate a classical 80 character terminal */
 
-.mp                       { max-width:88ex }
-.man-navigation           { left:96ex }
+.mp                       { max-width:86ex }
 
+ /* .mp width + padding */
+.man-navigation           { left:101ex }
