@@ -25,7 +25,7 @@ end
 desc 'Build the manual'
 task :man => :environment do
   ENV['RONN_MANUAL']  = 'Ron Manual'
-  ENV['ORGANIZATION'] = 'Ryan Tomayko'
+  ENV['RONN_ORGANIZATION'] = 'Ryan Tomayko'
   sh "ronn -w -s toc man/*.ronn"
 end
 

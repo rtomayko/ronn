@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.5
 .\" http://github.com/rtomayko/ronn/
 .
-.TH "RONN" "5" "April 2010" "Ryan Tomayko" "Ronn Manual"
+.TH "RONN" "5" "June 2010" "Ryan Tomayko" "Ron Manual"
 .
 .SH "NAME"
 \fBronn\fR \- humane manual page authoring format
@@ -10,54 +10,61 @@
 .
 .nf
 
-name(1) \-\- one sentence description
-===================================
+name(1) \-\- short, single\-sentence description
+=============================================
 
-## SECTION HEADING
+## SYNOPSIS
 
-A normal paragraph. This can span multiple lines and is
-terminated with two or more line endings \-\- just like
-Markdown.
+`name` [<optional>\.\.\.] <flags>
 
-## INLINE MARKUP
+## DESCRIPTION
 
-Inline markup is used for `code` and `user input` (displayed
-in boldface), and also <variables> or _emphasis_.
+A normal paragraph\. This can span multiple lines and is terminated with two
+or more line endings \-\- just like Markdown\.
 
-Manual page references like sh(1), markdown(7), roff(7), etc.
-are displayed in boldface and hyperlinked in HTML output.
+Inline markup for `code`, `user input`, and **strong** are displayed
+boldface; <variable>, _emphasis_, *emphasis*, are displayed in italics or
+underline\.
 
-## DEFINITION LISTS
+Manual references like sh(1), markdown(7), roff(7), etc\. are displayed in
+boldface and hyperlinked in HTML output\.
 
-Definition lists are used to define options, arguments,
-variables, and other type of terms:
+Link to other sections like [STANDARDS][], [SEE ALSO][], or
+[WITH A DIFFERENT LINK TEXT][#SEE\-ALSO]\.
 
-  * `\-a`, `\-\-arg1`=[_OPTION_]:
-    One or more paragraphs describing the argument.
-  * `\-b`, `\-\-arg2`:
-    Any number of these may be specified and may
-    be nested.
+Definition lists:
+
+  * `\-a`, `\-\-argument`=[<value>]:
+    One or more paragraphs describing the argument\.
+  * You can put whatever you *want* here, really:
+    Nesting and paragraph spacing are respected\.
+
+Markdown ordered and unordered lists too\.
+
+Here\'s some more sections to get you started:
+
+## OPTIONS
+## SYNTAX
+## ENVIRONMENT
+## RETURN VALUES
+## STANDARDS
+## SECURITY CONSIDERATIONS
+## BUGS
+## HISTORY
+## AUTHOR
+## COPYRIGHT
+## SEE ALSO
 .
 .fi
 .
 .SH "DESCRIPTION"
-Ronn files are simple ascii texts that document things in the
-style of UNIX man pages but with a syntax and feature\-set less
-insane than that of roff(7). Ronn files are piped through ronn(1)
-to build and install traditional roff(7) man pages or to generate
-hyperlinked HTML documentation.
+Ronn files are simple ascii texts that document things in the style of UNIX man pages but with a syntax and feature\-set less insane than that of roff(7)\. Ronn files are piped through ronn(1) to build and install traditional roff(7) man pages or to generate hyperlinked HTML documentation\.
 .
 .P
-All ronn formatted files must conform to a simple subset of
-markdown(7), a humane text markup designed for writing on the
-web. It is neither possible nor desirable to express many of
-roff(7)'s complex typesetting features in ronn.
+All ronn formatted files must conform to a simple subset of markdown(7), a humane text markup designed for writing on the web\. It is neither possible nor desirable to express many of roff(7)\'s complex typesetting features in ronn\.
 .
 .SH "MANPAGE TITLE"
-All man pages have a \fIname\fR, belong to a \fIsection\fR, and have a
-single sentence \fItagline\fR (useless but witty, preferably). Ronn
-files must begin with a first\-level heading that includes all of
-this information. For example, this very man page begins:
+All man pages have a \fIname\fR, belong to a \fIsection\fR, and have a single sentence \fItagline\fR (useless but witty, preferably)\. Ronn files must begin with a first\-level heading that includes all of this information\. For example, this very man page begins:
 .
 .IP "" 4
 .
@@ -71,19 +78,13 @@ ronn(5) \-\- humane manual page authoring format
 .IP "" 0
 .
 .P
-Here, we're saying that the man page documents a thing named \fBronn\fR in manual section \fB5\fR (the "file formats" section; see
-manpages(5) for full section list) and that's quickly described
-as a "humane manual page authoring format".
+Here, we\'re saying that the man page documents a thing named \fBronn\fR in manual section \fB5\fR (the \"file formats\" section; see manpages(5) for full section list) and that\'s quickly described as a \"humane manual page authoring format\"\.
 .
 .P
-These bits of information are used to fill in the document
-header, to create the \fBNAME\fR section, and also to establish
-output filenames when processed with ronn(1).
+These bits of information are used to fill in the document header, to create the \fBNAME\fR section, and also to establish output filenames when processed with ronn(1)\.
 .
 .SH "SECTION HEADINGS"
-Man section headings are expressed with markdown level two
-headings. markdown(7) provides two syntaxes for level two
-headings. A hash prefix syntax:
+Man section headings are expressed with markdown level two headings\. markdown(7) provides two syntaxes for level two headings\. A hash prefix syntax:
 .
 .IP "" 4
 .
@@ -110,43 +111,32 @@ HEADING TEXT
 .IP "" 0
 .
 .P
-Section headings should be in all uppercase and may not contain
-other inline markup.
+Section headings should be in all uppercase and may not contain other inline markup\.
 .
 .P
-Most manual pages include at least one of the \fBSYNOPSIS\fR, \fBDESCRIPTION\fR, and/or \fBOPTIONS\fR sections. Additional sections
-commonly included are \fBSYNTAX\fR, \fBENVIRONMENT\fR, \fBHISTORY\fR, \fBRETURN
-VALUES\fR, \fBBUGS\fR, \fBSECURITY CONSIDERATIONS\fR, \fBSTANDARDS\fR / \fBCONFORMING TO\fR, \fBAUTHOR\fR, and \fBCOPYRIGHT\fR. Finally, most man
-pages end with a \fBSEE ALSO\fR section that references other manual
-pages and external documents.
+Most manual pages include at least one of the \fBSYNOPSIS\fR, \fBDESCRIPTION\fR, and/or \fBOPTIONS\fR sections\. Additional sections commonly included are \fBSYNTAX\fR, \fBENVIRONMENT\fR, \fBHISTORY\fR, \fBRETURN VALUES\fR, \fBBUGS\fR, \fBSECURITY CONSIDERATIONS\fR, \fBSTANDARDS\fR / \fBCONFORMING TO\fR, \fBAUTHOR\fR, and \fBCOPYRIGHT\fR\. Finally, most man pages end with a \fBSEE ALSO\fR section that references other manual pages and external documents\.
 .
 .SH "INLINE MARKUP"
-Man pages have a limited set of text formatting capabilities at
-their disposal. There's basically \fBboldface\fR and \fIitalics\fR (often displayed using \fIunderline\fR). Ronn uses
-the following bits of markdown(7) to accomplish this:
+Man pages have a limited set of text formatting capabilities at their disposal\. There\'s basically \fBboldface\fR and \fIitalics\fR (often displayed using \fIunderline\fR)\. Ronn uses the following bits of markdown(7) to accomplish this:
 .
 .TP
 \fB`backticks`\fR
-Code, flags, commands, and noun\-like things; typically
-displayed in in \fBboldface\fR. Note that all text included
-within \fBbackticks\fR is displayed literally; other inline markup
-is not processed.
+Code, flags, commands, and noun\-like things; typically displayed in in \fBboldface\fR\. Note that all text included within \fBbackticks\fR is displayed literally; other inline markup is not processed\.
 .
 .TP
 \fB**double\-stars**\fR
-Like \fBbackticks\fR but inline markup is processed.
+Like \fBbackticks\fR but inline markup is processed\.
 .
 .TP
 \fB_\fR\fIunderbars\fR\fB_\fR
-User\-specified arguments, variables, or user input; typically
-displayed with \fIunderline\fR.
+User\-specified arguments, variables, or user input; typically displayed with \fIunderline\fR\.
 .
 .TP
 \fB<angle\-quotes>\fR
-Same as \fIunderbars\fR. This is not compatible with Markdown.
+Same as \fIunderbars\fR\. This is not compatible with Markdown\.
 .
 .P
-Here is grep(1)'s DESCRIPTION section represented in \fBronn\fR:
+Here is grep(1)\'s DESCRIPTION section represented in \fBronn\fR:
 .
 .IP "" 4
 .
@@ -154,29 +144,21 @@ Here is grep(1)'s DESCRIPTION section represented in \fBronn\fR:
 
 `Grep` searches the named input _FILE_ (or standard input if
 no files are named, or the file name `\-` is given) for lines
-containing a match to the given _PATTERN_. By default, `grep`
-prints the matching lines.
+containing a match to the given _PATTERN_\. By default, `grep`
+prints the matching lines\.
 .
 .fi
 .
 .IP "" 0
 .
 .SH "DEFINITION LISTS"
-Because definition lists are so often used in manual pages to
-describe arguments, options, and variables, the basic markdown(7)
-list syntax has been extended to support a definition list
-syntax.
+Because definition lists are so often used in manual pages to describe arguments, options, and variables, the basic markdown(7) list syntax has been extended to support a definition list syntax\.
 .
 .P
-Definition list syntax is exactly the same as markdown(7)'s
-unordered list syntax but requires that the first line of each
-list item be terminated with a colon "\fB:\fR". The first line (minus
-the colon) is the \fIterm\fR; subsequent lines may be comprised of
-multiple paragraphs, code blocks, standard lists, and nested
-definition lists.
+Definition list syntax is exactly the same as markdown(7)\'s unordered list syntax but requires that the first line of each list item be terminated with a colon \"\fB:\fR\"\. The first line (minus the colon) is the \fIterm\fR; subsequent lines may be comprised of multiple paragraphs, code blocks, standard lists, and nested definition lists\.
 .
 .P
-An example definition list, taken from BSD test(1)'s \fBDESCRIPTION\fR section:
+An example definition list, taken from BSD test(1)\'s \fIDESCRIPTION\fR section:
 .
 .IP "" 4
 .
@@ -184,24 +166,43 @@ An example definition list, taken from BSD test(1)'s \fBDESCRIPTION\fR section:
 
  The following primaries are used to construct expressions:
 
-   * `\-b` _file_:
-     True if _file_ exists and is a block special file.
+   * `\-b` <file>:
+     True if <file> exists and is a block special file\.
 
-   * `\-c` _file_:
-     True if _file_ exists and is a character special file.
+   * `\-c` <file>:
+     True if _file_ exists and is a character special file\.
 
-   * `\-d` _file_:
-     True if file exists and is a directory.
+   * `\-d` <file>:
+     True if file exists and is a directory\.
 .
 .fi
 .
 .IP "" 0
 .
 .P
-The definition list syntax is intentionally backward compatible
-with markdown(7)'s list syntax. This allows \fBronn\fR documents to be
-piped through normal markdown processors with minor degradation
-in output formatting.
+The definition list syntax is intentionally backward compatible with markdown(7)\'s list syntax\. This allows \fBronn\fR documents to be piped through normal markdown processors with minor degradation in output formatting\.
+.
+.SH "LINKS"
+All markdown(7) linking features are supported\. Additionally, reference links are made available for each section heading:
+.
+.IP "" 4
+.
+.nf
+
+## SECTION 1
+
+See the following section\.
+
+## SECTION 2
+
+See [SECTION 1][] or [to put it another way][SECTION 1]\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+The anchor name in this case would be \fB#SECTION\-1\fR and \fB#SECTION\-2\fR\. All non\-word characters are removed and spaces are replaced by dashes\.
 .
 .SH "SEE ALSO"
 ronn(1), markdown(7), manpages(5)

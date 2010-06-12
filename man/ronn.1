@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.5
 .\" http://github.com/rtomayko/ronn/
 .
-.TH "RONN" "1" "June 2010" "Ryan Tomayko" "Ronn Manual"
+.TH "RONN" "1" "June 2010" "Ryan Tomayko" "Ron Manual"
 .
 .SH "NAME"
 \fBronn\fR \- build markdown\-based man pages
@@ -10,110 +10,148 @@
 \fBronn\fR
 .
 .br
-\fBronn\fR [\fIOPTIONS\fR] \fIFILE\fR...
+\fBronn\fR [\fIoptions\fR] \fIfile\fR\.\.\.
 .
 .br
-\fBronn\fR \-\-man \fIFILE\fR...
+\fBronn\fR \-\-man \fIfile\fR\.\.\.
 .
 .SH "DESCRIPTION"
-The \fBronn\fR utility converts ronn(5)\-formatted source files to roff and HTML
-manpages.
+The \fBronn\fR utility converts ronn(5)\-formatted source files to roff and HTML manpages\.
 .
 .P
-Under the first synopsis form \-\- with no \fIFILE\fR arguments \-\- \fBronn\fR acts as
-simple filter, reading ronn source text on standard input and writing
-roff(5)\-formatted text to standard output.
+Under the first synopsis form \-\- with no \fIfile\fR arguments \-\- \fBronn\fR acts as simple filter, reading ronn source text on standard input and writing roff(5)\-formatted text to standard output\.
 .
 .P
-Under the second synopsis form, \fBronn\fR builds HTML and roff output files based
-on one or more input \fIFILE\fR names. The \fB\-\-roff\fR, \fB\-\-html\fR, and \fB\-\-fragment\fR
-options specify which output files should be generated. Multiple format
-arguments may be specified to generate multiple output files.
+Under the second synopsis form, \fBronn\fR builds HTML and roff output files based on one or more input \fIfile\fR names\. The \fB\-\-roff\fR, \fB\-\-html\fR, and \fB\-\-fragment\fR options specify which output files should be generated\. Multiple format arguments may be specified to generate multiple output files\.
 .
 .P
-Under the third synopsis form, \fBronn\fR converts one or more \fIFILE\fRs to roff
-and displays on the current console as with man(1).
+Under the third synopsis form, \fBronn\fR converts one or more \fIfile\fRs to roff and displays on the current console as with man(1)\.
 .
 .SH "FILES"
-The \fBronn\fR command expects input to be formatted as ronn(5) text.  Source
-files are typically named '\fINAME\fR.\fISECTION\fR.ronn' (e.g., \fBhello.1.ronn\fR).
-The \fINAME\fR and \fISECTION\fR should match the name and section defined in the \fIFILE\fR's heading.
+The \fBronn\fR command expects input to be formatted as ronn(5) text\. Source files are typically named \'\fIname\fR\.\fIsection\fR\.ronn\' (e\.g\., \fBhello\.1\.ronn\fR)\. The \fIname\fR and \fIsection\fR should match the name and section defined in the \fIfile\fR\'s heading\.
 .
 .P
-When building roff and/or HTML output files, destination filenames are
-determined by taking the basename of the input \fIFILE\fR and adding the appropriate
-file extension (or removing the file extension in the case of roff output).  For
-example, executing \fBronn hello.1.ronn\fR generates a \fBhello.1\fR file with roff
-output and a \fBhello.1.html\fR file with HTML output.
+When building roff and/or HTML output files, destination filenames are determined by taking the basename of the input \fIfile\fR and adding the appropriate file extension (or removing the file extension in the case of roff output)\. For example, executing \fBronn hello\.1\.ronn\fR generates a \fBhello\.1\fR file with roff output and a \fBhello\.1\.html\fR file with HTML output\.
 .
 .SH "OPTIONS"
-These options control whether output is written to file(s), to standard output,
-or piped directly to a man viewer.
+These options control whether output is written to file(s), to standard output, or piped directly to a man viewer\.
 .
 .TP
 \fB\-\-pipe\fR
-Write generated output to standard output instead of to filename based on
-the input files. This is the default behavior when ronn source text is piped
-in on standard input and no \fIFILE\fR arguments are provided.
+Write generated output to standard output instead of to filename based on the input files\. This is the default behavior when ronn source text is piped in on standard input and no \fIfile\fR arguments are provided\.
 .
 .TP
 \fB\-m\fR, \fB\-\-man\fR
-Display \fIFILE\fRs as if man(1) were invoked on the roff output file. This
-simulates default man behavior by piping the roff output through groff(1)
-and the paging program specified by the \fBMANPAGER\fR environment variable.
+Display \fIfile\fRs as if man(1) were invoked on the roff output file\. This simulates default man behavior by piping the roff output through groff(1) and the paging program specified by the \fBMANPAGER\fR environment variable\.
 .
 .P
-Format options control what files \fBronn\fR generates or the output format when the \fB\-\-pipe\fR argument is specified. When no format options are given, both \fB\-\-roff\fR
-and \fB\-\-html\fR are assumed.
+Format options control what files \fBronn\fR generates or the output format when the \fB\-\-pipe\fR argument is specified\. When no format options are given, both \fB\-\-roff\fR and \fB\-\-html\fR are assumed\.
 .
 .TP
 \fB\-r\fR, \fB\-\-roff\fR
-Generate roff output. This is the default behavior when no \fIFILE\fRs are given
-and ronn source text is read from standard input.
+Generate roff output\. This is the default behavior when no \fIfile\fRs are given and ronn source text is read from standard input\.
 .
 .TP
 \fB\-5\fR, \fB\-\-html\fR
-Generate output in HTML format.
+Generate output in HTML format\.
 .
 .TP
 \fB\-f\fR, \fB\-\-fragment\fR
-Generate output in HTML format but only the document fragment, not the
-header, title, or footer.
+Generate output in HTML format but only the document fragment, not the header, title, or footer\.
 .
 .P
-All document attributes displayed in the header and footer areas of generated
-content can be specified with these options:
+Document attributes displayed in the header and footer areas of generated content are specified with these options\. (These values may also be set via the \fIENVIRONMENT\fR\.)
 .
 .TP
-\fB\-\-manual\fR=\fIMANUAL\fR
-The name of the manual this man page belongs to; \fIMANUAL\fR is prominently
-displayed top\-center in the header area.
+\fB\-\-manual\fR=\fImanual\fR
+The name of the manual this man page belongs to; \fImanual\fR is prominently displayed top\-center in the header area\.
 .
 .TP
-\fB\-\-organization\fR=\fINAME\fR
-The name of the group, organization, or individual responsible for
-publishing the document; \fINAME\fR is displayed in the bottom\-left footer area.
+\fB\-\-organization\fR=\fIname\fR
+The name of the group, organization, or individual responsible for publishing the document; \fIname\fR is displayed in the bottom\-left footer area\.
 .
 .TP
-\fB\-\-date\fR=\fIDATE\fR
-The document's published date; \fIDATE\fR must be formatted \fBYYYY\-MM\-DD\fR and is
-displayed in the bottom\-center footer area. The \fIFILE\fR mtime is used when no \fIDATE\fR is given, or the current time when no \fIFILE\fR is available.
+\fB\-\-date\fR=\fIdate\fR
+The document\'s published date; \fIdate\fR must be formatted \fBYYYY\-MM\-DD\fR and is displayed in the bottom\-center footer area\. The \fIfile\fR mtime is used when no \fIdate\fR is given, or the current time when no \fIfile\fR is available\.
+.
+.P
+HTML output may be customized variously:
+.
+.TP
+\fB\-\-style\fR=\fImodule\fR[,\fImodule\fR]\.\.\.
+The list of CSS stylesheets to apply to the document\. Multiple \fImodule\fR arguments may be specified, but must be separated by commas or spaces\.
+.
+.IP
+When \fImodule\fR is a simple word, search for files named \fImodule\fR\fB\.css\fR in all directories listed in the \fI\fBRONN_STYLE\fR\fR environment variable, and then search internal styles\.
+.
+.IP
+When \fImodule\fR includes a \fI/\fR character, use it as the full path to a stylesheet file\.
+.
+.IP
+Internal styles are \fIman\fR (included by default), \fItoc\fR, and \fI80c\fR\. See \fISTYLES\fR for descriptions of features added by each module\.
 .
 .P
 Miscellaneous options:
 .
-.IP "\(bu" 4
+.TP
 \fB\-w\fR, \fB\-\-warnings\fR
-Show troff warnings on standard error when performing roff conversion. Most
-often, warnings are the result of a bug in ronn's HTML to roff conversion
-logic.
+Show troff warnings on standard error when performing roff conversion\. Most often, warnings are the result of a bug in ronn\'s HTML to roff conversion logic\.
 .
-.IP "\(bu" 4
-\fB\-W\fR:
-Disable troff warnings. Warnings are disabled by default. This option can be
-used to revert the effect of a previous \fB\-w\fR argument.
+.TP
+\fB\-W\fR
+Disable troff warnings\. Warnings are disabled by default\. This option can be used to revert the effect of a previous \fB\-w\fR argument\.
 .
-.IP "" 0
+.SH "STYLES"
+The \fB\-\-style\fR option selects a list of CSS stylesheets to include in the generated HTML\. Styles are applied in the order defined, so each can use the cascade to override previously defined styles\.
+.
+.SS "Internal Stylesheets"
+These styles are included with the distribution:
+.
+.TP
+\fBman\fR
+Basic manpage styles: typography, definition lists, indentation\. This is always included regardless of \fB\-\-style\fR argument\. It is however possible to replace the default \fBman\fR module with a custom one by placing a \fBman\.css\fR file on the \fBRONN_STYLE\fR path\.
+.
+.TP
+\fBprint\fR
+Basic print stylesheet\. The generated \fB<style>\fR tag includes a \fBmedia=print\fR attribute\.
+.
+.TP
+\fBtoc\fR
+Enables the Table of Contents navigation\. The TOC markup is included in generated HTML by default but hidden with an inline \fBdisplay:none\fR style rule; the \fBtoc\fR module turns it on and applies basic TOC styles\.
+.
+.TP
+\fBdark\fR
+Light text on a dark background\.
+.
+.TP
+\fB80c\fR
+Changes the display width to mimic the display of a classic 80 character terminal\. The default display width causes lines to wrap at a gratuitous 100 characters\.
+.
+.SS "Custom Stylesheets"
+Writing custom stylesheets is straight\-forward\. The following core selectors allow targeting all generated elements:
+.
+.TP
+\fB\.mp\fR
+The manual page container element\. Present on full documents and document fragments\.
+.
+.TP
+\fBbody#manpage\fR
+Signifies that the page was fully\-generated by Ronn and contains a single manual page (\fB\.mp\fR element)\.
+.
+.TP
+\fB\.man\-decor\fR
+The three\-item heading and footing elements both have this class\.
+.
+.TP
+\fB\.man\-head\fR, \fB\.man\-foot\fR
+The heading and footing, respectively\.
+.
+.TP
+\fB\.man\-title\fR
+The main \fB<h1>\fR element\. Hidden by default unless the manual has no \fIname\fR or \fIsection\fR attributes\.
+.
+.P
+See the internal style sources \fIhttp://github\.com/rtomayko/ronn/tree/master/lib/ronn/template\fR for examples\.
 .
 .SH "EXAMPLES"
 Generate \fBroff(7)\fR output on stdout:
@@ -122,24 +160,23 @@ Generate \fBroff(7)\fR output on stdout:
 .
 .nf
 
-$ ronn < hello.1.ronn
+$ ronn < hello\.1\.ronn
 .
 .fi
 .
 .IP "" 0
 .
 .P
-Build roff and HTML output files based on the input filename and view the roff
-manpage using man(1):
+Build roff and HTML output files based on the input filename and view the roff manpage using man(1):
 .
 .IP "" 4
 .
 .nf
 
-$ ronn hello.1.ronn
-roff: hello.1
-html: hello.1.html
-$ man ./hello.1
+$ ronn hello\.1\.ronn
+roff: hello\.1
+html: hello\.1\.html
+$ man \./hello\.1
 .
 .fi
 .
@@ -152,23 +189,23 @@ Build only the HTML manpage:
 .
 .nf
 
-$ ronn \-\-html test.1.ronn
-html: hello.1.html
+$ ronn \-\-html test\.1\.ronn
+html: hello\.1\.html
 .
 .fi
 .
 .IP "" 0
 .
 .P
-Build only the roff manpage for all \fB.ronn\fR files in the current directory:
+Build only the roff manpage for all \fB\.ronn\fR files in the current directory:
 .
 .IP "" 4
 .
 .nf
 
-$ ronn \-\-roff *.ronn
-roff: hello.1
-roff: world.1
+$ ronn \-\-roff *\.ronn
+roff: hello\.1
+roff: world\.1
 .
 .fi
 .
@@ -181,7 +218,7 @@ View a ronn file in the same way as man(1) without building a roff file:
 .
 .nf
 
-$ ronn \-m hello.1.ronn
+$ ronn \-m hello\.1\.ronn
 .
 .fi
 .
@@ -190,21 +227,34 @@ $ ronn \-m hello.1.ronn
 .SH "ENVIRONMENT"
 .
 .TP
+\fBRONN_MANUAL\fR
+A default manual name to be displayed in the top\-center header area\. The \fB\-\-manual\fR option takes precedence over this value\.
+.
+.TP
+\fBRONN_ORGANIZATION\fR
+The default manual publishing group, organization, or individual to be displayed in the bottom\-left footer area\. The \fB\-\-organization\fR option takes precedence over this value\.
+.
+.TP
+\fBRONN_DATE\fR
+The default manual date in \fBYYYY\-MM\-DD\fR format\. Displayed in the bottom\-center footer area\. The \fB\-\-date\fR option takes precedence over this value\.
+.
+.TP
+\fBRONN_STYLE\fR
+A \fBPATH\fR\-style list of directories to check for stylesheets given to the \fB\-\-style\fR option\. Directories are separated by a \fI:\fR; blank entries are ignored\. Use \fI\.\fR to include the current working directory\.
+.
+.TP
 \fBMANPAGER\fR
-The paging program used for man pages. This is typically set to
-something like 'less \-is'.
+The paging program used for man pages\. This is typically set to something like \'less \-is\'\.
 .
 .TP
 \fBPAGER\fR
-Used instead of \fBMANPAGER\fR when \fBMANPAGER\fR is not defined.
+Used instead of \fBMANPAGER\fR when \fBMANPAGER\fR is not defined\.
 .
 .SH "BUGS"
-\fBRonn\fR is written in Ruby and depends on hpricot and rdiscount, extension
-libraries that are non\-trivial to install on some systems. A more portable
-version of this program would be welcome.
+\fBRonn\fR is written in Ruby and depends on hpricot and rdiscount, extension libraries that are non\-trivial to install on some systems\. A more portable version of this program would be welcome\.
 .
 .SH "COPYRIGHT"
-Ronn is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
+Ronn is Copyright (C) 2009 Ryan Tomayko <tomayko\.com/about>
 .
 .SH "SEE ALSO"
 ronn(5), markdown(7), manpages(5), man(1), roff(7), groff(1)
