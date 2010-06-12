@@ -24,7 +24,7 @@ end
 
 desc 'Build the manual'
 task :man => :environment do
-  sh "ronn -br5 --manual='Ronn Manual' --organization='Ryan Tomayko' man/*.ronn"
+  sh "ronn -w --manual='Ronn Manual' --organization='Ryan Tomayko' man/*.ronn"
 end
 
 # PACKAGING ============================================================
