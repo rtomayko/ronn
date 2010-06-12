@@ -39,8 +39,8 @@ output and a `hello.1.html` file with HTML output.
 
 ## OPTIONS
 
-The following arguments can be used to control the default output modes
-described in the _DESCRIPTION_ section:
+These options control whether output is written to file(s), to standard output,
+or piped directly to a man viewer.
 
   * `--pipe`:
     Write generated output to standard output instead of to filename based on

@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
-## Usage: ronn
+## Usage: ronn <FILE >OUTPUT
 ##        ronn [OPTIONS] FILE...
 ##        ronn --man FILE ...
-## Convert ronn source FILEs to roff or HTML manpage. With the first synopsis form,
+## Convert ronn source FILEs to roff or HTML manpage. In the first synopsis form,
 ## with no FILEs, read from standard input and write roff to standard output. With
 ## the second synopsis form, build HTML and roff output files based on input file
-## names. With the third synopsis form, show ronn FILE like with man(1).
+## names. In the third synopsis form, show ronn FILE like with man(1).
 ##
 ## Mode options alter the default file generating behavior:
 ##       --pipe                write to standard output instead of generating files
