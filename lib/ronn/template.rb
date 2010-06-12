@@ -81,12 +81,25 @@ module Ronn
       @document.styles
     end
 
-    # All embedded stylesheets.
+    # Array of stylesheet info hashes.
     def stylesheets
-      styles.zip(style_files).map do |style, path|
+      styles.zip(style_files).map do |name, path|
+        base = File.basename(path, '.css')
         fail "style not found: #{style.inspect}" if path.nil?
-        inline_stylesheet(path)
-      end.join("\n  ")
+        {
+          :name  => name,
+          :path  => path,
+          :base  => File.basename(path, '.css'),
+          :media => (base =~ /(print|screen)$/) ? $1 : 'all'
+        }
+      end
+    end
+
+    # All embedded stylesheets.
+    def stylesheet_tags
+      stylesheets.
+        map { |style| inline_stylesheet(style[:path], style[:media]) }.
+        join("\n  ")
     end
 
     attr_accessor :style_path
