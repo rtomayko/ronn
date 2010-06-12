@@ -130,6 +130,9 @@ These styles are included with the distribution:
      generated HTML by default but hidden with an inline `display:none` style
      rule; the _toc_ module turns it on and applies basic TOC styles.
 
+   * `dark`:
+     Light text on a dark background.
+
    * `80c`:
      Changes the display width to mimic the display of a classic 80 character
      terminal. The default display width causes lines to wrap at a gratuitous
