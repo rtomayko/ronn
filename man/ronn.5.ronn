@@ -3,33 +3,50 @@ ronn(5) -- humane manual page authoring format
 
 ## SYNOPSIS
 
-    name(1) -- one sentence description
-    ===================================
+    name(1) -- short, single-sentence description
+    =============================================
 
-    ## SECTION HEADING
+    ## SYNOPSIS
 
-    A normal paragraph. This can span multiple lines and is
-    terminated with two or more line endings -- just like
-    Markdown.
+    `name` [<optional>...] <flags>
 
-    ## INLINE MARKUP
+    ## DESCRIPTION
 
-    Inline markup is used for `code` and `user input` (displayed
-    in boldface), and also <variables> or _emphasis_.
+    A normal paragraph. This can span multiple lines and is terminated with two
+    or more line endings -- just like Markdown.
 
-    Manual page references like sh(1), markdown(7), roff(7), etc.
-    are displayed in boldface and hyperlinked in HTML output.
+    Inline markup for `code`, `user input`, and **strong** are displayed
+    boldface; <variable>, _emphasis_, *emphasis*, are displayed in italics or
+    underline.
 
-    ## DEFINITION LISTS
+    Manual references like sh(1), markdown(7), roff(7), etc. are displayed in
+    boldface and hyperlinked in HTML output.
 
-    Definition lists are used to define options, arguments,
-    variables, and other type of terms:
+    Link to other sections like [STANDARDS][], [SEE ALSO][], or
+    [WITH A DIFFERENT LINK TEXT][#SEE-ALSO].
 
-      * `-a`, `--arg1`=[_OPTION_]:
+    Definition lists:
+
+      * `-a`, `--argument`=[<value>]:
         One or more paragraphs describing the argument.
-      * `-b`, `--arg2`:
-        Any number of these may be specified and may
-        be nested.
+      * You can put whatever you *want* here, really:
+        Nesting and paragraph spacing are respected.
+
+    Markdown ordered and unordered lists too.
+
+    Here's some more sections to get you started:
+
+    ## OPTIONS
+    ## SYNTAX
+    ## ENVIRONMENT
+    ## RETURN VALUES
+    ## STANDARDS
+    ## SECURITY CONSIDERATIONS
+    ## BUGS
+    ## HISTORY
+    ## AUTHOR
+    ## COPYRIGHT
+    ## SEE ALSO
 
 ## DESCRIPTION
 
