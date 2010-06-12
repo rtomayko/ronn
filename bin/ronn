@@ -11,8 +11,8 @@
 ##       --pipe                write to standard output instead of generating files
 ##   -m, --man                 show man page like with man(1)
 ##
-## Format options control what files are generated. With no format options, both
-## roff and HTML files are built:
+## Format options control which files are generated. With no format options, both
+## roff and HTML files are output:
 ##   -r, --roff                generate roff/mandoc output
 ##   -5, --html                generate entire HTML page with layout
 ##   -f, --fragment            generate HTML fragment instead of entire HTML page
@@ -20,9 +20,9 @@
 ## Document attributes:
 ##       --date=DATE           published date (YYYY-MM-DD format). displayed
 ##                             bottom-center in document footer
-##       --manual=NAME         name of the manual this document belongs to;
+##       --manual=NAME         name of the manual this document belongs to
 ##                             displayed top-center in header
-##       --organization=NAME   publishing group, organization, or individual;
+##       --organization=NAME   publishing group, organization, or individual.
 ##                             displayed bottom-left in footer
 ##
 ## Misc options:
