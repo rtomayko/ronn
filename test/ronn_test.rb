@@ -35,7 +35,7 @@ class RonnTest < Test::Unit::TestCase
 
   test "produces html fragment with the --fragment argument" do
     output = `echo '# hello(1) -- hello world' | ronn --fragment`
-    assert_equal "<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>\n",
+    assert_equal "<div class='mp'>\n<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>\n\n</div>\n",
       output
   end
 

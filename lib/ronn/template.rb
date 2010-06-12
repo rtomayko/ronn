@@ -58,7 +58,7 @@ module Ronn
     end
 
     def html
-      @document.to_html_fragment
+      @document.to_html_fragment(wrap_class=nil)
     end
 
     ##

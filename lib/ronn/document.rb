@@ -154,7 +154,7 @@ module Ronn
     # Convert the document to roff and return the result as a string.
     def to_roff
       RoffFilter.new(
-        to_html_fragment,
+        to_html_fragment(wrap_class=nil),
         name,
         section,
         tagline,
@@ -173,8 +173,10 @@ module Ronn
     # Convert the document to HTML and return the result
     # as a string. The HTML does not include <html>, <head>,
     # or <style> tags.
-    def to_html_fragment
+    def to_html_fragment(wrap_class='mp')
+      wrap_class = nil if wrap_class.to_s.empty?
       buf = []
+      buf << "<div class='#{wrap_class}'>" if wrap_class
       if name? && section?
         buf << "<h2 id='NAME'>NAME</h2>"
         buf << "<p><code>#{name}</code> - #{tagline}</p>"
@@ -182,6 +184,7 @@ module Ronn
         buf << "<h1>#{[name, tagline].compact.join(' - ')}</h1>"
       end
       buf << @fragment.to_s
+      buf << "</div>" if wrap_class
       buf.join("\n")
     end
 
