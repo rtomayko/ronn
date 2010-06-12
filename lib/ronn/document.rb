@@ -43,6 +43,9 @@ module Ronn
     # the document footer.
     attr_accessor :date
 
+    # Array of style modules to apply to the document.
+    attr_accessor :styles
+
     # Create a Ronn::Document given a path or with the data returned by
     # calling the block. The document is loaded and preprocessed before
     # the intialize method returns. The attributes hash may contain values
@@ -55,6 +58,8 @@ module Ronn
       @name, @section, @tagline = nil
       @manual, @organization, @date = nil
       @fragment = preprocess
+      @styles = %w[man]
+
       attributes.each { |attr_name,value| send("#{attr_name}=", value) }
     end
 
@@ -134,6 +139,12 @@ module Ronn
       end
     end
 
+    # Styles to insert in the generated HTML output. This is a simple Array of
+    # string module names or file paths.
+    def styles=(styles)
+      @styles = (%w[man] + styles).uniq
+    end
+
     # Convert the document to :roff, :html, or :html_fragment and
     # return the result as a string.
     def convert(format)
@@ -143,7 +154,7 @@ module Ronn
     # Convert the document to roff and return the result as a string.
     def to_roff
       RoffFilter.new(
-        to_html_fragment,
+        to_html_fragment(wrap_class=nil),
         name,
         section,
         tagline,
@@ -169,8 +180,10 @@ module Ronn
     # Convert the document to HTML and return the result
     # as a string. The HTML does not include <html>, <head>,
     # or <style> tags.
-    def to_html_fragment
+    def to_html_fragment(wrap_class='mp')
+      wrap_class = nil if wrap_class.to_s.empty?
       buf = []
+      buf << "<div class='#{wrap_class}'>" if wrap_class
       if name? && section?
         buf << "<h2 id='NAME'>NAME</h2>"
         buf << "<p><code>#{name}</code> - #{tagline}</p>"
@@ -178,6 +191,7 @@ module Ronn
         buf << "<h1>#{[name, tagline].compact.join(' - ')}</h1>"
       end
       buf << @fragment.to_s
+      buf << "</div>" if wrap_class
       buf.join("\n")
     end
 

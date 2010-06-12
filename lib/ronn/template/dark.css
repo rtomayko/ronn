@@ -1,0 +1,21 @@
+.mp, body#manpage {
+  background:#080706;
+  color:#888;
+}
+.mp, .mp code, .mp pre,
+.mp pre code, .mp tt, .mp kbd,
+.mp samp                            { color:#aaa }
+.mp h1, .mp h2, .mp h3, .mp h4      { color:#fff }
+.man-decor, .man-decor ol li        { color:#666 }
+.mp code, .mp strong, .mp b         { color:#fff }
+
+.mp em, .mp var, .mp u              { color:#ddd }
+
+.mp pre {
+    background:#333;
+    border-left:1ex solid #1a1a1a;
+}
+
+.mp a, .mp a:link, .mp a:hover,
+.mp a code, .mp a pre, .mp a tt,
+.mp a kbd, .mp a samp              { color:#fff }

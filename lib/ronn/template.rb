@@ -5,13 +5,17 @@ module Ronn
     self.template_path = File.dirname(__FILE__) + '/template'
     self.template_extension = 'html'
 
-    def initialize(document)
+    def initialize(document, style_path=ENV['RONN_STYLE'].to_s.split(':'))
       @document = document
+      @style_path = style_path + [Template.template_path]
     end
 
     def render(template='default')
       super template[0,1] == '/' ? File.read(template) : partial(template)
     end
+
+    ##
+    # Basic document attributes
 
     def name
       @document.name
@@ -25,20 +29,16 @@ module Ronn
       @document.tagline
     end
 
+    def title
+      [page_name, tagline].compact.join(' - ')
+    end
+
     def page_name
       if section
         "#{name}(#{section})"
       else
         name
       end
-    end
-
-    def title
-      [page_name, tagline].compact.join(' - ')
-    end
-
-    def html
-      @document.to_html_fragment
     end
 
     def generator
@@ -57,6 +57,13 @@ module Ronn
       @document.date.strftime('%B %Y')
     end
 
+    def html
+      @document.to_html_fragment(wrap_class=nil)
+    end
+
+    ##
+    # Section TOCs
+
     def section_heads
       @document.section_heads.map do |id, text|
         {
@@ -67,16 +74,75 @@ module Ronn
     end
 
     ##
+    # Styles
+
+    # Array of style module names as given on the command line.
+    def styles
+      @document.styles
+    end
+
+    # Array of stylesheet info hashes.
+    def stylesheets
+      styles.zip(style_files).map do |name, path|
+        base = File.basename(path, '.css')
+        fail "style not found: #{style.inspect}" if path.nil?
+        {
+          :name  => name,
+          :path  => path,
+          :base  => File.basename(path, '.css'),
+          :media => (base =~ /(print|screen)$/) ? $1 : 'all'
+        }
+      end
+    end
+
+    # All embedded stylesheets.
+    def stylesheet_tags
+      stylesheets.
+        map { |style| inline_stylesheet(style[:path], style[:media]) }.
+        join("\n  ")
+    end
+
+    attr_accessor :style_path
+
+    # Array of expanded stylesheet file names. If a file cannot be found, the
+    # resulting array will include nil elements in positions corresponding to
+    # the stylesheets array.
+    def style_files
+      styles.map do |name|
+        next name if name.include?('/')
+        style_path.
+          reject  { |p| p.strip.empty? }.
+          map     { |p| File.join(p, "#{name}.css") }.
+          detect  { |file| File.exist?(file) }
+      end
+    end
+
+    # Array of style names for which no file could be found.
+    def missing_styles
+      style_files.
+        zip(files).
+        select { |style, file| file.nil? }.
+        map    { |style, file| style }
+    end
+
+    ##
     # TEMPLATE CSS LOADING
 
-    def inline_stylesheet(name, media='all')
-      path = File.expand_path("../template/#{name}.css", __FILE__)
+    def inline_stylesheet(path, media='all')
       data = File.read(path)
-      data.gsub!(/([;{]) *\n/m, '\1')
-      data.gsub!(/([;{]) +/m, '\1')
-      data.gsub!(/[; ]+\}/, '}')
+      data.gsub!(/([;{]) *\n/m, '\1')  # end-of-line whitespace
+      data.gsub!(/([;{]) +/m, '\1')    # coalescing whitespace elsewhere
+      data.gsub!(/[; ]+\}/, '}')       # remove superfluous trailing semi-colons
+      data.gsub!(%r|/\*.+?\*/|m, '')   # comments
+      data.gsub!(/\n{2,}/m, "\n")      # collapse lines
       data.gsub!(/^/, '  ')
-      "<style type='text/css' media='#{media}'>\n#{data}  </style>"
+      data.strip!
+      [
+        "<style type='text/css' media='#{media}'>",
+        "/* style: #{File.basename(path, '.css')} */",
+        data,
+        "</style>"
+      ].join("\n  ")
     end
 
     def remote_stylesheet(name, media='all')
@@ -84,16 +150,8 @@ module Ronn
       "<link rel='stylesheet' type='text/css' media='#{media}' href='#{path}'>"
     end
 
-    def stylesheet(name, media='all')
+    def stylesheet(path, media='all')
       inline_stylesheet(name, media)
-    end
-
-    def screen_styles
-      stylesheet 'screen'
-    end
-
-    def print_styles
-      stylesheet 'print', media='print'
     end
   end
 end

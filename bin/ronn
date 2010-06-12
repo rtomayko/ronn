@@ -48,8 +48,9 @@ build = true
 view = false
 formats = []
 options = {}
-groff = "groff -Wall -mtty-char -mandoc -Tascii"
-pager = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
+styles  = %w[man]
+groff   = "groff -Wall -mtty-char -mandoc -Tascii"
+pager   = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
 
 # these attributes are set initially to the values of the corresponding
 # RONN_XXX environment variables.
@@ -71,6 +72,9 @@ ARGV.options do |argv|
   argv.on("-r", "--roff")     { formats << 'roff' }
   argv.on("-5", "--html")     { formats << 'html' }
   argv.on("-f", "--fragment") { formats << 'html_fragment' }
+
+  # html output options
+  argv.on("-s", "--style=V")  { |val| styles += val.split(/[, \n]+/) }
 
   # manual attribute options
   %w[name section manual organization date].each do |attribute|
@@ -97,6 +101,9 @@ end
 
 # turn the --date arg into a real date object
 options['date'] &&= Date.strptime(options['date'], '%Y-%m-%d')
+
+# pass the styles option
+options['styles'] = styles
 
 formats.delete('html') if formats.include?('html_fragment')
 pid = nil
@@ -148,9 +155,16 @@ ARGV.each do |file|
   formats.each do |format|
     if build
       path = doc.path_for(format)
-      warn "#{format}: #{path}" if build
+      case format
+      when 'html'
+        warn "%5s: %-48s%15s" % [format, path, '+' + doc.styles.join(',')]
+      when 'roff', 'html_fragment'
+        warn "%5s: %-48s" % [format, path]
+      end
+
       output = doc.convert(format)
       File.open(path, 'wb') { |f| f.puts(output) }
+
       if format == 'roff'
         if view
           system "man #{path}"

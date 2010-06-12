@@ -20,6 +20,11 @@ Version 0.6 (not yet released)
 
   (Ryan Tomayko, Chris Wanstrath)
 
+* The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man. The .mp,
+  .man-decor, .man-head, .man-foot, .man-title, and .man-navigation classes
+  should be used instead. (Ryan Tomayko)
+
 * The markdown(5) manpage is no longer shipped with the ronn package. It is
   shipped with the latest version of rdiscount, however.
   (Ryan Tomayko, Suraj N. Kurapati)

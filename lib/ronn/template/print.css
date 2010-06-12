@@ -1,5 +1,5 @@
-#man { max-width:none }
-#man div.man-navigation { display:none }
-#man a[href]:not([href^="#"]):not([data-bare-link]):after {
+.mp { max-width:none }
+.man-navigation { display:none !important }
+.mp a[href]:not([href^="#"]):not([data-bare-link]):after {
   content:" " attr(href);
 }

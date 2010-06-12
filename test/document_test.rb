@@ -85,9 +85,14 @@ class DocumentTest < Test::Unit::TestCase
       assert_equal '1', @doc.section
     end
 
-    should "convert to an HTML fragment" do
+    should "convert to an HTML fragment with no wrap div" do
       assert_equal %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>\n],
-        @doc.to_html_fragment
+        @doc.to_html_fragment(wrap=nil)
+    end
+
+    should "convert to an HTML fragment with a wrap class" do
+      assert_equal %[<div class='pm'>\n<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>\n\n</div>],
+        @doc.to_html_fragment(wrap_class='pm')
     end
 
     should "convert to HTML with a layout" do
@@ -101,6 +106,10 @@ class DocumentTest < Test::Unit::TestCase
       assert_equal "./hello.1", @doc.path_for(:roff)
       assert_equal "./hello.1", @doc.path_for('')
       assert_equal "./hello.1", @doc.path_for(nil)
+    end
+
+    test "uses default styles" do
+      assert_equal %w[man], @doc.styles
     end
   end
 
@@ -117,5 +126,10 @@ class DocumentTest < Test::Unit::TestCase
       ["SEE-ALSO", "SEE ALSO"]
     ]
     assert_equal expected, @doc.section_heads
+  end
+
+  test "passing a list of styles" do
+    @doc = Ronn::Document.new('hello.1.ronn', :styles => %w[test boom test]) { '' }
+    assert_equal %w[man test boom], @doc.styles
   end
 end

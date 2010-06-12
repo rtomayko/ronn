@@ -4,13 +4,19 @@
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
   <meta name='generator' value='{{ generator }}'>
   <title>{{ title }}</title>
-  {{{ screen_styles }}}
-  {{{ print_styles }}}
+  {{{ stylesheet_tags }}}
 </head>
-<body id='manpage'>
-  <div id='man'>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
 
-  <div class='man-navigation'>
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
     {{#section_heads}}
     <a href="#{{id}}">{{text}}</a>
     {{/section_heads}}
@@ -18,7 +24,7 @@
 
   <h1 class='man-title'>{{ page_name }}</h1>
 
-  <ol class='man head'>
+  <ol class='man-decor man-head man head'>
     <li class='tl'>{{ page_name }}</li>
     <li class='tc'>{{ manual }}</li>
     <li class='tr'>{{ page_name }}</li>
@@ -26,7 +32,7 @@
 
   {{{ html }}}
 
-  <ol class='man foot'>
+  <ol class='man-decor man-foot man foot'>
     <li class='tl'>{{ organization }}</li>
     <li class='tc'>{{ date }}</li>
     <li class='tr'>{{ page_name }}</li>
