@@ -27,6 +27,16 @@ task :man => :environment do
   sh "ronn -w --manual='Ronn Manual' --organization='Ryan Tomayko' man/*.ronn"
 end
 
+desc 'Start the server'
+task :server => :environment do
+  if system('type shotgun >/dev/null 2>&1')
+    exec "shotgun config.ru"
+  else
+    require 'ronn/server'
+    Ronn::Server.run('man/*.ronn')
+  end
+end
+
 # PACKAGING ============================================================
 
 require 'rubygems'

@@ -5,12 +5,14 @@
 module Ronn
   VERSION = '0.5'
 
-  require 'ronn/document'
-  require 'ronn/roff'
-
   # Create a new Ronn::Document for the given ronn file. See
   # Ronn::Document.new for usage information.
   def self.new(filename, attributes={}, &block)
     Document.new(filename, attributes, &block)
   end
+
+  require 'ronn/document'
+  require 'ronn/roff'
+
+  autoload :Server, 'ronn/server'
 end
