@@ -127,7 +127,12 @@ module Ronn
       elsif node.text?
         prev = previous(node)
         text = node.to_html.dup
-        text.sub!(/^\n+/m, '') if prev && prev.name == 'br'
+
+        case prev && prev.name
+        when 'br';       text.sub!(/^\n+/m, '')
+        when 'dt', 'dd'; text.strip!
+        end
+
         if child_of?(node, 'pre')
           # leave the text alone
         elsif node.previous.nil? && node.next.nil?
