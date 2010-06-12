@@ -141,13 +141,13 @@ An example definition list, taken from BSD test(1)'s *DESCRIPTION* section:
 
      The following primaries are used to construct expressions:
 
-       * `-b` _file_:
-         True if _file_ exists and is a block special file.
+       * `-b` <file>:
+         True if <file> exists and is a block special file.
 
-       * `-c` _file_:
+       * `-c` <file>:
          True if _file_ exists and is a character special file.
 
-       * `-d` _file_:
+       * `-d` <file>:
          True if file exists and is a directory.
 
 The definition list syntax is intentionally backward compatible with
