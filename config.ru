@@ -1,4 +1,4 @@
-#\ -p 1207 -s mongrel
+#\ -p 1207
 $: << File.expand_path(__FILE__, '../lib')
 
 require 'ronn'
