@@ -1,8 +1,7 @@
 /* toc.css - enable table of contents */
 
-/* SECTION TOC NAVIGATION */
-
-#man div.man-navigation {
+.man-navigation {
+    display:block !important;
     position:fixed;
     top:0;
     left:106ex;
@@ -12,10 +11,7 @@
     border-left:0.25ex solid #DCDCDC;
     background-color: #F5F5F5;
 }
-#man div.man-navigation a {
+.man-navigation a {
     display:block;
     margin-bottom:1.5ex;
-}
-#man div.man-navigation {
-  display:block !important;
 }
