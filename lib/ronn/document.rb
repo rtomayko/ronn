@@ -175,11 +175,15 @@ module Ronn
     end
 
   protected
+    # The preprocessed markdown source text.
+    attr_reader :markdown
+
     # Parse the document and extract the name, section, and tagline
     # from its contents. This is called while the object is being
     # initialized.
     def preprocess
       [
+        :heading_anchor_pre_filter,
         :angle_quote_pre_filter,
         :markdown_filter,
         :angle_quote_post_filter,
@@ -263,6 +267,7 @@ module Ronn
     # Run markdown on the data and extract name, section, and
     # tagline.
     def markdown_filter(data)
+      @markdown = data
       html = Markdown.new(data).to_html
       @tagline, html = html.split("</h1>\n", 2)
       if html.nil?
@@ -298,6 +303,18 @@ module Ronn
           "<var>#{contents}</var>"
         end
       end
+    end
+
+    # Add [id]: #ANCHOR elements to the markdown source text for all sections.
+    # This lets us use the [SECTION-REF][] syntax
+    def heading_anchor_pre_filter(data)
+      data << "\n\n"
+      data.grep(/^[#]{2,5} +[\w '-]+[# ]*$/).each do |line|
+        title = line.gsub(/[^\w -]/, '').strip
+        anchor = title.gsub(/\W+/, '-').gsub(/(^-+|-+$)/, '')
+        data << "[#{title}]: ##{anchor} \"#{title}\"\n"
+      end
+      data
     end
 
     HTML = %w[

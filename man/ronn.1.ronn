@@ -67,8 +67,9 @@ and `--html` are assumed.
     Generate output in HTML format but only the document fragment, not the
     header, title, or footer.
 
-All document attributes displayed in the header and footer areas of generated
-content can be specified with these options:
+Document attributes displayed in the header and footer areas of generated
+content are specified with these options. (These values may also be set via
+the [ENVIRONMENT][].)
 
   * `--manual`=<MANUAL>:
     The name of the manual this man page belongs to; <MANUAL> is prominently
