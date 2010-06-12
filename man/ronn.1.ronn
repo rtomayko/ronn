@@ -18,7 +18,8 @@ roff(5)-formatted text to standard output.
 
 Under the second synopsis form, `ronn` builds HTML and roff output files based
 on one or more input <FILE> names. The `--roff`, `--html`, and `--fragment`
-options specify which output files should be generated.
+options specify which output files should be generated. Multiple format
+arguments may be specified to generate multiple output files.
 
 Under the third synopsis form, `ronn` converts one or more <FILE>s to roff
 and displays on the current console as with man(1).
@@ -81,6 +82,17 @@ content can be specified with these options:
     The document's published date; <DATE> must be formatted `YYYY-MM-DD` and is
     displayed in the bottom-center footer area. The <FILE> mtime is used when no
     <DATE> is given, or the current time when no <FILE> is available.
+
+Miscellaneous options:
+
+  * `-w`, `--warnings`
+    Show troff warnings on standard error when performing roff conversion. Most
+    often, warnings are the result of a bug in ronn's HTML to roff conversion
+    logic.
+
+  * `-W`:
+    Disable troff warnings. Warnings are disabled by default. This option can be
+    used to revert the effect of a previous `-w` argument.
 
 ## EXAMPLES
 

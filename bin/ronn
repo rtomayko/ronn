@@ -26,6 +26,8 @@
 ##                             displayed bottom-left in footer
 ##
 ## Misc options:
+##   -w, --warnings            show troff warnings on stderr
+##   -W                        disable previously enabled troff warnings
 ##       --help                show this help message
 ##
 require 'date'
@@ -58,6 +60,8 @@ ARGV.options do |option|
   option.on("--pipe")           { build = false }
   option.on("-b", "--build")    { build = true }
   option.on("-m", "--man")      { man = true; build = false }
+  option.on("-w", "--warnings") { groff += ' -ww' }
+  option.on("-W")               { groff += ' -Ww' }
 
   # format options
   option.on("-r", "--roff")     { formats << 'roff' }
@@ -143,7 +147,13 @@ ARGV.each do |file|
       info "#{format}: #{path}" if build
       output = doc.convert(format)
       File.open(path, 'wb') { |f| f.puts(output) }
-      system "man #{path}" if man && format == 'roff'
+      if format == 'roff'
+        if man
+          system "man #{path}"
+        else
+          system "#{groff} <#{path} >/dev/null"
+        end
+      end
     else
       output = doc.convert(format)
       wr.puts(output)
