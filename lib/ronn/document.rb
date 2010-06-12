@@ -201,8 +201,9 @@ module Ronn
         href = node.attributes['href']
         text = node.inner_text
 
-        if href == text ||
-          CGI.unescapeHTML(href) == "mailto:#{CGI.unescapeHTML(text)}"
+        if href == text  ||
+           href[0] == ?# ||
+           CGI.unescapeHTML(href) == "mailto:#{CGI.unescapeHTML(text)}"
         then
           node.set_attribute('data-bare-link', 'true')
         end
@@ -308,8 +309,10 @@ module Ronn
     # Add [id]: #ANCHOR elements to the markdown source text for all sections.
     # This lets us use the [SECTION-REF][] syntax
     def heading_anchor_pre_filter(data)
-      data << "\n\n"
+      first = true
       data.grep(/^[#]{2,5} +[\w '-]+[# ]*$/).each do |line|
+        data << "\n\n" if first
+        first = false
         title = line.gsub(/[^\w -]/, '').strip
         anchor = title.gsub(/\W+/, '-').gsub(/(^-+|-+$)/, '')
         data << "[#{title}]: ##{anchor} \"#{title}\"\n"
