@@ -10,7 +10,7 @@ module Ronn
     end
 
     def render(template='default')
-      super partial(template)
+      super template[0,1] == '/' ? File.read(template) : partial(template)
     end
 
     def name
