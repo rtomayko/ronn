@@ -36,7 +36,7 @@ body#manpage                        { margin:0 }
     font-size:14px;
     line-height:1.42857142857143;
 }
-.mp h2, .mp ol.man {
+.mp h2 {
   font-size:16px;
   line-height:1.25;
 }
