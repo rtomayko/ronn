@@ -49,7 +49,7 @@ end
 #
 
 build = true
-man = false
+view = false
 formats = []
 options = {}
 groff = "groff -Wall -mtty-char -mandoc -Tascii"
@@ -59,7 +59,7 @@ ARGV.options do |option|
   # modes
   option.on("--pipe")           { build = false }
   option.on("-b", "--build")    { build = true }
-  option.on("-m", "--man")      { man = true; build = false }
+  option.on("-m", "--man")      { build = false; view = true }
   option.on("-w", "--warnings") { groff += ' -ww' }
   option.on("-W")               { groff += ' -Ww' }
 
@@ -87,7 +87,7 @@ elsif ARGV.empty?
   formats = %w[roff] if formats.empty?
 elsif build
   formats = %w[roff html] if formats.empty?
-elsif man
+elsif view
   formats = %w[roff] if formats.empty?
 end
 
@@ -129,7 +129,7 @@ ARGV.each do |file|
   doc = Ronn.new(file, options) { file == '-' ? STDIN.read : File.read(file) }
 
   # setup the man pipeline if the --man option was specified
-  if man && !build
+  if view && !build
     rd, wr = IO.pipe
     if pid = fork
       rd.close
@@ -148,7 +148,7 @@ ARGV.each do |file|
       output = doc.convert(format)
       File.open(path, 'wb') { |f| f.puts(output) }
       if format == 'roff'
-        if man
+        if view
           system "man #{path}"
         else
           system "#{groff} <#{path} >/dev/null"
