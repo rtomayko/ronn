@@ -84,6 +84,22 @@ the [ENVIRONMENT][].)
     displayed in the bottom-center footer area. The <file> mtime is used when no
     <date> is given, or the current time when no <file> is available.
 
+HTML output may be customized variously:
+
+  * `--style`=<module>[,<module>]...:
+    The list of CSS stylesheets to apply to the document. Multiple <module>
+    arguments may be specified, but must be separated by commas or spaces.
+
+    When <module> is a simple word, search for files named <module>`.css` in all
+    directories listed in the [`RONN_STYLE`](#ENVIRONMENT) environment variable,
+    and then search internal styles.
+
+    When <module> includes a _/_ character, use it as the full path to a
+    stylesheet file.
+
+    Internal styles are _man_ (included by default), _toc_, and _80c_.  See
+    [STYLES][] for descriptions of features added by each module.
+
 Miscellaneous options:
 
   * `-w`, `--warnings`:
@@ -94,6 +110,31 @@ Miscellaneous options:
   * `-W`:
     Disable troff warnings. Warnings are disabled by default. This option can be
     used to revert the effect of a previous `-w` argument.
+
+## STYLES
+
+The `--style` option selects a list of CSS stylesheets to include in the
+generated HTML. Styles are applied in the order defined, so each can use the
+cascade to override previously defined styles.
+
+These styles are included with the distribution:
+
+   * `man`:
+     Basic manpage styles: typography, definition lists, indentation. This is
+     always included regardless of `--style` argument. It is however possible to
+     replace the default _man_ module with a custom one by placing a `man.css`
+     file on the `RONN_STYLE` path.
+
+   * `toc`:
+     Enables the Table of Contents navigation. The TOC markup is included in
+     generated HTML by default but hidden with an inline `display:none` style
+     rule; the _toc_ module turns it on and applies basic TOC styles.
+
+   * `80c`:
+     Changes the display width to mimic the display of a classic 80 character
+     terminal. The default display width causes lines to wrap at a gratuitous
+     100 characters.
+
 
 ## EXAMPLES
 
@@ -139,6 +180,11 @@ View a ronn file in the same way as man(1) without building a roff file:
     The default manual date in `YYYY-MM-DD` format. Displayed in the
     bottom-center footer area. The `--date` option takes precedence over this
     value.
+
+  * `RONN_STYLE`:
+    A `PATH`-style list of directories to check for stylesheets given to the
+    `--style` option. Directories are separated by a _:_; blank entries are
+    ignored. Use _._ to include the current working directory.
 
   * `MANPAGER`:
     The paging program used for man pages. This is typically set to
