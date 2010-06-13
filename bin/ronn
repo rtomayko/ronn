@@ -1,48 +1,45 @@
 #!/usr/bin/env ruby
-## Usage: ronn <FILE >OUTPUT
-##        ronn [OPTIONS] FILE...
-##        ronn --man FILE ...
-## Convert ronn source FILEs to roff or HTML manpage. In the first synopsis form,
-## with no FILEs, read from standard input and write roff to standard output. With
-## the second synopsis form, build HTML and roff output files based on input file
-## names. In the third synopsis form, show ronn FILE like with man(1).
-##
-## Mode options alter the default file generating behavior:
-##       --pipe                write to standard output instead of generating files
-##   -m, --man                 show man page like with man(1)
-##
-## Format options control which files are generated. With no format options, both
-## roff and HTML files are output:
-##   -r, --roff                generate roff/mandoc output
-##   -5, --html                generate entire HTML page with layout
-##   -f, --fragment            generate HTML fragment instead of entire HTML page
-##
-## Document attributes:
-##       --date=DATE           published date (YYYY-MM-DD format). displayed
-##                             bottom-center in document footer
-##       --manual=NAME         name of the manual this document belongs to
-##                             displayed top-center in header
-##       --organization=NAME   publishing group, organization, or individual.
-##                             displayed bottom-left in footer
-##
-## Misc options:
-##   -w, --warnings            show troff warnings on stderr
-##   -W                        disable previously enabled troff warnings
-##       --help                show this help message
-##
+#/ Usage: ronn <options> <file>...
+#/        ronn -m|--man <file> ...
+#/        ronn -S|--server <file> ...
+#/        ronn --pipe [<file>...]
+#/ Convert ronn source <file>s to roff or HTML manpage. In the first synopsis form,
+#/ build HTML and roff output files based on the input file names.
+#/
+#/ Mode options alter the default file generating behavior:
+#/       --pipe                write to standard output instead of generating files
+#/   -m, --man                 show manual like with man(1)
+#/   -S, --server              serve <file>s at http://localhost:1207/
+#/
+#/ Format options control which files are generated:
+#/   -r, --roff                generate roff output
+#/   -5, --html                generate entire HTML page with layout
+#/   -f, --fragment            generate HTML fragment
+#/
+#/ Document attributes:
+#/       --date=DATE           published date in YYYY-MM-DD format (bottom-center)
+#/       --manual=NAME         name of the manual (top-center)
+#/       --organization=NAME   publishing group or individual (bottom-left)
+#/
+#/ Misc options:
+#/   -w, --warnings            show troff warnings on stderr
+#/   -W                        disable previously enabled troff warnings
+#/       --help                show this help message
+#/
+#/ A <file> named example.1.ronn generates example.1.html (HTML manpage)
+#/ and example.1 (roff manpage) by default.
 require 'date'
 require 'optparse'
 
 def usage
   puts File.readlines(__FILE__).
-    grep(/^##.*/).
+    grep(/^#\/.*/).
     map { |line| line.chomp[3..-1] }.
     join("\n")
 end
 
-#
-# Argument Parsing
-#
+##
+# Argument defaults
 
 build  = true
 view   = false
@@ -53,13 +50,17 @@ styles  = %w[man]
 groff   = "groff -Wall -mtty-char -mandoc -Tascii"
 pager   = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
 
-# these attributes are set initially to the values of the corresponding
-# RONN_XXX environment variables.
+##
+# Environment variables
+
 %w[manual organization date].each do |attribute|
   value = ENV["RONN_#{attribute.upcase}"]
   next if value.nil? or value.empty?
   options[attribute] = value
 end
+
+##
+# Argument parsing
 
 ARGV.options do |argv|
   # modes
@@ -112,8 +113,9 @@ options['date'] &&= Date.strptime(options['date'], '%Y-%m-%d')
 # pass the styles option
 options['styles'] = styles
 
+##
+# Libraries and LOAD_PATH shenanigans
 
-# Attempt to load dependencies, bringing in rubygems if we need it.
 begin
   require 'hpricot'
   require 'rdiscount'
@@ -125,8 +127,8 @@ rescue LoadError
   end
 end
 
-# Attempt to load ronn libs, setting up the load path if the require fails and
-# we detect a development environment.
+# load ronn libs, setting up the load path if something fails and
+# we're in a development environment.
 begin
   require 'ronn'
 rescue LoadError
@@ -196,6 +198,7 @@ ARGV.each do |file|
     end
   end
 
+  # wait for children to exit
   if pid
     wr.close
     Process.wait
