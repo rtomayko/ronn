@@ -1,46 +1,107 @@
-Ronn Changes and Release Notes
-==============================
+Ronn CHANGES
+============
 
 Version 0.6 (not yet released)
 ------------------------------
 
+Features:
+
+* HTML: New styling system:
+    ronn --style=toc,print program.1.ronn
+    ronn -s dark,toc,/path/to/custom.css man/*.ronn
+
+  The --style (-s) option takes a list of CSS stylesheets to embed into the
+  generated HTML. Stylesheets are inserted in the order specified and can use
+  the cascade to add or remove visual elements.
+
+  Ronn ships with a few built in styles: toc, dark, 80c, and print. You can
+  insert your own by giving the path or manipulating the RONN_STYLE environment
+  variable.
+
+  See ronn(1) for full details on all of these things (Ryan Tomayko)
+
+* HTML: It's now possible to generate a Table Of Contents of manpage sections.
+  The TOC is disabled by default. To enable it: ronn --style=toc file.ronn.
+  (Suraj N. Kurapati)
+
+* HTML: The RONN_LAYOUT environment variable can be used to apply a custom
+  mustache layout template:
+
+  RONN_LAYOUT=mine.mustache ronn man/great-program.1.ronn
+
+  See lib/ronn/template/default.html for default markup and features
+  (Chris Wanstrath)
+
+* HTML: All heading elements include page anchor id attributes to make
+  it possible to link to a specific manpage section (Suraj N. Kurapati)
+
+* HTML: Markdown reference links can be used to refer to sections. To link
+  to the SEE ALSO section of the current manpage, use: [SEE ALSO][], or [to
+  control the link text][SEE ALSO], or even [use the relative URL](#SEE-ALSO).
+  (Ryan Tomayko)
+
+* HTML: 80 character terminal style: ronn -s 80c file.ronn -- precisely
+  emulates a 80c terminal (Suraj N. Kurapati)
+
+* HTML: Various appearance changes to the default stylesheet: smaller type
+  with consistent vertical baseline; darker type for more contrast; em, var,
+  and u are italic instead of underline (Ryan Tomayko)
+
+* HTML: Various print stylesheet tweaks, including hyperlinks and layout
+  enhancements (Suraj N. Kurapati)
+
+* ROFF: ronn --warnings (-w) shows troff warnings on stderr when building
+  or viewing manuals. (Ryan Tomayko)
+
+* ROFF: Ordered lists. (Suraj N. Kurapati)
+
+* ROFF: URLs for hyperlinks are shown immediately after hyperlink text.
+  (Suraj N. Kurapati)
+
+* The RONN_MANUAL, RONN_ORGANIZATION, and RONN_DATE environment variables
+  establish the default values of the --manual, --organization, and --date
+  options (Ryan Tomayko)
+
+Bugs:
+
+* ROFF: Don't crash with empty preformatted blocks (Suraj N. Kurapati)
+
+* ROFF: A whole bunch of weird whitespace related problems in roff output,
+  such as the first line of definition lists being indented by two
+  characters (Ryan Tomayko)
+
+* ROFF: All ['".] characters are backslash escaped in roff output. These
+  characters are used for various roff macro syntax (Ryan Tomayko)
+
+Deprecations, Obsoletions:
+
 * The ronn(1) command line interface has changed in ways that are not
-  backward-compatible with previous versions of ronn. The default behavior
-  when one or more files are given is to build roff and HTML output files based
-  on the input file names. Previous versions of ronn wrote to standard output
-  unless the --build option was given. The new behavior is thought to be
-  more sensible for people experimenting with the command for the first time and
-  does not prevent any previously supported behavior.
+  backward-compatible with previous versions of ronn. The --build option is
+  assumed when one or more .ronn files is given on the command line. Previous
+  versions write generated content to standard output with no explicit --build
+  options.
 
   The default behavior when no files are given remains the same as previous
   versions: ronn source text is read from stdin and roff is written to stdout.
 
-  See the `ronn --help' or the ronn(1) manpage for more on command line
-  interface changes.
+  See `ronn --help' or the ronn(1) manual for more on command line interface
+  changes.
 
   (Ryan Tomayko, Chris Wanstrath)
 
-* The following styles are deprecated and will be removed at some point:
-  div#man, div#man ol.man, div#man ol.head, div#man ol.man. The .mp,
-  .man-decor, .man-head, .man-foot, .man-title, and .man-navigation classes
-  should be used instead. (Ryan Tomayko)
+* HTML: Ronn no longer uses a specific monospace font-family; the system
+  default monospace font is used instead. Use 'ronn --style' to set up a font
+  stack (Ryan Tomayko)
+
+* HTML: The following HTML elements are deprecated and will be removed at some
+  point: div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .mp, .man-decor, .man-head, .man-foot, .man-title, and .man-navigation
+  classes should be used instead (Ryan Tomayko)
 
 * The markdown(5) manpage is no longer shipped with the ronn package. It is
   shipped with the latest version of rdiscount, however.
   (Ryan Tomayko, Suraj N. Kurapati)
-
-* Added support for numbered lists in roff output. (Suraj N. Kurapati)
-
-* Section headings in HTML output now include anchor / id attributes to make it
-  possible to link to specific manual sections. (Suraj N. Kurapati)
-
-* Various HTML / print stylesheet tweaks, including showing hyperlinks and
-  layout enhancements. (Suraj N. Kurapati)
-
-* HTML layout width now emulates an 80 character precisely (Suraj N. Kurapati)
-
-* URLs for hyperlinks are now included in roff output immediately after the
-  hyperlink text. (Suraj N. Kurapati)
 
 0.5 (2010 April 24)
 -------------------
@@ -48,7 +109,7 @@ Version 0.6 (not yet released)
 * Fixed a bug in roff output where multiple successive newlines were being
   collapsed into a single newline in preformatted output.
 
-* Hexidecimal and decimal entity references generated by the Markdown to HTML
+* Hexadecimal and decimal entity references generated by the Markdown to HTML
   conversion are now properly decoded into normal characters in roff output.
 
 * The compatibility shims that allowed the ronn command to be invoked as "ron",
