@@ -3,9 +3,11 @@ ronn(1) -- build markdown-based man pages
 
 ## SYNOPSIS
 
-`ronn`<br>
 `ronn` [<options>] <file>...<br>
-`ronn` --man <file>...
+`ronn` `-m`|`--man` <file>...<br>
+`ronn` `-S`|`--server` <file>...<br>
+`ronn` `--pipe` <file><br>
+`ronn` < <file>
 
 ## DESCRIPTION
 
@@ -42,15 +44,30 @@ output and a `hello.1.html` file with HTML output.
 These options control whether output is written to file(s), to standard output,
 or piped directly to a man viewer.
 
-  * `--pipe`:
-    Write generated output to standard output instead of to filename based on
-    the input files. This is the default behavior when ronn source text is piped
-    in on standard input and no <file> arguments are provided.
-
   * `-m`, `--man`:
-    Display <file>s as if man(1) were invoked on the roff output file. This
-    simulates default man behavior by piping the roff output through groff(1)
-    and the paging program specified by the `MANPAGER` environment variable.
+    Don't generate files, display <file>s as if man(1) were invoked on the roff
+    output file. This simulates default man behavior by piping the roff output
+    through groff(1) and the paging program specified by the `MANPAGER`
+    environment variable.
+
+  * `-S`, `--server`:
+    Don't generate files, start an HTTP server at <http://localhost:1207/> and
+    serve dynamically generated HTML for the set of input <file>s. A file named
+    *example.2.ronn* is served as */example.2.html*. There's also an index page
+    at the root with links to each <file>.
+
+    The server respects the `--style` and document attribute options
+    (`--manual`, `--date`, etc.). These same options can be varied at request
+    time by giving them as query parameters: `?manual=FOO&style=dark,toc`
+
+    *NOTE: The builtin server is designed to assist in the process of writing
+    and styling manuals. It is in no way recommended as a general purpose web
+    server.*
+
+  * `--pipe`:
+    Don't generate files, write generated output to standard output. This is the
+    default behavior when ronn source text is piped in on standard input and no
+    <file> arguments are provided.
 
 Format options control what files `ronn` generates or the output format when the
 `--pipe` argument is specified. When no format options are given, both `--roff`

@@ -14,13 +14,14 @@ module Ronn
   module Server
     def self.new(files, options={})
       files = Dir[files] if files.respond_to?(:to_str)
+      raise ArgumentError, "no files" if files.empty?
       Sinatra.new do
         set :show_exceptions, true
         set :public, File.expand_path(__FILE__, '../templates')
         set :static, false
         set :views, File.expand_path(__FILE__, '../templates')
 
-        get '/fuck' do
+        get '/' do
           files.map do |f|
             base = File.basename(f, '.ronn')
             "<li><a href='./#{base}.html'>#{escape_html(base)}</a></li>"
@@ -28,6 +29,7 @@ module Ronn
         end
 
         def styles
+          params[:styles] ||= params[:style]
           case
           when params[:styles].respond_to?(:to_ary)
             params[:styles]
@@ -59,8 +61,9 @@ module Ronn
 
     def self.run(files, options={})
       new(files, options).run!(
-        :server => %w[mongrel thin webrick],
-        :port   => 1207
+        :server  => %w[mongrel thin webrick],
+        :port    => 1207,
+        :logging => true
       )
     end
   end

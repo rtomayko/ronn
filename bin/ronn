@@ -44,9 +44,10 @@ end
 # Argument Parsing
 #
 
-build = true
-view = false
-formats = []
+build  = true
+view   = false
+server = false
+formats = nil
 options = {}
 styles  = %w[man]
 groff   = "groff -Wall -mtty-char -mandoc -Tascii"
@@ -62,16 +63,17 @@ end
 
 ARGV.options do |argv|
   # modes
-  argv.on("--pipe")           { build = false }
-  argv.on("-b", "--build")    { build = true }
-  argv.on("-m", "--man")      { build = false; view = true }
+  argv.on("--pipe")           { build = server = false }
+  argv.on("-b", "--build")    { build = true; server = false }
+  argv.on("-m", "--man")      { build = server = false; view = true }
+  argv.on("-S", "--server")   { build = view = false; server = true }
   argv.on("-w", "--warnings") { groff += ' -ww' }
   argv.on("-W")               { groff += ' -Ww' }
 
   # format options
-  argv.on("-r", "--roff")     { formats << 'roff' }
-  argv.on("-5", "--html")     { formats << 'html' }
-  argv.on("-f", "--fragment") { formats << 'html_fragment' }
+  argv.on("-r", "--roff")     { (formats ||= []) << 'roff' }
+  argv.on("-5", "--html")     { (formats ||= []) << 'html' }
+  argv.on("-f", "--fragment") { (formats ||= []) << 'html_fragment' }
 
   # html output options
   argv.on("-s", "--style=V")  { |val| styles += val.split(/[, \n]+/) }
@@ -85,19 +87,24 @@ ARGV.options do |argv|
   argv.parse!
 end
 
-if ARGV.empty? && STDIN.tty?
+##
+# Modes, Formats, Options
+
+case
+when ARGV.empty? && $stdin.tty?
   usage
   exit 2
-elsif ARGV.empty?
-  # first synopsis form: write roff to standard output
+when ARGV.empty? && !server
   ARGV.push '-'
   build = false
-  formats = %w[roff] if formats.empty?
-elsif build
-  formats = %w[roff html] if formats.empty?
-elsif view
-  formats = %w[roff] if formats.empty?
+  formats ||= %w[roff]
+when view
+  formats ||= %w[roff]
+when build
+  formats ||= %w[roff html]
 end
+formats ||= []
+formats.delete('html') if formats.include?('html_fragment')
 
 # turn the --date arg into a real date object
 options['date'] &&= Date.strptime(options['date'], '%Y-%m-%d')
@@ -105,8 +112,6 @@ options['date'] &&= Date.strptime(options['date'], '%Y-%m-%d')
 # pass the styles option
 options['styles'] = styles
 
-formats.delete('html') if formats.include?('html_fragment')
-pid = nil
 
 # Attempt to load dependencies, bringing in rubygems if we need it.
 begin
@@ -135,6 +140,19 @@ rescue LoadError
   raise
 end
 
+##
+# Server
+
+if server
+  require 'ronn/server'
+  Ronn::Server.run(ARGV, options)
+  exit 0
+end
+
+##
+# Build Pipeline
+
+pid = nil
 wr = STDOUT
 ARGV.each do |file|
   doc = Ronn.new(file, options) { file == '-' ? STDIN.read : File.read(file) }
