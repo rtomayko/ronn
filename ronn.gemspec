@@ -14,14 +14,26 @@ Gem::Specification.new do |s|
 
   # = MANIFEST =
   s.files = %w[
+    AUTHORS
+    CHANGES
     COPYING
     README.md
     Rakefile
     bin/ronn
+    config.ru
     lib/ronn.rb
     lib/ronn/document.rb
-    lib/ronn/layout.html
     lib/ronn/roff.rb
+    lib/ronn/server.rb
+    lib/ronn/template.rb
+    lib/ronn/template/80c.css
+    lib/ronn/template/dark.css
+    lib/ronn/template/darktoc.css
+    lib/ronn/template/default.html
+    lib/ronn/template/man.css
+    lib/ronn/template/print.css
+    lib/ronn/template/screen.css
+    lib/ronn/template/toc.css
     man/ronn.1
     man/ronn.1.ronn
     man/ronn.5
@@ -33,18 +45,26 @@ Gem::Specification.new do |s|
     test/angle_bracket_syntax.ronn
     test/basic_document.html
     test/basic_document.ronn
+    test/contest.rb
     test/custom_title_document.html
     test/custom_title_document.ronn
     test/definition_list_syntax.html
+    test/definition_list_syntax.roff
     test/definition_list_syntax.ronn
     test/document_test.rb
     test/entity_encoding_test.html
     test/entity_encoding_test.roff
     test/entity_encoding_test.ronn
+    test/markdown_syntax.html
+    test/markdown_syntax.roff
+    test/markdown_syntax.ronn
     test/middle_paragraph.html
     test/middle_paragraph.roff
     test/middle_paragraph.ronn
     test/ronn_test.rb
+    test/section_reference_links.html
+    test/section_reference_links.roff
+    test/section_reference_links.ronn
     test/titleless_document.html
     test/titleless_document.ronn
   ]
