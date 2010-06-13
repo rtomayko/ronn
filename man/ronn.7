@@ -1,28 +1,28 @@
-.\" generated with Ronn/v0.5.93
+.\" generated with Ronn/v0.6.0
 .\" http://github.com/rtomayko/ronn/
 .
-.TH "RONN" "7" "June 2010" "0.5-93-gc10c7f8" "Ronn 0.5.93"
+.TH "RONN" "7" "June 2010" "0.6.0" "Ronn 0.6.0"
 .
 .SH "NAME"
 \fBronn\fR \- the opposite of roff
 .
 .SH "DESCRIPTION"
-Ronn is a humane text format and toolchain for creating UNIX man pages, and things that appear as man pages from a distance\. Use it to build and install standard UNIX roff man pages or to generate nicely formatted HTML manual pages for the web\.
+Ronn is a text format and toolchain for creating UNIX manpages\. It converts markdown to standard UNIX roff manpages and formatted HTML manuals for the web\.
 .
 .P
-The Ronn file format is based on Markdown\. In fact, Ronn files are a compatible subset of Markdown syntax but have a more rigid structure and extend Markdown in some ways to provide features commonly found in man pages (e\.g\., definition lists)\. The ronn(5) manual page defines the format in more detail\.
+The source format includes all of Markdown but has a more rigid structure and includes extensions that provide features commonly found in manpages (definition lists, link notation, etc\.)\. The ronn(5) manual page defines the format in detail\.
 .
 .SH "DOCUMENTATION"
 The \fB\.ronn\fR files located under the \fBman/\fR directory show off a wide range of ronn capabilities and are the source of Ronn\'s own documentation\. The source files and generated HTML / roff output files are available at:
 .
 .IP "\(bu" 4
-ronn(1) \fIhttp://rtomayko\.github\.com/ronn/ronn\.1\fR \- build markdown based manual pages at the command line\.
+ronn(1) \fIhttp://rtomayko\.github\.com/ronn/ronn\.1\fR \- convert markdown files to manpages\.
 .
 .br
 source file \fIhttp://github\.com/rtomayko/ronn/blob/master/man/ronn\.1\.ronn\fR, roff output \fIhttp://github\.com/rtomayko/ronn/blob/master/man/ronn\.1\fR
 .
 .IP "\(bu" 4
-ronn(5) \fIhttp://rtomayko\.github\.com/ronn/ronn\.5\fR \- humane manual page authoring format syntax reference\.
+ronn(5) \fIhttp://rtomayko\.github\.com/ronn/ronn\.5\fR \- markdown\-based text format for authoring manpages
 .
 .br
 source file \fIhttp://github\.com/rtomayko/ronn/blob/master/man/ronn\.5\.ronn\fR, roff output \fIhttp://github\.com/rtomayko/ronn/blob/master/man/ronn\.5\fR
@@ -59,7 +59,7 @@ $ ronn \-\-help
 .IP "" 0
 .
 .SH "BASIC USAGE"
-To generate a roff man page from the included \fBronn\.5\.ronn\fR file and open it with man(1):
+Build roff and HTML output files for one or more input files:
 .
 .IP "" 4
 .
@@ -68,19 +68,26 @@ To generate a roff man page from the included \fBronn\.5\.ronn\fR file and open 
 $ ronn man/ronn\.5\.ronn
 roff: man/ronn\.5
 html: man/ronn\.5\.html
-
-# view the generated roff manpage with man(1):
-$ man man/ronn\.5
-
-# view the generated HTML manpage
-$ open man/ronn\.5\.html
 .
 .fi
 .
 .IP "" 0
 .
 .P
-To generate only a standalone HTML version of the manpage:
+View a roff manpage with man(1):
+.
+.IP "" 4
+.
+.nf
+
+$ man man/ronn\.5
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Generate only a standalone HTML version of one or more files:
 .
 .IP "" 4
 .
@@ -94,7 +101,7 @@ html: man/markdown\.5\.html
 .IP "" 0
 .
 .P
-To build roff versions of all ronn files in a directory:
+Build roff versions of all ronn files in a directory:
 .
 .IP "" 4
 .
@@ -107,13 +114,13 @@ $ ronn \-\-roff man/*\.ronn
 .IP "" 0
 .
 .P
-If you just want to view a ronn file as if it were a man page without building intermediate files:
+View a ronn file as if it were a manpage without building intermediate files:
 .
 .IP "" 4
 .
 .nf
 
-$ ronn \-m man/markdown\.5\.ronn
+$ ronn \-\-man man/markdown\.5\.ronn
 .
 .fi
 .
@@ -123,10 +130,10 @@ $ ronn \-m man/markdown\.5\.ronn
 The ronn(1) \fIhttp://rtomayko\.github\.com/ronn/ronn\.1\fR manual page includes comprehensive documentation on \fBronn\fR command line options\.
 .
 .SH "ABOUT"
-Some people think UNIX manual pages are a poor and outdated style of documentation\. I disagree:
+Some people say UNIX manual pages are a poor and outdated style of documentation\. I disagree:
 .
 .IP "\(bu" 4
-Man pages follow a well defined structure that\'s immediately familiar and provides a useful starting point for developers documenting new tools, libraries, and formats\.
+Man pages follow a well defined structure that\'s immediately familiar\. This provides developers with a useful starting point when documenting new tools, libraries, and formats\.
 .
 .IP "\(bu" 4
 Man pages get to the point\. Because they\'re written in an inverted style, with a SYNOPSIS section followed by additional detail, prose and references to other sources of information, man pages provide the best of both cheat sheet and reference style documentation\.
@@ -146,13 +153,16 @@ The classical terminal man page display is typographically well thought out\. Bi
 .IP "" 0
 .
 .P
-Unfortunately, trying to figure out how to create a man page is a fairly tedious process\. The roff/man macro languages are highly extensible, fractured between multiple dialects, and include a bunch of device specific stuff that\'s entirely irrelevant to modern publishing tools\.
+Unfortunately, figuring out how to create a manpage is a fairly tedious process\. The roff/man macro languages are highly extensible, fractured between multiple dialects, and include a bunch of device specific stuff irrelevant to modern publishing tools\.
 .
 .P
-Ronn aims to address many of the issues with man page creation while preserving the things that makes man pages a great form of documentation\.
+Ronn aims to address many of the issues with manpage creation while preserving the things that makes manpages a great form of documentation\.
 .
 .SH "COPYING"
-Ronn is Copyright (C) 2009 Ryan Tomayko \fIhttp://tomayko\.com/about\fR See the file COPYING for information of licensing and distribution\.
+Ronn is Copyright (C) 2009 Ryan Tomayko \fIhttp://tomayko\.com/about\fR
+.
+.br
+ See the file COPYING for information of licensing and distribution\.
 .
 .SH "SEE ALSO"
 ronn(1) \fIhttp://rtomayko\.github\.com/ronn/ronn\.1\fR, ronn(5) \fIhttp://rtomayko\.github\.com/ronn/ronn\.5\fR, markdown(5)

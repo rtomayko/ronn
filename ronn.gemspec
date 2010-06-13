@@ -1,10 +1,7 @@
 Gem::Specification.new do |s|
-  s.specification_version = 2 if s.respond_to? :specification_version=
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-
   s.name = 'ronn'
-  s.version = '0.5'
-  s.date = '2010-04-02'
+  s.version = '0.6.0'
+  s.date = '2010-06-13'
 
   s.description = "The opposite of roff"
   s.summary     = "The opposite of roff"
@@ -73,13 +70,13 @@ Gem::Specification.new do |s|
   s.executables = ['ronn']
   s.test_files = s.files.select { |path| path =~ /^test\/.*_test.rb/ }
 
-  s.extra_rdoc_files = %w[COPYING]
+  s.extra_rdoc_files = %w[COPYING AUTHORS]
   s.add_dependency 'hpricot',     '>= 0.8.2'
   s.add_dependency 'rdiscount',   '>= 1.5.8'
   s.add_dependency 'mustache',    '>= 0.7.0'
 
   s.has_rdoc = true
-  s.homepage = "http://rtomayko.github.com/ronn/"
+  s.homepage = "http://github.com/rtomayko/ronn/"
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Ronn"]
   s.require_paths = %w[lib]
   s.rubygems_version = '1.1.1'
