@@ -52,17 +52,25 @@ end
 
 desc 'Publish to github pages'
 task :pages => :man do
-  rm_rf 'pages'
-  push_url = `git remote show origin`.grep(/Push.*URL/).first[/git@.*/]
-  sh "
-    git clone -q -b gh-pages . pages &&
-    cd pages && rm -f ronn*.html index.html &&
-    cp -rp ../man/ronn*.html ./ &&
-    cp -p ronn.7.html index.html &&
-    git add -u ronn*.html &&
-    git commit -m 'rebuild manual' &&
-    git push #{push_url} gh-pages
-  "
+  puts '----------------------------------------------'
+  puts 'Rebuilding pages ...'
+  verbose(false) {
+    rm_rf 'pages'
+    push_url = `git remote show origin`.grep(/Push.*URL/).first[/git@.*/]
+    rev = `git rev-parse origin/gh-pages`
+    sh "
+      set -e
+      git clone -q -b gh-pages . pages
+      cd pages
+      git reset --hard #{rev}
+      rm -f ronn*.html index.html
+      cp -rp ../man/ronn*.html ./
+      cp -p ronn.7.html index.html
+      git add -u ronn*.html
+      git commit -m 'rebuild manual'
+      git push #{push_url} gh-pages
+    ", :verbose => false
+  }
 end
 
 # PACKAGING ============================================================
