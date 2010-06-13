@@ -1,0 +1,17 @@
+/* darktoc.css - enable table of contents */
+
+.man-navigation {
+    border-left:2px solid #222;
+    background-color:#131211;
+}
+.man-navigation a,
+.man-navigation a:hover,
+.man-navigation a:link,
+.man-navigation a:visited {
+    color:#777;
+    text-decoration:none;
+}
+.man-navigation a:hover {
+    color:#fff;
+    text-decoration:underline;
+}
