@@ -2,70 +2,94 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.3'>
-  <title>ronn(7) -- the opposite of roff</title>
-  <style type='text/css'>
-    body {margin:0}
-    #man, #man code, #man pre, #man tt, #man kbd, #man samp {
-      font-family:consolas,monospace;
-      font-size:16px;
-      line-height:1.3;
-      color:#343331;
-      background:#fff; }
-    #man { max-width:89ex; text-align:justify; margin:0 25px 25px 25px }
-    #man h1, #man h2, #man h3 { color:#232221;clear:left }
-    #man h1 { font-size:28px; margin:15px 0 30px 0; text-align:center }
-    #man h2 { font-size:18px; margin-bottom:0; margin-top:10px; line-height:1.3; }
-    #man h3 { font-size:16px; margin:0 0 0 4ex; }
-    #man p, #man ul, #man ol, #man dl, #man pre { margin:0 0 18px 0; }
-    #man pre {
-      color:#333231;
-      background:#edeceb;
-      padding:5px 7px;
-      margin:0px 0 20px 0;
-      border-left:2ex solid #ddd}
-    #man pre + h2, #man pre + h3 {
-      margin-top:22px;
-    }
-    #man h2 + pre, #man h3 + pre {
-      margin-top:5px;
-    }
-    #man > p, #man > ul, #man > ol, #man > dl, #man > pre { margin-left:8ex; }
-    #man dt { margin:0; clear:left }
-    #man dt.flush { float:left; width:8ex }
-    #man dd { margin:0 0 0 9ex }
-    #man code, #man strong, #man b { font-weight:bold; color:#131211; }
-    #man pre code { font-weight:normal; color:#232221; background:inherit }
-    #man em, var, u {
-      font-style:normal; color:#333231; border-bottom:1px solid #999; }
-    #man h1.man-title { display:none; }
-    #man ol.man, #man ol.man li { margin:2px 0 10px 0; padding:0;
-      float:left; width:33%; list-style-type:none;
-      text-transform:uppercase; font-size:18px; color:#999;
-      letter-spacing:1px;}
-    #man ol.man { width:100%; }
-    #man ol.man li.tl { text-align:left }
-    #man ol.man li.tc { text-align:center;letter-spacing:4px }
-    #man ol.man li.tr { text-align:right }
-    #man ol.man a { color:#999 }
-    #man ol.man a:hover { color:#333231 }
+  <meta name='generator' value='Ronn/v0.5 (http://github.com/rtomayko/ronn)'>
+  <title>ronn(7) - the opposite of roff</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage                        {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,  .mp pre,
+  .mp ul, .mp ol, .mp dl              {margin:0 0 20px 0}
+  .mp h2                              {margin:10px 0 0 0}
+  .mp > p, .mp > pre, .mp > ul,
+  .mp > ol, .mp > dl                  {margin-left:8ex}
+  .mp h3                              {margin:0 0 0 4ex}
+  .mp dt                              {margin:0;clear:left}
+  .mp dt.flush                        {float:left;width:8ex}
+  .mp dd                              {margin:0 0 0 9ex}
+  .mp h1, .mp h2, .mp h3, .mp h4      {clear:left}
+  .mp pre                             {margin-bottom:20px}
+  .mp pre+h2, .mp pre+h3              {margin-top:22px}
+  .mp h2+pre, .mp h3+pre              {margin-top:5px}
+  .mp img                             {display:block;margin:auto}
+  .mp h1.man-title                    {display:none}
+  .mp, .mp code, .mp pre, .mp tt,
+  .mp kbd, .mp samp, .mp h3, .mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp, .mp code, .mp pre,
+  .mp pre code, .mp tt, .mp kbd,
+  .mp samp                            {color:#131211}
+  .mp h1, .mp h2, .mp h3, .mp h4      {color:#030201}
+  .mp ol.man, .mp ol.man li           {color:#636261}
+  .mp code, .mp strong, .mp b {font-weight:bold;color:#131211}
+  .mp em, .mp var, .mp u {font-style:italic;color:#434241;text-decoration:none}
+  .mp pre {background:#edeceb;padding:5px 1ex;border-left:1ex solid #ddd}
+  .mp pre code {font-weight:normal;background:inherit}
+  .mp a, .mp a:link, .mp a:hover,
+  .mp a code, .mp a pre, .mp a tt,
+  .mp a kbd, .mp a samp              {color:#0000ff}
+  ol.man-decor, ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor                  {width:100%}
+  ol.man-decor li.tl            {text-align:left}
+  ol.man-decor li.tc            {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr            {text-align:right;float:right}
+  </style>
+  <style type='text/css' media='all'>
+  /* style: toc */
+  .man-navigation {display:block !important;position:fixed;top:0;left:113ex;
+      height:100%;width:100%;padding:48px 0 0 0;border-left:2px solid #222;background-color:#131211}
+  .man-navigation a,
+  .man-navigation a:hover,
+  .man-navigation a:link,
+  .man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 25px;color:#777;text-decoration:none}
+  .man-navigation a:hover {color:#fff;text-decoration:underline}
   </style>
 </head>
-<body>
-<div id='man'>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
 
-<h1 class='man-title'>ronn(7)</h1>
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
 
-<ol class='head man'>
-  <li class='tl'>ronn(7)</li>
-  <li class='tc'>Ronn Manual</li>
-  <li class='tr'>ronn(7)</li>
-</ol>
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#DOCUMENTATION">DOCUMENTATION</a>
+    <a href="#INSTALL">INSTALL</a>
+    <a href="#BASIC-USAGE">BASIC USAGE</a>
+    <a href="#ABOUT">ABOUT</a>
+    <a href="#COPYING">COPYING</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+    </div>
 
-<h2 id='NAME'>NAME</h2>
-<p><code>ronn</code> -- the opposite of roff</p>
+  <h1 class='man-title'>ronn(7)</h1>
 
-<h2>DESCRIPTION</h2>
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>ronn(7)</li>
+    <li class='tc'>Ron Manual</li>
+    <li class='tr'>ronn(7)</li>
+  </ol>
+
+  <h2 id='NAME'>NAME</h2>
+<p><code>ronn</code> - the opposite of roff</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
 
 <p>Ronn is a humane text format and toolchain for creating UNIX man
 pages, and things that appear as man pages from a distance. Use it
@@ -78,7 +102,7 @@ extend Markdown in some ways to provide features commonly found in man
 pages (e.g., definition lists). The ronn(5) manual page defines the
 format in more detail.</p>
 
-<h2>DOCUMENTATION</h2>
+<h2 id="DOCUMENTATION">DOCUMENTATION</h2>
 
 <p>The <code>.ronn</code> files located under the <code>man/</code> directory show off a wide
 range of ronn capabilities and are the source of Ronn's own documentation.
@@ -86,24 +110,18 @@ The source files and generated HTML / roff output files are available
 at:</p>
 
 <ul>
-<li><p><a href="http://rtomayko.github.com/ronn/ronn.1.html">ronn(1)</a> -
+<li><p><a href="http://rtomayko.github.com/ronn/ronn.1">ronn(1)</a> -
 build markdown based manual pages at the command line.<br />
 <a href="http://github.com/rtomayko/ronn/blob/master/man/ronn.1.ronn">source file</a>,
 <a href="http://github.com/rtomayko/ronn/blob/master/man/ronn.1">roff output</a></p></li>
-<li><p><a href="http://rtomayko.github.com/ronn/ronn.5.html">ronn(5)</a> -
+<li><p><a href="http://rtomayko.github.com/ronn/ronn.5">ronn(5)</a> -
 humane manual page authoring format syntax reference.<br />
 <a href="http://github.com/rtomayko/ronn/blob/master/man/ronn.5.ronn">source file</a>,
 <a href="http://github.com/rtomayko/ronn/blob/master/man/ronn.5">roff output</a></p></li>
-<li><p><a href="http://rtomayko.github.com/ronn/markdown.5.html">markdown(5)</a> -
-humane text markup syntax (taken from
-<a href="http://daringfireball.net/projects/markdown/syntax">Markdown Syntax</a>,
-John Gruber)<br />
-<a href="http://github.com/rtomayko/ronn/blob/master/man/markdown.5.ronn">source file</a>,
-<a href="http://github.com/rtomayko/ronn/blob/master/man/markdown.5">roff output</a></p></li>
 </ul>
 
 
-<h2>INSTALL</h2>
+<h2 id="INSTALL">INSTALL</h2>
 
 <p>Install with Rubygems:</p>
 
@@ -118,38 +136,43 @@ $ PATH=ronn/bin:$PATH
 $ ronn --help
 </code></pre>
 
-<h2>BASIC USAGE</h2>
+<h2 id="BASIC-USAGE">BASIC USAGE</h2>
 
-<p>To generate a roff man page from the included
-<a href="man/markdown.5.ronn"><code>markdown.5.ronn</code></a> file and open it with man(1):</p>
+<p>To generate a roff man page from the included <code>ronn.5.ronn</code> file and
+open it with man(1):</p>
 
-<pre><code>$ ronn -b man/markdown.5.ronn
-building: man/markdown.5
-$ man man/markdown.5
+<pre><code>$ ronn man/ronn.5.ronn
+roff: man/ronn.5
+html: man/ronn.5.html
+
+# view the generated roff manpage with man(1):
+$ man man/ronn.5
+
+# view the generated HTML manpage
+$ open man/ronn.5.html
 </code></pre>
 
-<p>To generate a standalone HTML version:</p>
+<p>To generate only a standalone HTML version of the manpage:</p>
 
-<pre><code>$ ronn -b --html man/markdown.5.ronn
-building: man/markdown.5.html
-$ open man/markdown.5.html
+<pre><code>$ ronn --html man/markdown.5.ronn
+html: man/markdown.5.html
 </code></pre>
 
-<p>To build roff and HTML versions of all ronn files:</p>
+<p>To build roff versions of all ronn files in a directory:</p>
 
-<pre><code>$ ronn -b --roff --html man/*.ronn
+<pre><code>$ ronn --roff man/*.ronn
 </code></pre>
 
-<p>If you just want to view a ronn file as if it were a man page without
-building intermediate files:</p>
+<p>If you just want to view a ronn file as if it were a man page without building
+intermediate files:</p>
 
 <pre><code>$ ronn -m man/markdown.5.ronn
 </code></pre>
 
-<p>The <a href="http://rtomayko.github.com/ronn/ronn.1.html">ronn(1)</a> manual page
-includes comprehensive documentation on <code>ronn</code> command line options.</p>
+<p>The <a href="http://rtomayko.github.com/ronn/ronn.1">ronn(1)</a> manual page includes
+comprehensive documentation on <code>ronn</code> command line options.</p>
 
-<h2>ABOUT</h2>
+<h2 id="ABOUT">ABOUT</h2>
 
 <p>Some people think UNIX manual pages are a poor and outdated style of
 documentation. I disagree:</p>
@@ -173,7 +196,7 @@ Feynman covered all of physics -- heavenly bodies through QED --
 with only two levels of document hierarchy (<em>The Feynman Lectures
 on Physics</em>, 1970).</p></li>
 <li><p>Man pages have a simple referencing syntax; e.g., sh(1), fork(2),
-markdown(5). HTML versions can use this to generate links between
+markdown(7). HTML versions can use this to generate links between
 pages.</p></li>
 <li><p>The classical terminal man page display is typographically well
 thought out. Big bold section headings, justified monospace text,
@@ -192,24 +215,24 @@ publishing tools.</p>
 preserving the things that makes man pages a great form of
 documentation.</p>
 
-<h2>COPYING</h2>
+<h2 id="COPYING">COPYING</h2>
 
 <p>Ronn is Copyright (C) 2009 <a href="http://tomayko.com/about">Ryan Tomayko</a>
 See the file COPYING for information of licensing and distribution.</p>
 
-<h2>SEE ALSO</h2>
+<h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p><a href="http://rtomayko.github.com/ronn/ronn.1.html">ronn(1)</a>,
-<a href="http://rtomayko.github.com/ronn/ronn.5.html">ronn(5)</a>,
-<a href="http://rtomayko.github.com/ronn/markdown.5.html">markdown(5)</a></p>
+<p><a href="http://rtomayko.github.com/ronn/ronn.1">ronn(1)</a>,
+<a href="http://rtomayko.github.com/ronn/ronn.5">ronn(5)</a>,
+markdown(5)</p>
 
 
-<ol class='foot man'>
-  <li class='tl'>Ryan Tomayko</li>
-  <li class='tc'>March 2010</li>
-  <li class='tr'>ronn(7)</li>
-</ol>
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'>Ryan Tomayko</li>
+    <li class='tc'>June 2010</li>
+    <li class='tr'>ronn(7)</li>
+  </ol>
 
-</div>
+  </div>
 </body>
 </html>
