@@ -60,6 +60,7 @@ task :pages => :man do
     rev = `git rev-parse origin/gh-pages`
     sh "
       set -e
+      git fetch -q origin
       git clone -q -b gh-pages . pages
       cd pages
       git reset --hard #{rev}
