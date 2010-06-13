@@ -331,7 +331,7 @@ module Ronn
     # This lets us use the [SECTION-REF][] syntax
     def heading_anchor_pre_filter(data)
       first = true
-      data.grep(/^[#]{2,5} +[\w '-]+[# ]*$/).each do |line|
+      data.split("\n").grep(/^[#]{2,5} +[\w '-]+[# ]*$/).each do |line|
         data << "\n\n" if first
         first = false
         title = line.gsub(/[^\w -]/, '').strip
