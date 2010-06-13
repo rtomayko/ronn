@@ -17,7 +17,8 @@ module Ronn
     REV != '' && !REV.include?('-')
   end
 
-  require 'ronn/document'
-  require 'ronn/roff'
-  autoload :Server, 'ronn/server'
+  autoload :Document, 'ronn/document'
+  autoload :Roff,     'ronn/roff'
+  autoload :Server,   'ronn/server'
+  autoload :Template, 'ronn/template'
 end
