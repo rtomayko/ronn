@@ -3,16 +3,21 @@
 # install standard UNIX roff(7) formatted manpages or to generate
 # beautiful HTML manpages.
 module Ronn
-  VERSION = '0.5'
-
   # Create a new Ronn::Document for the given ronn file. See
   # Ronn::Document.new for usage information.
   def self.new(filename, attributes={}, &block)
     Document.new(filename, attributes, &block)
   end
 
+  # bring REV up to date with: rake rev
+  REV = '0.5-91-ga704784'
+  VERSION = REV[/(?:[\d.]+)(?:-\d+)?/].tr('-', '.')
+
+  def self.release?
+    REV != '' && !REV.include?('-')
+  end
+
   require 'ronn/document'
   require 'ronn/roff'
-
   autoload :Server, 'ronn/server'
 end

@@ -44,8 +44,9 @@ end
 
 desc 'Build the manual'
 task :man => :environment do
-  ENV['RONN_MANUAL']  = 'Ron Manual'
-  ENV['RONN_ORGANIZATION'] = 'Ryan Tomayko'
+  require 'ronn'
+  ENV['RONN_MANUAL']  = "Ronn #{Ronn::VERSION}"
+  ENV['RONN_ORGANIZATION'] = Ronn::REV
   sh "ronn -w -s toc man/*.ronn"
 end
 
@@ -65,6 +66,14 @@ task :pages => :man do
 end
 
 # PACKAGING ============================================================
+
+# Rev Ronn::VERSION
+task :rev do
+  rev = `git describe --tags`.chomp
+  data = File.read('lib/ronn.rb')
+  data.gsub!(/^( *)REV *=.*/, "\\1REV = '#{rev}'")
+  File.open('lib/ronn.rb', 'wb') { |fd| fd.write(data) }
+end
 
 require 'rubygems'
 $spec = eval(File.read('ronn.gemspec'))
