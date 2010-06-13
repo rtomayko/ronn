@@ -66,7 +66,7 @@ task :pages => :man do
       rm -f ronn*.html index.html
       cp -rp ../man/ronn*.html ./
       cp -p ronn.7.html index.html
-      git add -u ronn*.html
+      git add -u ronn*.html index.html
       git commit -m 'rebuild manual'
       git push #{push_url} gh-pages
     ", :verbose => false
