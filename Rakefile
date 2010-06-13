@@ -115,8 +115,7 @@ file package('.tar.gz') => %w[pkg/] + $spec.files do |f|
 end
 
 def source_version
-  line = File.read('lib/ronn.rb')[/^\s*VERSION = .*/]
-  line.match(/.*VERSION = '(.*)'/)[1]
+  @source_version ||= `ruby -Ilib -rronn -e 'puts Ronn::VERSION'`.chomp
 end
 
 file 'ronn.gemspec' => FileList['{lib,test,bin}/**','Rakefile'] do |f|
