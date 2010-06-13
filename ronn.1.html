@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.5.93 (http://github.com/rtomayko/ronn)'>
-  <title>ronn(1) - build markdown-based man pages</title>
+  <meta name='generator' value='Ronn/v0.6.0 (http://github.com/rtomayko/ronn)'>
+  <title>ronn(1) - convert markdown files to manpages</title>
   <style type='text/css' media='all'>
   /* style: man */
   body#manpage                        {margin:0}
@@ -49,12 +49,12 @@
   <style type='text/css' media='all'>
   /* style: toc */
   .man-navigation {display:block !important;position:fixed;top:0;left:113ex;
-      height:100%;width:100%;padding:48px 0 0 0;border-left:2px solid #222;background-color:#131211}
+      height:100%;width:100%;padding:48px 0 0 0;border-left:1px solid #dbdbdb;background:#eee}
   .man-navigation a,
   .man-navigation a:hover,
   .man-navigation a:link,
-  .man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 25px;color:#777;text-decoration:none}
-  .man-navigation a:hover {color:#fff;text-decoration:underline}
+  .man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 30px;color:#999;text-decoration:none}
+  .man-navigation a:hover {color:#111;text-decoration:underline}
   </style>
 </head>
 <!--
@@ -85,65 +85,84 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>ronn(1)</li>
-    <li class='tc'>Ronn 0.5.93</li>
+    <li class='tc'>Ronn 0.6.0</li>
     <li class='tr'>ronn(1)</li>
   </ol>
 
   <h2 id='NAME'>NAME</h2>
-<p><code>ronn</code> - build markdown-based man pages</p>
+<p><code>ronn</code> - convert markdown files to manpages</p>
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>ronn</code><br />
-<code>ronn</code> [<var>options</var>] <var>file</var>...<br />
-<code>ronn</code> --man <var>file</var>...</p>
+<p><code>ronn</code> [<var>options</var>] <var>file</var>...<br />
+<code>ronn</code> <code>-m</code>|<code>--man</code> <var>file</var>...<br />
+<code>ronn</code> <code>-S</code>|<code>--server</code> <var>file</var>...<br />
+<code>ronn</code> <code>--pipe</code> <var>file</var><br />
+<code>ronn</code> <var> &lt;file</var></p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>The <code>ronn</code> utility converts ronn(5)-formatted source files to roff and HTML
-manpages.</p>
+<p><strong>Ronn</strong> converts Markdown input to standard roff-formatted UNIX manpages or
+manpage styled HTML. The ronn(5) source format is based on markdown(7) but
+includes additional rules and syntax geared toward authoring manuals.</p>
 
-<p>Under the first synopsis form -- with no <var>file</var> arguments -- <code>ronn</code> acts as
-simple filter, reading ronn source text on standard input and writing
-roff(5)-formatted text to standard output.</p>
+<p>In its default mode, <code>ronn</code> converts one or more input <var>file</var>s to HTML or UNIX
+roff output files. The <code>--roff</code>, <code>--html</code>, and <code>--fragment</code> options dictate
+which output files are generated. Multiple format arguments may be specified to
+generate multiple output files. Output files are named after and written to the
+same directory as input <var>file</var>s.</p>
 
-<p>Under the second synopsis form, <code>ronn</code> builds HTML and roff output files based
-on one or more input <var>file</var> names. The <code>--roff</code>, <code>--html</code>, and <code>--fragment</code>
-options specify which output files should be generated. Multiple format
-arguments may be specified to generate multiple output files.</p>
+<p>The <code>--server</code> and <code>--man</code> options change the output behavior from output file
+generation to serving dynamically generated HTML manpages or viewing <var>file</var> as
+with man(1).</p>
 
-<p>Under the third synopsis form, <code>ronn</code> converts one or more <var>file</var>s to roff
-and displays on the current console as with man(1).</p>
+<p>With no <var>file</var> arguments, <code>ronn</code> acts as simple filter. Ronn source text is read
+from standard input and roff output is written to standard output. The <code>--html</code>
+and <code>--fragment</code> options can be used to generate that format output instead of
+roff.</p>
 
 <h2 id="FILES">FILES</h2>
 
 <p>The <code>ronn</code> command expects input to be formatted as ronn(5) text.  Source
-files are typically named '<var>name</var>.<var>section</var>.ronn' (e.g., <code>hello.1.ronn</code>).
+files are typically named '<var>name</var>.<var>section</var>.ronn' (e.g., <code>example.1.ronn</code>).
 The <var>name</var> and <var>section</var> should match the name and section defined in the
 <var>file</var>'s heading.</p>
 
-<p>When building roff and/or HTML output files, destination filenames are
-determined by taking the basename of the input <var>file</var> and adding the appropriate
-file extension (or removing the file extension in the case of roff output).  For
-example, executing <code>ronn hello.1.ronn</code> generates a <code>hello.1</code> file with roff
-output and a <code>hello.1.html</code> file with HTML output.</p>
+<p>When building roff or HTML output files, destination filenames are determined by
+taking the basename of the input <var>file</var> and adding the appropriate file
+extension (or removing the file extension in the case of roff output).  For
+example, executing <code>ronn example.1.ronn</code> generates <code>example.1</code> with roff output
+and <code>example.1.html</code> with HTML output.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>These options control whether output is written to file(s), to standard output,
-or piped directly to a man viewer.</p>
+<p>These options control whether output is written to files, standard output, or
+directly to a man pager.</p>
 
 <dl>
-<dt class="flush"><code>--pipe</code></dt><dd><p>Write generated output to standard output instead of to filename based on
-the input files. This is the default behavior when ronn source text is piped
-in on standard input and no <var>file</var> arguments are provided.</p></dd>
-<dt><code>-m</code>, <code>--man</code></dt><dd><p>Display <var>file</var>s as if man(1) were invoked on the roff output file. This
-simulates default man behavior by piping the roff output through groff(1)
-and the paging program specified by the <code>MANPAGER</code> environment variable.</p></dd>
+<dt><code>-m</code>, <code>--man</code></dt><dd><p>Don't generate files, display <var>file</var>s as if man(1) were invoked on the roff
+output file. This simulates default man behavior by piping the roff output
+through groff(1) and the paging program specified by the <code>MANPAGER</code>
+environment variable.</p></dd>
+<dt><code>-S</code>, <code>--server</code></dt><dd><p>Don't generate files, start an HTTP server at <a href="http://localhost:1207/" data-bare-link="true">http://localhost:1207/</a> and
+serve dynamically generated HTML for the set of input <var>file</var>s. A file named
+<em>example.2.ronn</em> is served as <em>/example.2.html</em>. There's also an index page
+at the root with links to each <var>file</var>.</p>
+
+<p>The server respects the <code>--style</code> and document attribute options
+(<code>--manual</code>, <code>--date</code>, etc.). These same options can be varied at request
+time by giving them as query parameters: <code>?manual=FOO&amp;style=dark,toc</code></p>
+
+<p><em>NOTE: The builtin server is designed to assist in the process of writing
+and styling manuals. It is in no way recommended as a general purpose web
+server.</em></p></dd>
+<dt class="flush"><code>--pipe</code></dt><dd><p>Don't generate files, write generated output to standard output. This is the
+default behavior when ronn source text is piped in on standard input and no
+<var>file</var> arguments are provided.</p></dd>
 </dl>
 
 
-<p>Format options control what files <code>ronn</code> generates or the output format when the
+<p>Format options control the files <code>ronn</code> generates, or the output format when the
 <code>--pipe</code> argument is specified. When no format options are given, both <code>--roff</code>
 and <code>--html</code> are assumed.</p>
 
@@ -171,7 +190,7 @@ displayed in the bottom-center footer area. The <var>file</var> mtime is used wh
 </dl>
 
 
-<p>HTML output may be customized variously:</p>
+<p>HTML output can be customized variously:</p>
 
 <dl>
 <dt><code>--style</code>=<var>module</var>[,<var>module</var>]...</dt><dd><p>The list of CSS stylesheets to apply to the document. Multiple <var>module</var>
@@ -192,8 +211,8 @@ stylesheet file.</p>
 <p>Miscellaneous options:</p>
 
 <dl>
-<dt><code>-w</code>, <code>--warnings</code></dt><dd><p>Show troff warnings on standard error when performing roff conversion. Most
-often, warnings are the result of a bug in ronn's HTML to roff conversion
+<dt><code>-w</code>, <code>--warnings</code></dt><dd><p>Show troff warnings on standard error when performing roff conversion.
+Warnings are most often the result of a bug in ronn's HTML to roff conversion
 logic.</p></dd>
 <dt class="flush"><code>-W</code></dt><dd><p>Disable troff warnings. Warnings are disabled by default. This option can be
 used to revert the effect of a previous <code>-w</code> argument.</p></dd>
@@ -248,36 +267,46 @@ allow targeting all generated elements:</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>Generate <code>roff(7)</code> output on stdout:</p>
+<p>Build roff and HTML output files and view the roff manpage using man(1):</p>
 
-<pre><code>$ ronn &lt; hello.1.ronn
-</code></pre>
-
-<p>Build roff and HTML output files based on the input filename and view the roff
-manpage using man(1):</p>
-
-<pre><code>$ ronn hello.1.ronn
-roff: hello.1
-html: hello.1.html
-$ man ./hello.1
-</code></pre>
-
-<p>Build only the HTML manpage:</p>
-
-<pre><code>$ ronn --html test.1.ronn
-html: hello.1.html
+<pre><code>$ ronn some-great-program.1.ronn
+roff: some-great-program.1
+html: some-great-program.1.html
+$ man ./some-great-program.1
 </code></pre>
 
 <p>Build only the roff manpage for all <code>.ronn</code> files in the current directory:</p>
 
 <pre><code>$ ronn --roff *.ronn
-roff: hello.1
-roff: world.1
+roff: mv.1
+roff: ls.1
+roff: cd.1
+roff: sh.1
+</code></pre>
+
+<p>Build only the HTML manpage for a few files and apply the <code>dark</code> and <code>toc</code>
+stylesheets:</p>
+
+<pre><code>$ ronn --html --style=dark,toc mv.1.ronn ls.1.ronn
+html: mv.1.html
+html: ls.1.html
+</code></pre>
+
+<p>Generate roff output on standard output and write to file:</p>
+
+<pre><code>$ ronn &lt;hello.1.ronn &gt;hello.1
 </code></pre>
 
 <p>View a ronn file in the same way as man(1) without building a roff file:</p>
 
-<pre><code>$ ronn -m hello.1.ronn
+<pre><code>$ ronn --man hello.1.ronn
+</code></pre>
+
+<p>Serve HTML manpages at <a href="http://localhost:1207/" data-bare-link="true">http://localhost:1207/</a> for all <code>*.ronn</code> files
+under a <code>man/</code> directory:</p>
+
+<pre><code>$ ronn --server man/*.ronn
+$ open http://localhost:1207/
 </code></pre>
 
 <h2 id="ENVIRONMENT">ENVIRONMENT</h2>
@@ -312,11 +341,11 @@ version of this program would be welcome.</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p>ronn(5), markdown(7), manpages(5), man(1), roff(7), groff(1)</p>
+<p>ronn(5), (7), manpages(5), man(1), roff(7), groff(1), markdown(7)</p>
 
 
   <ol class='man-decor man-foot man foot'>
-    <li class='tl'>0.5-93-gc10c7f8</li>
+    <li class='tl'>0.6.0</li>
     <li class='tc'>June 2010</li>
     <li class='tr'>ronn(1)</li>
   </ol>

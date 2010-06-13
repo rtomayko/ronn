@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.5.93 (http://github.com/rtomayko/ronn)'>
-  <title>ronn(5) - humane manual page authoring format</title>
+  <meta name='generator' value='Ronn/v0.6.0 (http://github.com/rtomayko/ronn)'>
+  <title>ronn(5) - markdown-based text format for authoring manpages</title>
   <style type='text/css' media='all'>
   /* style: man */
   body#manpage                        {margin:0}
@@ -49,12 +49,12 @@
   <style type='text/css' media='all'>
   /* style: toc */
   .man-navigation {display:block !important;position:fixed;top:0;left:113ex;
-      height:100%;width:100%;padding:48px 0 0 0;border-left:2px solid #222;background-color:#131211}
+      height:100%;width:100%;padding:48px 0 0 0;border-left:1px solid #dbdbdb;background:#eee}
   .man-navigation a,
   .man-navigation a:hover,
   .man-navigation a:link,
-  .man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 25px;color:#777;text-decoration:none}
-  .man-navigation a:hover {color:#fff;text-decoration:underline}
+  .man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 30px;color:#999;text-decoration:none}
+  .man-navigation a:hover {color:#111;text-decoration:underline}
   </style>
 </head>
 <!--
@@ -83,12 +83,12 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>ronn(5)</li>
-    <li class='tc'>Ronn 0.5.93</li>
+    <li class='tc'>Ronn 0.6.0</li>
     <li class='tr'>ronn(5)</li>
   </ol>
 
   <h2 id='NAME'>NAME</h2>
-<p><code>ronn</code> - humane manual page authoring format</p>
+<p><code>ronn</code> - markdown-based text format for authoring manpages</p>
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
@@ -123,7 +123,7 @@ Definition lists:
 
 Markdown ordered and unordered lists too.
 
-Here's some more sections to get you started:
+Frequently used sections:
 
 ## OPTIONS
 ## SYNTAX
@@ -140,64 +140,50 @@ Here's some more sections to get you started:
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>Ronn files are simple ascii texts that document things in the style of UNIX man
-pages but with a syntax and feature-set less insane than that of roff(7). Ronn
-files are piped through ronn(1) to build and install traditional roff(7) man
-pages or to generate hyperlinked HTML documentation.</p>
+<p>Ronn is a source format for authoring UNIX manpages. The syntax includes all
+Markdown formatting features, plus conventions for expressing the structure and
+various notations present in standard UNIX manpages.</p>
 
-<p>All ronn formatted files must conform to a simple subset of markdown(7), a
-humane text markup designed for writing on the web. It is neither possible nor
-desirable to express many of roff(7)'s complex typesetting features in ronn.</p>
+<p>Ronn files can be converted to traditional roff-formatted manpages or to HTML
+using the ronn(1) command.</p>
+
+<p>Not all roff(7) typesetting features can be expressed using ronn syntax.</p>
 
 <h2 id="MANPAGE-TITLE">MANPAGE TITLE</h2>
 
-<p>All man pages have a <var>name</var>, belong to a <var>section</var>, and have a single sentence
-<var>tagline</var> (useless but witty, preferably). Ronn files must begin with a
-first-level heading that includes all of this information. For example, this
-very man page begins:</p>
+<p>Manpages have a <var>name</var>, <var>section</var> number, and one-line <var>description</var>. Ronn files
+must start with a level one heading defining these attributes:</p>
 
-<pre><code>ronn(5) -- humane manual page authoring format
-=============================================
+<pre><code>ls(1) -- list directory contents
+================================
 </code></pre>
 
-<p>Here, we're saying that the man page documents a thing named <code>ronn</code> in manual
-section <code>5</code> (the "file formats" section; see manpages(5) for full section list)
-and that's quickly described as a "humane manual page authoring format".</p>
-
-<p>These bits of information are used to fill in the document header, to create the
-<code>NAME</code> section, and also to establish output filenames when processed with
-ronn(1).</p>
+<p>Indicates that the manpage is named <code>ls</code> in manual section <code>1</code> ("user
+commands").</p>
 
 <h2 id="SECTION-HEADINGS">SECTION HEADINGS</h2>
 
-<p>Man section headings are expressed with markdown level two headings. markdown(7)
-provides two syntaxes for level two headings. A hash prefix syntax:</p>
+<p>Man section headings are expressed with markdown level two headings. There
+are two syntaxes for level two headings.</p>
+
+<p>Hash prefix syntax:</p>
 
 <pre><code>## HEADING TEXT
 </code></pre>
 
-<p>Or, a dash underline syntax:</p>
+<p>Dash underline syntax:</p>
 
 <pre><code>HEADING TEXT
 ------------
 </code></pre>
 
-<p>Section headings should be in all uppercase and may not contain other inline
-markup.</p>
-
-<p>Most manual pages include at least one of the <code>SYNOPSIS</code>, <code>DESCRIPTION</code>, and/or
-<code>OPTIONS</code> sections. Additional sections commonly included are <code>SYNTAX</code>,
-<code>ENVIRONMENT</code>, <code>HISTORY</code>, <code>RETURN VALUES</code>, <code>BUGS</code>, <code>SECURITY CONSIDERATIONS</code>,
-<code>STANDARDS</code> / <code>CONFORMING TO</code>, <code>AUTHOR</code>, and <code>COPYRIGHT</code>. Finally, most man
-pages end with a <code>SEE ALSO</code> section that references other manual pages and
-external documents.</p>
+<p>Section headings should be all uppercase and may not contain inline markup.</p>
 
 <h2 id="INLINE-MARKUP">INLINE MARKUP</h2>
 
-<p>Man pages have a limited set of text formatting capabilities at their disposal.
-There's basically <b>boldface</b> and <i>italics</i> (often displayed using
-<u>underline</u>). Ronn uses the following bits of markdown(7) to accomplish
-this:</p>
+<p>Manpages have a limited set of text formatting capabilities. There's basically
+<b>boldface</b> and <i>italics</i> (often displayed using <u>underline</u>).
+Ronn uses the following bits of markdown(7) to accomplish this:</p>
 
 <dl>
 <dt><code>`backticks`</code></dt><dd>Code, flags, commands, and noun-like things; typically displayed in in
@@ -212,23 +198,19 @@ literally; other inline markup is not processed.</dd>
 
 <p>Here is grep(1)'s DESCRIPTION section represented in <code>ronn</code>:</p>
 
-<pre><code>`Grep` searches the named input _FILE_ (or standard input if
+<pre><code>`Grep` searches the named input &lt;FILE> (or standard input if
 no files are named, or the file name `-` is given) for lines
-containing a match to the given _PATTERN_. By default, `grep`
+containing a match to the given &lt;PATTERN>. By default, `grep`
 prints the matching lines.
 </code></pre>
 
 <h2 id="DEFINITION-LISTS">DEFINITION LISTS</h2>
 
-<p>Because definition lists are so often used in manual pages to describe
-arguments, options, and variables, the basic markdown(7) list syntax has been
-extended to support a definition list syntax.</p>
-
-<p>Definition list syntax is exactly the same as markdown(7)'s unordered list
+<p>The definition list syntax is exactly the same as markdown's unordered list
 syntax but requires that the first line of each list item be terminated with a
-colon "<code>:</code>". The first line (minus the colon) is the <var>term</var>; subsequent lines
-may be comprised of multiple paragraphs, code blocks, standard lists, and nested
-definition lists.</p>
+colon "<code>:</code>" character. The contents of the first line (without the colon) is
+the <var>term</var>; subsequent lines may be comprised of multiple paragraphs, code
+blocks, standard lists, and nested definition lists.</p>
 
 <p>An example definition list, taken from BSD test(1)'s <em>DESCRIPTION</em> section:</p>
 
@@ -250,8 +232,8 @@ normal markdown processors with minor degradation in output formatting.</p>
 
 <h2 id="LINKS">LINKS</h2>
 
-<p>All markdown(7) linking features are supported. Additionally, reference links
-are made available for each section heading:</p>
+<p>Ronn supports all markdown(7) linking features. Additionally, section headings
+can be linked using reference-style links:</p>
 
 <pre><code>## SECTION 1
 
@@ -262,16 +244,16 @@ See the following section.
 See [SECTION 1][] or [to put it another way][SECTION 1].
 </code></pre>
 
-<p>The anchor name in this case would be <code>#SECTION-1</code> and <code>#SECTION-2</code>. All
-non-word characters are removed and spaces are replaced by dashes.</p>
+<p>The anchor name would be <code>#SECTION-1</code> and <code>#SECTION-2</code>. All non-word characters
+are removed and spaces are replaced by dashes.</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p>ronn(1), markdown(7), manpages(5)</p>
+<p>ronn(1), markdown(7), roff(7)</p>
 
 
   <ol class='man-decor man-foot man foot'>
-    <li class='tl'>0.5-93-gc10c7f8</li>
+    <li class='tl'>0.6.0</li>
     <li class='tc'>June 2010</li>
     <li class='tr'>ronn(5)</li>
   </ol>
