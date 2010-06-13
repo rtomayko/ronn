@@ -22,11 +22,14 @@ task :test => :environment do
   Dir['test/*_test.rb'].each { |f| require(f) }
 end
 
-desc 'Build the manual'
-task :man => :environment do
-  ENV['RONN_MANUAL']  = 'Ron Manual'
-  ENV['RONN_ORGANIZATION'] = 'Ryan Tomayko'
-  sh "ronn -w -s toc man/*.ronn"
+desc 'Start the server'
+task :server => :environment do
+  if system('type shotgun >/dev/null 2>&1')
+    exec "shotgun config.ru"
+  else
+    require 'ronn/server'
+    Ronn::Server.run('man/*.ronn')
+  end
 end
 
 desc 'Start the server'
@@ -37,6 +40,28 @@ task :server => :environment do
     require 'ronn/server'
     Ronn::Server.run('man/*.ronn')
   end
+end
+
+desc 'Build the manual'
+task :man => :environment do
+  ENV['RONN_MANUAL']  = 'Ron Manual'
+  ENV['RONN_ORGANIZATION'] = 'Ryan Tomayko'
+  sh "ronn -w -s toc man/*.ronn"
+end
+
+desc 'Publish to github pages'
+task :pages => :man do
+  rm_rf 'pages'
+  push_url = `git remote show origin`.grep(/Push.*URL/).first[/git@.*/]
+  sh "
+    git clone -q -b gh-pages . pages &&
+    cd pages && rm -f ronn*.html index.html &&
+    cp -rp ../man/ronn*.html ./ &&
+    cp -p ronn.7.html index.html &&
+    git add -u ronn*.html &&
+    git commit -m 'rebuild manual' &&
+    git push #{push_url} gh-pages
+  "
 end
 
 # PACKAGING ============================================================
