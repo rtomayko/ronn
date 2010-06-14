@@ -10,7 +10,7 @@ module Ronn
   end
 
   # bring REV up to date with: rake rev
-  REV = '0.6.0'
+  REV = '0.6-6-gd7645f2'
   VERSION = REV[/(?:[\d.]+)(?:-\d+)?/].tr('-', '.')
 
   def self.release?

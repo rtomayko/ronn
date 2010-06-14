@@ -82,6 +82,8 @@ task :rev do
   data = File.read('lib/ronn.rb')
   data.gsub!(/^( *)REV *=.*/, "\\1REV = '#{rev}'")
   File.open('lib/ronn.rb', 'wb') { |fd| fd.write(data) }
+  puts "revision: #{rev}"
+  puts "version:  #{`ruby -Ilib -rronn -e 'puts Ronn::VERSION'`}"
 end
 
 require 'rubygems'

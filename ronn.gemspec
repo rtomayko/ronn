@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'ronn'
-  s.version = '0.6.0'
+  s.version = '0.6.6'
   s.date = '2010-06-13'
 
   s.description = "The opposite of roff"
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
     lib/ronn/template/print.css
     lib/ronn/template/screen.css
     lib/ronn/template/toc.css
+    lib/ronn/utils.rb
     man/ronn.1
     man/ronn.1.ronn
     man/ronn.5
@@ -58,12 +59,16 @@ Gem::Specification.new do |s|
     test/middle_paragraph.html
     test/middle_paragraph.roff
     test/middle_paragraph.ronn
+    test/missing_spaces.roff
+    test/missing_spaces.ronn
     test/ronn_test.rb
     test/section_reference_links.html
     test/section_reference_links.roff
     test/section_reference_links.ronn
     test/titleless_document.html
     test/titleless_document.ronn
+    test/underline_spacing_test.roff
+    test/underline_spacing_test.ronn
   ]
   # = MANIFEST =
 

@@ -1,8 +1,14 @@
 Ronn CHANGES
 ============
 
-Version 0.6 (not yet released)
-------------------------------
+Version 0.6.6 (2010 June 13)
+----------------------------
+
+Small bug fix release fixes whitespace stripping between adjacent
+inline elements in roff output (adamv, rtomayko)
+
+Version 0.6 (2010 June 13)
+--------------------------
 
 Features:
 
