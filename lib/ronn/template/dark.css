@@ -11,10 +11,7 @@
 
 .mp em, .mp var, .mp u              { color:#ddd }
 
-.mp pre {
-    background:#333;
-    border-left:1ex solid #1a1a1a;
-}
+.mp pre code                        { color:#ddd }
 
 .mp a, .mp a:link, .mp a:hover,
 .mp a code, .mp a pre, .mp a tt,
