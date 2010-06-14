@@ -1,2 +1,3 @@
 /man/*.html
 /pkg
+/test/*.wrong
