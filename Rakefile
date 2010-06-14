@@ -78,7 +78,7 @@ end
 
 # Rev Ronn::VERSION
 task :rev do
-  rev = `git describe --tags`.chomp
+  rev = ENV['REV'] || `git describe --tags`.chomp
   data = File.read('lib/ronn.rb')
   data.gsub!(/^( *)REV *=.*/, "\\1REV = '#{rev}'")
   File.open('lib/ronn.rb', 'wb') { |fd| fd.write(data) }
