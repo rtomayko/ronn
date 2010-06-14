@@ -231,7 +231,6 @@ module Ronn
         gsub('&nbsp;', ' ').
         gsub('&lt;',   '<').
         gsub('&gt;',   '>').
-        gsub('&gt;',   '>').
         gsub(/&#x([0-9A-Fa-f]+);/) { $1.to_i(16).chr }.
         gsub(/&#(\d+);/)           { $1.to_i.chr }.
         gsub('&amp;',  '&').
