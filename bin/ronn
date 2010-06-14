@@ -40,6 +40,29 @@ def usage
 end
 
 ##
+# Libraries and LOAD_PATH shenanigans
+
+begin
+  require 'rdiscount'
+  require 'hpricot'
+  require 'ronn'
+rescue LoadError => boom
+  if boom.to_s =~ /ronn/
+    libdir = File.expand_path("../../lib", __FILE__).sub(%r|^#{Dir.pwd}/|, './')
+    if File.directory?(libdir) && !$:.include?(libdir)
+      warn "warn: #{boom}. adding #{libdir} to RUBYLIB ..."
+      $:.unshift libdir
+      retry
+    end
+  elsif !defined?(Gem)
+    warn "warn: #{boom}. loading rubygems ..."
+    require 'rubygems'
+    retry
+  end
+  abort boom.to_s
+end
+
+##
 # Argument defaults
 
 build  = true
@@ -120,35 +143,6 @@ options['date'] &&= Date.strptime(options['date'], '%Y-%m-%d')
 
 # pass the styles option
 options['styles'] = styles
-
-##
-# Libraries and LOAD_PATH shenanigans
-
-begin
-  require 'hpricot'
-  require 'rdiscount'
-rescue LoadError
-  if !defined?(Gem)
-    warn "warn: #{$!.to_s}. trying again with rubygems."
-    require 'rubygems'
-    retry
-  end
-end
-
-# load ronn libs, setting up the load path if something fails and
-# we're in a development environment.
-begin
-  require 'ronn'
-rescue LoadError
-  raise if $!.to_s !~ /ronn/
-  libdir = File.expand_path("../../lib", __FILE__).sub(/^#{Dir.pwd}/, '.')
-  if !$:.include?(libdir)
-    warn "warn: #{$!.to_s}. trying again with #{libdir} on load path."
-    $:.unshift libdir
-    retry
-  end
-  raise
-end
 
 ##
 # Server
