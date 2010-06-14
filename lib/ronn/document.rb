@@ -4,6 +4,7 @@ require 'hpricot'
 require 'rdiscount'
 require 'ronn/roff'
 require 'ronn/template'
+require 'ronn/utils'
 
 module Ronn
   # The Document class can be used to load and inspect a ronn document
@@ -15,6 +16,8 @@ module Ronn
   # generated documentation unless overridden by the information
   # extracted from the document's name section.
   class Document
+    include Ronn::Utils
+
     attr_reader :path, :data
 
     # The man pages name: usually a single word name of
@@ -318,7 +321,7 @@ module Ronn
         contents = $1
         tag, attrs = contents.split(' ', 2)
         if attrs =~ /\/=/ ||
-           HTML.include?(tag.sub(/^\//, '')) ||
+           html_element?(tag.sub(/^\//, '')) ||
            data.include?("</#{tag}>")
           match.to_s
         else
@@ -340,16 +343,6 @@ module Ronn
       end
       data
     end
-
-    HTML = %w[
-      a abbr acronym b bdo big br cite code dfn
-      em i img input kbd label q samp select
-      small span strong sub sup textarea tt var
-      address blockquote div dl fieldset form
-      h1 h2 h3 h4 h5 h6 hr noscript ol p pre
-      table ul
-    ].to_set
-
   private
     def parse_html(html)
       if html.respond_to?(:doc?) && html.doc?

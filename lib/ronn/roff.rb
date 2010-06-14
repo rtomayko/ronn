@@ -1,7 +1,10 @@
 require 'hpricot'
+require 'ronn/utils'
 
 module Ronn
   class RoffFilter
+    include Ronn::Utils
+
     # Convert Ronn HTML to roff.
     def initialize(html, name, section, tagline, manual=nil, version=nil, date=nil)
       @buf = []
