@@ -7,7 +7,7 @@ ronn(1) -- convert markdown files to manpages
 `ronn` `-m`|`--man` <file>...<br>
 `ronn` `-S`|`--server` <file>...<br>
 `ronn` `--pipe` <file><br>
-`ronn` < <file>
+`ronn` &lt; <file>
 
 ## DESCRIPTION
 

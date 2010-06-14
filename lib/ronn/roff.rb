@@ -9,8 +9,10 @@ module Ronn
     def initialize(html, name, section, tagline, manual=nil, version=nil, date=nil)
       @buf = []
       title_heading name, section, tagline, manual, version, date
-      html = Hpricot(html)
-      block_filter(normalize_whitespace(html))
+      doc = Hpricot(html)
+      remove_extraneous_elements! doc
+      normalize_whitespace! doc
+      block_filter doc
       write "\n"
     end
 
@@ -45,27 +47,46 @@ module Ronn
       macro "TH", %["#{escape(name.upcase)}" "#{section}" "#{date.strftime('%B %Y')}" "#{version}" "#{manual}"]
     end
 
-    def normalize_whitespace(node)
-      if node.kind_of?(Array) || node.kind_of?(Hpricot::Elements)
-        node.each { |ch| normalize_whitespace(ch) }
-      elsif node.doc? || (node.elem? && node.children)
-        normalize_whitespace(node.children)
-      elsif node.text? && !child_of?(node, 'pre')
-        node.content = node.content.gsub(/[\n ]+/m, ' ')
-        node_prev = previous(node)
-        if (node.previous && node.previous.elem?) &&
-           (node.next && node.next.elem?) &&
-           (node.content.strip == '')
-          node.content = ''
-        else
-          node.content = node.content.lstrip if node_prev.nil?
-          node.content = node.content.rstrip if node.next.nil?
+    def remove_extraneous_elements!(doc)
+      doc.traverse_all_element do |node|
+        if node.comment? || node.procins? || node.doctype? || node.xmldecl?
+          warn 'removing: %p' % [node]
+          node.parent.children.delete(node)
         end
-      elsif node.elem? || node.text?
-      else
-        warn "unrecognized tag: %p", node.name
       end
-      node
+    end
+
+    def normalize_whitespace!(node)
+      case
+      when node.kind_of?(Array) || node.kind_of?(Hpricot::Elements)
+        node.to_a.dup.each { |ch| normalize_whitespace! ch }
+      when node.text?
+        preceding, following = node.previous, node.next
+        content = node.content.gsub(/[\n ]+/m, ' ')
+        if preceding.nil? || block_element?(preceding.name) ||
+           preceding.name == 'br'
+          content.lstrip!
+        end
+        if following.nil? || block_element?(following.name) ||
+           following.name == 'br'
+          content.rstrip!
+        end
+        if content.empty?
+          node.parent.children.delete(node)
+        else
+          node.content = content
+        end
+      when node.elem? && node.name == 'pre'
+        # stop traversing
+      when node.elem? && node.children
+        normalize_whitespace! node.children
+      when node.elem?
+        # element has no children
+      when node.doc?
+        normalize_whitespace! node.children
+      else
+        warn "unexpected node during whitespace normalization: %p", node.name
+      end
     end
 
     def block_filter(node)
@@ -76,7 +97,6 @@ module Ronn
         block_filter(node.children)
 
       elsif node.text?
-        return if node.to_html =~ /^\s*$/m
         warn "unexpected text: %p",  node
 
       elsif node.elem?
