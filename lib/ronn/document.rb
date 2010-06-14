@@ -1,4 +1,3 @@
-require 'set'
 require 'cgi'
 require 'hpricot'
 require 'rdiscount'

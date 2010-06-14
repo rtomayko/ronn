@@ -24,6 +24,7 @@
 #/ Misc options:
 #/   -w, --warnings            show troff warnings on stderr
 #/   -W                        disable previously enabled troff warnings
+#/       --version             show ronn version and exit
 #/       --help                show this help message
 #/
 #/ A <file> named example.1.ronn generates example.1.html (HTML manpage)
@@ -68,8 +69,6 @@ ARGV.options do |argv|
   argv.on("-b", "--build")    { build = true; server = false }
   argv.on("-m", "--man")      { build = server = false; view = true }
   argv.on("-S", "--server")   { build = view = false; server = true }
-  argv.on("-w", "--warnings") { groff += ' -ww' }
-  argv.on("-W")               { groff += ' -Ww' }
 
   # format options
   argv.on("-r", "--roff")     { (formats ||= []) << 'roff' }
@@ -84,6 +83,15 @@ ARGV.options do |argv|
     argv.on("--#{attribute}=VALUE") { |val| options[attribute] = val }
   end
 
+  # misc
+  argv.on("-w", "--warnings") { groff += ' -ww' }
+  argv.on("-W")               { groff += ' -Ww' }
+  argv.on("-v", "--version")  do
+    require 'ronn'
+    printf "Ronn v%s (%s)\n", Ronn::VERSION, Ronn::REV
+    printf "<http://github.com/rtomayko/ronn/tree/%s>\n", Ronn.revision
+    exit 0
+  end
   argv.on_tail("--help") { usage ; exit 0 }
   argv.parse!
 end
