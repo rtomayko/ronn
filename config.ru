@@ -1,5 +1,5 @@
 #\ -p 1207
-$: << File.expand_path(__FILE__, '../lib')
+$: << File.expand_path('../lib', __FILE__)
 
 require 'ronn'
 require 'ronn/server'
