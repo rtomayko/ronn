@@ -4,9 +4,10 @@
 # beautiful HTML manpages.
 module Ronn
   autoload :Document, 'ronn/document'
+  autoload :Index,    'ronn/index'
+  autoload :Template, 'ronn/template'
   autoload :Roff,     'ronn/roff'
   autoload :Server,   'ronn/server'
-  autoload :Template, 'ronn/template'
 
   # Create a new Ronn::Document for the given ronn file. See
   # Ronn::Document.new for usage information.
