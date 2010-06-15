@@ -78,7 +78,9 @@ class DocumentTest < Test::Unit::TestCase
 
   context "simple conventionally named document" do
     setup do
+      @now = Time.now
       @doc = Ronn::Document.new('hello.1.ronn') { "# hello(1) -- hello world" }
+      @doc.date = @now
     end
 
     should "load data" do
@@ -118,6 +120,47 @@ class DocumentTest < Test::Unit::TestCase
 
     test "uses default styles" do
       assert_equal %w[man], @doc.styles
+    end
+
+    test "converting to a hash" do
+      assert_equal({
+        "section"      => "1",
+        "name"         => "hello",
+        "date"         => @now,
+        "tagline"      => "hello world",
+        "styles"       => ["man"],
+        "toc"          => [["NAME", "NAME"]],
+        "organization" => nil,
+        "manual"       => nil
+      }, @doc.to_h)
+    end
+
+    test "converting to yaml" do
+      require 'yaml'
+      assert_equal({
+        "section"      => "1",
+        "name"         => "hello",
+        "date"         => @now,
+        "tagline"      => "hello world",
+        "styles"       => ["man"],
+        "toc"          => [["NAME", "NAME"]],
+        "organization" => nil,
+        "manual"       => nil
+      }, YAML.load(@doc.to_yaml))
+    end
+
+    test "converting to json" do
+      require 'json'
+      assert_equal({
+        "section"      => "1",
+        "name"         => "hello",
+        "date"         => @now.iso8601,
+        "tagline"      => "hello world",
+        "styles"       => ["man"],
+        "toc"          => [["NAME", "NAME"]],
+        "organization" => nil,
+        "manual"       => nil
+      }, JSON.parse(@doc.to_json))
     end
   end
 

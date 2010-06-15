@@ -1,3 +1,4 @@
+require 'time'
 require 'cgi'
 require 'hpricot'
 require 'rdiscount'
@@ -220,9 +221,18 @@ module Ronn
     end
 
     def to_h
-      hash = {}
       %w[name section tagline manual organization date styles toc].
-      each { |name| hash[name] = send(name) }
+      inject({}) { |hash, name| hash[name] = send(name); hash }
+    end
+
+    def to_yaml
+      require 'yaml'
+      to_h.to_yaml
+    end
+
+    def to_json
+      require 'json'
+      to_h.merge('date' => date.iso8601).to_json
     end
 
   protected
