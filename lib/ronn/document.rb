@@ -203,6 +203,10 @@ module Ronn
       template.render 'fragment'
     end
 
+    def to_h
+      {}
+    end
+
   protected
     ##
     # Document Processing
