@@ -206,45 +206,87 @@ module Ronn
     # initialized.
     def preprocess
       [
-        :heading_anchor_pre_filter,
-        :angle_quote_pre_filter,
-        :markdown_filter,
-        :angle_quote_post_filter,
-        :definition_list_filter,
-        :heading_anchor_filter,
-        :annotate_bare_links_filter
+        :markdown_filter_heading_anchors,
+        :markdown_filter_angle_quotes,
+        :markdown_to_html,
+        :html_filter_angle_quotes,
+        :html_filter_definition_lists,
+        :html_filter_heading_anchors,
+        :html_filter_annotate_bare_links
       ].inject(data) { |res,filter| send(filter, res) }
     end
 
-    # Add a 'data-bare-link' attribute to hyperlinks
-    # whose text labels are the same as their href URLs.
-    def annotate_bare_links_filter(html)
-      doc = parse_html(html)
-      doc.search('a[@href]').each do |node|
-        href = node.attributes['href']
-        text = node.inner_text
-
-        if href == text  ||
-           href[0] == ?# ||
-           CGI.unescapeHTML(href) == "mailto:#{CGI.unescapeHTML(text)}"
-        then
-          node.set_attribute('data-bare-link', 'true')
-        end
+    # Add [id]: #ANCHOR elements to the markdown source text for all sections.
+    # This lets us use the [SECTION-REF][] syntax
+    def markdown_filter_heading_anchors(markdown)
+      first = true
+      markdown.split("\n").grep(/^[#]{2,5} +[\w '-]+[# ]*$/).each do |line|
+        markdown << "\n\n" if first
+        first = false
+        title = line.gsub(/[^\w -]/, '').strip
+        anchor = title.gsub(/\W+/, '-').gsub(/(^-+|-+$)/, '')
+        markdown << "[#{title}]: ##{anchor} \"#{title}\"\n"
       end
-      doc
+      markdown
     end
 
-    # Add URL anchors to all HTML heading elements.
-    def heading_anchor_filter(html)
+    # Convert <WORD> to <var>WORD</var> but only if WORD isn't an HTML tag.
+    def markdown_filter_angle_quotes(markdown)
+      markdown.gsub(/\<([^:.\/]+?)\>/) do |match|
+        contents = $1
+        tag, attrs = contents.split(' ', 2)
+        if attrs =~ /\/=/ || html_element?(tag.sub(/^\//, '')) ||
+           data.include?("</#{tag}>")
+          match.to_s
+        else
+          "<var>#{contents}</var>"
+        end
+      end
+    end
+
+    # Run markdown on the data and extract name, section, and tagline.
+    def markdown_to_html(markdown)
+      @markdown = markdown
+      html = Markdown.new(markdown).to_html
+      @doc = parse_html(html)
+      @tagline, html = html.split("</h1>\n", 2)
+      if html.nil?
+        html = @tagline
+        @tagline = nil
+      else
+        # grab name and section from title
+        @tagline.sub!('<h1>', '')
+        if @tagline =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*-+\s*(.*)/
+          @name = $1
+          @section = $2
+          @tagline = $3
+        elsif @tagline =~ /([\w_.\[\]~+=@:-]+)\s+-+\s+(.*)/
+          @name = $1
+          @tagline = $2
+        end
+      end
+
+      html.to_s
+    end
+
+    # Perform angle quote (<THESE>) post filtering.
+    def html_filter_angle_quotes(html)
       doc = parse_html(html)
-      doc.search('h1|h2|h3|h4|h5|h6').not('[@id]').each do |heading|
-        heading.set_attribute('id', heading.inner_text.gsub(/\W+/, '-'))
+      # convert all angle quote vars nested in code blocks
+      # back to the original text
+      doc.search('code').search('text()').each do |node|
+        next unless node.to_html.include?('var&gt;')
+        new =
+          node.to_html.
+            gsub('&lt;var&gt;', '&lt;').
+            gsub("&lt;/var&gt;", '>')
+        node.swap(new)
       end
       doc
     end
 
     # Convert special format unordered lists to definition lists.
-    def definition_list_filter(html)
+    def html_filter_definition_lists(html)
       doc = parse_html(html)
       # process all unordered lists depth-first
       doc.search('ul').to_a.reverse.each do |ul|
@@ -272,76 +314,33 @@ module Ronn
       doc
     end
 
-    # Perform angle quote (<THESE>) post filtering.
-    def angle_quote_post_filter(html)
+    # Add URL anchors to all HTML heading elements.
+    def html_filter_heading_anchors(html)
       doc = parse_html(html)
-      # convert all angle quote vars nested in code blocks
-      # back to the original text
-      doc.search('code').search('text()').each do |node|
-        next unless node.to_html.include?('var&gt;')
-        new =
-          node.to_html.
-            gsub('&lt;var&gt;', '&lt;').
-            gsub("&lt;/var&gt;", '>')
-        node.swap(new)
+      doc.search('h1|h2|h3|h4|h5|h6').not('[@id]').each do |heading|
+        heading.set_attribute('id', heading.inner_text.gsub(/\W+/, '-'))
       end
       doc
     end
 
-    # Run markdown on the data and extract name, section, and
-    # tagline.
-    def markdown_filter(data)
-      @markdown = data
-      html = Markdown.new(data).to_html
-      @tagline, html = html.split("</h1>\n", 2)
-      if html.nil?
-        html = @tagline
-        @tagline = nil
-      else
-        # grab name and section from title
-        @tagline.sub!('<h1>', '')
-        if @tagline =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*-+\s*(.*)/
-          @name = $1
-          @section = $2
-          @tagline = $3
-        elsif @tagline =~ /([\w_.\[\]~+=@:-]+)\s+-+\s+(.*)/
-          @name = $1
-          @tagline = $2
+    # Add a 'data-bare-link' attribute to hyperlinks
+    # whose text labels are the same as their href URLs.
+    def html_filter_annotate_bare_links(html)
+      doc = parse_html(html)
+      doc.search('a[@href]').each do |node|
+        href = node.attributes['href']
+        text = node.inner_text
+
+        if href == text  ||
+           href[0] == ?# ||
+           CGI.unescapeHTML(href) == "mailto:#{CGI.unescapeHTML(text)}"
+        then
+          node.set_attribute('data-bare-link', 'true')
         end
       end
-
-      html.to_s
+      doc
     end
 
-    # Convert all <WORD> to <var>WORD</var> but only if WORD
-    # isn't an HTML tag.
-    def angle_quote_pre_filter(data)
-      data.gsub(/\<([^:.\/]+?)\>/) do |match|
-        contents = $1
-        tag, attrs = contents.split(' ', 2)
-        if attrs =~ /\/=/ ||
-           html_element?(tag.sub(/^\//, '')) ||
-           data.include?("</#{tag}>")
-          match.to_s
-        else
-          "<var>#{contents}</var>"
-        end
-      end
-    end
-
-    # Add [id]: #ANCHOR elements to the markdown source text for all sections.
-    # This lets us use the [SECTION-REF][] syntax
-    def heading_anchor_pre_filter(data)
-      first = true
-      data.split("\n").grep(/^[#]{2,5} +[\w '-]+[# ]*$/).each do |line|
-        data << "\n\n" if first
-        first = false
-        title = line.gsub(/[^\w -]/, '').strip
-        anchor = title.gsub(/\W+/, '-').gsub(/(^-+|-+$)/, '')
-        data << "[#{title}]: ##{anchor} \"#{title}\"\n"
-      end
-      data
-    end
   private
     def parse_html(html)
       if html.respond_to?(:doc?) && html.doc?
