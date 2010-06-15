@@ -57,13 +57,13 @@ task :pages => :man do
   verbose(false) {
     rm_rf 'pages'
     push_url = `git remote show origin`.grep(/Push.*URL/).first[/git@.*/]
-    rev = `git rev-parse origin/gh-pages`
     sh "
       set -e
       git fetch -q origin
+      rev=$(git rev-parse origin/gh-pages)
       git clone -q -b gh-pages . pages
       cd pages
-      git reset --hard #{rev}
+      git reset --hard $rev
       rm -f ronn*.html index.html
       cp -rp ../man/ronn*.html ./
       cp -p ronn.7.html index.html
