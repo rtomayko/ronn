@@ -132,6 +132,9 @@ Miscellaneous options:
     Disable troff warnings. Warnings are disabled by default. This option can be
     used to revert the effect of a previous `-w` argument.
 
+  * `-v`, `--version`:
+    Show ronn version and exit.
+
 ## STYLES
 
 The `--style` option selects a list of CSS stylesheets to include in the

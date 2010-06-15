@@ -111,8 +111,12 @@ ARGV.options do |argv|
   argv.on("-W")               { groff += ' -Ww' }
   argv.on("-v", "--version")  do
     require 'ronn'
-    printf "Ronn v%s (%s)\n", Ronn::VERSION, Ronn::REV
-    printf "<http://github.com/rtomayko/ronn/tree/%s>\n", Ronn.revision
+    if Ronn.release?
+      printf "Ronn v%s\n", Ronn::VERSION
+    else
+      printf "Ronn v%s (%s)\n", Ronn::VERSION, Ronn::REV
+    end
+    printf "http://github.com/rtomayko/ronn/tree/%s\n", Ronn.revision
     exit 0
   end
   argv.on_tail("--help") { usage ; exit 0 }
