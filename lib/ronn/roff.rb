@@ -101,6 +101,10 @@ module Ronn
 
       elsif node.elem?
         case node.name
+        when 'div'
+          block_filter(node.children)
+        when 'h1'
+          # discard
         when 'h2'
           macro "SH", quote(escape(node.html))
         when 'h3'
@@ -180,6 +184,8 @@ module Ronn
 
       elsif node.elem?
         case node.name
+        when 'span'
+          inline_filter(node.children)
         when 'code'
           if child_of?(node, 'pre')
             inline_filter(node.children)
@@ -201,6 +207,7 @@ module Ronn
 
         when 'br'
           macro 'br'
+
         when 'a'
           if node.has_attribute?('data-bare-link')
             write '\fI'

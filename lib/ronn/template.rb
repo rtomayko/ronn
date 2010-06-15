@@ -28,9 +28,22 @@ module Ronn
     def tagline
       @document.tagline
     end
+    alias tagline? tagline
+
+    def name_and_section?
+      name && section
+    end
 
     def title
-      [page_name, tagline].compact.join(' - ')
+      if !name_and_section? && tagline
+        tagline
+      else
+        [page_name, tagline].compact.join(' - ')
+      end
+    end
+
+    def custom_title?
+      !name_and_section? && tagline
     end
 
     def page_name
@@ -57,8 +70,8 @@ module Ronn
       @document.date.strftime('%B %Y')
     end
 
-    def html
-      @document.to_html_fragment(wrap_class=nil)
+    def wrap_class_name
+      'mp'
     end
 
     ##

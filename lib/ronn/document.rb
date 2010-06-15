@@ -190,6 +190,7 @@ module Ronn
       end
 
       template = Ronn::Template.new(self)
+      template.context.push :html => to_html_fragment
       template.render(layout_path || 'default')
     end
 
@@ -197,18 +198,9 @@ module Ronn
     # as a string. The HTML does not include <html>, <head>,
     # or <style> tags.
     def to_html_fragment(wrap_class='mp')
-      wrap_class = nil if wrap_class.to_s.empty?
-      buf = []
-      buf << "<div class='#{wrap_class}'>" if wrap_class
-      if name? && section?
-        buf << "<h2 id='NAME'>NAME</h2>"
-        buf << "<p><code>#{name}</code> - #{tagline}</p>"
-      elsif tagline
-        buf << "<h1>#{[name, tagline].compact.join(' - ')}</h1>"
-      end
-      buf << html.to_s
-      buf << "</div>" if wrap_class
-      buf.join("\n")
+      template = Ronn::Template.new(self)
+      template.context.push :html => html
+      template.render 'fragment'
     end
 
   protected
