@@ -2,59 +2,48 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.6.18 (http://github.com/rtomayko/ronn/tree/0.6.6-12-g2bf6ead)'>
+  <meta name='generator' value='Ronn/v0.6.25 (http://github.com/rtomayko/ronn/tree/0.6.6-19-gabd1ee7)'>
   <title>ronn(5) - markdown-based text format for authoring manpages</title>
   <style type='text/css' media='all'>
   /* style: man */
-  body#manpage                        {margin:0}
+  body#manpage {margin:0}
   .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
-  .mp p,  .mp pre,
-  .mp ul, .mp ol, .mp dl              {margin:0 0 20px 0}
-  .mp h2                              {margin:10px 0 0 0}
-  .mp > p, .mp > pre, .mp > ul,
-  .mp > ol, .mp > dl                  {margin-left:8ex}
-  .mp h3                              {margin:0 0 0 4ex}
-  .mp dt                              {margin:0;clear:left}
-  .mp dt.flush                        {float:left;width:8ex}
-  .mp dd                              {margin:0 0 0 9ex}
-  .mp h1, .mp h2, .mp h3, .mp h4      {clear:left}
-  .mp pre                             {margin-bottom:20px}
-  .mp pre+h2, .mp pre+h3              {margin-top:22px}
-  .mp h2+pre, .mp h3+pre              {margin-top:5px}
-  .mp img                             {display:block;margin:auto}
-  .mp h1.man-title                    {display:none}
-  .mp, .mp code, .mp pre, .mp tt,
-  .mp kbd, .mp samp, .mp h3, .mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
   .mp h2 {font-size:16px;line-height:1.25}
   .mp h1 {font-size:20px;line-height:2}
   .mp {text-align:justify;background:#fff}
-  .mp, .mp code, .mp pre,
-  .mp pre code, .mp tt, .mp kbd,
-  .mp samp                            {color:#131211}
-  .mp h1, .mp h2, .mp h3, .mp h4      {color:#030201}
-  .mp ol.man, .mp ol.man li           {color:#636261}
-  .mp code, .mp strong, .mp b {font-weight:bold;color:#131211}
-  .mp em, .mp var, .mp u {font-style:italic;color:#434241;text-decoration:none}
-  .mp a, .mp a:link, .mp a:hover,
-  .mp a code, .mp a pre, .mp a tt,
-  .mp a kbd, .mp a samp              {color:#0000ff}
-  .mp pre                             {padding:0 4ex}
-  .mp pre code                        {font-weight:normal;color:#666}
-  .mp h2 + pre, h3 + pre              {padding-left:0}
-  ol.man-decor, ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
-  ol.man-decor                  {width:100%}
-  ol.man-decor li.tl            {text-align:left}
-  ol.man-decor li.tc            {text-align:center;letter-spacing:4px}
-  ol.man-decor li.tr            {text-align:right;float:right}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp ol.man,.mp ol.man li {color:#636261}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var,.mp u {font-style:italic;color:#434241;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#666}
+  .mp h2 +pre,h3 +pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
   </style>
   <style type='text/css' media='all'>
   /* style: toc */
-  .man-navigation {display:block !important;position:fixed;top:0;left:113ex;
-      height:100%;width:100%;padding:48px 0 0 0;border-left:1px solid #dbdbdb;background:#eee}
-  .man-navigation a,
-  .man-navigation a:hover,
-  .man-navigation a:link,
-  .man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 30px;color:#999;text-decoration:none}
+  .man-navigation {display:block !important;position:fixed;top:0;left:113ex;height:100%;width:100%;padding:48px 0 0 0;border-left:1px solid #dbdbdb;background:#eee}
+  .man-navigation a,.man-navigation a:hover,.man-navigation a:link,.man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 30px;color:#999;text-decoration:none}
   .man-navigation a:hover {color:#111;text-decoration:underline}
   </style>
 </head>
@@ -82,15 +71,14 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>ronn(5)</li>
-    <li class='tc'>Ronn 0.6.18</li>
+    <li class='tc'>Ronn 0.6.25</li>
     <li class='tr'>ronn(5)</li>
   </ol>
 
-  <div class='mp'>
-<h2 id='NAME'>NAME</h2>
-<p class='man-name'>
-  <code>ronn</code>
-  - <span class='man-whatis'>markdown-based text format for authoring manpages</span></p>
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>ronn</code> - <span class="man-whatis">markdown-based text format for authoring manpages</span>
+</p>
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
@@ -253,11 +241,9 @@ are removed and spaces are replaced by dashes.</p>
 
 <p>ronn(1), markdown(7), roff(7)</p>
 
-</div>
-
 
   <ol class='man-decor man-foot man foot'>
-    <li class='tl'>0.6.6-12-g2bf6ead</li>
+    <li class='tl'>0.6.6-19-gabd1ee7</li>
     <li class='tc'>June 2010</li>
     <li class='tr'>ronn(5)</li>
   </ol>
