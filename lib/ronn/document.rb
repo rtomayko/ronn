@@ -17,7 +17,12 @@ module Ronn
   class Document
     include Ronn::Utils
 
-    attr_reader :path, :data
+    # Path to the Ronn document. This may be '-' or nil when the Ronn::Document
+    # object is created with a stream.
+    attr_reader :path
+
+    # The raw input data, read from path or stream and unmodified.
+    attr_reader :data
 
     # The man pages name: usually a single word name of
     # a program or filename; displayed along with the section in
@@ -57,10 +62,13 @@ module Ronn
       @basename = path.to_s =~ /^-?$/ ? nil : File.basename(path)
       @reader = block || Proc.new { |f| File.read(f) }
       @data = @reader.call(path)
+
+      @styles = %w[man]
       @name, @section, @tagline = nil
       @manual, @organization, @date = nil
-      @fragment = preprocess
-      @styles = %w[man]
+      @markdown, @input_html, @html = nil
+
+      preprocess!
 
       attributes.each { |attr_name,value| send("#{attr_name}=", value) }
     end
@@ -147,6 +155,16 @@ module Ronn
       @styles = (%w[man] + styles).uniq
     end
 
+    # Preprocessed markdown input text.
+    def markdown
+      @markdown ||= process_markdown!
+    end
+
+    # A Hpricot::Document for the manual content fragment.
+    def html
+      @html ||= process_html!
+    end
+
     # Convert the document to :roff, :html, or :html_fragment and
     # return the result as a string.
     def convert(format)
@@ -157,12 +175,8 @@ module Ronn
     def to_roff
       RoffFilter.new(
         to_html_fragment(wrap_class=nil),
-        name,
-        section,
-        tagline,
-        manual,
-        organization,
-        date
+        name, section, tagline,
+        manual, organization, date
       ).to_s
     end
 
@@ -192,29 +206,60 @@ module Ronn
       elsif tagline
         buf << "<h1>#{[name, tagline].compact.join(' - ')}</h1>"
       end
-      buf << @fragment.to_s
+      buf << html.to_s
       buf << "</div>" if wrap_class
       buf.join("\n")
     end
 
   protected
-    # The preprocessed markdown source text.
-    attr_reader :markdown
+    ##
+    # Document Processing
 
-    # Parse the document and extract the name, section, and tagline
-    # from its contents. This is called while the object is being
-    # initialized.
-    def preprocess
-      [
-        :markdown_filter_heading_anchors,
-        :markdown_filter_angle_quotes,
-        :markdown_to_html,
-        :html_filter_angle_quotes,
-        :html_filter_definition_lists,
-        :html_filter_heading_anchors,
-        :html_filter_annotate_bare_links
-      ].inject(data) { |res,filter| send(filter, res) }
+    # Parse the document and extract the name, section, and tagline from its
+    # contents. This is called while the object is being initialized.
+    def preprocess!
+      input_html
+      nil
     end
+
+    def input_html
+      @input_html ||=
+        begin
+          @name, @section, @tagline, html =
+            extract_name_section_description(Markdown.new(markdown).to_html)
+          html
+        end
+    end
+
+    def process_markdown!
+      markdown = markdown_filter_heading_anchors(self.data)
+      markdown_filter_angle_quotes(markdown)
+    end
+
+    def process_html!
+      @html = parse_html(input_html)
+      html_filter_angle_quotes
+      html_filter_definition_lists
+      html_filter_heading_anchors
+      html_filter_annotate_bare_links
+      @html
+    end
+
+    def extract_name_section_description(html)
+      heading, html = html.split("</h1>\n", 2)
+      return [nil, nil, nil, heading] if html.nil?
+
+      if heading =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*-+\s*(.*)/
+        [$1, $2, $3, html]
+      elsif heading =~ /([\w_.\[\]~+=@:-]+)\s+-+\s+(.*)/
+        [$1, nil, $2, html]
+      else
+        [nil, nil, heading.sub('<h1>', ''), html]
+      end
+    end
+
+    ##
+    # Filters
 
     # Add [id]: #ANCHOR elements to the markdown source text for all sections.
     # This lets us use the [SECTION-REF][] syntax
@@ -244,37 +289,11 @@ module Ronn
       end
     end
 
-    # Run markdown on the data and extract name, section, and tagline.
-    def markdown_to_html(markdown)
-      @markdown = markdown
-      html = Markdown.new(markdown).to_html
-      @doc = parse_html(html)
-      @tagline, html = html.split("</h1>\n", 2)
-      if html.nil?
-        html = @tagline
-        @tagline = nil
-      else
-        # grab name and section from title
-        @tagline.sub!('<h1>', '')
-        if @tagline =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*-+\s*(.*)/
-          @name = $1
-          @section = $2
-          @tagline = $3
-        elsif @tagline =~ /([\w_.\[\]~+=@:-]+)\s+-+\s+(.*)/
-          @name = $1
-          @tagline = $2
-        end
-      end
-
-      html.to_s
-    end
-
     # Perform angle quote (<THESE>) post filtering.
-    def html_filter_angle_quotes(html)
-      doc = parse_html(html)
+    def html_filter_angle_quotes
       # convert all angle quote vars nested in code blocks
       # back to the original text
-      doc.search('code').search('text()').each do |node|
+      @html.search('code').search('text()').each do |node|
         next unless node.to_html.include?('var&gt;')
         new =
           node.to_html.
@@ -282,14 +301,12 @@ module Ronn
             gsub("&lt;/var&gt;", '>')
         node.swap(new)
       end
-      doc
     end
 
     # Convert special format unordered lists to definition lists.
-    def html_filter_definition_lists(html)
-      doc = parse_html(html)
+    def html_filter_definition_lists
       # process all unordered lists depth-first
-      doc.search('ul').to_a.reverse.each do |ul|
+      @html.search('ul').to_a.reverse.each do |ul|
         items = ul.search('li')
         next if items.any? { |item| item.inner_text.split("\n", 2).first !~ /:$/ }
 
@@ -311,23 +328,19 @@ module Ronn
           container.swap(wrap.sub(/></, ">#{definition}<"))
         end
       end
-      doc
     end
 
     # Add URL anchors to all HTML heading elements.
-    def html_filter_heading_anchors(html)
-      doc = parse_html(html)
-      doc.search('h1|h2|h3|h4|h5|h6').not('[@id]').each do |heading|
+    def html_filter_heading_anchors
+      @html.search('h1|h2|h3|h4|h5|h6').not('[@id]').each do |heading|
         heading.set_attribute('id', heading.inner_text.gsub(/\W+/, '-'))
       end
-      doc
     end
 
     # Add a 'data-bare-link' attribute to hyperlinks
     # whose text labels are the same as their href URLs.
-    def html_filter_annotate_bare_links(html)
-      doc = parse_html(html)
-      doc.search('a[@href]').each do |node|
+    def html_filter_annotate_bare_links
+      @html.search('a[@href]').each do |node|
         href = node.attributes['href']
         text = node.inner_text
 
@@ -338,7 +351,6 @@ module Ronn
           node.set_attribute('data-bare-link', 'true')
         end
       end
-      doc
     end
 
   private
