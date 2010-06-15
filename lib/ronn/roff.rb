@@ -268,7 +268,13 @@ module Ronn
 
     # write text to output buffer
     def write(text)
-      @buf << text unless text.nil? || text.empty?
+      return if text.nil? || text.empty?
+      # lines cannot start with a '.'. insert zero-width character before.
+      if text[0,2] == '\.' &&
+        (@buf.last && @buf.last[-1] == ?\n)
+        @buf << '\&'
+      end
+      @buf << text
     end
 
     # write text to output buffer on a new line.
