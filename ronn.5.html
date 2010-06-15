@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.6.0 (http://github.com/rtomayko/ronn)'>
+  <meta name='generator' value='Ronn/v0.6.18 (http://github.com/rtomayko/ronn/tree/0.6.6-12-g2bf6ead)'>
   <title>ronn(5) - markdown-based text format for authoring manpages</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -35,11 +35,12 @@
   .mp ol.man, .mp ol.man li           {color:#636261}
   .mp code, .mp strong, .mp b {font-weight:bold;color:#131211}
   .mp em, .mp var, .mp u {font-style:italic;color:#434241;text-decoration:none}
-  .mp pre {background:#edeceb;padding:5px 1ex;border-left:1ex solid #ddd}
-  .mp pre code {font-weight:normal;background:inherit}
   .mp a, .mp a:link, .mp a:hover,
   .mp a code, .mp a pre, .mp a tt,
   .mp a kbd, .mp a samp              {color:#0000ff}
+  .mp pre                             {padding:0 4ex}
+  .mp pre code                        {font-weight:normal;color:#666}
+  .mp h2 + pre, h3 + pre              {padding-left:0}
   ol.man-decor, ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
   ol.man-decor                  {width:100%}
   ol.man-decor li.tl            {text-align:left}
@@ -79,16 +80,17 @@
     <a href="#SEE-ALSO">SEE ALSO</a>
     </div>
 
-  <h1 class='man-title'>ronn(5)</h1>
-
   <ol class='man-decor man-head man head'>
     <li class='tl'>ronn(5)</li>
-    <li class='tc'>Ronn 0.6.0</li>
+    <li class='tc'>Ronn 0.6.18</li>
     <li class='tr'>ronn(5)</li>
   </ol>
 
-  <h2 id='NAME'>NAME</h2>
-<p><code>ronn</code> - markdown-based text format for authoring manpages</p>
+  <div class='mp'>
+<h2 id='NAME'>NAME</h2>
+<p class='man-name'>
+  <code>ronn</code>
+  - <span class='man-whatis'>markdown-based text format for authoring manpages</span></p>
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
@@ -251,9 +253,11 @@ are removed and spaces are replaced by dashes.</p>
 
 <p>ronn(1), markdown(7), roff(7)</p>
 
+</div>
+
 
   <ol class='man-decor man-foot man foot'>
-    <li class='tl'>0.6.0</li>
+    <li class='tl'>0.6.6-12-g2bf6ead</li>
     <li class='tc'>June 2010</li>
     <li class='tr'>ronn(5)</li>
   </ol>
