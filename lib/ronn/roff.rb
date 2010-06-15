@@ -41,8 +41,8 @@ module Ronn
     end
 
     def title_heading(name, section, tagline, manual, version, date)
-      comment "generated with Ronn/v#{Ronn::VERSION}"
-      comment "http://github.com/rtomayko/ronn/"
+      comment "generated with Ronn/v#{Ronn.version}"
+      comment "http://github.com/rtomayko/ronn/tree/#{Ronn.revision}"
       return if name.nil?
       macro "TH", %["#{escape(name.upcase)}" "#{section}" "#{date.strftime('%B %Y')}" "#{version}" "#{manual}"]
     end
