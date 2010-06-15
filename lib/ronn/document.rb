@@ -143,11 +143,11 @@ module Ronn
     # Retrieve a list of top-level section headings in the document and return
     # as an array of +[id, text]+ tuples, where +id+ is the element's generated
     # id and +text+ is the inner text of the heading element.
-    def section_heads
-      parse_html(to_html_fragment).search('h2[@id]').map do |heading|
-        [heading.attributes['id'], heading.inner_text]
-      end
+    def toc
+      @toc ||=
+        html.search('h2[@id]').map { |h2| [h2.attributes['id'], h2.inner_text] }
     end
+    alias section_heads toc
 
     # Styles to insert in the generated HTML output. This is a simple Array of
     # string module names or file paths.
