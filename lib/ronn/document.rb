@@ -116,7 +116,7 @@ module Ronn
     # Truthful when the name was extracted from the name section
     # of the document.
     def name?
-      !name.nil?
+      !@name.nil?
     end
 
     # Returns the manual page section based first on the document's
@@ -128,7 +128,20 @@ module Ronn
     # True when the section number was extracted from the name
     # section of the document.
     def section?
-      !section.nil?
+      !@section.nil?
+    end
+
+    # Truthful when the document started with an h1 but did not follow
+    # the "<name>(<sect>) -- <tagline>" convention. We assume this is some kind
+    # of custom title.
+    def title?
+      !name? && tagline
+    end
+
+    # The document's title when no name section was defined. When a name section
+    # exists, this value is nil.
+    def title
+      @tagline if !name?
     end
 
     # The date the man page was published. If not set explicitly,
@@ -190,7 +203,7 @@ module Ronn
       end
 
       template = Ronn::Template.new(self)
-      template.context.push :html => to_html_fragment
+      template.context.push :html => to_html_fragment(wrap_class=nil)
       template.render(layout_path || 'default')
     end
 
@@ -198,13 +211,18 @@ module Ronn
     # as a string. The HTML does not include <html>, <head>,
     # or <style> tags.
     def to_html_fragment(wrap_class='mp')
-      template = Ronn::Template.new(self)
-      template.context.push :html => html
-      template.render 'fragment'
+      return html.to_s if wrap_class.nil?
+      [
+        "<div class='#{wrap_class}'>",
+        html.to_s,
+        "</div>"
+      ].join("\n")
     end
 
     def to_h
-      {}
+      hash = {}
+      %w[name section tagline manual organization date styles toc].
+      each { |name| hash[name] = send(name) }
     end
 
   protected
@@ -236,6 +254,7 @@ module Ronn
       @html = Hpricot(input_html)
       html_filter_angle_quotes
       html_filter_definition_lists
+      html_filter_inject_name_section
       html_filter_heading_anchors
       html_filter_annotate_bare_links
       @html
@@ -322,6 +341,25 @@ module Ronn
 
           item.name = 'dd'
           container.swap(wrap.sub(/></, ">#{definition}<"))
+        end
+      end
+    end
+
+    def html_filter_inject_name_section
+      markup =
+        if title?
+          "<h1>#{title}</h1>"
+        elsif name
+          "<h2>NAME</h2>\n" +
+          "<p class='man-name'>\n  <code>#{name}</code>" +
+          (tagline ? " - <span class='man-whatis'>#{tagline}</span>\n" : "\n") +
+          "</p>\n"
+        end
+      if markup
+        if @html.children
+          @html.at("*").before(markup)
+        else
+          @html = Hpricot(markup)
         end
       end
     end

@@ -4,6 +4,14 @@ require 'ronn/document'
 class DocumentTest < Test::Unit::TestCase
   SIMPLE_FILE = "#{File.dirname(__FILE__)}/basic_document.ronn"
 
+  def canonicalize(text)
+    text.
+    gsub(/^ +/, '').
+    gsub(/\n/m, '').
+    gsub(/ +/, ' ').
+    gsub(/"/, "'")
+  end
+
   test "new with path" do
     doc = Ronn::Document.new(SIMPLE_FILE)
     assert_equal File.read(SIMPLE_FILE), doc.data
@@ -86,19 +94,19 @@ class DocumentTest < Test::Unit::TestCase
     end
 
     should "convert to an HTML fragment with no wrap div" do
-      assert_equal %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>\n],
-        @doc.to_html_fragment(wrap=nil)
+      assert_equal %[<h2 id='NAME'>NAME</h2><p class='man-name'><code>hello</code> - <span class='man-whatis'>hello world</span></p>],
+        canonicalize(@doc.to_html_fragment(wrap=nil))
     end
 
     should "convert to an HTML fragment with a wrap class" do
-      assert_equal %[<div class='pm'>\n<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>\n\n</div>],
-        @doc.to_html_fragment(wrap_class='pm')
+      assert_equal %[<div class='pm'><h2 id='NAME'>NAME</h2><p class='man-name'><code>hello</code> - <span class='man-whatis'>hello world</span></p></div>],
+        canonicalize(@doc.to_html_fragment(wrap_class='pm'))
     end
 
     should "convert to HTML with a layout" do
       assert_match %r{^<!DOCTYPE html.*}m, @doc.to_html
-      assert_match %[<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>],
-        @doc.to_html
+      assert_match %[<h2 id='NAME'>NAME</h2><p class='man-name'><code>hello</code> - <span class='man-whatis'>hello world</span></p>],
+        canonicalize(@doc.to_html)
     end
 
     should "construct a path to related documents" do

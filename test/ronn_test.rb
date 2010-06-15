@@ -28,15 +28,28 @@ class RonnTest < Test::Unit::TestCase
     assert_equal 0, lines.size
   end
 
+  def canonicalize(text)
+    text.
+    gsub(/^ +/, '').
+    gsub(/\n/m, '').
+    gsub(/ +/, ' ').
+    gsub(/"/, "'")
+  end
+
   test "produces html instead of roff with the --html argument" do
     output = `echo '# hello(1) -- hello world' | ronn --html`
-    assert_match(/<h2 id='NAME'>NAME<\/h2>/, output)
+    assert_match(/<h2 id='NAME'>NAME<\/h2>/, canonicalize(output))
   end
 
   test "produces html fragment with the --fragment argument" do
     output = `echo '# hello(1) -- hello world' | ronn --fragment`
-    assert_equal "<div class='mp'>\n<h2 id='NAME'>NAME</h2>\n<p><code>hello</code> - hello world</p>\n\n</div>\n",
-      output
+    assert_equal [
+      "<div class='mp'>",
+      "<h2 id='NAME'>NAME</h2>",
+      "<p class='man-name'><code>hello</code>",
+      " - <span class='man-whatis'>hello world</span>",
+      "</p></div>"
+    ].join, canonicalize(output)
   end
 
   test "abbides by the RONN_MANUAL environment variable" do

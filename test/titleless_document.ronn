@@ -1,2 +1,3 @@
-This is a document without a level 1 heading. It doesn't output
-a `NAME` section or custom `<h1>`.
+This is a document without a level 1 heading. It generates
+a `NAME` section from the filename but does not include an
+`<h1>` element.
