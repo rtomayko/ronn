@@ -143,12 +143,13 @@ module Ronn
 
     def inline_stylesheet(path, media='all')
       data = File.read(path)
-      data.gsub!(/([;{]) *\n/m, '\1')  # end-of-line whitespace
-      data.gsub!(/([;{]) +/m, '\1')    # coalescing whitespace elsewhere
-      data.gsub!(/[; ]+\}/, '}')       # remove superfluous trailing semi-colons
       data.gsub!(%r|/\*.+?\*/|m, '')   # comments
+      data.gsub!(/([;{,]) *\n/m, '\1') # end-of-line whitespace
       data.gsub!(/\n{2,}/m, "\n")      # collapse lines
-      data.gsub!(/^/, '  ')
+      data.gsub!(/[; ]+\}/, '}')       # superfluous trailing semi-colons
+      data.gsub!(/([{;,+])[ ]+/, '\1') # whitespace around things
+      data.gsub!(/[ \t]+/m, ' ')       # coalescing whitespace elsewhere
+      data.gsub!(/^/, '  ')            # indent
       data.strip!
       [
         "<style type='text/css' media='#{media}'>",
