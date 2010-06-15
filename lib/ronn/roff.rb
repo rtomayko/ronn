@@ -50,7 +50,6 @@ module Ronn
     def remove_extraneous_elements!(doc)
       doc.traverse_all_element do |node|
         if node.comment? || node.procins? || node.doctype? || node.xmldecl?
-          warn 'removing: %p' % [node]
           node.parent.children.delete(node)
         end
       end
@@ -138,7 +137,7 @@ module Ronn
           inline_filter(node.children)
           write "\n"
         when 'dd'
-          if node.search('p').any?
+          if node.at('p')
             block_filter(node.children)
           else
             inline_filter(node.children)
@@ -155,7 +154,7 @@ module Ronn
           when 'ul'
             macro "IP", %w["\(bu" 4]
           end
-          if node.search('p|ol|ul|dl|div').any?
+          if node.at('p|ol|ul|dl|div')
             block_filter(node.children)
           else
             inline_filter(node.children)
@@ -178,7 +177,6 @@ module Ronn
         node.each { |ch| inline_filter(ch) }
 
       elsif node.text?
-        prev = previous(node)
         text = node.to_html.dup
         write escape(text)
 
