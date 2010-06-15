@@ -233,15 +233,33 @@ module Ronn
       writeln ".\n.#{[name, value].compact.join(' ')}"
     end
 
+    HTML_ROFF_ENTITIES = {
+      '&bull;'  => '\(bu',
+      '&lt;'    => '<',
+      '&gt;'    => '>',
+      '&nbsp;'  => '\~',
+      '&copy;'  => '\(co',
+      '&rdquo;' => '\(rs',
+      '&mdash;' => '\(em',
+      '&reg;'   => '\(rg',
+      '&sec;'   => '\(sc',
+      '&ge;'    => '\(>=',
+      '&le;'    => '\(<=',
+      '&ne;'    => '\(!=',
+      '&equiv;' => '\(=='
+    }
+
     def escape(text)
-      text.
-        gsub('&nbsp;', ' ').
-        gsub('&lt;',   '<').
-        gsub('&gt;',   '>').
-        gsub(/&#x([0-9A-Fa-f]+);/) { $1.to_i(16).chr }.
-        gsub(/&#(\d+);/)           { $1.to_i.chr }.
-        gsub('&amp;',  '&').
-        gsub(/[\\'".-]/)            { |m| "\\#{m}" }
+      return text.to_s if text.nil? || text.empty?
+      ent = HTML_ROFF_ENTITIES
+      text = text.dup
+      text.gsub!(/&#x([0-9A-Fa-f]+);/) { $1.to_i(16).chr }  # hex entities
+      text.gsub!(/&#(\d+);/) { $1.to_i.chr }                # dec entities
+      text.gsub!('\\', '\e')                                # backslash
+      text.gsub!(/['".-]/) { |m| "\\#{m}" }                 # control chars
+      text.gsub!(/(&[A-Za-z]+;)/) { ent[$1] || $1 }         # named entities
+      text.gsub!('&amp;',  '&')                             # amps
+      text
     end
 
     def quote(text)
