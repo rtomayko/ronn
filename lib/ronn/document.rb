@@ -233,7 +233,7 @@ module Ronn
     end
 
     def process_html!
-      @html = parse_html(input_html)
+      @html = Hpricot(input_html)
       html_filter_angle_quotes
       html_filter_definition_lists
       html_filter_heading_anchors
@@ -346,15 +346,6 @@ module Ronn
         then
           node.set_attribute('data-bare-link', 'true')
         end
-      end
-    end
-
-  private
-    def parse_html(html)
-      if html.respond_to?(:doc?) && html.doc?
-        html
-      else
-        Hpricot(html.to_s)
       end
     end
   end
