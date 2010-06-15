@@ -366,7 +366,7 @@ module Ronn
 
     # Add URL anchors to all HTML heading elements.
     def html_filter_heading_anchors
-      @html.search('h1|h2|h3|h4|h5|h6').not('[@id]').each do |heading|
+      @html.search('h2|h3|h4|h5|h6').not('[@id]').each do |heading|
         heading.set_attribute('id', heading.inner_text.gsub(/\W+/, '-'))
       end
     end

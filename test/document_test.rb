@@ -121,7 +121,7 @@ class DocumentTest < Test::Unit::TestCase
     end
   end
 
-  test 'extracting section heads' do
+  test 'extracting toc' do
     @doc = Ronn::Document.new(File.expand_path('../markdown_syntax.ronn', __FILE__))
     expected = [
       ["NAME", "NAME"],
@@ -133,7 +133,7 @@ class DocumentTest < Test::Unit::TestCase
       ["AUTHOR", "AUTHOR"],
       ["SEE-ALSO", "SEE ALSO"]
     ]
-    assert_equal expected, @doc.section_heads
+    assert_equal expected, @doc.toc
   end
 
   test "passing a list of styles" do
