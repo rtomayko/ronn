@@ -2,23 +2,56 @@ require 'contest'
 require 'ronn'
 
 class IndexTest < Test::Unit::TestCase
-  setup {
-    @paths = %w[section_reference_links underline_spacing_test].
-      map { |p| File.expand_path("../#{p}.ronn", __FILE__) }
-  }
-
-  test "creating with paths" do
-    Ronn::Index.new(@paths)
+  setup do
+    @index_path   = File.expand_path('../index.txt', __FILE__)
+    @missing_path = File.expand_path('../missing-index.txt', __FILE__)
   end
 
-  test "running over documents" do
-    index = Ronn::Index.new(@paths)
-    assert_equal 2, index.size
-    doc = index.to_a.first
-    assert_equal 'section_reference_links', doc.name
-    assert_equal '1', doc.section
-    doc = index.to_a.last
-    assert_equal 'underline_spacing_test', doc.name
-    assert_nil doc.section
+  def expand_path(path, rel=File.dirname(__FILE__))
+    File.expand_path(path, rel)
   end
+
+  test "creating with a non-existant file" do
+    index = Ronn::Index.new(@missing_path)
+    assert_equal @missing_path, index.path
+    assert_equal 0, index.size
+    assert index.empty?
+  end
+
+  test "creating with an index file and no block" do
+    index = Ronn::Index.new(@index_path)
+    assert_equal 3, index.size
+    assert_equal 2, index.manuals.size
+
+    ref = index.references[0]
+    assert_equal 'basic_document(7)', ref.name
+    assert_equal 'basic_document.ronn', ref.url
+    assert_equal expand_path('basic_document.ronn'), ref.path
+    assert ref.manual?
+    assert ref.ronn?
+    assert !ref.remote?
+
+    ref = index.references[1]
+    assert_equal 'definition_list_syntax(5)', ref.name
+    assert_equal 'definition_list_syntax.ronn', ref.url
+    assert_equal expand_path('definition_list_syntax.ronn'), ref.path
+
+    ref = index.references[2]
+    assert_equal 'grep(1)', ref.name
+    assert_equal 'http://man.cx/grep(1)', ref.url
+    assert ref.manual?
+    assert ref.remote?
+    assert !ref.ronn?
+  end
+
+  test "creating with a block reader" do
+    index = Ronn::Index.new(@index_path) { "hello(1) hello.1.ronn" }
+    assert_equal @index_path, index.path
+    assert_equal 1, index.size
+    ref = index.first
+    assert_equal 'hello(1)',     ref.name
+    assert_equal 'hello.1.ronn', ref.url
+    assert_equal expand_path('hello.1.ronn'), ref.path
+  end
+
 end

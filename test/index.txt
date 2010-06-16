@@ -1,0 +1,8 @@
+# test ronn index
+
+# local manuals
+basic_document(7)             basic_document.ronn
+definition_list_syntax(5)     definition_list_syntax.ronn
+
+# see also
+grep(1)                       http://man.cx/grep(1)
