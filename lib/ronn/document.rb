@@ -306,7 +306,7 @@ module Ronn
       html_filter_inject_name_section
       html_filter_heading_anchors
       html_filter_annotate_bare_links
-      html_filter_manual_references
+      html_filter_manual_reference_links
       @html
     end
 

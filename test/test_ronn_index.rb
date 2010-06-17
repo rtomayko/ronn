@@ -25,7 +25,8 @@ class IndexTest < Test::Unit::TestCase
 
     ref = index.references[0]
     assert_equal 'basic_document(7)', ref.name
-    assert_equal 'basic_document.ronn', ref.url
+    assert_equal 'basic_document.ronn', ref.location
+    assert_equal 'basic_document.html', ref.url
     assert_equal expand_path('basic_document.ronn'), ref.path
     assert ref.manual?
     assert ref.ronn?
@@ -33,7 +34,8 @@ class IndexTest < Test::Unit::TestCase
 
     ref = index.references[1]
     assert_equal 'definition_list_syntax(5)', ref.name
-    assert_equal 'definition_list_syntax.ronn', ref.url
+    assert_equal 'definition_list_syntax.ronn', ref.location
+    assert_equal 'definition_list_syntax.html', ref.url
     assert_equal expand_path('definition_list_syntax.ronn'), ref.path
 
     ref = index.references[2]
@@ -50,7 +52,8 @@ class IndexTest < Test::Unit::TestCase
     assert_equal 1, index.size
     ref = index.first
     assert_equal 'hello(1)',     ref.name
-    assert_equal 'hello.1.ronn', ref.url
+    assert_equal 'hello.1.ronn', ref.location
+    assert_equal 'hello.1.html', ref.url
     assert_equal expand_path('hello.1.ronn'), ref.path
   end
 

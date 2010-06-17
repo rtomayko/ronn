@@ -1,2 +1,7 @@
-# external manpages
-roff(7) http://man.cx/roff(7)
+# manuals
+ronn(1)     ronn.1.ronn
+ronn(5)     ronn.5.ronn
+ronn(7)     ronn.7.ronn
+
+# external manuals
+roff(7)     http://man.cx/roff(7)

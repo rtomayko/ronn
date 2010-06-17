@@ -34,7 +34,7 @@ module Ronn
         line = line.strip.gsub(/\s*#.*$/, '')
         if !line.empty?
           name, url = line.split(/ +/, 2)
-          @references << Ronn::Reference.new(self, name, url)
+          @references << reference(name, url)
         end
       end
     end
@@ -63,26 +63,25 @@ module Ronn
     end
 
     def find_by_name(name)
+    end
+
+    def [](name)
       references.find { |ref| ref.name == name }
     end
-
-    def find_by_url(url_or_path)
-      references.find { |ref| ref.url == url_or_path || ref.path == url_or_path }
-    end
-
-    alias [] find_by_name
 
     def reference(name, path)
       Reference.new(self, name, path)
     end
 
     def <<(path)
-      return self if find_by_url(path)
+      raise ArgumentError, "local paths only" if path =~ /(https?|mailto):/
+      relative_path = relative_to_index(path)
+      return self if any? { |ref| ref.path == File.expand_path(path) }
       @references << \
         if path =~ /\.ronn?$/
-          reference(manual(path).reference_name, path)
+          reference manual(path).reference_name, relative_path
         else
-          reference(File.basename(path), path)
+          reference File.basename(path), relative_path
         end
       self
     end
@@ -100,7 +99,7 @@ module Ronn
     # Converting
 
     def to_text
-      map { |ref| [ref.name, ref.url].join(' ') }.join("\n")
+      map { |ref| [ref.name, ref.location].join(' ') }.join("\n")
     end
 
     def to_a
@@ -110,25 +109,29 @@ module Ronn
     def to_h
       to_a.map { |doc| doc.to_hash }
     end
+
+    def relative_to_index(path)
+      path = File.expand_path(path)
+      index_dir = File.dirname(File.expand_path(self.path))
+      path.sub(/^#{index_dir}\//, '')
+    end
   end
 
-  # An individual index reference.
+  # An individual index reference. A reference can point to one of a few types
+  # of locations:
+  #
+  #   - URLs: "http://man.cx/crontab(5)"
+  #   - Relative paths to ronn manuals: "crontab.5.ronn"
+  #
+  # The #url method should be used to obtain the href value for HTML.
   class Reference
     attr_reader :name
-    attr_reader :url
+    attr_reader :location
 
-    def initialize(index, name, url)
+    def initialize(index, name, location)
       @index = index
       @name = name
-      @url  = url
-    end
-
-    def remote?
-      url =~ /^(?:https?|mailto):/
-    end
-
-    def relative?
-      !remote?
+      @location = location
     end
 
     def manual?
@@ -136,11 +139,27 @@ module Ronn
     end
 
     def ronn?
-      url =~ /\.ronn?$/
+      location =~ /\.ronn?$/
+    end
+
+    def remote?
+      location =~ /^(?:https?|mailto):/
+    end
+
+    def relative?
+      !remote?
+    end
+
+    def url
+      if remote?
+        location
+      else
+        location.chomp('.ronn') + '.html'
+      end
     end
 
     def path
-      File.expand_path(url, File.dirname(@index.path)) if relative?
+      File.expand_path(location, File.dirname(@index.path)) if relative?
     end
   end
 end
