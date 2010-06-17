@@ -19,7 +19,7 @@ end
 desc 'Run tests'
 task :test => :environment do
   $LOAD_PATH.unshift "#{ROOTDIR}/test"
-  Dir['test/*_test.rb'].each { |f| require(f) }
+  Dir['test/test_*.rb'].each { |f| require(f) }
 end
 
 desc 'Start the server'
