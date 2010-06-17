@@ -84,7 +84,7 @@ module Ronn
       when node.doc?
         normalize_whitespace! node.children
       else
-        warn "unexpected node during whitespace normalization: %p", node.name
+        warn "unexpected node during whitespace normalization: %p", node
       end
     end
 

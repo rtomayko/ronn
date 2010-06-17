@@ -22,7 +22,7 @@
 #/       --organization=<name>  publishing group or individual (bottom-left)
 #/
 #/ Misc options:
-#/   -i, --index[=<path>]      generate or load manual index.
+#/   -i, --index               generate manual index
 #/   -w, --warnings            show troff warnings on stderr
 #/   -W                        disable previously enabled troff warnings
 #/       --version             show ronn version and exit
@@ -70,8 +70,8 @@ build   = true
 view    = false
 server  = false
 formats = nil
-index   = nil
 options = {}
+write_index = false
 styles  = %w[man]
 groff   = "groff -Wall -mtty-char -mandoc -Tascii"
 pager   = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
@@ -94,7 +94,7 @@ ARGV.options do |argv|
   argv.on("-b", "--build")    { build = true; server = false }
   argv.on("-m", "--man")      { build = server = false; view = true }
   argv.on("-S", "--server")   { build = view = false; server = true }
-  argv.on("-i", "--index=p")  { |path| index = path || true }
+  argv.on("-i", "--index")    { write_index = true }
 
   # format options
   argv.on("-r", "--roff")     { (formats ||= []) << 'roff' }
@@ -161,12 +161,7 @@ end
 ##
 # Load up the index
 
-index_path =
-  if index.is_a?(String)
-    index
-  else
-    "#{File.dirname(ARGV.first || '.')}/index.txt"
-  end
+index_path = "#{File.dirname(ARGV.first || '.')}/index.txt"
 index = Ronn::Index.new(index_path, options)
 ARGV.each { |file| index << file }
 
@@ -222,4 +217,8 @@ ARGV.each do |file|
     wr.close
     Process.wait
   end
+end
+
+if write_index
+  File.open(index.path, 'wb') { |fd| fd.puts(index.to_text) }
 end
