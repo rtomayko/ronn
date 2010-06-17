@@ -117,4 +117,4 @@ See the file COPYING for information of licensing and distribution.
 
 [ronn(1)](http://rtomayko.github.com/ronn/ronn.1),
 [ronn(5)](http://rtomayko.github.com/ronn/ronn.5),
-markdown(5)
+markdown(7)

@@ -441,11 +441,13 @@ module Ronn
         next if %w[pre code h1 h2 h3].include?(node.parent.name)
         next if child_of?(node, 'a')
         node.swap(
-          node.content.gsub(/([0-9A-Za-z_:.+=@~-]+\(\d+\w*\))/) {
-            if ref = index[$1]
-              "<a class='man-ref' href='#{ref.url}'>#{$1}</a>"
+          node.content.gsub(/([0-9A-Za-z_:.+=@~-]+)(\(\d+\w*\))/) {
+            name, sect = $1, $2
+            if ref = index["#{name}#{sect}"]
+              "<a class='man-ref' href='#{ref.url}'>#{name}<span class='s'>#{sect}</span></a>"
             else
-              "<span class='man-ref'>#{$1}</span>"
+              warn "warn: manual reference not defined: '#{name}#{sect}'"
+              "<span class='man-ref'>#{name}<span class='s'>#{sect}</span></span>"
             end
           }
         )
