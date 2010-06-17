@@ -445,7 +445,7 @@ module Ronn
             if ref = index[$1]
               "<a class='man-ref' href='#{ref.url}'>#{$1}</a>"
             else
-              "<b class='man-ref'>#{$1}</b>"
+              "<span class='man-ref'>#{$1}</span>"
             end
           }
         )

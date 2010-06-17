@@ -271,8 +271,8 @@ version of this program would be welcome.
 
 ## COPYRIGHT
 
-Ronn is Copyright (C) 2009 Ryan Tomayko <tomayko.com/about>
+Ronn is Copyright (C) 2009 Ryan Tomayko <http://tomayko.com/about>
 
 ## SEE ALSO
 
-ronn(5), (7), manpages(5), man(1), roff(7), groff(1), markdown(7)
+ronn(5), manpages(5), man(1), roff(7), groff(1), markdown(7)

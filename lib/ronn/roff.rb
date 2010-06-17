@@ -196,7 +196,9 @@ module Ronn
           macro 'br'
 
         when 'a'
-          if node.has_attribute?('data-bare-link')
+          if node.classes.include?('man-ref')
+            inline_filter(node.children)
+          elsif node.has_attribute?('data-bare-link')
             write '\fI'
             inline_filter(node.children)
             write '\fR'
