@@ -306,6 +306,7 @@ module Ronn
       html_filter_inject_name_section
       html_filter_heading_anchors
       html_filter_annotate_bare_links
+      html_filter_manual_references
       @html
     end
 
@@ -428,6 +429,26 @@ module Ronn
         then
           node.set_attribute('data-bare-link', 'true')
         end
+      end
+    end
+
+    # Convert text of the form "name(section)" to a hyperlink. The URL is
+    # obtaiend from the index.
+    def html_filter_manual_reference_links
+      return if index.nil?
+      @html.search('text()').each do |node|
+        next if !node.content.include?(')')
+        next if %w[pre code h1 h2 h3].include?(node.parent.name)
+        next if child_of?(node, 'a')
+        node.swap(
+          node.content.gsub(/([0-9A-Za-z_:.+=@~-]+\(\d+\w*\))/) {
+            if ref = index[$1]
+              "<a class='man-ref' href='#{ref.url}'>#{$1}</a>"
+            else
+              "<b class='man-ref'>#{$1}</b>"
+            end
+          }
+        )
       end
     end
   end

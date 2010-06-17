@@ -43,5 +43,13 @@ module Ronn
     def html_element?(name)
       HTML.include?(name)
     end
+
+    def child_of?(node, tag)
+      while node
+        return true if node.name && node.name.downcase == tag
+        node = node.parent
+      end
+      false
+    end
   end
 end

@@ -29,17 +29,6 @@ module Ronn
       end
     end
 
-    def child_of?(node, tag)
-      while node
-        if node.name && node.name.downcase == tag
-          return true
-        else
-          node = node.parent
-        end
-      end
-      false
-    end
-
     def title_heading(name, section, tagline, manual, version, date)
       comment "generated with Ronn/v#{Ronn.version}"
       comment "http://github.com/rtomayko/ronn/tree/#{Ronn.revision}"
