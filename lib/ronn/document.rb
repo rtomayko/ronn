@@ -70,13 +70,11 @@ module Ronn
           end
         end
       @data = @reader.call(path)
+      @name, @section, @tagline = sniff
 
       @styles = %w[man]
-      @name, @section, @tagline = nil
       @manual, @organization, @date = nil
       @markdown, @input_html, @html = nil
-
-      preprocess!
 
       attributes.each { |attr_name,value| send("#{attr_name}=", value) }
     end
@@ -181,6 +179,27 @@ module Ronn
       @styles = (%w[man] + styles).uniq
     end
 
+    # Sniff the document header and extract basic document metadata. Return a
+    # tuple of the form: [name, section, description], where missing information
+    # is represented by nil and any element may be missing.
+    def sniff
+      html = Markdown.new(data[0, 512]).to_html
+      heading, html = html.split("</h1>\n", 2)
+      return [nil, nil, nil] if html.nil?
+
+      case heading
+      when /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*-+\s*(.*)/
+        # name(section) -- description
+        [$1, $2, $3]
+      when /([\w_.\[\]~+=@:-]+)\s+-+\s+(.*)/
+        # name -- description
+        [$1, nil, $2]
+      else
+        # description
+        [nil, nil, heading.sub('<h1>', '')]
+      end
+    end
+
     # Preprocessed markdown input text.
     def markdown
       @markdown ||= process_markdown!
@@ -259,12 +278,12 @@ module Ronn
     end
 
     def input_html
-      @input_html ||=
-        begin
-          @name, @section, @tagline, html =
-            extract_name_section_description(Markdown.new(markdown).to_html)
-          html
-        end
+      @input_html ||= strip_heading(Markdown.new(markdown).to_html)
+    end
+
+    def strip_heading(html)
+      heading, html = html.split("</h1>\n", 2)
+      html || heading
     end
 
     def process_markdown!
@@ -280,19 +299,6 @@ module Ronn
       html_filter_heading_anchors
       html_filter_annotate_bare_links
       @html
-    end
-
-    def extract_name_section_description(html)
-      heading, html = html.split("</h1>\n", 2)
-      return [nil, nil, nil, heading] if html.nil?
-
-      if heading =~ /([\w_.\[\]~+=@:-]+)\s*\((\d\w*)\)\s*-+\s*(.*)/
-        [$1, $2, $3, html]
-      elsif heading =~ /([\w_.\[\]~+=@:-]+)\s+-+\s+(.*)/
-        [$1, nil, $2, html]
-      else
-        [nil, nil, heading.sub('<h1>', ''), html]
-      end
     end
 
     ##
