@@ -100,6 +100,7 @@ ARGV.options do |argv|
   argv.on("-r", "--roff")     { (formats ||= []) << 'roff' }
   argv.on("-5", "--html")     { (formats ||= []) << 'html' }
   argv.on("-f", "--fragment") { (formats ||= []) << 'html_fragment' }
+  argv.on("--markdown")       { (formats ||= []) << 'markdown' }
 
   # html output options
   argv.on("-s", "--style=V")  { |val| styles += val.split(/[, \n]+/) }
@@ -196,7 +197,7 @@ ARGV.each do |file|
       case format
       when 'html'
         warn "%5s: %-48s%15s" % [format, path, '+' + doc.styles.join(',')]
-      when 'roff', 'html_fragment'
+      when 'roff', 'html_fragment', 'markdown'
         warn "%5s: %-48s" % [format, path]
       end
 

@@ -251,6 +251,10 @@ module Ronn
       ].join("\n")
     end
 
+    def to_markdown
+      markdown
+    end
+
     def to_h
       %w[name section tagline manual organization date styles toc].
       inject({}) { |hash, name| hash[name] = send(name); hash }
