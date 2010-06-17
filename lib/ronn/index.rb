@@ -14,6 +14,7 @@ module Ronn
       @path = path
       @attributes = attributes
       @references = []
+      @manuals    = {}
 
       if block_given?
         read! yield
@@ -61,13 +62,42 @@ module Ronn
       references.empty?
     end
 
-    ##
-    # Converting
+    def find_by_name(name)
+      references.find { |ref| ref.name == name }
+    end
+
+    def find_by_url(url_or_path)
+      references.find { |ref| ref.url == url_or_path || ref.path == url_or_path }
+    end
+
+    alias [] find_by_name
+
+    def reference(name, path)
+      Reference.new(self, name, path)
+    end
+
+    def <<(path)
+      return self if find_by_url(path)
+      @references << \
+        if path =~ /\.ronn?$/
+          reference(manual(path).reference_name, path)
+        else
+          reference(File.basename(path), path)
+        end
+      self
+    end
+
+    def manual(path)
+      @manuals[File.expand_path(path)] ||= Document.new(path, attributes)
+    end
 
     def manuals
       select { |ref| ref.relative? && ref.ronn? }.
-      map    { |ref| Ronn::Document.new(ref.path, attributes) }
+      map    { |ref| manual(ref.path) }
     end
+
+    ##
+    # Converting
 
     def to_text
       map { |ref| [ref.name, ref.url].join(' ') }.join("\n")
@@ -110,7 +140,7 @@ module Ronn
     end
 
     def path
-      File.expand_path(url, File.dirname(@index.path))
+      File.expand_path(url, File.dirname(@index.path)) if relative?
     end
   end
 end

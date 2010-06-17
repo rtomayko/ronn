@@ -1,27 +1,28 @@
 #!/usr/bin/env ruby
 #/ Usage: ronn <options> <file>...
-#/        ronn -m|--man <file> ...
+#/        ronn -m|--man <file>
 #/        ronn -S|--server <file> ...
 #/        ronn --pipe [<file>...]
 #/ Convert ronn source <file>s to roff or HTML manpage. In the first synopsis form,
 #/ build HTML and roff output files based on the input file names.
 #/
-#/ Mode options alter the default file generating behavior:
+#/ Mode options alter the default behavior of generating files:
 #/       --pipe                write to standard output instead of generating files
 #/   -m, --man                 show manual like with man(1)
 #/   -S, --server              serve <file>s at http://localhost:1207/
 #/
-#/ Format options control which files are generated:
+#/ Format options control which files / formats are generated:
 #/   -r, --roff                generate roff output
 #/   -5, --html                generate entire HTML page with layout
 #/   -f, --fragment            generate HTML fragment
 #/
 #/ Document attributes:
-#/       --date=DATE           published date in YYYY-MM-DD format (bottom-center)
-#/       --manual=NAME         name of the manual (top-center)
-#/       --organization=NAME   publishing group or individual (bottom-left)
+#/       --date=<date>          published date in YYYY-MM-DD format (bottom-center)
+#/       --manual=<name>        name of the manual (top-center)
+#/       --organization=<name>  publishing group or individual (bottom-left)
 #/
 #/ Misc options:
+#/   -i, --index[=<path>]      generate or load manual index.
 #/   -w, --warnings            show troff warnings on stderr
 #/   -W                        disable previously enabled troff warnings
 #/       --version             show ronn version and exit
@@ -65,10 +66,11 @@ end
 ##
 # Argument defaults
 
-build  = true
-view   = false
-server = false
+build   = true
+view    = false
+server  = false
 formats = nil
+index   = nil
 options = {}
 styles  = %w[man]
 groff   = "groff -Wall -mtty-char -mandoc -Tascii"
@@ -92,6 +94,7 @@ ARGV.options do |argv|
   argv.on("-b", "--build")    { build = true; server = false }
   argv.on("-m", "--man")      { build = server = false; view = true }
   argv.on("-S", "--server")   { build = view = false; server = true }
+  argv.on("-i", "--index=p")  { |path| index = path || true }
 
   # format options
   argv.on("-r", "--roff")     { (formats ||= []) << 'roff' }
@@ -142,10 +145,7 @@ end
 formats ||= []
 formats.delete('html') if formats.include?('html_fragment')
 
-# turn the --date arg into a real date object
 options['date'] &&= Date.strptime(options['date'], '%Y-%m-%d')
-
-# pass the styles option
 options['styles'] = styles
 
 ##
@@ -158,12 +158,24 @@ if server
 end
 
 ##
+# Load up the index
+
+index_path =
+  if index.is_a?(String)
+    index
+  else
+    "#{File.dirname(ARGV.first || '.')}/index.txt"
+  end
+index = Ronn::Index.new(index_path, options)
+ARGV.each { |file| index << file }
+
+##
 # Build Pipeline
 
 pid = nil
 wr = STDOUT
 ARGV.each do |file|
-  doc = Ronn.new(file, options) { file == '-' ? STDIN.read : File.read(file) }
+  doc = index.manual(file)
 
   # setup the man pipeline if the --man option was specified
   if view && !build

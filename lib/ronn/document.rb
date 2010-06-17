@@ -61,7 +61,14 @@ module Ronn
     def initialize(path=nil, attributes={}, &block)
       @path = path
       @basename = path.to_s =~ /^-?$/ ? nil : File.basename(path)
-      @reader = block || Proc.new { |f| File.read(f) }
+      @reader = block ||
+        lambda do |f|
+          if ['-', nil].include?(f)
+            STDIN.read
+          else
+            File.read(f)
+          end
+        end
       @data = @reader.call(path)
 
       @styles = %w[man]
@@ -130,6 +137,11 @@ module Ronn
     # section of the document.
     def section?
       !@section.nil?
+    end
+
+    # The name used to reference this manual.
+    def reference_name
+      name + (section && "(#{section})").to_s
     end
 
     # Truthful when the document started with an h1 but did not follow

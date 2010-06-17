@@ -54,4 +54,17 @@ class IndexTest < Test::Unit::TestCase
     assert_equal expand_path('hello.1.ronn'), ref.path
   end
 
+  test "adding manual paths" do
+    index = Ronn::Index.new(@index_path)
+    index << expand_path("angle_bracket_syntax.ronn")
+    assert_equal 'angle_bracket_syntax(5)', index.last.name
+    assert_equal expand_path('angle_bracket_syntax.ronn'), index.last.path
+  end
+
+  test "adding manual paths that are already present" do
+    index = Ronn::Index.new(@index_path)
+    size = index.size
+    index << expand_path("basic_document.ronn")
+    assert_equal size, index.size
+  end
 end
