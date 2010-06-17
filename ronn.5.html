@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.6.25 (http://github.com/rtomayko/ronn/tree/0.6.6-19-gabd1ee7)'>
+  <meta name='generator' value='Ronn/v0.6.42 (http://github.com/rtomayko/ronn/tree/0.6.6-36-gb67d494)'>
   <title>ronn(5) - markdown-based text format for authoring manpages</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -31,6 +31,7 @@
   .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
   .mp em,.mp var,.mp u {font-style:italic;color:#434241;text-decoration:none}
   .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
   .mp pre {padding:0 4ex}
   .mp pre code {font-weight:normal;color:#666}
   .mp h2 +pre,h3 +pre {padding-left:0}
@@ -71,7 +72,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>ronn(5)</li>
-    <li class='tc'>Ronn 0.6.25</li>
+    <li class='tc'>Ronn 0.6.42</li>
     <li class='tr'>ronn(5)</li>
   </ol>
 
@@ -135,9 +136,9 @@ Markdown formatting features, plus conventions for expressing the structure and
 various notations present in standard UNIX manpages.</p>
 
 <p>Ronn files can be converted to traditional roff-formatted manpages or to HTML
-using the ronn(1) command.</p>
+using the <a href="ronn.1.html" class="man-ref">ronn<span class="s">(1)</span></a> command.</p>
 
-<p>Not all roff(7) typesetting features can be expressed using ronn syntax.</p>
+<p>Not all <a href="http://man.cx/roff(7)" class="man-ref">roff<span class="s">(7)</span></a> typesetting features can be expressed using ronn syntax.</p>
 
 <h2 id="MANPAGE-TITLE">MANPAGE TITLE</h2>
 
@@ -173,7 +174,7 @@ are two syntaxes for level two headings.</p>
 
 <p>Manpages have a limited set of text formatting capabilities. There's basically
 <b>boldface</b> and <i>italics</i> (often displayed using <u>underline</u>).
-Ronn uses the following bits of markdown(7) to accomplish this:</p>
+Ronn uses the following bits of <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> to accomplish this:</p>
 
 <dl>
 <dt><code>`backticks`</code></dt><dd>Code, flags, commands, and noun-like things; typically displayed in in
@@ -186,7 +187,7 @@ literally; other inline markup is not processed.</dd>
 </dl>
 
 
-<p>Here is grep(1)'s DESCRIPTION section represented in <code>ronn</code>:</p>
+<p>Here is <a href="http://man.cx/grep(1)" class="man-ref">grep<span class="s">(1)</span></a>'s DESCRIPTION section represented in <code>ronn</code>:</p>
 
 <pre><code>`Grep` searches the named input &lt;FILE> (or standard input if
 no files are named, or the file name `-` is given) for lines
@@ -202,7 +203,7 @@ colon "<code>:</code>" character. The contents of the first line (without the co
 the <var>term</var>; subsequent lines may be comprised of multiple paragraphs, code
 blocks, standard lists, and nested definition lists.</p>
 
-<p>An example definition list, taken from BSD test(1)'s <em>DESCRIPTION</em> section:</p>
+<p>An example definition list, taken from BSD <a href="http://man.cx/test(1)" class="man-ref">test<span class="s">(1)</span></a>'s <em>DESCRIPTION</em> section:</p>
 
 <pre><code> The following primaries are used to construct expressions:
 
@@ -217,12 +218,12 @@ blocks, standard lists, and nested definition lists.</p>
 </code></pre>
 
 <p>The definition list syntax is intentionally backward compatible with
-markdown(7)'s list syntax. This allows <code>ronn</code> documents to be piped through
+<a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a>'s list syntax. This allows <code>ronn</code> documents to be piped through
 normal markdown processors with minor degradation in output formatting.</p>
 
 <h2 id="LINKS">LINKS</h2>
 
-<p>Ronn supports all markdown(7) linking features. Additionally, section headings
+<p>Ronn supports all <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> linking features. Additionally, section headings
 can be linked using reference-style links:</p>
 
 <pre><code>## SECTION 1
@@ -239,11 +240,11 @@ are removed and spaces are replaced by dashes.</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p>ronn(1), markdown(7), roff(7)</p>
+<p><a href="ronn.1.html" class="man-ref">ronn<span class="s">(1)</span></a>, <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a>, <a href="http://man.cx/roff(7)" class="man-ref">roff<span class="s">(7)</span></a></p>
 
 
   <ol class='man-decor man-foot man foot'>
-    <li class='tl'>0.6.6-19-gabd1ee7</li>
+    <li class='tl'>0.6.6-36-gb67d494</li>
     <li class='tc'>June 2010</li>
     <li class='tr'>ronn(5)</li>
   </ol>

@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.6.25 (http://github.com/rtomayko/ronn/tree/0.6.6-19-gabd1ee7)'>
+  <meta name='generator' value='Ronn/v0.6.42 (http://github.com/rtomayko/ronn/tree/0.6.6-36-gb67d494)'>
   <title>ronn(1) - convert markdown files to manpages</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -31,6 +31,7 @@
   .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
   .mp em,.mp var,.mp u {font-style:italic;color:#434241;text-decoration:none}
   .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
   .mp pre {padding:0 4ex}
   .mp pre code {font-weight:normal;color:#666}
   .mp h2 +pre,h3 +pre {padding-left:0}
@@ -73,7 +74,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>ronn(1)</li>
-    <li class='tc'>Ronn 0.6.25</li>
+    <li class='tc'>Ronn 0.6.42</li>
     <li class='tr'>ronn(1)</li>
   </ol>
 
@@ -93,7 +94,7 @@
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
 <p><strong>Ronn</strong> converts Markdown input to standard roff-formatted UNIX manpages or
-manpage styled HTML. The ronn(5) source format is based on markdown(7) but
+manpage styled HTML. The <a href="ronn.5.html" class="man-ref">ronn<span class="s">(5)</span></a> source format is based on <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> but
 includes additional rules and syntax geared toward authoring manuals.</p>
 
 <p>In its default mode, <code>ronn</code> converts one or more input <var>file</var>s to HTML or UNIX
@@ -104,7 +105,7 @@ same directory as input <var>file</var>s.</p>
 
 <p>The <code>--server</code> and <code>--man</code> options change the output behavior from output file
 generation to serving dynamically generated HTML manpages or viewing <var>file</var> as
-with man(1).</p>
+with <a href="http://man.cx/man(1)" class="man-ref">man<span class="s">(1)</span></a>.</p>
 
 <p>With no <var>file</var> arguments, <code>ronn</code> acts as simple filter. Ronn source text is read
 from standard input and roff output is written to standard output. The <code>--html</code>
@@ -113,7 +114,7 @@ roff.</p>
 
 <h2 id="FILES">FILES</h2>
 
-<p>The <code>ronn</code> command expects input to be formatted as ronn(5) text.  Source
+<p>The <code>ronn</code> command expects input to be formatted as <a href="ronn.5.html" class="man-ref">ronn<span class="s">(5)</span></a> text.  Source
 files are typically named '<var>name</var>.<var>section</var>.ronn' (e.g., <code>example.1.ronn</code>).
 The <var>name</var> and <var>section</var> should match the name and section defined in the
 <var>file</var>'s heading.</p>
@@ -130,9 +131,9 @@ and <code>example.1.html</code> with HTML output.</p>
 directly to a man pager.</p>
 
 <dl>
-<dt><code>-m</code>, <code>--man</code></dt><dd><p>Don't generate files, display <var>file</var>s as if man(1) were invoked on the roff
+<dt><code>-m</code>, <code>--man</code></dt><dd><p>Don't generate files, display <var>file</var>s as if <a href="http://man.cx/man(1)" class="man-ref">man<span class="s">(1)</span></a> were invoked on the roff
 output file. This simulates default man behavior by piping the roff output
-through groff(1) and the paging program specified by the <code>MANPAGER</code>
+through <a href="http://man.cx/groff(1)" class="man-ref">groff<span class="s">(1)</span></a> and the paging program specified by the <code>MANPAGER</code>
 environment variable.</p></dd>
 <dt><code>-S</code>, <code>--server</code></dt><dd><p>Don't generate files, start an HTTP server at <a href="http://localhost:1207/" data-bare-link="true">http://localhost:1207/</a> and
 serve dynamically generated HTML for the set of input <var>file</var>s. A file named
@@ -258,7 +259,7 @@ allow targeting all generated elements:</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>Build roff and HTML output files and view the roff manpage using man(1):</p>
+<p>Build roff and HTML output files and view the roff manpage using <a href="http://man.cx/man(1)" class="man-ref">man<span class="s">(1)</span></a>:</p>
 
 <pre><code>$ ronn some-great-program.1.ronn
 roff: some-great-program.1
@@ -288,7 +289,7 @@ html: ls.1.html
 <pre><code>$ ronn &lt;hello.1.ronn &gt;hello.1
 </code></pre>
 
-<p>View a ronn file in the same way as man(1) without building a roff file:</p>
+<p>View a ronn file in the same way as <a href="http://man.cx/man(1)" class="man-ref">man<span class="s">(1)</span></a> without building a roff file:</p>
 
 <pre><code>$ ronn --man hello.1.ronn
 </code></pre>
@@ -328,15 +329,15 @@ version of this program would be welcome.</p>
 
 <h2 id="COPYRIGHT">COPYRIGHT</h2>
 
-<p>Ronn is Copyright (C) 2009 Ryan Tomayko &lt;tomayko.com/about></p>
+<p>Ronn is Copyright (C) 2009 Ryan Tomayko <a href="http://tomayko.com/about" data-bare-link="true">http://tomayko.com/about</a></p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p>ronn(5), (7), manpages(5), man(1), roff(7), groff(1), markdown(7)</p>
+<p><a href="ronn.5.html" class="man-ref">ronn<span class="s">(5)</span></a>, <a href="http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man5/manpages.5.html" class="man-ref">manpages<span class="s">(5)</span></a>, <a href="http://man.cx/man(1)" class="man-ref">man<span class="s">(1)</span></a>, <a href="http://man.cx/roff(7)" class="man-ref">roff<span class="s">(7)</span></a>, <a href="http://man.cx/groff(1)" class="man-ref">groff<span class="s">(1)</span></a>, <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a></p>
 
 
   <ol class='man-decor man-foot man foot'>
-    <li class='tl'>0.6.6-19-gabd1ee7</li>
+    <li class='tl'>0.6.6-36-gb67d494</li>
     <li class='tc'>June 2010</li>
     <li class='tr'>ronn(1)</li>
   </ol>
