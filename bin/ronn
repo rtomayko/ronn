@@ -191,9 +191,9 @@ ARGV.each do |file|
       path = doc.path_for(format)
       case format
       when 'html'
-        warn "%5s: %-48s%15s" % [format, path, '+' + doc.styles.join(',')]
+        warn "%9s: %-43s%15s" % [format, path, '+' + doc.styles.join(',')]
       when 'roff', 'html_fragment', 'markdown'
-        warn "%5s: %-48s" % [format, path]
+        warn "%9s: %-43s" % [format, path]
       end
 
       output = doc.convert(format)

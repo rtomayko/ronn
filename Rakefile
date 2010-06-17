@@ -45,9 +45,9 @@ end
 desc 'Build the manual'
 task :man => :environment do
   require 'ronn'
-  ENV['RONN_MANUAL']  = "Ronn #{Ronn::VERSION}"
-  ENV['RONN_ORGANIZATION'] = Ronn::REV
-  sh "ronn -w -s toc man/*.ronn"
+  ENV['RONN_MANUAL']  = "Ronn #{Ronn::version}"
+  ENV['RONN_ORGANIZATION'] = Ronn::revision
+  sh "ronn -w -s toc -r5 --markdown man/*.ronn"
 end
 
 desc 'Publish to github pages'

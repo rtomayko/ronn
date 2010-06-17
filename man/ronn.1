@@ -1,7 +1,7 @@
-.\" generated with Ronn/v0.6.6
-.\" http://github.com/rtomayko/ronn/
+.\" generated with Ronn/v0.6.42
+.\" http://github.com/rtomayko/ronn/tree/0.6.6-36-gb67d494
 .
-.TH "RONN" "1" "June 2010" "0.6-6-gd7645f2" "Ronn 0.6.6"
+.TH "RONN" "1" "June 2010" "0.6.6-36-gb67d494" "Ronn 0.6.42"
 .
 .SH "NAME"
 \fBronn\fR \- convert markdown files to manpages
@@ -116,6 +116,10 @@ Show troff warnings on standard error when performing roff conversion\. Warnings
 .TP
 \fB\-W\fR
 Disable troff warnings\. Warnings are disabled by default\. This option can be used to revert the effect of a previous \fB\-w\fR argument\.
+.
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+Show ronn version and exit\.
 .
 .SH "STYLES"
 The \fB\-\-style\fR option selects a list of CSS stylesheets to include in the generated HTML\. Styles are applied in the order defined, so each can use the cascade to override previously defined styles\.
@@ -287,7 +291,7 @@ Used instead of \fBMANPAGER\fR when \fBMANPAGER\fR is not defined\.
 \fBRonn\fR is written in Ruby and depends on hpricot and rdiscount, extension libraries that are non\-trivial to install on some systems\. A more portable version of this program would be welcome\.
 .
 .SH "COPYRIGHT"
-Ronn is Copyright (C) 2009 Ryan Tomayko <tomayko\.com/about>
+Ronn is Copyright (C) 2009 Ryan Tomayko \fIhttp://tomayko\.com/about\fR
 .
 .SH "SEE ALSO"
-ronn(5), (7), manpages(5), man(1), roff(7), groff(1), markdown(7)
+ronn(5), manpages(5), man(1), roff(7), groff(1), markdown(7)
