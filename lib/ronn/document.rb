@@ -25,6 +25,9 @@ module Ronn
     # The raw input data, read from path or stream and unmodified.
     attr_reader :data
 
+    # The index used to resolve man and file references.
+    attr_accessor :index
+
     # The man pages name: usually a single word name of
     # a program or filename; displayed along with the section in
     # the left and right portions of the header as well as the bottom
@@ -292,6 +295,7 @@ module Ronn
 
     def process_markdown!
       markdown = markdown_filter_heading_anchors(self.data)
+      markdown_filter_link_index(markdown)
       markdown_filter_angle_quotes(markdown)
     end
 
@@ -307,6 +311,14 @@ module Ronn
 
     ##
     # Filters
+
+    # Appends all index links to the end of the document as Markdown reference
+    # links. This lets us use [foo(3)][] syntax to link to index entries.
+    def markdown_filter_link_index(markdown)
+      return markdown if index.nil? || index.empty?
+      markdown << "\n\n"
+      index.each { |ref| markdown << "[#{ref.name}]: #{ref.url}\n" }
+    end
 
     # Add [id]: #ANCHOR elements to the markdown source text for all sections.
     # This lets us use the [SECTION-REF][] syntax

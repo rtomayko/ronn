@@ -12,7 +12,7 @@ module Ronn
 
     def initialize(path, attributes={}, &bk)
       @path = path
-      @attributes = attributes
+      @attributes = attributes.merge(:index => self)
       @references = []
       @manuals    = {}
 
