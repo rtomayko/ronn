@@ -78,6 +78,8 @@ module Ronn
       @styles = %w[man]
       @manual, @organization, @date = nil
       @markdown, @input_html, @html = nil
+      @index = Ronn::Index[path || '.']
+      @index.add_manual(self) if path && name
 
       attributes.each { |attr_name,value| send("#{attr_name}=", value) }
     end

@@ -7,12 +7,28 @@ module Ronn
     include Enumerable
 
     attr_reader :path
-    attr_reader :attributes
     attr_reader :references
 
-    def initialize(path, attributes={}, &bk)
+    # Retrieve an Index for <path>, where <path> is a directory or normal
+    # file. The index is loaded from the corresponding index.txt file if
+    # one exists.
+    def self.[](path)
+      (@indexes ||= {})[index_path_for_file(path)] ||=
+        Index.new(index_path_for_file(path))
+    end
+
+    def self.index_path_for_file(file)
+      File.expand_path(
+        if File.directory?(file)
+          File.join(file, 'index.txt')
+        else
+          File.join(File.dirname(file), 'index.txt')
+        end
+      )
+    end
+
+    def initialize(path, &bk)
       @path = path
-      @attributes = attributes.merge(:index => self)
       @references = []
       @manuals    = {}
 
@@ -62,9 +78,6 @@ module Ronn
       references.empty?
     end
 
-    def find_by_name(name)
-    end
-
     def [](name)
       references.find { |ref| ref.name == name }
     end
@@ -75,8 +88,8 @@ module Ronn
 
     def <<(path)
       raise ArgumentError, "local paths only" if path =~ /(https?|mailto):/
-      relative_path = relative_to_index(path)
       return self if any? { |ref| ref.path == File.expand_path(path) }
+      relative_path = relative_to_index(path)
       @references << \
         if path =~ /\.ronn?$/
           reference manual(path).reference_name, relative_path
@@ -86,8 +99,13 @@ module Ronn
       self
     end
 
+    def add_manual(manual)
+      @manuals[File.expand_path(manual.path)] = manual
+      self << manual.path
+    end
+
     def manual(path)
-      @manuals[File.expand_path(path)] ||= Document.new(path, attributes)
+      @manuals[File.expand_path(path)] ||= Document.new(path)
     end
 
     def manuals

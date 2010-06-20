@@ -159,20 +159,12 @@ if server
 end
 
 ##
-# Load up the index
-
-index_path = "#{File.dirname(ARGV.first || '.')}/index.txt"
-index = Ronn::Index.new(index_path, options)
-ARGV.each { |file| index << file }
-
-##
 # Build Pipeline
 
 pid = nil
 wr = STDOUT
-ARGV.each do |file|
-  doc = index.manual(file)
-
+documents = ARGV.map { |file| Ronn::Document.new(file, options) }
+documents.each do |doc|
   # setup the man pipeline if the --man option was specified
   if view && !build
     rd, wr = IO.pipe
@@ -219,6 +211,13 @@ ARGV.each do |file|
   end
 end
 
+# Write index.txt files
+
 if write_index
-  File.open(index.path, 'wb') { |fd| fd.puts(index.to_text) }
+  indexes = documents.map { |doc| doc.index }.uniq
+  indexes.each do |index|
+    File.open(index.path, 'wb') do |fd|
+      fd.puts(index.to_text)
+    end
+  end
 end
