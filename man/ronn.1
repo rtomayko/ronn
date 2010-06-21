@@ -7,7 +7,7 @@
 \fBronn\fR \- convert markdown files to manpages
 .
 .SH "SYNOPSIS"
-\fBronn\fR [\fIoptions\fR] \fIfile\fR\.\.\.
+\fBronn\fR [\fIformat\fR\.\.\.] \fIfile\fR\.\.\.
 .
 .br
 \fBronn\fR \fB\-m\fR|\fB\-\-man\fR \fIfile\fR\.\.\.
@@ -91,7 +91,7 @@ The name of the group, organization, or individual responsible for publishing th
 The document\'s published date; \fIdate\fR must be formatted \fBYYYY\-MM\-DD\fR and is displayed in the bottom\-center footer area\. The \fIfile\fR mtime is used when no \fIdate\fR is given, or the current time when no \fIfile\fR is available\.
 .
 .P
-HTML output can be customized variously:
+HTML output can be customized through the use of CSS stylesheets:
 .
 .TP
 \fB\-\-style\fR=\fImodule\fR[,\fImodule\fR]\.\.\.
@@ -121,10 +121,38 @@ Disable troff warnings\. Warnings are disabled by default\. This option can be u
 \fB\-v\fR, \fB\-\-version\fR
 Show ronn version and exit\.
 .
+.SH "LINK INDEXES"
+When generating HTML output, \fBronn\fR hyperlinks manual references (like \fBgrep(1)\fR, \fBls(1)\fR, \fBmarkdown(7)\fR) in source text based on reference name to URL mappings defined in an \fBindex\.txt\fR file\. Each line of the index file describes a single reference link, with whitespace separating the reference\'s \fIid\fR from its \fIlocation\fR\. Blank lines are allowed; lines beginning with a \fB#\fR character are ignored:
+.
+.IP "" 4
+.
+.nf
+
+# manuals included in this project:
+whisky(1)    whisky\.1\.ronn
+tango(5)     tango\.5\.ronn
+
+# external manuals
+grep(1)      http://man\.cx/grep(1)
+ls(1)        http://man\.cx/ls(1)
+
+# other URLs for use with markdown reference links
+src          http://github\.com/
+.
+.fi
+.
+.IP "" 0
+.
+.P
+The \fIlocation\fR is an absolute or relative URL that usually points at an HTML version of manpage\. It\'s possible to define references for things that aren\'t manpages\.
+.
+.P
+All manuals in an individual directory share the references defined in that directory\'s \fBindex\.txt\fR file\. Index references may be used explicitly in Markdown reference style links using the syntax: \fB[\fR\fItext\fR\fB][\fR\fIid\fR\fB]\fR, where \fItext\fR is the link text and \fIid\fR is a reference name defined in the index\.
+.
 .SH "STYLES"
 The \fB\-\-style\fR option selects a list of CSS stylesheets to include in the generated HTML\. Styles are applied in the order defined, so each can use the cascade to override previously defined styles\.
 .
-.SS "Internal Stylesheets"
+.SS "Builtin Stylesheets"
 These styles are included with the distribution:
 .
 .TP
@@ -171,7 +199,7 @@ The heading and footing, respectively\.
 The main \fB<h1>\fR element\. Hidden by default unless the manual has no \fIname\fR or \fIsection\fR attributes\.
 .
 .P
-See the internal style sources \fIhttp://github\.com/rtomayko/ronn/tree/master/lib/ronn/template\fR for examples\.
+See the builtin style sources \fIhttp://github\.com/rtomayko/ronn/tree/master/lib/ronn/template\fR for examples\.
 .
 .SH "EXAMPLES"
 Build roff and HTML output files and view the roff manpage using man(1):

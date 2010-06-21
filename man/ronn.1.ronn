@@ -3,7 +3,7 @@ ronn(1) -- convert markdown files to manpages
 
 ## SYNOPSIS
 
-`ronn` [<options>] <file>...<br>
+`ronn` [<format>...] <file>...<br>
 `ronn` `-m`|`--man` <file>...<br>
 `ronn` `-S`|`--server` <file>...<br>
 `ronn` `--pipe` <file><br>
@@ -103,7 +103,7 @@ the [ENVIRONMENT][].)
     displayed in the bottom-center footer area. The <file> mtime is used when no
     <date> is given, or the current time when no <file> is available.
 
-HTML output can be customized variously:
+HTML output can be customized through the use of CSS stylesheets:
 
   * `--style`=<module>[,<module>]...:
     The list of CSS stylesheets to apply to the document. Multiple <module>
@@ -133,13 +133,42 @@ Miscellaneous options:
   * `-v`, `--version`:
     Show ronn version and exit.
 
+## LINK INDEXES
+
+When generating HTML output, `ronn` hyperlinks manual references (like
+`grep(1)`, `ls(1)`, `markdown(7)`) in source text based on reference name to URL
+mappings defined in an `index.txt` file. Each line of the index file describes a
+single reference link, with whitespace separating the reference's <id> from its
+<location>. Blank lines are allowed; lines beginning with a `#` character are
+ignored:
+
+    # manuals included in this project:
+    whisky(1)    whisky.1.ronn
+    tango(5)     tango.5.ronn
+
+    # external manuals
+    grep(1)      http://man.cx/grep(1)
+    ls(1)        http://man.cx/ls(1)
+
+    # other URLs for use with markdown reference links
+    src          http://github.com/
+
+The <location> is an absolute or relative URL that usually points at an HTML
+version of manpage. It's possible to define references for things that aren't
+manpages.
+
+All manuals in an individual directory share the references defined in that
+directory's `index.txt` file. Index references may be used explicitly in
+Markdown reference style links using the syntax: `[`<text>`][`<id>`]`, where
+<text> is the link text and <id> is a reference name defined in the index.
+
 ## STYLES
 
 The `--style` option selects a list of CSS stylesheets to include in the
 generated HTML. Styles are applied in the order defined, so each can use the
 cascade to override previously defined styles.
 
-### Internal Stylesheets
+### Builtin Stylesheets
 
 These styles are included with the distribution:
 
@@ -189,10 +218,10 @@ allow targeting all generated elements:
      The main `<h1>` element. Hidden by default unless the manual has no <name>
      or <section> attributes.
 
-See the [internal style sources][internal] for examples.
+See the [builtin style sources][builtin] for examples.
 
-[internal]: http://github.com/rtomayko/ronn/tree/master/lib/ronn/template
-            "internal stylesheet sources"
+[builtin]: http://github.com/rtomayko/ronn/tree/master/lib/ronn/template
+          "Builtin Stylesheet .css files"
 
 ## EXAMPLES
 
