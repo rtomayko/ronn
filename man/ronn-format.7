@@ -23,14 +23,14 @@ A normal paragraph\. This can span multiple lines and is terminated with two
 or more line endings \-\- just like Markdown\.
 
 Inline markup for `code`, `user input`, and **strong** are displayed
-boldface; <variable>, _emphasis_, *emphasis*, are displayed in italics or
-underline\.
+boldface; <variable>, _emphasis_, *emphasis*, are displayed in italics
+(HTML) or underline (roff)\.
 
-Manual references like sh(1), markdown(7), roff(7), etc\. are displayed in
-boldface and hyperlinked in HTML output\.
+Manual references like sh(1), markdown(7), roff(7), etc\. are hyperlinked in
+HTML output\.
 
-Link to other sections like [STANDARDS][], [SEE ALSO][], or
-[WITH A DIFFERENT LINK TEXT][#SEE\-ALSO]\.
+Link to sections like [STANDARDS][], [SEE ALSO][], or [WITH A DIFFERENT LINK
+TEXT][#SEE\-ALSO]\.
 
 Definition lists:
 
@@ -39,8 +39,6 @@ Definition lists:
 
   * You can put whatever you *want* here, really:
     Nesting and paragraph spacing are respected\.
-
-Markdown ordered and unordered lists too\.
 
 Frequently used sections:
 
@@ -127,7 +125,7 @@ Also displayed in boldface\. Unlike backticks, inline markup is processed\. HTML
 .
 .TP
 \fB<anglequotes>\fR (non\-compatible markdown extension)
-User\-specified arguments, variables, or user input\. Typically displayed with \fIunderline\fR in roff output\. HTML output: \fB<\fR\.
+User\-specified arguments, variables, or user input\. Typically displayed with \fIunderline\fR in roff output\. HTML output: \fB<var/>\fR\.
 .
 .TP
 \fB_\fR\fIunderbars\fR\fB_\fR (markdown compatible)

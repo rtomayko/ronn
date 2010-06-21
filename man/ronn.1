@@ -22,25 +22,25 @@
 \fBronn\fR < \fIfile\fR
 .
 .SH "DESCRIPTION"
-\fBRonn\fR converts Markdown input to standard roff\-formatted UNIX manpages or manpage styled HTML\. The ronn(5) source format is based on markdown(7) but includes additional rules and syntax geared toward authoring manuals\.
+\fBRonn\fR converts textfiles to standard roff\-formatted UNIX manpages or HTML\. ronn\-format(7) is based on markdown(7) but includes additional rules and syntax geared toward authoring manuals\.
 .
 .P
-In its default mode, \fBronn\fR converts one or more input \fIfile\fRs to HTML or UNIX roff output files\. The \fB\-\-roff\fR, \fB\-\-html\fR, and \fB\-\-fragment\fR options dictate which output files are generated\. Multiple format arguments may be specified to generate multiple output files\. Output files are named after and written to the same directory as input \fIfile\fRs\.
+In its default mode, \fBronn\fR converts one or more input \fIfile\fRs to HTML or roff output files\. The \fB\-\-roff\fR, \fB\-\-html\fR, and \fB\-\-fragment\fR options dictate which output files are generated\. Multiple format arguments may be specified to generate multiple output files\. Output files are named after and written to the same directory as input \fIfile\fRs\.
 .
 .P
-The \fB\-\-server\fR and \fB\-\-man\fR options change the output behavior from output file generation to serving dynamically generated HTML manpages or viewing \fIfile\fR as with man(1)\.
+The \fB\-\-server\fR and \fB\-\-man\fR options change the output behavior from file generation to serving dynamically generated HTML manpages or viewing \fIfile\fR as with man(1)\.
 .
 .P
-With no \fIfile\fR arguments, \fBronn\fR acts as simple filter\. Ronn source text is read from standard input and roff output is written to standard output\. The \fB\-\-html\fR and \fB\-\-fragment\fR options can be used to generate that format output instead of roff\.
+With no \fIfile\fR arguments, \fBronn\fR acts as simple filter\. Ronn source text is read from standard input and roff output is written to standard output\. Use the \fB\-\-html\fR, \fB\-\-roff\fR, and/or \fB\-\-fragment\fR options to select the output format\.
 .
 .SH "FILES"
-The \fBronn\fR command expects input to be formatted as ronn(5) text\. Source files are typically named \'\fIname\fR\.\fIsection\fR\.ronn\' (e\.g\., \fBexample\.1\.ronn\fR)\. The \fIname\fR and \fIsection\fR should match the name and section defined in the \fIfile\fR\'s heading\.
+The \fBronn\fR command expects input to be valid ronn\-format(7) text\. Source files are typically named \fIname\fR\.\fIsection\fR\.ronn (e\.g\., \fBexample\.1\.ronn\fR)\. The \fIname\fR and \fIsection\fR should match the name and section defined in the \fIfile\fR\'s heading\.
 .
 .P
 When building roff or HTML output files, destination filenames are determined by taking the basename of the input \fIfile\fR and adding the appropriate file extension (or removing the file extension in the case of roff output)\. For example, executing \fBronn example\.1\.ronn\fR generates \fBexample\.1\fR with roff output and \fBexample\.1\.html\fR with HTML output\.
 .
 .SH "OPTIONS"
-These options control whether output is written to files, standard output, or directly to a man pager\.
+These options control whether output is written to file(s), standard output, or directly to a man pager\.
 .
 .TP
 \fB\-m\fR, \fB\-\-man\fR
@@ -294,4 +294,4 @@ Used instead of \fBMANPAGER\fR when \fBMANPAGER\fR is not defined\.
 Ronn is Copyright (C) 2009 Ryan Tomayko \fIhttp://tomayko\.com/about\fR
 .
 .SH "SEE ALSO"
-ronn(5), manpages(5), man(1), roff(7), groff(1), markdown(7)
+ronn\-format(7), manpages(5), man(1), roff(7), groff(1), markdown(7)

@@ -11,31 +11,29 @@ ronn(1) -- convert markdown files to manpages
 
 ## DESCRIPTION
 
-**Ronn** converts Markdown input to standard roff-formatted UNIX manpages or
-manpage styled HTML. The ronn(5) source format is based on markdown(7) but
-includes additional rules and syntax geared toward authoring manuals.
+**Ronn** converts textfiles to standard roff-formatted UNIX manpages or HTML.
+ronn-format(7) is based on markdown(7) but includes additional rules and syntax
+geared toward authoring manuals.
 
-In its default mode, `ronn` converts one or more input <file>s to HTML or UNIX
-roff output files. The `--roff`, `--html`, and `--fragment` options dictate
-which output files are generated. Multiple format arguments may be specified to
+In its default mode, `ronn` converts one or more input <file>s to HTML or roff
+output files. The `--roff`, `--html`, and `--fragment` options dictate which
+output files are generated. Multiple format arguments may be specified to
 generate multiple output files. Output files are named after and written to the
 same directory as input <file>s.
 
-The `--server` and `--man` options change the output behavior from output file
+The `--server` and `--man` options change the output behavior from file
 generation to serving dynamically generated HTML manpages or viewing <file> as
 with man(1).
 
 With no <file> arguments, `ronn` acts as simple filter. Ronn source text is read
-from standard input and roff output is written to standard output. The `--html`
-and `--fragment` options can be used to generate that format output instead of
-roff.
+from standard input and roff output is written to standard output. Use the
+`--html`, `--roff`, and/or `--fragment` options to select the output format.
 
 ## FILES
 
-The `ronn` command expects input to be formatted as ronn(5) text.  Source
-files are typically named '<name>.<section>.ronn' (e.g., `example.1.ronn`).
-The <name> and <section> should match the name and section defined in the
-<file>'s heading.
+The `ronn` command expects input to be valid ronn-format(7) text.  Source files
+are typically named <name>.<section>.ronn (e.g., `example.1.ronn`).  The <name>
+and <section> should match the name and section defined in the <file>'s heading.
 
 When building roff or HTML output files, destination filenames are determined by
 taking the basename of the input <file> and adding the appropriate file
@@ -45,7 +43,7 @@ and `example.1.html` with HTML output.
 
 ## OPTIONS
 
-These options control whether output is written to files, standard output, or
+These options control whether output is written to file(s), standard output, or
 directly to a man pager.
 
   * `-m`, `--man`:
@@ -275,4 +273,4 @@ Ronn is Copyright (C) 2009 Ryan Tomayko <http://tomayko.com/about>
 
 ## SEE ALSO
 
-ronn(5), manpages(5), man(1), roff(7), groff(1), markdown(7)
+ronn-format(7), manpages(5), man(1), roff(7), groff(1), markdown(7)
