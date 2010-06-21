@@ -1,6 +1,40 @@
 Ronn CHANGES
 ============
 
+Version 0.7.0 (2010 June 21)
+----------------------------
+
+* HTML: Manual references (like 'grep(1)', 'ls(1)', etc.) are now hyperlinked
+  based on a set of name -> URL mappings defined in an index.txt file. The index
+  may also define links to things that aren't manuals for use in markdown
+  reference-style links. See the ronn(1) manual on LINK INDEXES for more
+  inforation: <http://rtomayko.github.com/ronn/ronn.1.html#LINK-INDEXES>
+  (rtomayko)
+
+* ROFF: Fixed a bug where multiple dot characters (.) at the beginning of a
+  line were not being escaped properly and were not displayed when viewed
+  in the terminal. (rtomayko)
+
+* ROFF: Non-breaking space characters (&nbsp;) can now be used to control line
+  wrap in roff output. (rtomayko)
+
+* ROFF: Named HTML entities like &bull;, &trade;, &copy;, and &mdash; are now
+  converted to their roff escaped equivalents. (rtomayko)
+
+* An undocumented --markdown format option argument has been added to ronn(1).
+  When given, ronn generates a <name>.<section>.markdown file with the
+  post-processed markdown text. This is mostly useful for debugging but may be
+  useful for converting ronn-format to 100% compatible markdown text.
+  (rtomayko)
+
+* The ronn(5) manpage is now known as ronn-format(7) (section 5 is limited
+  to configuration files and stuff like that historically). The old ronn(7)
+  manpage, which was really just the README, has been removed.
+  (rtomayko)
+
+* Performance improvements. Fixed a few cases where HTML was being reparsed
+  needlessly, tuned dom selectors, ... (rtomayko)
+
 Version 0.6.6 (2010 June 13)
 ----------------------------
 
