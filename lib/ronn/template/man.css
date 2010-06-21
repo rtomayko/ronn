@@ -55,16 +55,16 @@ body#manpage                        { margin:0 }
 .mp pre code, .mp tt, .mp kbd,
 .mp samp                            { color:#131211 }
 .mp h1, .mp h2, .mp h3, .mp h4      { color:#030201 }
-.mp ol.man, .mp ol.man li           { color:#636261 }
+.mp u                               { text-decoration:underline; }
 
 .mp code, .mp strong, .mp b {
     font-weight:bold;
     color:#131211;
 }
 
-.mp em, .mp var, .mp u {
+.mp em, .mp var {
     font-style:italic;
-    color:#434241;
+    color:#232221;
     text-decoration:none;
 }
 
@@ -78,9 +78,9 @@ body#manpage                        { margin:0 }
 
 /* PREFORMATTED BLOCKS */
 
-.mp pre                             { padding:0 4ex }
-.mp pre code                        { font-weight:normal;color:#666 }
-.mp h2 + pre, h3 + pre              { padding-left:0 }
+.mp pre                            { padding:0 4ex }
+.mp pre code                       { font-weight:normal;color:#434241 }
+.mp h2+pre, h3+pre                 { padding-left:0 }
 
 /* DOCUMENT HEADER AND FOOTER AREAS */
 
