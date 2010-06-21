@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.6.42 (http://github.com/rtomayko/ronn/tree/0.6.6-36-gb67d494)'>
+  <meta name='generator' value='Ronn/v0.7.0 (http://github.com/rtomayko/ronn/tree/0.7.0)'>
   <title>ronn(1) - convert markdown files to manpages</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -27,14 +27,14 @@
   .mp {text-align:justify;background:#fff}
   .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
   .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
-  .mp ol.man,.mp ol.man li {color:#636261}
+  .mp u {text-decoration:underline}
   .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
-  .mp em,.mp var,.mp u {font-style:italic;color:#434241;text-decoration:none}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
   .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
   .mp b.man-ref {font-weight:normal;color:#434241}
   .mp pre {padding:0 4ex}
-  .mp pre code {font-weight:normal;color:#666}
-  .mp h2 +pre,h3 +pre {padding-left:0}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
   ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
   ol.man-decor {width:100%}
   ol.man-decor li.tl {text-align:left}
@@ -64,6 +64,7 @@
     <a href="#DESCRIPTION">DESCRIPTION</a>
     <a href="#FILES">FILES</a>
     <a href="#OPTIONS">OPTIONS</a>
+    <a href="#LINK-INDEXES">LINK INDEXES</a>
     <a href="#STYLES">STYLES</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#ENVIRONMENT">ENVIRONMENT</a>
@@ -74,7 +75,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>ronn(1)</li>
-    <li class='tc'>Ronn 0.6.42</li>
+    <li class='tc'>Ronn Manual</li>
     <li class='tr'>ronn(1)</li>
   </ol>
 
@@ -85,7 +86,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>ronn</code> [<var>options</var>] <var>file</var>...<br />
+<p><code>ronn</code> [<var>format</var>...] <var>file</var>...<br />
 <code>ronn</code> <code>-m</code>|<code>--man</code> <var>file</var>...<br />
 <code>ronn</code> <code>-S</code>|<code>--server</code> <var>file</var>...<br />
 <code>ronn</code> <code>--pipe</code> <var>file</var><br />
@@ -93,31 +94,29 @@
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p><strong>Ronn</strong> converts Markdown input to standard roff-formatted UNIX manpages or
-manpage styled HTML. The <a href="ronn.5.html" class="man-ref">ronn<span class="s">(5)</span></a> source format is based on <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> but
-includes additional rules and syntax geared toward authoring manuals.</p>
+<p><strong>Ronn</strong> converts textfiles to standard roff-formatted UNIX manpages or HTML.
+<a href="ronn-format.7.html" class="man-ref">ronn-format<span class="s">(7)</span></a> is based on <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> but includes additional rules and syntax
+geared toward authoring manuals.</p>
 
-<p>In its default mode, <code>ronn</code> converts one or more input <var>file</var>s to HTML or UNIX
-roff output files. The <code>--roff</code>, <code>--html</code>, and <code>--fragment</code> options dictate
-which output files are generated. Multiple format arguments may be specified to
+<p>In its default mode, <code>ronn</code> converts one or more input <var>file</var>s to HTML or roff
+output files. The <code>--roff</code>, <code>--html</code>, and <code>--fragment</code> options dictate which
+output files are generated. Multiple format arguments may be specified to
 generate multiple output files. Output files are named after and written to the
 same directory as input <var>file</var>s.</p>
 
-<p>The <code>--server</code> and <code>--man</code> options change the output behavior from output file
+<p>The <code>--server</code> and <code>--man</code> options change the output behavior from file
 generation to serving dynamically generated HTML manpages or viewing <var>file</var> as
 with <a href="http://man.cx/man(1)" class="man-ref">man<span class="s">(1)</span></a>.</p>
 
 <p>With no <var>file</var> arguments, <code>ronn</code> acts as simple filter. Ronn source text is read
-from standard input and roff output is written to standard output. The <code>--html</code>
-and <code>--fragment</code> options can be used to generate that format output instead of
-roff.</p>
+from standard input and roff output is written to standard output. Use the
+<code>--html</code>, <code>--roff</code>, and/or <code>--fragment</code> options to select the output format.</p>
 
 <h2 id="FILES">FILES</h2>
 
-<p>The <code>ronn</code> command expects input to be formatted as <a href="ronn.5.html" class="man-ref">ronn<span class="s">(5)</span></a> text.  Source
-files are typically named '<var>name</var>.<var>section</var>.ronn' (e.g., <code>example.1.ronn</code>).
-The <var>name</var> and <var>section</var> should match the name and section defined in the
-<var>file</var>'s heading.</p>
+<p>The <code>ronn</code> command expects input to be valid <a href="ronn-format.7.html" class="man-ref">ronn-format<span class="s">(7)</span></a> text.  Source files
+are typically named <var>name</var>.<var>section</var>.ronn (e.g., <code>example.1.ronn</code>).  The <var>name</var>
+and <var>section</var> should match the name and section defined in the <var>file</var>'s heading.</p>
 
 <p>When building roff or HTML output files, destination filenames are determined by
 taking the basename of the input <var>file</var> and adding the appropriate file
@@ -127,7 +126,7 @@ and <code>example.1.html</code> with HTML output.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>These options control whether output is written to files, standard output, or
+<p>These options control whether output is written to file(s), standard output, or
 directly to a man pager.</p>
 
 <dl>
@@ -181,7 +180,7 @@ displayed in the bottom-center footer area. The <var>file</var> mtime is used wh
 </dl>
 
 
-<p>HTML output can be customized variously:</p>
+<p>HTML output can be customized through the use of CSS stylesheets:</p>
 
 <dl>
 <dt><code>--style</code>=<var>module</var>[,<var>module</var>]...</dt><dd><p>The list of CSS stylesheets to apply to the document. Multiple <var>module</var>
@@ -211,13 +210,43 @@ used to revert the effect of a previous <code>-w</code> argument.</p></dd>
 </dl>
 
 
+<h2 id="LINK-INDEXES">LINK INDEXES</h2>
+
+<p>When generating HTML output, <code>ronn</code> hyperlinks manual references (like
+<code>grep(1)</code>, <code>ls(1)</code>, <code>markdown(7)</code>) in source text based on reference name to URL
+mappings defined in an <code>index.txt</code> file. Each line of the index file describes a
+single reference link, with whitespace separating the reference's <var>id</var> from its
+<var>location</var>. Blank lines are allowed; lines beginning with a <code>#</code> character are
+ignored:</p>
+
+<pre><code># manuals included in this project:
+whisky(1)    whisky.1.ronn
+tango(5)     tango.5.ronn
+
+# external manuals
+grep(1)      http://man.cx/grep(1)
+ls(1)        http://man.cx/ls(1)
+
+# other URLs for use with markdown reference links
+src          http://github.com/
+</code></pre>
+
+<p>The <var>location</var> is an absolute or relative URL that usually points at an HTML
+version of manpage. It's possible to define references for things that aren't
+manpages.</p>
+
+<p>All manuals in an individual directory share the references defined in that
+directory's <code>index.txt</code> file. Index references may be used explicitly in
+Markdown reference style links using the syntax: <code>[</code><var>text</var><code>][</code><var>id</var><code>]</code>, where
+<var>text</var> is the link text and <var>id</var> is a reference name defined in the index.</p>
+
 <h2 id="STYLES">STYLES</h2>
 
 <p>The <code>--style</code> option selects a list of CSS stylesheets to include in the
 generated HTML. Styles are applied in the order defined, so each can use the
 cascade to override previously defined styles.</p>
 
-<h3 id="Internal-Stylesheets">Internal Stylesheets</h3>
+<h3 id="Builtin-Stylesheets">Builtin Stylesheets</h3>
 
 <p>These styles are included with the distribution:</p>
 
@@ -255,7 +284,7 @@ allow targeting all generated elements:</p>
 </dl>
 
 
-<p>See the <a href="http://github.com/rtomayko/ronn/tree/master/lib/ronn/template" title="internal stylesheet sources">internal style sources</a> for examples.</p>
+<p>See the <a href="http://github.com/rtomayko/ronn/tree/master/lib/ronn/template" title="Builtin Stylesheet .css files">builtin style sources</a> for examples.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -333,11 +362,11 @@ version of this program would be welcome.</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p><a href="ronn.5.html" class="man-ref">ronn<span class="s">(5)</span></a>, <a href="http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man5/manpages.5.html" class="man-ref">manpages<span class="s">(5)</span></a>, <a href="http://man.cx/man(1)" class="man-ref">man<span class="s">(1)</span></a>, <a href="http://man.cx/roff(7)" class="man-ref">roff<span class="s">(7)</span></a>, <a href="http://man.cx/groff(1)" class="man-ref">groff<span class="s">(1)</span></a>, <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a></p>
+<p><a href="ronn-format.7.html" class="man-ref">ronn-format<span class="s">(7)</span></a>, <a href="http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man5/manpages.5.html" class="man-ref">manpages<span class="s">(5)</span></a>, <a href="http://man.cx/man(1)" class="man-ref">man<span class="s">(1)</span></a>, <a href="http://man.cx/roff(7)" class="man-ref">roff<span class="s">(7)</span></a>, <a href="http://man.cx/groff(1)" class="man-ref">groff<span class="s">(1)</span></a>, <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a></p>
 
 
   <ol class='man-decor man-foot man foot'>
-    <li class='tl'>0.6.6-36-gb67d494</li>
+    <li class='tl'>Ronn 0.7.0</li>
     <li class='tc'>June 2010</li>
     <li class='tr'>ronn(1)</li>
   </ol>

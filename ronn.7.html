@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
   <meta name='generator' value='Ronn/v0.6.42 (http://github.com/rtomayko/ronn/tree/0.6.6-36-gb67d494)'>
-  <title>ronn(7) - the opposite of roff</title>
+  <title>ronn-format(7) - manual authoring format based on Markdown</title>
   <style type='text/css' media='all'>
   /* style: man */
   body#manpage {margin:0}
@@ -27,14 +27,14 @@
   .mp {text-align:justify;background:#fff}
   .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
   .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
-  .mp ol.man,.mp ol.man li {color:#636261}
+  .mp u {text-decoration:underline}
   .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
-  .mp em,.mp var,.mp u {font-style:italic;color:#434241;text-decoration:none}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
   .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
   .mp b.man-ref {font-weight:normal;color:#434241}
   .mp pre {padding:0 4ex}
-  .mp pre code {font-weight:normal;color:#666}
-  .mp h2 +pre,h3 +pre {padding-left:0}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
   ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
   ol.man-decor {width:100%}
   ol.man-decor li.tl {text-align:left}
@@ -60,156 +60,190 @@
 
   <div class='man-navigation' style='display:none'>
     <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
-    <a href="#DOCUMENTATION">DOCUMENTATION</a>
-    <a href="#INSTALL">INSTALL</a>
-    <a href="#BASIC-USAGE">BASIC USAGE</a>
-    <a href="#ABOUT">ABOUT</a>
-    <a href="#COPYING">COPYING</a>
+    <a href="#MANPAGE-TITLE">MANPAGE TITLE</a>
+    <a href="#SECTION-HEADINGS">SECTION HEADINGS</a>
+    <a href="#INLINE-MARKUP">INLINE MARKUP</a>
+    <a href="#DEFINITION-LISTS">DEFINITION LISTS</a>
+    <a href="#LINKS">LINKS</a>
     <a href="#SEE-ALSO">SEE ALSO</a>
     </div>
 
   <ol class='man-decor man-head man head'>
-    <li class='tl'>ronn(7)</li>
+    <li class='tl'>ronn-format(7)</li>
     <li class='tc'>Ronn 0.6.42</li>
-    <li class='tr'>ronn(7)</li>
+    <li class='tr'>ronn-format(7)</li>
   </ol>
 
   <h2 id="NAME">NAME</h2>
 <p class="man-name">
-  <code>ronn</code> - <span class="man-whatis">the opposite of roff</span>
+  <code>ronn-format</code> - <span class="man-whatis">manual authoring format based on Markdown</span>
 </p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<pre><code>name(1) -- short, single-sentence description
+=============================================
+
+## SYNOPSIS
+
+`name` [&lt;optional>...] &lt;flags>
+
+## DESCRIPTION
+
+A normal paragraph. This can span multiple lines and is terminated with two
+or more line endings -- just like Markdown.
+
+Inline markup for `code`, `user input`, and **strong** are displayed
+boldface; &lt;variable>, _emphasis_, *emphasis*, are displayed in italics
+(HTML) or underline (roff).
+
+Manual references like sh(1), markdown(7), roff(7), etc. are hyperlinked in
+HTML output.
+
+Link to sections like [STANDARDS][], [SEE ALSO][], or [WITH A DIFFERENT LINK
+TEXT][#SEE-ALSO].
+
+Definition lists:
+
+  * `-a`, `--argument`=[&lt;value>]:
+    One or more paragraphs describing the argument.
+
+  * You can put whatever you *want* here, really:
+    Nesting and paragraph spacing are respected.
+
+Frequently used sections:
+
+## OPTIONS
+## SYNTAX
+## ENVIRONMENT
+## RETURN VALUES
+## STANDARDS
+## SECURITY CONSIDERATIONS
+## BUGS
+## HISTORY
+## AUTHOR
+## COPYRIGHT
+## SEE ALSO
+</code></pre>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>Ronn is a text format and toolchain for creating UNIX manpages. It converts
-markdown to standard UNIX roff manpages and formatted HTML manuals for the web.</p>
+<p>The <a href="ronn.1.html" class="man-ref">ronn<span class="s">(1)</span></a> command converts text in a simple markup to UNIX manual pages. The
+syntax includes all Markdown formatting features, plus conventions for
+expressing the structure and various notations present in standard UNIX
+manpages.</p>
 
-<p>The source format includes all of Markdown but has a more rigid structure and
-includes extensions that provide features commonly found in manpages (definition
-lists, link notation, etc.). The <a href="ronn.5.html" class="man-ref">ronn<span class="s">(5)</span></a> manual page defines the format in
-detail.</p>
+<p>Not all <a href="http://man.cx/roff(7)" class="man-ref">roff<span class="s">(7)</span></a> typesetting features can be expressed using ronn syntax.</p>
 
-<h2 id="DOCUMENTATION">DOCUMENTATION</h2>
+<h2 id="MANPAGE-TITLE">MANPAGE TITLE</h2>
 
-<p>The <code>.ronn</code> files located under the <code>man/</code> directory show off a wide range of
-ronn capabilities and are the source of Ronn's own documentation.  The source
-files and generated HTML / roff output files are available at:</p>
+<p>Manpages have a <var>name</var>, <var>section</var>, and a one-line <var>description</var>. Files must
+start with a level one heading defining these attributes:</p>
 
-<ul>
-<li><p><a href="http://rtomayko.github.com/ronn/ronn.1">ronn(1)</a> -
-convert markdown files to manpages.<br />
-<a href="http://github.com/rtomayko/ronn/blob/master/man/ronn.1.ronn">source file</a>,
-<a href="http://github.com/rtomayko/ronn/blob/master/man/ronn.1">roff output</a></p></li>
-<li><p><a href="http://rtomayko.github.com/ronn/ronn.5">ronn(5)</a> -
-markdown-based text format for authoring manpages<br />
-<a href="http://github.com/rtomayko/ronn/blob/master/man/ronn.5.ronn">source file</a>,
-<a href="http://github.com/rtomayko/ronn/blob/master/man/ronn.5">roff output</a></p></li>
-</ul>
-
-
-<h2 id="INSTALL">INSTALL</h2>
-
-<p>Install with Rubygems:</p>
-
-<pre><code>$ [sudo] gem install ronn
-$ ronn --help
+<pre><code>ls(1) -- list directory contents
+================================
 </code></pre>
 
-<p>Or, clone the git repository:</p>
+<p>Indicates that the manpage is named <code>ls</code> in manual section <code>1</code> ("user
+commands").</p>
 
-<pre><code>$ git clone git://github.com/rtomayko/ronn.git
-$ PATH=ronn/bin:$PATH
-$ ronn --help
+<h2 id="SECTION-HEADINGS">SECTION HEADINGS</h2>
+
+<p>Man section headings are expressed with markdown level two headings. There
+are two syntaxes for level two headings.</p>
+
+<p>Hash prefix syntax:</p>
+
+<pre><code>## HEADING TEXT
 </code></pre>
 
-<h2 id="BASIC-USAGE">BASIC USAGE</h2>
+<p>Dash underline syntax:</p>
 
-<p>Build roff and HTML output files for one or more input files:</p>
-
-<pre><code>$ ronn man/ronn.5.ronn
-roff: man/ronn.5
-html: man/ronn.5.html
+<pre><code>HEADING TEXT
+------------
 </code></pre>
 
-<p>View a roff manpage with <a href="http://man.cx/man(1)" class="man-ref">man<span class="s">(1)</span></a>:</p>
+<p>Section headings should be all uppercase and may not contain inline markup.</p>
 
-<pre><code>$ man man/ronn.5
+<h2 id="INLINE-MARKUP">INLINE MARKUP</h2>
+
+<p>Manpages have a limited set of text formatting capabilities. There's basically
+<b>boldface</b> and <i>italics</i> (often displayed using <u>underline</u>).
+Ronn uses the following bits of <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> to accomplish this:</p>
+
+<dl>
+<dt><code>`backticks`</code> (markdown compatible)</dt><dd><p>Code, flags, commands, and noun-like things; typically displayed in in
+<b>boldface</b>. All text included within <code>backticks</code> is displayed
+literally; other inline markup is not processed. HTML output:
+<code>&lt;code&gt;</code>.</p></dd>
+<dt><code>**double-stars**</code> (markdown compatible)</dt><dd><p>Also displayed in boldface. Unlike backticks, inline markup is processed.
+HTML output: <code>&lt;strong&gt;</code>.</p></dd>
+<dt><code>&lt;anglequotes></code> (non-compatible markdown extension)</dt><dd><p>User-specified arguments, variables, or user input. Typically displayed with
+<u>underline</u> in roff output. HTML output: <code>&lt;var/&gt;</code>.</p></dd>
+<dt><code>_</code><em>underbars</em><code>_</code> (markdown compatible)</dt><dd><p>Emphasis. May be used for literal option values. Typically displayed with
+<u>underline</u> in roff output. HTML output: <code>&lt;em&gt;</code>.</p></dd>
+</dl>
+
+
+<p>Here is <a href="http://man.cx/grep(1)" class="man-ref">grep<span class="s">(1)</span></a>'s DESCRIPTION section represented in <code>ronn</code>:</p>
+
+<pre><code>`Grep` searches the named input &lt;FILE> (or standard input if
+no files are named, or the file name `-` is given) for lines
+containing a match to the given &lt;PATTERN>. By default, `grep`
+prints the matching lines.
 </code></pre>
 
-<p>Generate only a standalone HTML version of one or more files:</p>
+<h2 id="DEFINITION-LISTS">DEFINITION LISTS</h2>
 
-<pre><code>$ ronn --html man/markdown.5.ronn
-html: man/markdown.5.html
+<p>The definition list syntax is compatible with markdown's unordered list syntax
+but requires that the first line of each list item be terminated with a colon
+"<code>:</code>" character. The contents of the first line is the <var>term</var>; subsequent lines
+may be comprised of multiple paragraphs, code blocks, standard lists, and nested
+definition lists.</p>
+
+<p>An example definition list, taken from BSD <a href="http://man.cx/test(1)" class="man-ref">test<span class="s">(1)</span></a>'s <em>DESCRIPTION</em> section:</p>
+
+<pre><code> The following primaries are used to construct expressions:
+
+   * `-b` &lt;file>:
+     True if &lt;file> exists and is a block special file.
+
+   * `-c` &lt;file>:
+     True if _file_ exists and is a character special file.
+
+   * `-d` &lt;file>:
+     True if file exists and is a directory.
 </code></pre>
 
-<p>Build roff versions of all ronn files in a directory:</p>
+<h2 id="LINKS">LINKS</h2>
 
-<pre><code>$ ronn --roff man/*.ronn
+<p>All <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> linking features are supported.</p>
+
+<p>Markdown reference-style links can be used to link to specific sections by name:</p>
+
+<pre><code>## SECTION 1
+
+See the following section.
+
+## SECTION 2
+
+See [SECTION 1][] or [to put it another way][SECTION 1].
 </code></pre>
 
-<p>View a ronn file as if it were a manpage without building intermediate files:</p>
-
-<pre><code>$ ronn --man man/markdown.5.ronn
-</code></pre>
-
-<p>The <a href="http://rtomayko.github.com/ronn/ronn.1">ronn(1)</a> manual page includes
-comprehensive documentation on <code>ronn</code> command line options.</p>
-
-<h2 id="ABOUT">ABOUT</h2>
-
-<p>Some people say UNIX manual pages are a poor and outdated style of
-documentation. I disagree:</p>
-
-<ul>
-<li><p>Man pages follow a well defined structure that's immediately familiar. This
-provides developers with a useful starting point when documenting new tools,
-libraries, and formats.</p></li>
-<li><p>Man pages get to the point. Because they're written in an inverted style, with
-a SYNOPSIS section followed by additional detail, prose and references to
-other sources of information, man pages provide the best of both cheat sheet
-and reference style documentation.</p></li>
-<li><p>Man pages have extremely -- unbelievably -- limited text formatting
-capabilities. You get a couple of headings, lists, bold, underline and no
-more. This is a feature.</p></li>
-<li><p>Although two levels of section hierarchy are technically supported, most man
-pages use only a single level. Unwieldy document hierarchies complicate
-otherwise good documentation.  Feynman covered all of physics -- heavenly
-bodies through QED -- with only two levels of document hierarchy (<em>The Feynman
-Lectures on Physics</em>, 1970).</p></li>
-<li><p>Man pages have a simple referencing syntax; e.g., <a href="http://man.cx/sh(1posix)" class="man-ref">sh<span class="s">(1)</span></a>, <a href="http://man.cx/fork(2)" class="man-ref">fork<span class="s">(2)</span></a>, <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a>.
-HTML versions can use this to generate links between pages.</p></li>
-<li><p>The classical terminal man page display is typographically well thought out.
-Big bold section headings, justified monospace text, nicely indented
-paragraphs, intelligently aligned definition lists, and an informational
-header and footer.</p></li>
-</ul>
-
-
-<p>Unfortunately, figuring out how to create a manpage is a fairly tedious process.
-The roff/man macro languages are highly extensible, fractured between multiple
-dialects, and include a bunch of device specific stuff irrelevant to modern
-publishing tools.</p>
-
-<p>Ronn aims to address many of the issues with manpage creation while preserving
-the things that makes manpages a great form of documentation.</p>
-
-<h2 id="COPYING">COPYING</h2>
-
-<p>Ronn is Copyright (C) 2009 <a href="http://tomayko.com/about">Ryan Tomayko</a><br />
-See the file COPYING for information of licensing and distribution.</p>
+<p>The anchor name would be <code>#SECTION-1</code> and <code>#SECTION-2</code>. All non-word characters
+are removed and spaces are replaced by dashes.</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p><a href="http://rtomayko.github.com/ronn/ronn.1">ronn(1)</a>,
-<a href="http://rtomayko.github.com/ronn/ronn.5">ronn(5)</a>,
-<a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a></p>
+<p><a href="ronn.1.html" class="man-ref">ronn<span class="s">(1)</span></a>, <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a>, <a href="http://man.cx/roff(7)" class="man-ref">roff<span class="s">(7)</span></a></p>
 
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'>0.6.6-36-gb67d494</li>
     <li class='tc'>June 2010</li>
-    <li class='tr'>ronn(7)</li>
+    <li class='tr'>ronn-format(7)</li>
   </ol>
 
   </div>
