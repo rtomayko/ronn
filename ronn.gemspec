@@ -3,11 +3,12 @@ Gem::Specification.new do |s|
   s.version = '0.7.0'
   s.date = '2010-06-21'
 
-  s.description = "The opposite of roff"
-  s.summary     = "The opposite of roff"
+  s.description = "Builds manuals"
+  s.summary     = "Builds manuals"
+  s.homepage    = "http://rtomayko.github.com/ronn"
 
-  s.authors = ["Ryan Tomayko"]
-  s.email = "rtomayko@gmail.com"
+  s.authors     = ["Ryan Tomayko"]
+  s.email       = "rtomayko@gmail.com"
 
   # = MANIFEST =
   s.files = %w[
@@ -87,7 +88,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'mustache',    '>= 0.7.0'
 
   s.has_rdoc = true
-  s.homepage = "http://github.com/rtomayko/ronn/"
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Ronn"]
   s.require_paths = %w[lib]
   s.rubygems_version = '1.1.1'
