@@ -65,9 +65,8 @@ task :pages => :man do
       cd pages
       git reset --hard $rev
       rm -f ronn*.html index.html
-      cp -rp ../man/ronn*.html ./
-      cp -p ronn.7.html index.html
-      git add -u ronn*.html index.html
+      cp -rp ../man/ronn*.html ../man/index.txt ../man/index.html ./
+      git add -u ronn*.html index.html index.txt
       git commit -m 'rebuild manual'
       git push #{push_url} gh-pages
     ", :verbose => false

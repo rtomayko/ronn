@@ -1,0 +1,18 @@
+Ronn is currently distributed mainly as a gem package. Install with rubygems:
+
+    $ gem install ronn
+    $ ronn --help
+
+Tarballs available at: <http://github.com/rtomayko/ronn/downloads>
+
+    $ curl -L http://github.com/rtomayko/ronn/downloads/0.6.6 | tar xvzf -
+    $ cd rtomayko-r*
+    $ ruby setup.rb
+
+The hpricot, mustache, and rdiscount packages are required.
+
+Hacking? Clone the git repository and put ronn/bin on your PATH:
+
+    $ git clone git://github.com/rtomayko/ronn.git
+    $ PATH=$(pwd)/ronn/bin:$PATH
+    $ ronn --help
