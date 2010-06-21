@@ -15,6 +15,7 @@
 #/   -r, --roff                generate roff output
 #/   -5, --html                generate entire HTML page with layout
 #/   -f, --fragment            generate HTML fragment
+#/       --markdown            generate post-processed markdown output
 #/
 #/ Document attributes:
 #/       --date=<date>          published date in YYYY-MM-DD format (bottom-center)
@@ -22,7 +23,6 @@
 #/       --organization=<name>  publishing group or individual (bottom-left)
 #/
 #/ Misc options:
-#/   -i, --index               generate manual index
 #/   -w, --warnings            show troff warnings on stderr
 #/   -W                        disable previously enabled troff warnings
 #/       --version             show ronn version and exit
