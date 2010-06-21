@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'ronn'
-  s.version = '0.6.6'
-  s.date = '2010-06-13'
+  s.version = '0.7.0'
+  s.date = '2010-06-21'
 
   s.description = "The opposite of roff"
   s.summary     = "The opposite of roff"
@@ -14,12 +14,14 @@ Gem::Specification.new do |s|
     AUTHORS
     CHANGES
     COPYING
+    INSTALLING
     README.md
     Rakefile
     bin/ronn
     config.ru
     lib/ronn.rb
     lib/ronn/document.rb
+    lib/ronn/index.rb
     lib/ronn/roff.rb
     lib/ronn/server.rb
     lib/ronn/template.rb
@@ -32,12 +34,12 @@ Gem::Specification.new do |s|
     lib/ronn/template/screen.css
     lib/ronn/template/toc.css
     lib/ronn/utils.rb
+    man/index.html
+    man/index.txt
+    man/ronn-format.7
+    man/ronn-format.7.ronn
     man/ronn.1
     man/ronn.1.ronn
-    man/ronn.5
-    man/ronn.5.ronn
-    man/ronn.7
-    man/ronn.7.ronn
     ronn.gemspec
     test/angle_bracket_syntax.html
     test/angle_bracket_syntax.ronn
@@ -49,10 +51,12 @@ Gem::Specification.new do |s|
     test/definition_list_syntax.html
     test/definition_list_syntax.roff
     test/definition_list_syntax.ronn
-    test/document_test.rb
+    test/dots_at_line_start_test.roff
+    test/dots_at_line_start_test.ronn
     test/entity_encoding_test.html
     test/entity_encoding_test.roff
     test/entity_encoding_test.ronn
+    test/index.txt
     test/markdown_syntax.html
     test/markdown_syntax.roff
     test/markdown_syntax.ronn
@@ -61,10 +65,12 @@ Gem::Specification.new do |s|
     test/middle_paragraph.ronn
     test/missing_spaces.roff
     test/missing_spaces.ronn
-    test/ronn_test.rb
     test/section_reference_links.html
     test/section_reference_links.roff
     test/section_reference_links.ronn
+    test/test_ronn.rb
+    test/test_ronn_document.rb
+    test/test_ronn_index.rb
     test/titleless_document.html
     test/titleless_document.ronn
     test/underline_spacing_test.roff
