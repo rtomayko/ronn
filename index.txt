@@ -1,0 +1,15 @@
+# manuals
+ronn(1)     ronn.1.ronn
+ronn(5)     ronn.5.ronn
+ronn(7)     ronn.7.ronn
+
+# external manuals
+roff(7)     http://man.cx/roff(7)
+grep(1)     http://man.cx/grep(1)
+groff(1)    http://man.cx/groff(1)
+sh(1)       http://man.cx/sh(1posix)
+test(1)     http://man.cx/test(1)
+fork(2)     http://man.cx/fork(2)
+man(1)      http://man.cx/man(1)
+markdown(7) http://daringfireball.net/projects/markdown/syntax
+manpages(5) http://developer.apple.com/mac/library/documentation/Darwin/Reference/ManPages/man5/manpages.5.html
