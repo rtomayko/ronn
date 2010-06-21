@@ -448,7 +448,7 @@ module Ronn
             if ref = index["#{name}#{sect}"]
               "<a class='man-ref' href='#{ref.url}'>#{name}<span class='s'>#{sect}</span></a>"
             else
-              warn "warn: manual reference not defined: '#{name}#{sect}'"
+              # warn "warn: manual reference not defined: '#{name}#{sect}'"
               "<span class='man-ref'>#{name}<span class='s'>#{sect}</span></span>"
             end
           }
