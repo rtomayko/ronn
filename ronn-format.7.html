@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.6.42 (http://github.com/rtomayko/ronn/tree/0.6.6-36-gb67d494)'>
-  <title>ronn(5) - markdown-based text format for authoring manpages</title>
+  <meta name='generator' value='Ronn/v0.7.0 (http://github.com/rtomayko/ronn/tree/0.7.0)'>
+  <title>ronn-format(7) - manual authoring format based on Markdown</title>
   <style type='text/css' media='all'>
   /* style: man */
   body#manpage {margin:0}
@@ -27,14 +27,14 @@
   .mp {text-align:justify;background:#fff}
   .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
   .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
-  .mp ol.man,.mp ol.man li {color:#636261}
+  .mp u {text-decoration:underline}
   .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
-  .mp em,.mp var,.mp u {font-style:italic;color:#434241;text-decoration:none}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
   .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
   .mp b.man-ref {font-weight:normal;color:#434241}
   .mp pre {padding:0 4ex}
-  .mp pre code {font-weight:normal;color:#666}
-  .mp h2 +pre,h3 +pre {padding-left:0}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
   ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
   ol.man-decor {width:100%}
   ol.man-decor li.tl {text-align:left}
@@ -71,14 +71,14 @@
     </div>
 
   <ol class='man-decor man-head man head'>
-    <li class='tl'>ronn(5)</li>
-    <li class='tc'>Ronn 0.6.42</li>
-    <li class='tr'>ronn(5)</li>
+    <li class='tl'>ronn-format(7)</li>
+    <li class='tc'>Ronn Manual</li>
+    <li class='tr'>ronn-format(7)</li>
   </ol>
 
   <h2 id="NAME">NAME</h2>
 <p class="man-name">
-  <code>ronn</code> - <span class="man-whatis">markdown-based text format for authoring manpages</span>
+  <code>ronn-format</code> - <span class="man-whatis">manual authoring format based on Markdown</span>
 </p>
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
@@ -96,23 +96,22 @@ A normal paragraph. This can span multiple lines and is terminated with two
 or more line endings -- just like Markdown.
 
 Inline markup for `code`, `user input`, and **strong** are displayed
-boldface; &lt;variable>, _emphasis_, *emphasis*, are displayed in italics or
-underline.
+boldface; &lt;variable>, _emphasis_, *emphasis*, are displayed in italics
+(HTML) or underline (roff).
 
-Manual references like sh(1), markdown(7), roff(7), etc. are displayed in
-boldface and hyperlinked in HTML output.
+Manual references like sh(1), markdown(7), roff(7), etc. are hyperlinked in
+HTML output.
 
-Link to other sections like [STANDARDS][], [SEE ALSO][], or
-[WITH A DIFFERENT LINK TEXT][#SEE-ALSO].
+Link to sections like [STANDARDS][], [SEE ALSO][], or [WITH A DIFFERENT LINK
+TEXT][#SEE-ALSO].
 
 Definition lists:
 
   * `-a`, `--argument`=[&lt;value>]:
     One or more paragraphs describing the argument.
+
   * You can put whatever you *want* here, really:
     Nesting and paragraph spacing are respected.
-
-Markdown ordered and unordered lists too.
 
 Frequently used sections:
 
@@ -131,19 +130,17 @@ Frequently used sections:
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>Ronn is a source format for authoring UNIX manpages. The syntax includes all
-Markdown formatting features, plus conventions for expressing the structure and
-various notations present in standard UNIX manpages.</p>
-
-<p>Ronn files can be converted to traditional roff-formatted manpages or to HTML
-using the <a href="ronn.1.html" class="man-ref">ronn<span class="s">(1)</span></a> command.</p>
+<p>The <a href="ronn.1.html" class="man-ref">ronn<span class="s">(1)</span></a> command converts text in a simple markup to UNIX manual pages. The
+syntax includes all Markdown formatting features, plus conventions for
+expressing the structure and various notations present in standard UNIX
+manpages.</p>
 
 <p>Not all <a href="http://man.cx/roff(7)" class="man-ref">roff<span class="s">(7)</span></a> typesetting features can be expressed using ronn syntax.</p>
 
 <h2 id="MANPAGE-TITLE">MANPAGE TITLE</h2>
 
-<p>Manpages have a <var>name</var>, <var>section</var> number, and one-line <var>description</var>. Ronn files
-must start with a level one heading defining these attributes:</p>
+<p>Manpages have a <var>name</var>, <var>section</var>, and a one-line <var>description</var>. Files must
+start with a level one heading defining these attributes:</p>
 
 <pre><code>ls(1) -- list directory contents
 ================================
@@ -177,13 +174,16 @@ are two syntaxes for level two headings.</p>
 Ronn uses the following bits of <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> to accomplish this:</p>
 
 <dl>
-<dt><code>`backticks`</code></dt><dd>Code, flags, commands, and noun-like things; typically displayed in in
-<b>boldface</b>. Note that all text included within <code>backticks</code> is displayed
-literally; other inline markup is not processed.</dd>
-<dt><code>**double-stars**</code></dt><dd>Like <code>backticks</code> but inline markup is processed.</dd>
-<dt><code>_</code><em>underbars</em><code>_</code></dt><dd>User-specified arguments, variables, or user input; typically displayed with
-<u>underline</u>.</dd>
-<dt><code>&lt;angle-quotes></code></dt><dd>Same as <em>underbars</em>. This is not compatible with Markdown.</dd>
+<dt><code>`backticks`</code> (markdown compatible)</dt><dd><p>Code, flags, commands, and noun-like things; typically displayed in in
+<b>boldface</b>. All text included within <code>backticks</code> is displayed
+literally; other inline markup is not processed. HTML output:
+<code>&lt;code&gt;</code>.</p></dd>
+<dt><code>**double-stars**</code> (markdown compatible)</dt><dd><p>Also displayed in boldface. Unlike backticks, inline markup is processed.
+HTML output: <code>&lt;strong&gt;</code>.</p></dd>
+<dt><code>&lt;anglequotes></code> (non-compatible markdown extension)</dt><dd><p>User-specified arguments, variables, or user input. Typically displayed with
+<u>underline</u> in roff output. HTML output: <code>&lt;var/&gt;</code>.</p></dd>
+<dt><code>_</code><em>underbars</em><code>_</code> (markdown compatible)</dt><dd><p>Emphasis. May be used for literal option values. Typically displayed with
+<u>underline</u> in roff output. HTML output: <code>&lt;em&gt;</code>.</p></dd>
 </dl>
 
 
@@ -197,11 +197,11 @@ prints the matching lines.
 
 <h2 id="DEFINITION-LISTS">DEFINITION LISTS</h2>
 
-<p>The definition list syntax is exactly the same as markdown's unordered list
-syntax but requires that the first line of each list item be terminated with a
-colon "<code>:</code>" character. The contents of the first line (without the colon) is
-the <var>term</var>; subsequent lines may be comprised of multiple paragraphs, code
-blocks, standard lists, and nested definition lists.</p>
+<p>The definition list syntax is compatible with markdown's unordered list syntax
+but requires that the first line of each list item be terminated with a colon
+"<code>:</code>" character. The contents of the first line is the <var>term</var>; subsequent lines
+may be comprised of multiple paragraphs, code blocks, standard lists, and nested
+definition lists.</p>
 
 <p>An example definition list, taken from BSD <a href="http://man.cx/test(1)" class="man-ref">test<span class="s">(1)</span></a>'s <em>DESCRIPTION</em> section:</p>
 
@@ -217,14 +217,11 @@ blocks, standard lists, and nested definition lists.</p>
      True if file exists and is a directory.
 </code></pre>
 
-<p>The definition list syntax is intentionally backward compatible with
-<a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a>'s list syntax. This allows <code>ronn</code> documents to be piped through
-normal markdown processors with minor degradation in output formatting.</p>
-
 <h2 id="LINKS">LINKS</h2>
 
-<p>Ronn supports all <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> linking features. Additionally, section headings
-can be linked using reference-style links:</p>
+<p>All <a href="http://daringfireball.net/projects/markdown/syntax" class="man-ref">markdown<span class="s">(7)</span></a> linking features are supported.</p>
+
+<p>Markdown reference-style links can be used to link to specific sections by name:</p>
 
 <pre><code>## SECTION 1
 
@@ -244,9 +241,9 @@ are removed and spaces are replaced by dashes.</p>
 
 
   <ol class='man-decor man-foot man foot'>
-    <li class='tl'>0.6.6-36-gb67d494</li>
+    <li class='tl'>Ronn 0.7.0</li>
     <li class='tc'>June 2010</li>
-    <li class='tr'>ronn(5)</li>
+    <li class='tr'>ronn-format(7)</li>
   </ol>
 
   </div>
