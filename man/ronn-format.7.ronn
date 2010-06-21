@@ -1,5 +1,5 @@
-ronn(5) -- markdown-based text format for authoring manpages
-============================================================
+ronn-format(7) -- manual authoring format based on Markdown
+===========================================================
 
 ## SYNOPSIS
 
@@ -29,6 +29,7 @@ ronn(5) -- markdown-based text format for authoring manpages
 
       * `-a`, `--argument`=[<value>]:
         One or more paragraphs describing the argument.
+
       * You can put whatever you *want* here, really:
         Nesting and paragraph spacing are respected.
 
@@ -50,19 +51,17 @@ ronn(5) -- markdown-based text format for authoring manpages
 
 ## DESCRIPTION
 
-Ronn is a source format for authoring UNIX manpages. The syntax includes all
-Markdown formatting features, plus conventions for expressing the structure and
-various notations present in standard UNIX manpages.
-
-Ronn files can be converted to traditional roff-formatted manpages or to HTML
-using the ronn(1) command.
+The ronn(1) command converts text in a simple markup to UNIX manual pages. The
+syntax includes all Markdown formatting features, plus conventions for
+expressing the structure and various notations present in standard UNIX
+manpages.
 
 Not all roff(7) typesetting features can be expressed using ronn syntax.
 
 ## MANPAGE TITLE
 
-Manpages have a <name>, <section> number, and one-line <description>. Ronn files
-must start with a level one heading defining these attributes:
+Manpages have a <name>, <section>, and a one-line <description>. Files must
+start with a level one heading defining these attributes:
 
     ls(1) -- list directory contents
     ================================
@@ -92,17 +91,23 @@ Manpages have a limited set of text formatting capabilities. There's basically
 <b>boldface</b> and <i>italics</i> (often displayed using <u>underline</u>).
 Ronn uses the following bits of markdown(7) to accomplish this:
 
-  * <code>\`backticks\`</code>:
+  * <code>\`backticks\`</code> (markdown compatible):
     Code, flags, commands, and noun-like things; typically displayed in in
-    <b>boldface</b>. Note that all text included within `backticks` is displayed
-    literally; other inline markup is not processed.
-  * `**double-stars**`:
-    Like `backticks` but inline markup is processed.
-  * `_`_underbars_`_`:
-    User-specified arguments, variables, or user input; typically displayed with
-    <u>underline</u>.
-  * `<angle-quotes>`:
-    Same as _underbars_. This is not compatible with Markdown.
+    <b>boldface</b>. All text included within `backticks` is displayed
+    literally; other inline markup is not processed. HTML output:
+    `<code>`.
+
+  * `**double-stars**` (markdown compatible):
+    Also displayed in boldface. Unlike backticks, inline markup is processed.
+    HTML output: `<strong>`.
+
+  * `<anglequotes>` (non-compatible markdown extension):
+    User-specified arguments, variables, or user input. Typically displayed with
+    <u>underline</u> in roff output. HTML output: `<var>`.
+
+  * `_`_underbars_`_` (markdown compatible):
+    Emphasis. May be used for literal option values. Typically displayed with
+    <u>underline</u> in roff output. HTML output: `<em>`.
 
 Here is grep(1)'s DESCRIPTION section represented in `ronn`:
 
@@ -113,11 +118,11 @@ Here is grep(1)'s DESCRIPTION section represented in `ronn`:
 
 ## DEFINITION LISTS
 
-The definition list syntax is exactly the same as markdown's unordered list
-syntax but requires that the first line of each list item be terminated with a
-colon "`:`" character. The contents of the first line (without the colon) is
-the <term>; subsequent lines may be comprised of multiple paragraphs, code
-blocks, standard lists, and nested definition lists.
+The definition list syntax is compatible with markdown's unordered list syntax
+but requires that the first line of each list item be terminated with a colon
+"`:`" character. The contents of the first line is the <term>; subsequent lines
+may be comprised of multiple paragraphs, code blocks, standard lists, and nested
+definition lists.
 
 An example definition list, taken from BSD test(1)'s *DESCRIPTION* section:
 
@@ -132,14 +137,11 @@ An example definition list, taken from BSD test(1)'s *DESCRIPTION* section:
        * `-d` <file>:
          True if file exists and is a directory.
 
-The definition list syntax is intentionally backward compatible with
-markdown(7)'s list syntax. This allows `ronn` documents to be piped through
-normal markdown processors with minor degradation in output formatting.
-
 ## LINKS
 
-Ronn supports all markdown(7) linking features. Additionally, section headings
-can be linked using reference-style links:
+All markdown(7) linking features are supported.
+
+Markdown reference-style links can be used to link to specific sections by name:
 
     ## SECTION 1
 

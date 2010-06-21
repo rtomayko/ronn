@@ -1,10 +1,10 @@
 .\" generated with Ronn/v0.6.42
 .\" http://github.com/rtomayko/ronn/tree/0.6.6-36-gb67d494
 .
-.TH "RONN" "5" "June 2010" "0.6.6-36-gb67d494" "Ronn 0.6.42"
+.TH "RONN\-FORMAT" "7" "June 2010" "0.6.6-36-gb67d494" "Ronn 0.6.42"
 .
 .SH "NAME"
-\fBronn\fR \- markdown\-based text format for authoring manpages
+\fBronn\-format\fR \- manual authoring format based on Markdown
 .
 .SH "SYNOPSIS"
 .
@@ -36,6 +36,7 @@ Definition lists:
 
   * `\-a`, `\-\-argument`=[<value>]:
     One or more paragraphs describing the argument\.
+
   * You can put whatever you *want* here, really:
     Nesting and paragraph spacing are respected\.
 
@@ -58,16 +59,13 @@ Frequently used sections:
 .fi
 .
 .SH "DESCRIPTION"
-Ronn is a source format for authoring UNIX manpages\. The syntax includes all Markdown formatting features, plus conventions for expressing the structure and various notations present in standard UNIX manpages\.
-.
-.P
-Ronn files can be converted to traditional roff\-formatted manpages or to HTML using the ronn(1) command\.
+The ronn(1) command converts text in a simple markup to UNIX manual pages\. The syntax includes all Markdown formatting features, plus conventions for expressing the structure and various notations present in standard UNIX manpages\.
 .
 .P
 Not all roff(7) typesetting features can be expressed using ronn syntax\.
 .
 .SH "MANPAGE TITLE"
-Manpages have a \fIname\fR, \fIsection\fR number, and one\-line \fIdescription\fR\. Ronn files must start with a level one heading defining these attributes:
+Manpages have a \fIname\fR, \fIsection\fR, and a one\-line \fIdescription\fR\. Files must start with a level one heading defining these attributes:
 .
 .IP "" 4
 .
@@ -120,20 +118,20 @@ Section headings should be all uppercase and may not contain inline markup\.
 Manpages have a limited set of text formatting capabilities\. There\'s basically \fBboldface\fR and \fIitalics\fR (often displayed using \fIunderline\fR)\. Ronn uses the following bits of markdown(7) to accomplish this:
 .
 .TP
-\fB`backticks`\fR
-Code, flags, commands, and noun\-like things; typically displayed in in \fBboldface\fR\. Note that all text included within \fBbackticks\fR is displayed literally; other inline markup is not processed\.
+\fB`backticks`\fR (markdown compatible)
+Code, flags, commands, and noun\-like things; typically displayed in in \fBboldface\fR\. All text included within \fBbackticks\fR is displayed literally; other inline markup is not processed\. HTML output: \fB<code>\fR\.
 .
 .TP
-\fB**double\-stars**\fR
-Like \fBbackticks\fR but inline markup is processed\.
+\fB**double\-stars**\fR (markdown compatible)
+Also displayed in boldface\. Unlike backticks, inline markup is processed\. HTML output: \fB<strong>\fR\.
 .
 .TP
-\fB_\fR\fIunderbars\fR\fB_\fR
-User\-specified arguments, variables, or user input; typically displayed with \fIunderline\fR\.
+\fB<anglequotes>\fR (non\-compatible markdown extension)
+User\-specified arguments, variables, or user input\. Typically displayed with \fIunderline\fR in roff output\. HTML output: \fB<\fR\.
 .
 .TP
-\fB<angle\-quotes>\fR
-Same as \fIunderbars\fR\. This is not compatible with Markdown\.
+\fB_\fR\fIunderbars\fR\fB_\fR (markdown compatible)
+Emphasis\. May be used for literal option values\. Typically displayed with \fIunderline\fR in roff output\. HTML output: \fB<em>\fR\.
 .
 .P
 Here is grep(1)\'s DESCRIPTION section represented in \fBronn\fR:
@@ -152,7 +150,7 @@ prints the matching lines\.
 .IP "" 0
 .
 .SH "DEFINITION LISTS"
-The definition list syntax is exactly the same as markdown\'s unordered list syntax but requires that the first line of each list item be terminated with a colon \"\fB:\fR\" character\. The contents of the first line (without the colon) is the \fIterm\fR; subsequent lines may be comprised of multiple paragraphs, code blocks, standard lists, and nested definition lists\.
+The definition list syntax is compatible with markdown\'s unordered list syntax but requires that the first line of each list item be terminated with a colon \"\fB:\fR\" character\. The contents of the first line is the \fIterm\fR; subsequent lines may be comprised of multiple paragraphs, code blocks, standard lists, and nested definition lists\.
 .
 .P
 An example definition list, taken from BSD test(1)\'s \fIDESCRIPTION\fR section:
@@ -176,11 +174,11 @@ An example definition list, taken from BSD test(1)\'s \fIDESCRIPTION\fR section:
 .
 .IP "" 0
 .
-.P
-The definition list syntax is intentionally backward compatible with markdown(7)\'s list syntax\. This allows \fBronn\fR documents to be piped through normal markdown processors with minor degradation in output formatting\.
-.
 .SH "LINKS"
-Ronn supports all markdown(7) linking features\. Additionally, section headings can be linked using reference\-style links:
+All markdown(7) linking features are supported\.
+.
+.P
+Markdown reference\-style links can be used to link to specific sections by name:
 .
 .IP "" 4
 .
