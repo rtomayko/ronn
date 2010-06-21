@@ -45,8 +45,8 @@ end
 desc 'Build the manual'
 task :man => :environment do
   require 'ronn'
-  ENV['RONN_MANUAL']  = "Ronn #{Ronn::version}"
-  ENV['RONN_ORGANIZATION'] = Ronn::revision
+  ENV['RONN_MANUAL']  = "Ronn Manual"
+  ENV['RONN_ORGANIZATION'] = "Ronn #{Ronn::revision}"
   sh "ronn -w -s toc -r5 --markdown man/*.ronn"
 end
 
