@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'ronn'
-  s.version = '0.7.0'
-  s.date = '2010-06-21'
+  s.version = '0.7.3'
+  s.date = '2010-06-24'
 
   s.description = "Builds manuals"
   s.summary     = "Builds manuals"
@@ -66,6 +66,8 @@ Gem::Specification.new do |s|
     test/middle_paragraph.ronn
     test/missing_spaces.roff
     test/missing_spaces.ronn
+    test/pre_block_with_quotes.roff
+    test/pre_block_with_quotes.ronn
     test/section_reference_links.html
     test/section_reference_links.roff
     test/section_reference_links.ronn

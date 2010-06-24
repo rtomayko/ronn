@@ -1,7 +1,8 @@
 /man/*.html
 /pkg
 /test/*.wrong
-/man/*.1
-/man/*.5
-/man/*.7
-/man/*.markdown
+ronn.1
+ronn.5
+ronn.7
+ronn*.markdown
+ronn*.html

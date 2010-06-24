@@ -1,6 +1,13 @@
 Ronn CHANGES
 ============
 
+Version 0.7.3 (2010 June 24)
+----------------------------
+
+* Fixed a major bug in roff output due to overly aggressive doublequote
+  escaping. Paragraphs and code blocks were not being displayed if they
+  included a double-quote character. (rtomayko, pawelz)
+
 Version 0.7.0 (2010 June 21)
 ----------------------------
 
