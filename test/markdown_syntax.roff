@@ -18,11 +18,11 @@ Paragraphs can be on one line (or many), and can drone on for
 hours\.
 
 [Reference style links][1] and [inline links](http://example\.com)
-[1]: http://example\.com \"Title is optional\"
+[1]: http://example\.com "Title is optional"
 
 Inline markup like _italics_,  **bold**, and `code()`\.
 
-![picture alt](/images/photo\.jpeg \"Title is optional\")
+![picture alt](/images/photo\.jpeg "Title is optional")
 
 > Blockquotes are like quoted text in email replies
 >> And, they can be nested
@@ -201,19 +201,19 @@ However, inside Markdown code spans and blocks, angle brackets and ampersands ar
 A paragraph is simply one or more consecutive lines of text, separated by one or more blank lines\. (A blank line is any line that looks like a blank line \-\- a line containing nothing but spaces or tabs is considered blank\.) Normal paragraphs should not be indented with spaces or tabs\.
 .
 .P
-The implication of the \"one or more consecutive lines of text\" rule is that Markdown supports \"hard\-wrapped\" text paragraphs\. This differs significantly from most other text\-to\-HTML formatters (including Movable Type\'s \"Convert Line Breaks\" option) which translate every line break character in a paragraph into a \fB<br />\fR tag\.
+The implication of the "one or more consecutive lines of text" rule is that Markdown supports "hard\-wrapped" text paragraphs\. This differs significantly from most other text\-to\-HTML formatters (including Movable Type\'s "Convert Line Breaks" option) which translate every line break character in a paragraph into a \fB<br />\fR tag\.
 .
 .P
 When you \fIdo\fR want to insert a \fB<br />\fR break tag using Markdown, you end a line with two or more spaces, then type return\.
 .
 .P
-Yes, this takes a tad more effort to create a \fB<br />\fR, but a simplistic \"every line break is a \fB<br />\fR\" rule wouldn\'t work for Markdown\. Markdown\'s email\-style \fIblockquoting\fR and multi\-paragraph \fIlist items\fR work best \-\- and look better \-\- when you format them with hard breaks\.
+Yes, this takes a tad more effort to create a \fB<br />\fR, but a simplistic "every line break is a \fB<br />\fR" rule wouldn\'t work for Markdown\. Markdown\'s email\-style \fIblockquoting\fR and multi\-paragraph \fIlist items\fR work best \-\- and look better \-\- when you format them with hard breaks\.
 .
 .SS "Headers"
 Markdown supports two styles of headers, Setext \fIhttp://docutils\.sourceforge\.net/mirror/setext\.html\fR and atx \fIhttp://www\.aaronsw\.com/2002/atx/\fR\.
 .
 .P
-Setext\-style headers are \"underlined\" using equal signs (for first\-level headers) and dashes (for second\-level headers)\. For example:
+Setext\-style headers are "underlined" using equal signs (for first\-level headers) and dashes (for second\-level headers)\. For example:
 .
 .IP "" 4
 .
@@ -250,7 +250,7 @@ Atx\-style headers use 1\-6 hash characters at the start of the line, correspond
 .IP "" 0
 .
 .P
-Optionally, you may \"close\" atx\-style headers\. This is purely cosmetic \-\- you can use this if you think it looks better\. The closing hashes don\'t even need to match the number of hashes used to open the header\. (The number of opening hashes determines the header level\.) :
+Optionally, you may "close" atx\-style headers\. This is purely cosmetic \-\- you can use this if you think it looks better\. The closing hashes don\'t even need to match the number of hashes used to open the header\. (The number of opening hashes determines the header level\.) :
 .
 .IP "" 4
 .
@@ -333,7 +333,7 @@ Blockquotes can contain other Markdown elements, including headers, lists, and c
 >
 > Here\'s some example code:
 >
->     return shell_exec(\"echo $input | $markdown_script\");
+>     return shell_exec("echo $input | $markdown_script");
 .
 .fi
 .
@@ -696,7 +696,7 @@ One level of indentation \-\- 4 spaces or 1 tab \-\- is removed from each line o
 
 Here is an example of AppleScript:
 
-    tell application \"Foo\"
+    tell application "Foo"
         beep
     end tell
 .
@@ -713,7 +713,7 @@ will turn into:
 
 <p>Here is an example of AppleScript:</p>
 
-<pre><code>tell application \"Foo\"
+<pre><code>tell application "Foo"
     beep
 end tell
 </code></pre>
@@ -732,7 +732,7 @@ Within a code block, ampersands (\fB&\fR) and angle brackets (\fB<\fR and \fB>\f
 .
 .nf
 
-    <div class=\"footer\">
+    <div class="footer">
         &copy; 2004 Foo Corporation
     </div>
 .
@@ -747,7 +747,7 @@ will turn into:
 .
 .nf
 
-<pre><code>&lt;div class=\"footer\"&gt;
+<pre><code>&lt;div class="footer"&gt;
     &amp;copy; 2004 Foo Corporation
 &lt;/div&gt;
 </code></pre>
@@ -795,7 +795,7 @@ To create an inline link, use a set of regular parentheses immediately after the
 .
 .nf
 
-This is [an example](http://example\.com/ \"Title\") inline link\.
+This is [an example](http://example\.com/ "Title") inline link\.
 
 [This link](http://example\.net/) has no title attribute\.
 .
@@ -810,10 +810,10 @@ Will produce:
 .
 .nf
 
-<p>This is <a href=\"http://example\.com/\" title=\"Title\">
+<p>This is <a href="http://example\.com/" title="Title">
 an example</a> inline link\.</p>
 
-<p><a href=\"http://example\.net/\">This link</a> has no
+<p><a href="http://example\.net/">This link</a> has no
 title attribute\.</p>
 .
 .fi
@@ -866,7 +866,7 @@ Then, anywhere in the document, you define your link label like this, on a line 
 .
 .nf
 
-[id]: http://example\.com/  \"Optional Title Here\"
+[id]: http://example\.com/  "Optional Title Here"
 .
 .fi
 .
@@ -899,7 +899,7 @@ The following three link definitions are equivalent:
 .
 .nf
 
-[foo]: http://example\.com/  \"Optional Title Here\"
+[foo]: http://example\.com/  "Optional Title Here"
 [foo]: http://example\.com/  \'Optional Title Here\'
 [foo]: http://example\.com/  (Optional Title Here)
 .
@@ -917,7 +917,7 @@ The link URL may, optionally, be surrounded by angle brackets:
 .
 .nf
 
-[id]: <http://example\.com/>  \"Optional Title Here\"
+[id]: <http://example\.com/>  "Optional Title Here"
 .
 .fi
 .
@@ -931,7 +931,7 @@ You can put the title attribute on the next line and use extra spaces or tabs fo
 .nf
 
 [id]: http://example\.com/longish/path/to/resource/here
-    \"Optional Title Here\"
+    "Optional Title Here"
 .
 .fi
 .
@@ -958,7 +958,7 @@ Link definition names may consist of letters, numbers, spaces, and punctuation \
 are equivalent\.
 .
 .P
-The \fIimplicit link name\fR shortcut allows you to omit the name of the link, in which case the link text itself is used as the name\. Just use an empty set of square brackets \-\- e\.g\., to link the word \"Google\" to the google\.com web site, you could simply write:
+The \fIimplicit link name\fR shortcut allows you to omit the name of the link, in which case the link text itself is used as the name\. Just use an empty set of square brackets \-\- e\.g\., to link the word "Google" to the google\.com web site, you could simply write:
 .
 .IP "" 4
 .
@@ -1022,9 +1022,9 @@ Here\'s an example of reference links in action:
 I get 10 times more traffic from [Google] [1] than from
 [Yahoo] [2] or [MSN] [3]\.
 
-  [1]: http://google\.com/        \"Google\"
-  [2]: http://search\.yahoo\.com/  \"Yahoo Search\"
-  [3]: http://search\.msn\.com/    \"MSN Search\"
+  [1]: http://google\.com/        "Google"
+  [2]: http://search\.yahoo\.com/  "Yahoo Search"
+  [3]: http://search\.msn\.com/    "MSN Search"
 .
 .fi
 .
@@ -1040,9 +1040,9 @@ Using the implicit link name shortcut, you could instead write:
 I get 10 times more traffic from [Google][] than from
 [Yahoo][] or [MSN][]\.
 
-  [google]: http://google\.com/        \"Google\"
-  [yahoo]:  http://search\.yahoo\.com/  \"Yahoo Search\"
-  [msn]:    http://search\.msn\.com/    \"MSN Search\"
+  [google]: http://google\.com/        "Google"
+  [yahoo]:  http://search\.yahoo\.com/  "Yahoo Search"
+  [msn]:    http://search\.msn\.com/    "MSN Search"
 .
 .fi
 .
@@ -1055,10 +1055,10 @@ Both of the above examples will produce the following HTML output:
 .
 .nf
 
-<p>I get 10 times more traffic from <a href=\"http://google\.com/\"
-title=\"Google\">Google</a> than from
-<a href=\"http://search\.yahoo\.com/\" title=\"Yahoo Search\">Yahoo</a>
-or <a href=\"http://search\.msn\.com/\" title=\"MSN Search\">MSN</a>\.</p>
+<p>I get 10 times more traffic from <a href="http://google\.com/"
+title="Google">Google</a> than from
+<a href="http://search\.yahoo\.com/" title="Yahoo Search">Yahoo</a>
+or <a href="http://search\.msn\.com/" title="MSN Search">MSN</a>\.</p>
 .
 .fi
 .
@@ -1071,9 +1071,9 @@ For comparison, here is the same paragraph written using Markdown\'s inline link
 .
 .nf
 
-I get 10 times more traffic from [Google](http://google\.com/ \"Google\")
-than from [Yahoo](http://search\.yahoo\.com/ \"Yahoo Search\") or
-[MSN](http://search\.msn\.com/ \"MSN Search\")\.
+I get 10 times more traffic from [Google](http://google\.com/ "Google")
+than from [Yahoo](http://search\.yahoo\.com/ "Yahoo Search") or
+[MSN](http://search\.msn\.com/ "MSN Search")\.
 .
 .fi
 .
@@ -1291,7 +1291,7 @@ equivalent of <code>&amp;mdash;</code>\.</p>
 .IP "" 0
 .
 .SS "Images"
-Admittedly, it\'s fairly difficult to devise a \"natural\" syntax for placing images into a plain text document format\.
+Admittedly, it\'s fairly difficult to devise a "natural" syntax for placing images into a plain text document format\.
 .
 .P
 Markdown uses an image syntax that is intended to resemble the syntax for links, allowing for two styles: \fIinline\fR and \fIreference\fR\.
@@ -1305,7 +1305,7 @@ Inline image syntax looks like this:
 
 ![Alt text](/path/to/img\.jpg)
 
-![Alt text](/path/to/img\.jpg \"Optional title\")
+![Alt text](/path/to/img\.jpg "Optional title")
 .
 .fi
 .
@@ -1339,13 +1339,13 @@ Reference\-style image syntax looks like this:
 .IP "" 0
 .
 .P
-Where \"id\" is the name of a defined image reference\. Image references are defined using syntax identical to link references:
+Where "id" is the name of a defined image reference\. Image references are defined using syntax identical to link references:
 .
 .IP "" 4
 .
 .nf
 
-[id]: url/to/image  \"Optional title attribute\"
+[id]: url/to/image  "Optional title attribute"
 .
 .fi
 .
@@ -1357,7 +1357,7 @@ As of this writing, Markdown has no syntax for specifying the dimensions of an i
 .SH "MISCELLANEOUS"
 .
 .SS "Automatic Links"
-Markdown supports a shortcut style for creating \"automatic\" links for URLs and email addresses: simply surround the URL or email address with angle brackets\. What this means is that if you want to show the actual text of a URL or email address, and also have it be a clickable link, you can do this:
+Markdown supports a shortcut style for creating "automatic" links for URLs and email addresses: simply surround the URL or email address with angle brackets\. What this means is that if you want to show the actual text of a URL or email address, and also have it be a clickable link, you can do this:
 .
 .IP "" 4
 .
@@ -1376,7 +1376,7 @@ Markdown will turn this into:
 .
 .nf
 
-<a href=\"http://example\.com/\">http://example\.com/</a>
+<a href="http://example\.com/">http://example\.com/</a>
 .
 .fi
 .
@@ -1402,9 +1402,9 @@ into something like this:
 .
 .nf
 
-<a href=\"&#x6D;&#x61;i&#x6C;&#x74;&#x6F;:&#x61;&#x64;&#x64;&#x72;&#x65;
+<a href="&#x6D;&#x61;i&#x6C;&#x74;&#x6F;:&#x61;&#x64;&#x64;&#x72;&#x65;
 &#115;&#115;&#64;&#101;&#120;&#x61;&#109;&#x70;&#x6C;e&#x2E;&#99;&#111;
-&#109;\">&#x61;&#x64;&#x64;&#x72;&#x65;&#115;&#115;&#64;&#101;&#120;&#x61;
+&#109;">&#x61;&#x64;&#x64;&#x72;&#x65;&#115;&#115;&#64;&#101;&#120;&#x61;
 &#109;&#x70;&#x6C;e&#x2E;&#99;&#111;&#109;</a>
 .
 .fi
@@ -1412,7 +1412,7 @@ into something like this:
 .IP "" 0
 .
 .P
-which will render in a browser as a clickable link to \"address@example\.com\"\.
+which will render in a browser as a clickable link to "address@example\.com"\.
 .
 .P
 (This sort of entity\-encoding trick will indeed fool many, if not most, address\-harvesting bots, but it definitely won\'t fool all of them\. It\'s better than nothing, but an address published in this way will probably eventually start receiving spam\.)

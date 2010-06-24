@@ -245,14 +245,14 @@ module Ronn
       text.gsub!(/&#x([0-9A-Fa-f]+);/) { $1.to_i(16).chr }  # hex entities
       text.gsub!(/&#(\d+);/) { $1.to_i.chr }                # dec entities
       text.gsub!('\\', '\e')                                # backslash
-      text.gsub!(/['".-]/) { |m| "\\#{m}" }                 # control chars
+      text.gsub!(/['.-]/) { |m| "\\#{m}" }                  # control chars
       text.gsub!(/(&[A-Za-z]+;)/) { ent[$1] || $1 }         # named entities
       text.gsub!('&amp;',  '&')                             # amps
       text
     end
 
     def quote(text)
-      "\"#{text}\""
+      "\"#{text.gsub(/"/, '\\"')}\""
     end
 
     # write text to output buffer
