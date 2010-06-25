@@ -150,6 +150,9 @@ module Ronn
           end
           write "\n"
 
+        when 'span', 'code', 'b', 'strong', 'kbd', 'samp', 'var', 'em', 'i',
+             'u', 'br', 'a'
+          inline_filter(node)
         else
           warn "unrecognized block tag: %p", node.name
         end
