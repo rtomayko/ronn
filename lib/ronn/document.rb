@@ -434,26 +434,59 @@ module Ronn
       end
     end
 
-    # Convert text of the form "name(section)" to a hyperlink. The URL is
-    # obtaiend from the index.
+    # Convert text of the form "name(section)" or "<code>name</code>(section)
+    # to a hyperlink.  The URL is obtained from the index.
     def html_filter_manual_reference_links
       return if index.nil?
+      name_pattern = "[0-9A-Za-z_:.+=@~-]+"
+
+      # Convert "name(section)" by traversing text nodes searching for
+      # text that fits the pattern.  This is the original implementation.
       @html.search('text()').each do |node|
         next if !node.content.include?(')')
         next if %w[pre code h1 h2 h3].include?(node.parent.name)
         next if child_of?(node, 'a')
-        node.swap(
-          node.content.gsub(/([0-9A-Za-z_:.+=@~-]+)(\(\d+\w*\))/) {
-            name, sect = $1, $2
-            if ref = index["#{name}#{sect}"]
-              "<a class='man-ref' href='#{ref.url}'>#{name}<span class='s'>#{sect}</span></a>"
-            else
-              # warn "warn: manual reference not defined: '#{name}#{sect}'"
-              "<span class='man-ref'>#{name}<span class='s'>#{sect}</span></span>"
-            end
-          }
-        )
+        node.swap(node.content.gsub(/(#{name_pattern})(\(\d+\w*\))/) {
+          html_build_manual_reference_link($1, $2)
+        })
+      end
+
+      # Convert "<code>name</code>(section)" by traversing <code> nodes.
+      # For each one that contains exactly an acceptable manual page name,
+      # the next sibling is checked and must be a text node beginning
+      # with a valid section in parentheses.
+      @html.search('code').each do |node|
+        next if %w[pre code h1 h2 h3].include?(node.parent.name)
+        next if child_of?(node, 'a')
+        next unless node.inner_text =~ /^#{name_pattern}$/
+        sibling = node.next
+        next unless sibling.text?
+        next unless sibling.content =~ /^\((\d+\w*)\)/
+        node.swap(html_build_manual_reference_link(node, "(#{$1})"))
+        sibling.content = sibling.content.gsub(/^\(\d+\w*\)/, '')
+      end
+
+    end
+
+    # HTMLize the manual page reference.  The result is an <a> if the
+    # page appears in the index, otherwise it is a <span>.  The first
+    # argument may be an HTML element or a string.  The second should
+    # be a string of the form "(#{section})".
+    def html_build_manual_reference_link(name_or_node, section)
+      name = if name_or_node.respond_to?(:inner_text)
+        name_or_node.inner_text
+      else
+        name_or_node
+      end
+      if ref = index["#{name}#{section}"]
+        "<a class='man-ref' href='#{ref.url}'>#{name_or_node
+          }<span class='s'>#{section}</span></a>"
+      else
+        # warn "warn: manual reference not defined: '#{name}#{section}'"
+        "<span class='man-ref'>#{name_or_node}<span class='s'>#{section
+          }</span></span>"
       end
     end
+
   end
 end
