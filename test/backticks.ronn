@@ -1,0 +1,10 @@
+backticks(7) -- testing the link index with backticks
+=====================================================
+
+grep(1)
+
+`grep`(1)
+
+man(1)
+
+`man`(1)
