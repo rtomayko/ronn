@@ -100,12 +100,19 @@ module Ronn
 
         when 'p'
           prev = previous(node)
-          if prev && %w[dd li].include?(node.parent.name)
+          if prev && %w[dd li blockquote].include?(node.parent.name)
             macro "IP"
           elsif prev && !%w[h1 h2 h3].include?(prev.name)
             macro "P"
           end
           inline_filter(node.children)
+
+        when 'blockquote'
+          prev = previous(node)
+          indent = prev.nil? || !%w[h1 h2 h3].include?(prev.name)
+          macro "IP", %w["" 4] if indent
+          block_filter(node.children)
+          macro "IP", %w["" 0] if indent
 
         when 'pre'
           prev = previous(node)
