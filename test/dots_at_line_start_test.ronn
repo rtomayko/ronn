@@ -7,4 +7,8 @@ generate troff warnings due to escaping.
 
     a test
     b test
-    . This one is not.
+    . This one is too.
+
+.
+
+(Single dots should get replaced correctly, too.)
