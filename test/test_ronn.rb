@@ -52,17 +52,17 @@ class RonnTest < Test::Unit::TestCase
     ].join, canonicalize(output)
   end
 
-  test "abbides by the RONN_MANUAL environment variable" do
+  test "abides by the RONN_MANUAL environment variable" do
     output = `echo '# hello(1) -- hello world' | RONN_MANUAL='Some Manual' ronn --html`
     assert_match(/Some Manual/, output)
   end
 
-  test "abbides by the RONN_DATE environment variable" do
+  test "abides by the RONN_DATE environment variable" do
     output = `echo '# hello(1) -- hello world' | RONN_DATE=1979-01-01 ronn --html`
     assert_match(/January 1979/, output)
   end
 
-  test "abbides by the RONN_ORGANIZATION environment variable" do
+  test "abides by the RONN_ORGANIZATION environment variable" do
     output = `echo '# hello(1) -- hello world' | RONN_ORGANIZATION='GitHub' ronn --html`
     assert_match(/GitHub/, output)
   end
