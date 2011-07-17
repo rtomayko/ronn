@@ -110,7 +110,7 @@ module Ronn
     # available. This is used as the manual page name when the
     # file contents do not include a name section.
     def path_name
-      @basename[/^[^.]+/] if @basename
+      $1 if @basename =~ /^(.+)\.[12345678]\.(?:ronn|md|mkdn?|markdown)$/
     end
 
     # Returns the <section> part of the path, or nil when
