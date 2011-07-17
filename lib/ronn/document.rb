@@ -461,7 +461,7 @@ module Ronn
         next if child_of?(node, 'a')
         next unless node.inner_text =~ /^#{name_pattern}$/
         sibling = node.next
-        next unless sibling.text?
+        next unless sibling && sibling.text?
         next unless sibling.content =~ /^\((\d+\w*)\)/
         node.swap(html_build_manual_reference_link(node, "(#{$1})"))
         sibling.content = sibling.content.gsub(/^\(\d+\w*\)/, '')
