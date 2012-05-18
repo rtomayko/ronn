@@ -129,8 +129,8 @@ file 'ronn.gemspec' => FileList['{lib,test,bin}/**','Rakefile'] do |f|
   files = `git ls-files`.
     split($\).
     sort.
-    reject{ |file| file =~ /^\./ }.
-    reject { |file| file =~ /^doc/ }.
+    reject{ |file| file.start_with?('.') }.
+    reject{ |file| file.start_with?('doc') }.
     map{ |file| "    #{file}" }.
     join("\n")
   # piece file back together and write...
