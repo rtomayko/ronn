@@ -2,8 +2,8 @@ Gem::Specification.new do |s|
   s.name = 'ronn'
   s.version = '0.7.3'
 
-  s.description = "Builds manuals"
   s.summary     = "Builds manuals"
+  s.description = "Ronn builds manuals. It converts simple, human readable textfiles to roff for terminal display, and also to HTML for the web."
   s.homepage    = "http://rtomayko.github.com/ronn"
 
   s.authors     = ["Ryan Tomayko"]
