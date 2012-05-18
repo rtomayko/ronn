@@ -1,7 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'ronn'
   s.version = '0.7.3'
-  s.date = '2010-06-24'
 
   s.description = "Builds manuals"
   s.summary     = "Builds manuals"
