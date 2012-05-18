@@ -127,7 +127,7 @@ file 'ronn.gemspec' => FileList['{lib,test,bin}/**','Rakefile'] do |f|
   head.sub!(/\.version = '.*'/, ".version = '#{source_version}'")
   # determine file list from git ls-files
   files = `git ls-files`.
-    split("\n").
+    split($\).
     sort.
     reject{ |file| file =~ /^\./ }.
     reject { |file| file =~ /^doc/ }.
