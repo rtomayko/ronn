@@ -49,7 +49,7 @@ module Ronn
       data.each_line do |line|
         line = line.strip.gsub(/\s*#.*$/, '')
         if !line.empty?
-          name, url = line.split(/ +/, 2)
+          name, url = line.split(/[ \t]+/, 2)
           @references << reference(name, url)
         end
       end
