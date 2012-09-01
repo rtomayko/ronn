@@ -17,7 +17,10 @@ module Ronn
     end
 
     def to_s
-      @buf.join.gsub(/[ \t]+$/, '')
+      str = @buf.join
+      str.gsub!(/[ \t]+$/, '')                      # trailing whitespace
+      str.gsub!(/^(\s*)\\\./) { "#{$1}\\[char46]" } # special treatment for lines starting with period
+      str
     end
 
   protected
@@ -269,11 +272,6 @@ module Ronn
     # write text to output buffer
     def write(text)
       return if text.nil? || text.empty?
-      # lines cannot start with a '.'. insert zero-width character before.
-      if text[0,2] == '\.' &&
-        (@buf.last && @buf.last[-1] == ?\n)
-        @buf << '\&'
-      end
       @buf << text
     end
 
