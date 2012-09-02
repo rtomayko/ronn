@@ -74,7 +74,7 @@ options = {}
 write_index = false
 styles  = %w[man]
 groff   = "groff -Wall -mtty-char -mandoc -Tascii"
-pager   = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
+pager   = ENV['MANPAGER'] || ENV['PAGER'] || 'more -s'
 
 ##
 # Environment variables
