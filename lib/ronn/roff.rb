@@ -33,7 +33,7 @@ module Ronn
       comment "generated with Ronn/v#{Ronn.version}"
       comment "http://github.com/rtomayko/ronn/tree/#{Ronn.revision}"
       return if name.nil?
-      macro "TH", %["#{escape(name.upcase)}" "#{section}" "#{date.strftime('%B %Y')}" "#{version}" "#{manual}"]
+      macro "TH", %["#{escape(name.upcase)}" "#{section}" "#{date.strftime('%B %d %Y')}" "#{version}" "#{manual}"]
     end
 
     def remove_extraneous_elements!(doc)
