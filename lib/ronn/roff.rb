@@ -233,7 +233,7 @@ module Ronn
     end
 
     HTML_ROFF_ENTITIES = {
-      '&bull;'  => '\(bu',
+      '&bull;'  => '\[ci]',
       '&lt;'    => '<',
       '&gt;'    => '>',
       '&nbsp;'  => '\~',
