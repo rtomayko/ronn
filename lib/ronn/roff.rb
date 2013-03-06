@@ -148,7 +148,7 @@ module Ronn
           when 'ol'
             macro "IP", %W["#{node.position + 1}." 4]
           when 'ul'
-            macro "IP", %w["\(bu" 4]
+            macro "IP", %w["\\\[ci\]" 4]
           end
           if node.at('p|ol|ul|dl|div')
             block_filter(node.children)
