@@ -302,4 +302,4 @@ Ronn is Copyright (C) 2009 Ryan Tomayko <http://tomayko.com/about>
 
 ## SEE ALSO
 
-ronn-format(7), manpages(5), man(1), roff(7), groff(1), markdown(7)
+groff(1), man(1), pandoc(1), manpages(5), markdown(7), roff(7), ronn-format(7)
