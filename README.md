@@ -21,6 +21,8 @@ ronn capabilities:
 
 [1]: http://github.com/rtomayko/ronn/tree/master/man
 
+As an alternative, you might want to check out [pandoc](http://johnmacfarlane.net/pandoc/) which can also convert markdown into roff manual pages.
+
 ## Examples
 
 Build roff and HTML output files for one or more input files:
