@@ -38,7 +38,11 @@ class RonnTest < Test::Unit::TestCase
 
   test "produces html instead of roff with the --html argument" do
     output = `echo '# hello(1) -- hello world' | ronn --html`
-    assert_match(/<h2 id='NAME'>NAME<\/h2>/, canonicalize(output))
+    output = canonicalize(output)
+    assert_match(/<h2 id='NAME'>NAME<\/h2>/, output)
+    advertising = "<meta name='generator' value='Ronn/v"    + Ronn::version  +
+                  " (http://github.com/rtomayko/ronn/tree/" + Ronn::revision + ")'>"
+    assert_match(/#{Regexp.escape(advertising)}/, output)
   end
 
   test "produces html fragment with the --fragment argument" do
