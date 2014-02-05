@@ -1,4 +1,5 @@
 require 'mustache'
+require 'hpricot'
 
 module Ronn
   class Template < Mustache
@@ -36,10 +37,11 @@ module Ronn
 
     def title
       if !name_and_section? && tagline
-        tagline
+        result = tagline
       else
-        [page_name, tagline].compact.join(' - ')
+        result = [page_name, tagline].compact.join(' - ')
       end
+      Hpricot(result).to_plain_text
     end
 
     def custom_title?
