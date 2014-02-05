@@ -1,10 +1,9 @@
 Gem::Specification.new do |s|
   s.name = 'ronn'
   s.version = '0.7.3'
-  s.date = '2010-06-24'
 
-  s.description = "Builds manuals"
   s.summary     = "Builds manuals"
+  s.description = "Ronn builds manuals. It converts simple, human readable textfiles to roff for terminal display, and also to HTML for the web."
   s.homepage    = "http://rtomayko.github.com/ronn"
 
   s.authors     = ["Ryan Tomayko"]
@@ -85,12 +84,11 @@ Gem::Specification.new do |s|
   s.test_files = s.files.select { |path| path =~ /^test\/.*_test.rb/ }
 
   s.extra_rdoc_files = %w[COPYING AUTHORS]
-  s.add_dependency 'hpricot',     '>= 0.8.2'
-  s.add_dependency 'rdiscount',   '>= 1.5.8'
-  s.add_dependency 'mustache',    '>= 0.7.0'
+  s.add_dependency 'hpricot',     '~> 0.8', '>= 0.8.2'
+  s.add_dependency 'rdiscount',   '~> 1.5', '>= 1.5.8'
+  s.add_dependency 'mustache',    '~> 0.7', '>= 0.7.0'
 
   s.has_rdoc = true
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Ronn"]
   s.require_paths = %w[lib]
-  s.rubygems_version = '1.1.1'
 end
