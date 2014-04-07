@@ -256,7 +256,8 @@ module Ronn
       text.gsub!(/&#(\d+);/) { $1.to_i.chr }                # dec entities
       text.gsub!('\\', '\e')                                # backslash
       text.gsub!('...', '\|.\|.\|.')                        # ellipses
-      text.gsub!(/['.-]/) { |m| "\\#{m}" }                  # control chars
+      text.gsub!(/'/, '\(cq')                               # single quoute
+      text.gsub!(/[.-]/) { |m| "\\#{m}" }                   # control chars
       text.gsub!(/(&[A-Za-z]+;)/) { ent[$1] || $1 }         # named entities
       text.gsub!('&amp;',  '&')                             # amps
       text

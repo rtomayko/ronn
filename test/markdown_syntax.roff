@@ -45,19 +45,19 @@ Inline markup like _italics_,  **bold**, and `code()`\.
 Markdown is intended to be as easy\-to\-read and easy\-to\-write as is feasible\.
 .
 .P
-Readability, however, is emphasized above all else\. A Markdown\-formatted document should be publishable as\-is, as plain text, without looking like it\'s been marked up with tags or formatting instructions\. While Markdown\'s syntax has been influenced by several existing text\-to\-HTML filters \-\- including Setext \fIhttp://docutils\.sourceforge\.net/mirror/setext\.html\fR, atx \fIhttp://www\.aaronsw\.com/2002/atx/\fR, Textile \fIhttp://textism\.com/tools/textile/\fR, reStructuredText \fIhttp://docutils\.sourceforge\.net/rst\.html\fR, Grutatext \fIhttp://www\.triptico\.com/software/grutatxt\.html\fR, and EtText \fIhttp://ettext\.taint\.org/doc/\fR \-\- the single biggest source of inspiration for Markdown\'s syntax is the format of plain text email\.
+Readability, however, is emphasized above all else\. A Markdown\-formatted document should be publishable as\-is, as plain text, without looking like it\(cqs been marked up with tags or formatting instructions\. While Markdown\(cqs syntax has been influenced by several existing text\-to\-HTML filters \-\- including Setext \fIhttp://docutils\.sourceforge\.net/mirror/setext\.html\fR, atx \fIhttp://www\.aaronsw\.com/2002/atx/\fR, Textile \fIhttp://textism\.com/tools/textile/\fR, reStructuredText \fIhttp://docutils\.sourceforge\.net/rst\.html\fR, Grutatext \fIhttp://www\.triptico\.com/software/grutatxt\.html\fR, and EtText \fIhttp://ettext\.taint\.org/doc/\fR \-\- the single biggest source of inspiration for Markdown\(cqs syntax is the format of plain text email\.
 .
 .P
-To this end, Markdown\'s syntax is comprised entirely of punctuation characters, which punctuation characters have been carefully chosen so as to look like what they mean\. E\.g\., asterisks around a word actually look like *emphasis*\. Markdown lists look like, well, lists\. Even blockquotes look like quoted passages of text, assuming you\'ve ever used email\.
+To this end, Markdown\(cqs syntax is comprised entirely of punctuation characters, which punctuation characters have been carefully chosen so as to look like what they mean\. E\.g\., asterisks around a word actually look like *emphasis*\. Markdown lists look like, well, lists\. Even blockquotes look like quoted passages of text, assuming you\(cqve ever used email\.
 .
 .SS "Inline HTML"
-Markdown\'s syntax is intended for one purpose: to be used as a format for \fIwriting\fR for the web\.
+Markdown\(cqs syntax is intended for one purpose: to be used as a format for \fIwriting\fR for the web\.
 .
 .P
-Markdown is not a replacement for HTML, or even close to it\. Its syntax is very small, corresponding only to a very small subset of HTML tags\. The idea is \fInot\fR to create a syntax that makes it easier to insert HTML tags\. In my opinion, HTML tags are already easy to insert\. The idea for Markdown is to make it easy to read, write, and edit prose\. HTML is a \fIpublishing\fR format; Markdown is a \fIwriting\fR format\. Thus, Markdown\'s formatting syntax only addresses issues that can be conveyed in plain text\.
+Markdown is not a replacement for HTML, or even close to it\. Its syntax is very small, corresponding only to a very small subset of HTML tags\. The idea is \fInot\fR to create a syntax that makes it easier to insert HTML tags\. In my opinion, HTML tags are already easy to insert\. The idea for Markdown is to make it easy to read, write, and edit prose\. HTML is a \fIpublishing\fR format; Markdown is a \fIwriting\fR format\. Thus, Markdown\(cqs formatting syntax only addresses issues that can be conveyed in plain text\.
 .
 .P
-For any markup that is not covered by Markdown\'s syntax, you simply use HTML itself\. There\'s no need to preface it or delimit it to indicate that you\'re switching from Markdown to HTML; you just use the tags\.
+For any markup that is not covered by Markdown\(cqs syntax, you simply use HTML itself\. There\(cqs no need to preface it or delimit it to indicate that you\(cqre switching from Markdown to HTML; you just use the tags\.
 .
 .P
 The only restrictions are that block\-level HTML elements \-\- e\.g\. \fB<div>\fR, \fB<table>\fR, \fB<pre>\fR, \fB<p>\fR, etc\. \-\- must be separated from surrounding content by blank lines, and the start and end tags of the block should not be indented with tabs or spaces\. Markdown is smart enough not to add extra (unwanted) \fB<p>\fR tags around HTML block\-level tags\.
@@ -84,10 +84,10 @@ This is another regular paragraph\.
 .IP "" 0
 .
 .P
-Note that Markdown formatting syntax is not processed within block\-level HTML tags\. E\.g\., you can\'t use Markdown\-style \fB*emphasis*\fR inside an HTML block\.
+Note that Markdown formatting syntax is not processed within block\-level HTML tags\. E\.g\., you can\(cqt use Markdown\-style \fB*emphasis*\fR inside an HTML block\.
 .
 .P
-Span\-level HTML tags \-\- e\.g\. \fB<span>\fR, \fB<cite>\fR, or \fB<del>\fR \-\- can be used anywhere in a Markdown paragraph, list item, or header\. If you want, you can even use HTML tags instead of Markdown formatting; e\.g\. if you\'d prefer to use HTML \fB<a>\fR or \fB<img>\fR tags instead of Markdown\'s link or image syntax, go right ahead\.
+Span\-level HTML tags \-\- e\.g\. \fB<span>\fR, \fB<cite>\fR, or \fB<del>\fR \-\- can be used anywhere in a Markdown paragraph, list item, or header\. If you want, you can even use HTML tags instead of Markdown formatting; e\.g\. if you\(cqd prefer to use HTML \fB<a>\fR or \fB<img>\fR tags instead of Markdown\(cqs link or image syntax, go right ahead\.
 .
 .P
 Unlike block\-level HTML tags, Markdown syntax \fIis\fR processed within span\-level tags\.
@@ -96,7 +96,7 @@ Unlike block\-level HTML tags, Markdown syntax \fIis\fR processed within span\-l
 In HTML, there are two characters that demand special treatment: \fB<\fR and \fB&\fR\. Left angle brackets are used to start tags; ampersands are used to denote HTML entities\. If you want to use them as literal characters, you must escape them as entities, e\.g\. \fB&lt;\fR, and \fB&amp;\fR\.
 .
 .P
-Ampersands in particular are bedeviling for web writers\. If you want to write about \'AT&T\', you need to write \'\fBAT&amp;T\fR\'\. You even need to escape ampersands within URLs\. Thus, if you want to link to:
+Ampersands in particular are bedeviling for web writers\. If you want to write about \(cqAT&T\(cq, you need to write \(cq\fBAT&amp;T\fR\(cq\. You even need to escape ampersands within URLs\. Thus, if you want to link to:
 .
 .IP "" 4
 .
@@ -201,13 +201,13 @@ However, inside Markdown code spans and blocks, angle brackets and ampersands ar
 A paragraph is simply one or more consecutive lines of text, separated by one or more blank lines\. (A blank line is any line that looks like a blank line \-\- a line containing nothing but spaces or tabs is considered blank\.) Normal paragraphs should not be indented with spaces or tabs\.
 .
 .P
-The implication of the "one or more consecutive lines of text" rule is that Markdown supports "hard\-wrapped" text paragraphs\. This differs significantly from most other text\-to\-HTML formatters (including Movable Type\'s "Convert Line Breaks" option) which translate every line break character in a paragraph into a \fB<br />\fR tag\.
+The implication of the "one or more consecutive lines of text" rule is that Markdown supports "hard\-wrapped" text paragraphs\. This differs significantly from most other text\-to\-HTML formatters (including Movable Type\(cqs "Convert Line Breaks" option) which translate every line break character in a paragraph into a \fB<br />\fR tag\.
 .
 .P
 When you \fIdo\fR want to insert a \fB<br />\fR break tag using Markdown, you end a line with two or more spaces, then type return\.
 .
 .P
-Yes, this takes a tad more effort to create a \fB<br />\fR, but a simplistic "every line break is a \fB<br />\fR" rule wouldn\'t work for Markdown\. Markdown\'s email\-style \fIblockquoting\fR and multi\-paragraph \fIlist items\fR work best \-\- and look better \-\- when you format them with hard breaks\.
+Yes, this takes a tad more effort to create a \fB<br />\fR, but a simplistic "every line break is a \fB<br />\fR" rule wouldn\(cqt work for Markdown\. Markdown\(cqs email\-style \fIblockquoting\fR and multi\-paragraph \fIlist items\fR work best \-\- and look better \-\- when you format them with hard breaks\.
 .
 .SS "Headers"
 Markdown supports two styles of headers, Setext \fIhttp://docutils\.sourceforge\.net/mirror/setext\.html\fR and atx \fIhttp://www\.aaronsw\.com/2002/atx/\fR\.
@@ -230,7 +230,7 @@ This is an H2
 .IP "" 0
 .
 .P
-Any number of underlining \fB=\fR\'s or \fB\-\fR\'s will work\.
+Any number of underlining \fB=\fR\(cqs or \fB\-\fR\(cqs will work\.
 .
 .P
 Atx\-style headers use 1\-6 hash characters at the start of the line, corresponding to header levels 1\-6\. For example:
@@ -250,7 +250,7 @@ Atx\-style headers use 1\-6 hash characters at the start of the line, correspond
 .IP "" 0
 .
 .P
-Optionally, you may "close" atx\-style headers\. This is purely cosmetic \-\- you can use this if you think it looks better\. The closing hashes don\'t even need to match the number of hashes used to open the header\. (The number of opening hashes determines the header level\.) :
+Optionally, you may "close" atx\-style headers\. This is purely cosmetic \-\- you can use this if you think it looks better\. The closing hashes don\(cqt even need to match the number of hashes used to open the header\. (The number of opening hashes determines the header level\.) :
 .
 .IP "" 4
 .
@@ -267,7 +267,7 @@ Optionally, you may "close" atx\-style headers\. This is purely cosmetic \-\- yo
 .IP "" 0
 .
 .SS "Blockquotes"
-Markdown uses email\-style \fB>\fR characters for blockquoting\. If you\'re familiar with quoting passages of text in an email message, then you know how to create a blockquote in Markdown\. It looks best if you hard wrap the text and put a \fB>\fR before every line:
+Markdown uses email\-style \fB>\fR characters for blockquoting\. If you\(cqre familiar with quoting passages of text in an email message, then you know how to create a blockquote in Markdown\. It looks best if you hard wrap the text and put a \fB>\fR before every line:
 .
 .IP "" 4
 .
@@ -331,7 +331,7 @@ Blockquotes can contain other Markdown elements, including headers, lists, and c
 > 1\.   This is the first list item\.
 > 2\.   This is the second list item\.
 >
-> Here\'s some example code:
+> Here\(cqs some example code:
 >
 >     return shell_exec("echo $input | $markdown_script");
 .
@@ -406,7 +406,7 @@ Ordered lists use numbers followed by periods:
 .IP "" 0
 .
 .P
-It\'s important to note that the actual numbers you use to mark the list have no effect on the HTML output Markdown produces\. The HTML Markdown produces from the above list is:
+It\(cqs important to note that the actual numbers you use to mark the list have no effect on the HTML output Markdown produces\. The HTML Markdown produces from the above list is:
 .
 .IP "" 4
 .
@@ -453,7 +453,7 @@ or even:
 .IP "" 0
 .
 .P
-you\'d get the exact same HTML output\. The point is, if you want to, you can use ordinal numbers in your ordered Markdown lists, so that the numbers in your source match the numbers in your published HTML\. But if you want to be lazy, you don\'t have to\.
+you\(cqd get the exact same HTML output\. The point is, if you want to, you can use ordinal numbers in your ordered Markdown lists, so that the numbers in your source match the numbers in your published HTML\. But if you want to be lazy, you don\(cqt have to\.
 .
 .P
 If you do use lazy list numbering, however, you should still start the list with the number 1\. At some point in the future, Markdown may support starting ordered lists at an arbitrary number\.
@@ -479,7 +479,7 @@ To make lists look nice, you can wrap items with hanging indents:
 .IP "" 0
 .
 .P
-But if you want to be lazy, you don\'t have to:
+But if you want to be lazy, you don\(cqt have to:
 .
 .IP "" 4
 .
@@ -586,7 +586,7 @@ It looks nice if you indent every line of the subsequent paragraphs, but here ag
 
 *   This is a list item with two paragraphs\.
 
-    This is the second paragraph in the list item\. You\'re
+    This is the second paragraph in the list item\. You\(cqre
 only required to indent the first line\. Lorem ipsum dolor
 sit amet, consectetuer adipiscing elit\.
 
@@ -597,7 +597,7 @@ sit amet, consectetuer adipiscing elit\.
 .IP "" 0
 .
 .P
-To put a blockquote within a list item, the blockquote\'s \fB>\fR delimiters need to be indented:
+To put a blockquote within a list item, the blockquote\(cqs \fB>\fR delimiters need to be indented:
 .
 .IP "" 4
 .
@@ -628,7 +628,7 @@ To put a code block within a list item, the code block needs to be indented \fIt
 .IP "" 0
 .
 .P
-It\'s worth noting that it\'s possible to trigger an ordered list by accident, by writing something like this:
+It\(cqs worth noting that it\(cqs possible to trigger an ordered list by accident, by writing something like this:
 .
 .IP "" 4
 .
@@ -757,7 +757,7 @@ will turn into:
 .IP "" 0
 .
 .P
-Regular Markdown syntax is not processed within code blocks\. E\.g\., asterisks are just literal asterisks within a code block\. This means it\'s also easy to use Markdown to write about Markdown\'s own syntax\.
+Regular Markdown syntax is not processed within code blocks\. E\.g\., asterisks are just literal asterisks within a code block\. This means it\(cqs also easy to use Markdown to write about Markdown\(cqs own syntax\.
 .
 .SS "Horizontal Rules"
 You can produce a horizontal rule tag (\fB<hr />\fR) by placing three or more hyphens, asterisks, or underscores on a line by themselves\. If you wish, you may use spaces between the hyphens or asterisks\. Each of the following lines will produce a horizontal rule:
@@ -789,7 +789,7 @@ Markdown supports two style of links: \fIinline\fR and \fIreference\fR\.
 In both styles, the link text is delimited by [square brackets]\.
 .
 .P
-To create an inline link, use a set of regular parentheses immediately after the link text\'s closing square bracket\. Inside the parentheses, put the URL where you want the link to point, along with an \fIoptional\fR title for the link, surrounded in quotes\. For example:
+To create an inline link, use a set of regular parentheses immediately after the link text\(cqs closing square bracket\. Inside the parentheses, put the URL where you want the link to point, along with an \fIoptional\fR title for the link, surrounded in quotes\. For example:
 .
 .IP "" 4
 .
@@ -821,7 +821,7 @@ title attribute\.</p>
 .IP "" 0
 .
 .P
-If you\'re referring to a local resource on the same server, you can use relative paths:
+If you\(cqre referring to a local resource on the same server, you can use relative paths:
 .
 .IP "" 4
 .
@@ -900,7 +900,7 @@ The following three link definitions are equivalent:
 .nf
 
 [foo]: http://example\.com/  "Optional Title Here"
-[foo]: http://example\.com/  \'Optional Title Here\'
+[foo]: http://example\.com/  \(cqOptional Title Here\(cq
 [foo]: http://example\.com/  (Optional Title Here)
 .
 .fi
@@ -1010,10 +1010,10 @@ And then define the link:
 .IP "" 0
 .
 .P
-Link definitions can be placed anywhere in your Markdown document\. I tend to put them immediately after each paragraph in which they\'re used, but if you want, you can put them all at the end of your document, sort of like footnotes\.
+Link definitions can be placed anywhere in your Markdown document\. I tend to put them immediately after each paragraph in which they\(cqre used, but if you want, you can put them all at the end of your document, sort of like footnotes\.
 .
 .P
-Here\'s an example of reference links in action:
+Here\(cqs an example of reference links in action:
 .
 .IP "" 4
 .
@@ -1065,7 +1065,7 @@ or <a href="http://search\.msn\.com/" title="MSN Search">MSN</a>\.</p>
 .IP "" 0
 .
 .P
-For comparison, here is the same paragraph written using Markdown\'s inline link style:
+For comparison, here is the same paragraph written using Markdown\(cqs inline link style:
 .
 .IP "" 4
 .
@@ -1080,13 +1080,13 @@ than from [Yahoo](http://search\.yahoo\.com/ "Yahoo Search") or
 .IP "" 0
 .
 .P
-The point of reference\-style links is not that they\'re easier to write\. The point is that with reference\-style links, your document source is vastly more readable\. Compare the above examples: using reference\-style links, the paragraph itself is only 81 characters long; with inline\-style links, it\'s 176 characters; and as raw HTML, it\'s 234 characters\. In the raw HTML, there\'s more markup than there is text\.
+The point of reference\-style links is not that they\(cqre easier to write\. The point is that with reference\-style links, your document source is vastly more readable\. Compare the above examples: using reference\-style links, the paragraph itself is only 81 characters long; with inline\-style links, it\(cqs 176 characters; and as raw HTML, it\(cqs 234 characters\. In the raw HTML, there\(cqs more markup than there is text\.
 .
 .P
-With Markdown\'s reference\-style links, a source document much more closely resembles the final output, as rendered in a browser\. By allowing you to move the markup\-related metadata out of the paragraph, you can add links without interrupting the narrative flow of your prose\.
+With Markdown\(cqs reference\-style links, a source document much more closely resembles the final output, as rendered in a browser\. By allowing you to move the markup\-related metadata out of the paragraph, you can add links without interrupting the narrative flow of your prose\.
 .
 .SS "Emphasis"
-Markdown treats asterisks (\fB*\fR) and underscores (\fB_\fR) as indicators of emphasis\. Text wrapped with one \fB*\fR or \fB_\fR will be wrapped with an HTML \fB<em>\fR tag; double \fB*\fR\'s or \fB_\fR\'s will be wrapped with an HTML \fB<strong>\fR tag\. E\.g\., this input:
+Markdown treats asterisks (\fB*\fR) and underscores (\fB_\fR) as indicators of emphasis\. Text wrapped with one \fB*\fR or \fB_\fR will be wrapped with an HTML \fB<em>\fR tag; double \fB*\fR\(cqs or \fB_\fR\(cqs will be wrapped with an HTML \fB<strong>\fR tag\. E\.g\., this input:
 .
 .IP "" 4
 .
@@ -1140,7 +1140,7 @@ un*frigging*believable
 .IP "" 0
 .
 .P
-But if you surround an \fB*\fR or \fB_\fR with spaces, it\'ll be treated as a literal asterisk or underscore\.
+But if you surround an \fB*\fR or \fB_\fR with spaces, it\(cqll be treated as a literal asterisk or underscore\.
 .
 .P
 To produce a literal asterisk or underscore at a position where it would otherwise be used as an emphasis delimiter, you can backslash escape it:
@@ -1244,7 +1244,7 @@ With a code span, ampersands and angle brackets are encoded as HTML entities aut
 .
 .nf
 
-Please don\'t use any `<blink>` tags\.
+Please don\(cqt use any `<blink>` tags\.
 .
 .fi
 .
@@ -1257,7 +1257,7 @@ into:
 .
 .nf
 
-<p>Please don\'t use any <code>&lt;blink&gt;</code> tags\.</p>
+<p>Please don\(cqt use any <code>&lt;blink&gt;</code> tags\.</p>
 .
 .fi
 .
@@ -1291,7 +1291,7 @@ equivalent of <code>&amp;mdash;</code>\.</p>
 .IP "" 0
 .
 .SS "Images"
-Admittedly, it\'s fairly difficult to devise a "natural" syntax for placing images into a plain text document format\.
+Admittedly, it\(cqs fairly difficult to devise a "natural" syntax for placing images into a plain text document format\.
 .
 .P
 Markdown uses an image syntax that is intended to resemble the syntax for links, allowing for two styles: \fIinline\fR and \fIreference\fR\.
@@ -1415,10 +1415,10 @@ into something like this:
 which will render in a browser as a clickable link to "address@example\.com"\.
 .
 .P
-(This sort of entity\-encoding trick will indeed fool many, if not most, address\-harvesting bots, but it definitely won\'t fool all of them\. It\'s better than nothing, but an address published in this way will probably eventually start receiving spam\.)
+(This sort of entity\-encoding trick will indeed fool many, if not most, address\-harvesting bots, but it definitely won\(cqt fool all of them\. It\(cqs better than nothing, but an address published in this way will probably eventually start receiving spam\.)
 .
 .SS "Backslash Escapes"
-Markdown allows you to use backslash escapes to generate literal characters which would otherwise have special meaning in Markdown\'s formatting syntax\. For example, if you wanted to surround a word with literal asterisks (instead of an HTML \fB<em>\fR tag), you can use backslashes before the asterisks, like this:
+Markdown allows you to use backslash escapes to generate literal characters which would otherwise have special meaning in Markdown\(cqs formatting syntax\. For example, if you wanted to surround a word with literal asterisks (instead of an HTML \fB<em>\fR tag), you can use backslashes before the asterisks, like this:
 .
 .IP "" 4
 .
@@ -1458,7 +1458,7 @@ _   underscore
 Markdown was created by John Gruber\.
 .
 .P
-Manual page by Ryan Tomayko\. It\'s pretty much a direct copy of the Markdown Syntax Reference \fIhttp://daringfireball\.net/projects/markdown/syntax\fR, also by John Gruber\.
+Manual page by Ryan Tomayko\. It\(cqs pretty much a direct copy of the Markdown Syntax Reference \fIhttp://daringfireball\.net/projects/markdown/syntax\fR, also by John Gruber\.
 .
 .SH "SEE ALSO"
 ronn(5)
