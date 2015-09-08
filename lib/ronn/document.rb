@@ -400,7 +400,7 @@ module Ronn
         elsif name
           "<h2>NAME</h2>\n" +
           "<p class='man-name'>\n  <code>#{name}</code>" +
-          (tagline ? " - <span class='man-whatis'>#{tagline}</span>\n" : "\n") +
+          (tagline ? " &mdash; <span class='man-whatis'>#{tagline}</span>\n" : "\n") +
           "</p>\n"
         end
       if markup

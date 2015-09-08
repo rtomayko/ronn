@@ -38,7 +38,7 @@ module Ronn
       if !name_and_section? && tagline
         tagline
       else
-        [page_name, tagline].compact.join(' - ')
+        [page_name, tagline].compact.join(' &mdash; ')
       end
     end
 
