@@ -167,6 +167,7 @@ module Ronn
     def date
       return @date if @date
       return File.mtime(path) if File.exist?(path)
+      return Time.at(ENV['SOURCE_DATE_EPOCH'].to_i).gmtime if not ENV['SOURCE_DATE_EPOCH'].nil?
       Time.now
     end
 
