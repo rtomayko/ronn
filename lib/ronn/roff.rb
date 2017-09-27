@@ -256,7 +256,7 @@ module Ronn
       text.gsub!(/&#(\d+);/) { $1.to_i.chr }                # dec entities
       text.gsub!('\\', '\e')                                # backslash
       text.gsub!('...', '…')                                # ellipses
-      text.gsub!(/['.-]/) { |m| "\\#{m}" }                  # control chars
+      text.gsub!(/^['.-]/) { |m| "\\&#{m}" }                # control chars
       text.gsub!(/(&[A-Za-z]+;)/) { ent[$1] || $1 }         # named entities
       text.gsub!('&amp;',  '&')                             # amps
       text
@@ -269,11 +269,6 @@ module Ronn
     # write text to output buffer
     def write(text)
       return if text.nil? || text.empty?
-      # lines cannot start with a '.'. insert zero-width character before.
-      if text[0,2] == '\.' &&
-        (@buf.last && @buf.last[-1] == ?\n)
-        @buf << '\&'
-      end
       @buf << text
     end
 
