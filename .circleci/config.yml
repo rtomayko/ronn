@@ -58,8 +58,12 @@ jobs:
             
       # collect reports
       - store_test_results:
-          path: /tmp/test-results/unittest.xml
+          path: /tmp/test-results
 
       - store_artifacts:
           path: /tmp/test-results/warning.txt
           destination: analysis/warning.txt
+        
+      - store_artifacts:
+          path: ~/repo/pkg
+          destination: pkg
