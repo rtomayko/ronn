@@ -46,7 +46,6 @@ task :pages => :man do
   puts 'Rebuilding pages ...'
   verbose(false) {
     rm_rf 'pages'
-    push_url = `git remote get-url origin`
     sh "
       set -e
       git fetch -q origin
@@ -58,9 +57,10 @@ task :pages => :man do
       cp -rp ../man/ronn*.html ../man/index.txt ../man/index.html ./
       git add -u ronn*.html index.html index.txt
       git commit -m 'rebuild manual'
-      git push #{push_url} gh-pages
+      git push origin gh-pages
     ", :verbose => false
   }
+  rm_rf 'pages'
 end
 
 # PACKAGING ============================================================
