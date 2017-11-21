@@ -32,16 +32,6 @@ task :server => :environment do
   end
 end
 
-desc 'Start the server'
-task :server => :environment do
-  if system('type shotgun >/dev/null 2>&1')
-    exec "shotgun config.ru"
-  else
-    require 'ronn/server'
-    Ronn::Server.run('man/*.ronn')
-  end
-end
-
 desc 'Build the manual'
 task :man => :environment do
   require 'ronn'
@@ -56,7 +46,7 @@ task :pages => :man do
   puts 'Rebuilding pages ...'
   verbose(false) {
     rm_rf 'pages'
-    push_url = `git remote show origin`.grep(/Push.*URL/).first[/git@.*/]
+    push_url = `git remote get-url origin`
     sh "
       set -e
       git fetch -q origin
