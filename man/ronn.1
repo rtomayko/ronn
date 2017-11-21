@@ -1,19 +1,19 @@
-.\" generated with Ronn/v0.7.0
-.\" http://github.com/rtomayko/ronn/tree/0.7.0
+.\" generated with Ronn/v0.7.4
+.\" http://github.com/kamontat/ronn/tree/0.7.4
 .
-.TH "RONN" "1" "June 2010" "Ronn 0.7.0" "Ronn Manual"
+.TH "RONN" "1" "November, 22 2017" "Ronn 0.7.4" "Ronn Manual"
 .
 .SH "NAME"
 \fBronn\fR \- convert markdown files to manpages
 .
 .SH "SYNOPSIS"
-\fBronn\fR [\fIformat\fR\.\.\.] \fIfile\fR\.\.\.
+\fBronn\fR [\fIformat\fR\|\.\|\.\|\.] \fIfile\fR\|\.\|\.\|\.
 .
 .br
-\fBronn\fR \fB\-m\fR|\fB\-\-man\fR \fIfile\fR\.\.\.
+\fBronn\fR \fB\-m\fR|\fB\-\-man\fR \fIfile\fR\|\.\|\.\|\.
 .
 .br
-\fBronn\fR \fB\-S\fR|\fB\-\-server\fR \fIfile\fR\.\.\.
+\fBronn\fR \fB\-S\fR|\fB\-\-server\fR \fIfile\fR\|\.\|\.\|\.
 .
 .br
 \fBronn\fR \fB\-\-pipe\fR \fIfile\fR
@@ -90,11 +90,15 @@ The name of the group, organization, or individual responsible for publishing th
 \fB\-\-date\fR=\fIdate\fR
 The document\'s published date; \fIdate\fR must be formatted \fBYYYY\-MM\-DD\fR and is displayed in the bottom\-center footer area\. The \fIfile\fR mtime is used when no \fIdate\fR is given, or the current time when no \fIfile\fR is available\.
 .
+.TP
+\fB\-\-aversion\fR=\fIapp\-version\fR
+The version of manpage or script for publishing the document; This version will combine with \fBorganization\fR or \fBname\fR
+.
 .P
 HTML output can be customized through the use of CSS stylesheets:
 .
 .TP
-\fB\-\-style\fR=\fImodule\fR[,\fImodule\fR]\.\.\.
+\fB\-\-style\fR=\fImodule\fR[,\fImodule\fR]\|\.\|\.\|\.
 The list of CSS stylesheets to apply to the document\. Multiple \fImodule\fR arguments may be specified, but must be separated by commas or spaces\.
 .
 .IP
@@ -199,7 +203,7 @@ The heading and footing, respectively\.
 The main \fB<h1>\fR element\. Hidden by default unless the manual has no \fIname\fR or \fIsection\fR attributes\.
 .
 .P
-See the builtin style sources \fIhttp://github\.com/rtomayko/ronn/tree/master/lib/ronn/template\fR for examples\.
+See the builtin style sources \fIhttp://github\.com/kamontat/ronn/tree/master/lib/ronn/template\fR for examples\.
 .
 .SH "EXAMPLES"
 Build roff and HTML output files and view the roff manpage using man(1):
@@ -322,4 +326,4 @@ Used instead of \fBMANPAGER\fR when \fBMANPAGER\fR is not defined\.
 Ronn is Copyright (C) 2009 Ryan Tomayko \fIhttp://tomayko\.com/about\fR
 .
 .SH "SEE ALSO"
-ronn\-format(7), manpages(5), man(1), roff(7), groff(1), markdown(7)
+groff(1), man(1), pandoc(1), manpages(5), markdown(7), roff(7), ronn\-format(7)

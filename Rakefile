@@ -1,7 +1,7 @@
 require 'rake/clean'
-require 'date'
+require 'rake/testtask'
 
-task :default => :test
+require 'date'
 
 ROOTDIR = File.expand_path('..', __FILE__).sub(/#{Dir.pwd}(?=\/)/, '.')
 LIBDIR  = "#{ROOTDIR}/lib"
@@ -16,20 +16,19 @@ task :environment do
   ENV['PATH'] = "#{BINDIR}:#{ENV['PATH']}"
 end
 
-desc 'Run tests'
-task :test => :environment do
-  $LOAD_PATH.unshift "#{ROOTDIR}/test"
-  Dir['test/test_*.rb'].each { |f| require(f) }
+Rake::TestTask.new do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  t.pattern = "test/test_*.rb"
 end
 
-desc 'Start the server'
-task :server => :environment do
-  if system('type shotgun >/dev/null 2>&1')
-    exec "shotgun config.ru"
-  else
-    require 'ronn/server'
-    Ronn::Server.run('man/*.ronn')
-  end
+task :default => :test
+
+task :testci do
+  warning="/tmp/test-results/warning.txt"
+
+  sh "mkdir /tmp/test-results || exit 0"
+  sh "bundle exec rake test 2>#{warning}"
 end
 
 desc 'Start the server'
@@ -56,33 +55,46 @@ task :pages => :man do
   puts 'Rebuilding pages ...'
   verbose(false) {
     rm_rf 'pages'
-    push_url = `git remote show origin`.grep(/Push.*URL/).first[/git@.*/]
     sh "
       set -e
       git fetch -q origin
-      rev=$(git rev-parse origin/gh-pages)
       git clone -q -b gh-pages . pages
       cd pages
-      git reset --hard $rev
-      rm -f ronn*.html index.html
-      cp -rp ../man/ronn*.html ../man/index.txt ../man/index.html ./
+      cp -rp ../man/ronn.1.html ../man/ronn-format.7.html ../man/index.txt ../man/index.html ./
       git add -u ronn*.html index.html index.txt
       git commit -m 'rebuild manual'
-      git push #{push_url} gh-pages
+      git push origin gh-pages
     ", :verbose => false
   }
+  rm_rf 'pages'
 end
 
 # PACKAGING ============================================================
 
 # Rev Ronn::VERSION
-task :rev do
+# update version in gemspec, first
+# commit all change, second
+# run rake release, last
+desc 'release version, release gh-pages'
+task :release => [:rev, :pages] do
   rev = ENV['REV'] || `git describe --tags`.chomp
   data = File.read('lib/ronn.rb')
   data.gsub!(/^( *)REV *=.*/, "\\1REV = '#{rev}'")
   File.open('lib/ronn.rb', 'wb') { |fd| fd.write(data) }
   puts "revision: #{rev}"
   puts "version:  #{`ruby -Ilib -rronn -e 'puts Ronn::VERSION'`}"
+end
+
+task :rev do | t, args |
+  $spec = eval(File.read('ronn.gemspec'))
+  v = $spec.version
+  if `git status`.match("nothing")
+    sh "
+      git tag #{v}
+    "
+  else 
+    abort "fatal: need to commit change first"
+  end
 end
 
 require 'rubygems'

@@ -103,6 +103,10 @@ the [ENVIRONMENT][].)
     displayed in the bottom-center footer area. The <file> mtime is used when no
     <date> is given, or the current time when no <file> is available.
 
+  * `--aversion`=<app-version>:
+    The version of manpage or script for publishing the document;
+    This version will combine with `organization` or `name`
+
 HTML output can be customized through the use of CSS stylesheets:
 
   * `--style`=<module>[,<module>]...:
@@ -220,7 +224,7 @@ allow targeting all generated elements:
 
 See the [builtin style sources][builtin] for examples.
 
-[builtin]: http://github.com/rtomayko/ronn/tree/master/lib/ronn/template
+[builtin]: http://github.com/kamontat/ronn/tree/master/lib/ronn/template
           "Builtin Stylesheet .css files"
 
 ## EXAMPLES

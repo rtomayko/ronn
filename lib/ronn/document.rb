@@ -51,6 +51,10 @@ module Ronn
     # for this document; displayed in the left portion of the footer.
     attr_accessor :organization
 
+    # The version of script
+    # for this document; displayed in the left portion of the footer.
+    attr_accessor :aversion
+
     # The date the document was published; center displayed in
     # the document footer.
     attr_accessor :date
@@ -77,7 +81,8 @@ module Ronn
       @name, @section, @tagline = sniff
 
       @styles = %w[man]
-      @manual, @organization, @date = nil
+      @manual, @organization, @aversion = nil
+      @date = nil
       @markdown, @input_html, @html = nil
       @index = Ronn::Index[path || '.']
       @index.add_manual(self) if path && name
@@ -227,7 +232,7 @@ module Ronn
       RoffFilter.new(
         to_html_fragment(wrap_class=nil),
         name, section, tagline,
-        manual, organization, date
+        manual, organization, aversion, date
       ).to_s
     end
 

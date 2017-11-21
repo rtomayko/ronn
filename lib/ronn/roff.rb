@@ -6,16 +6,15 @@ module Ronn
     include Ronn::Utils
 
     # Convert Ronn HTML to roff.
-    def initialize(html, name, section, tagline, manual=nil, version=nil, date=nil)
+    def initialize(html, name, section, tagline, manual=nil, organization=nil, version=nil, date=nil)
       @buf = []
-      title_heading name, section, tagline, manual, version, date
+      title_heading name, section, tagline, manual, organization, version, date
       doc = Hpricot(html)
       remove_extraneous_elements! doc
       normalize_whitespace! doc
       block_filter doc
       write "\n"
     end
-
     def to_s
       @buf.join.gsub(/[ \t]+$/, '')
     end
@@ -29,11 +28,21 @@ module Ronn
       end
     end
 
-    def title_heading(name, section, tagline, manual, version, date)
+    def title_heading(name, section, tagline, manual, organization, version, date)
       comment "generated with Ronn/v#{Ronn.version}"
-      comment "http://github.com/rtomayko/ronn/tree/#{Ronn.revision}"
+      comment "http://github.com/kamontat/ronn/tree/#{Ronn.revision}"
       return if name.nil?
-      macro "TH", %["#{escape(name.upcase)}" "#{section}" "#{date.strftime('%B %Y')}" "#{version}" "#{manual}"]
+
+      bottom_left = nil
+      if organization.nil? and !version.nil?
+        bottom_left = "#{name} #{version}"
+      elsif !organization.nil? and !version.nil?
+        bottom_left = "#{organization} #{version}"
+      elsif !organization.nil? and version.nil?
+        bottom_left = "#{organization}"
+      end
+
+      macro "TH", %["#{escape(name.upcase)}" "#{section}" "#{date.strftime('%B, %d %Y')}" "#{bottom_left}" "#{manual}"]
     end
 
     def remove_extraneous_elements!(doc)
