@@ -40,13 +40,13 @@ jobs:
       - run:
           name: run tests
           command: |
-            rake testci
+            rake testci --trace
 
       # build package
       - run:
           name: package
           command: |
-            rake package
+            rake package --trace
             
       # collect reports
       - store_test_results:

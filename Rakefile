@@ -30,15 +30,10 @@ task :testci do
   warning="/tmp/test-results/warning.txt"
   xml="/tmp/test-results/unittest.xml"
   sh "
+  [ ! -d /tmp/test-results ] && mkdir tmp/test-results
   rake test TESTOPTS=\"#{opt}\" 2>#{warning} 1>#{xml}
   "
 end
-
-# desc 'Run tests'
-# task :test => :environment do
-#   $LOAD_PATH.unshift "#{ROOTDIR}/test"
-#   Dir['test/test_*.rb'].each { |f| require(f) }
-# end
 
 desc 'Start the server'
 task :server => :environment do
