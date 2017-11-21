@@ -30,7 +30,6 @@ jobs:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-            rake install
 
       - run: 
           name: Gem environment
@@ -42,19 +41,19 @@ jobs:
             - ./vendor/bundle
             - /usr/local/bundle
             - /home/circleci/.gem/ruby/2.4.0
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v1-dependencies-{{ checksum "ronn.gemspec" }}
 
       # run tests!
       - run:
           name: run tests
           command: |
-            rake testci --trace
+            bundle exec rake testci --trace
 
       # build package
       - run:
           name: package
           command: |
-            rake package --trace
+            bundle exec rake package --trace
             
       # collect reports
       - store_test_results:

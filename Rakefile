@@ -26,9 +26,8 @@ Rake::TestTask.new do |t|
 end
 
 task :testci do
-  opt="--runner=xml"
+  opt="--ci-dir=/tmp/test-results"
   warning="/tmp/test-results/warning.txt"
-  xml="/tmp/test-results/unittest.xml"
 
   sh "mkdir /tmp/test-results || exit 0"
 
@@ -36,7 +35,7 @@ task :testci do
 
   # Rake::Task["test"].invoke
   sh "
-  rake test 2>#{warning} 1>#{xml}
+  bundle exec rake test 2>#{warning} 1>#{xml}
   "
 end
 
