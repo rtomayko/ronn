@@ -1,0 +1,23 @@
+PATH
+  remote: .
+  specs:
+    ronn (0.7.4)
+      hpricot (>= 0.8.2)
+      mustache (>= 0.7.0)
+      rdiscount (>= 1.5.8)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    hpricot (0.8.6)
+    mustache (1.0.5)
+    rdiscount (2.2.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ronn!
+
+BUNDLED WITH
+   1.16.0
