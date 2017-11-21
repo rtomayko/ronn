@@ -7,29 +7,31 @@
 #/ build HTML and roff output files based on the input file names.
 #/
 #/ Mode options alter the default behavior of generating files:
-#/       --pipe                write to standard output instead of generating files
-#/   -m, --man                 show manual like with man(1)
-#/   -S, --server              serve <file>s at http://localhost:1207/
+#/       --pipe                 write to standard output instead of generating files
+#/   -m, --man                  show manual like with man(1)
+#/   -S, --server               serve <file>s at http://localhost:1207/
 #/
 #/ Format options control which files / formats are generated:
-#/   -r, --roff                generate roff output
-#/   -5, --html                generate entire HTML page with layout
-#/   -f, --fragment            generate HTML fragment
-#/       --markdown            generate post-processed markdown output
+#/   -r, --roff                 generate roff output
+#/   -5, --html                 generate entire HTML page with layout
+#/   -f, --fragment             generate HTML fragment
+#/       --markdown             generate post-processed markdown output
 #/
 #/ Document attributes:
 #/       --date=<date>          published date in YYYY-MM-DD format (bottom-center)
 #/       --manual=<name>        name of the manual (top-center)
 #/       --organization=<name>  publishing group or individual (bottom-left)
+#/       --aversion=<version>   manpage version (botton-left) 
 #/
 #/ Misc options:
-#/   -w, --warnings            show troff warnings on stderr
-#/   -W                        disable previously enabled troff warnings
-#/       --version             show ronn version and exit
-#/       --help                show this help message
+#/   -w, --warnings             show troff warnings on stderr
+#/   -W                         disable previously enabled troff warnings
+#/       --version              show ronn version and exit
+#/       --help                 show this help message
 #/
 #/ A <file> named example.1.ronn generates example.1.html (HTML manpage)
 #/ and example.1 (roff manpage) by default.
+
 require 'date'
 require 'optparse'
 
@@ -79,7 +81,7 @@ pager   = ENV['MANPAGER'] || ENV['PAGER'] || 'more'
 ##
 # Environment variables
 
-%w[manual organization date].each do |attribute|
+%w[manual organization aversion date].each do |attribute|
   value = ENV["RONN_#{attribute.upcase}"]
   next if value.nil? or value.empty?
   options[attribute] = value
@@ -106,7 +108,7 @@ ARGV.options do |argv|
   argv.on("-s", "--style=V")  { |val| styles += val.split(/[, \n]+/) }
 
   # manual attribute options
-  %w[name section manual organization date].each do |attribute|
+  %w[name section manual organization aversion date].each do |attribute|
     argv.on("--#{attribute}=VALUE") { |val| options[attribute] = val }
   end
 
@@ -120,7 +122,7 @@ ARGV.options do |argv|
     else
       printf "Ronn v%s (%s)\n", Ronn::VERSION, Ronn::REV
     end
-    printf "http://github.com/rtomayko/ronn/tree/%s\n", Ronn.revision
+    printf "http://github.com/kamontat/ronn/tree/%s\n", Ronn.revision
     exit 0
   end
   argv.on_tail("--help") { usage ; exit 0 }
