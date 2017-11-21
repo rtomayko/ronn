@@ -49,12 +49,9 @@ task :pages => :man do
     sh "
       set -e
       git fetch -q origin
-      rev=$(git rev-parse origin/gh-pages)
       git clone -q -b gh-pages . pages
       cd pages
-      git reset --hard $rev
-      rm -f ronn*.html index.html
-      cp -rp ../man/ronn*.html ../man/index.txt ../man/index.html ./
+      cp -rp ../man/ronn.1.html ../man/ronn-format.7.html ../man/index.txt ../man/index.html ./
       git add -u ronn*.html index.html index.txt
       git commit -m 'rebuild manual'
       git push origin gh-pages
@@ -66,6 +63,7 @@ end
 # PACKAGING ============================================================
 
 # Rev Ronn::VERSION
+desc 'Dump version (run git tag first)'
 task :rev do
   rev = ENV['REV'] || `git describe --tags`.chomp
   data = File.read('lib/ronn.rb')
