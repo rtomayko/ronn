@@ -11,15 +11,15 @@ detail.
 The `*.ronn` files found in the [`man/`][1] directory show off a wide range of
 ronn capabilities:
 
-  * [ronn(1)](http://rtomayko.github.com/ronn/ronn.1) command -
-    [source file](http://github.com/rtomayko/ronn/blob/master/man/ronn.1.ronn),
-    [roff output](http://github.com/rtomayko/ronn/blob/master/man/ronn.1)
+  * [ronn(1)](http://kamontat.github.com/ronn/ronn.1) command -
+    [source file](http://github.com/kamontat/ronn/blob/master/man/ronn.1.ronn),
+    [roff output](http://github.com/kamontat/ronn/blob/master/man/ronn.1)
 
-  * [ronn-format(7)](http://rtomayko.github.com/ronn/ronn-format.7) -
-    [source file](http://github.com/rtomayko/ronn/blob/master/man/ronn-format.7.ronn),
-    [roff output](http://github.com/rtomayko/ronn/blob/master/man/ronn-format.7)
+  * [ronn-format(7)](http://kamontat.github.com/ronn/ronn-format.7) -
+    [source file](http://github.com/kamontat/ronn/blob/master/man/ronn-format.7.ronn),
+    [roff output](http://github.com/kamontat/ronn/blob/master/man/ronn-format.7)
 
-[1]: http://github.com/rtomayko/ronn/tree/master/man
+[1]: http://github.com/kamontat/ronn/tree/master/man
 
 As an alternative, you might want to check out [pandoc](http://johnmacfarlane.net/pandoc/) which can also convert markdown into roff manual pages.
 
@@ -48,7 +48,7 @@ View roff output with man(1):
 
     $ man man/ronn.5
 
-The [ronn(1)](http://rtomayko.github.com/ronn/ronn.1) manual page includes
+The [ronn(1)](http://kamontat.github.com/ronn/ronn.1) manual page includes
 comprehensive documentation on `ronn` command line options.
 
 ## Background
