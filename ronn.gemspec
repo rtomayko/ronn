@@ -7,8 +7,10 @@ Gem::Specification.new do |s|
   s.summary     = "Builds manuals"
   s.homepage    = "http://kamontat.github.io/ronn"
 
-  s.authors     = ["Ryan Tomayko"]
-  s.email       = "rtomayko@gmail.com"
+  s.authors     = ["Ryan Tomayko", "Kamontat Chantrachirathumrong"]
+  s.email       = ["rtomayko@gmail.com", "kamontat@hotmail.com"]
+
+  s.license     = ["MIT"]
 
   # = MANIFEST =
   s.files = %w[
