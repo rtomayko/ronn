@@ -1,4 +1,6 @@
 require 'rake/clean'
+require 'rake/testtask'
+
 require 'date'
 
 task :default => :test
@@ -16,11 +18,27 @@ task :environment do
   ENV['PATH'] = "#{BINDIR}:#{ENV['PATH']}"
 end
 
-desc 'Run tests'
-task :test => :environment do
-  $LOAD_PATH.unshift "#{ROOTDIR}/test"
-  Dir['test/test_*.rb'].each { |f| require(f) }
+Rake::TestTask.new do |t|
+  t.libs = ["lib", "test"]
+  t.warning = true
+  t.verbose = true
+  t.test_files = FileList['test/test_*.rb']
 end
+
+task :testci do
+  opt="--runner=xml"
+  warning="/tmp/test-results/warning.txt"
+  xml="/tmp/test-results/unittest.xml"
+  sh "
+  rake test TESTOPTS=\"#{opt}\" 2>#{warning} 1>#{xml}
+  "
+end
+
+# desc 'Run tests'
+# task :test => :environment do
+#   $LOAD_PATH.unshift "#{ROOTDIR}/test"
+#   Dir['test/test_*.rb'].each { |f| require(f) }
+# end
 
 desc 'Start the server'
 task :server => :environment do
