@@ -18,6 +18,7 @@ jobs:
 
     steps:
       - checkout
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -40,6 +41,8 @@ jobs:
           name: run tests
           command: |
             rake testci
+
+      # build package
       - run:
           name: package
           command: |
@@ -48,6 +51,7 @@ jobs:
       # collect reports
       - store_test_results:
           path: /tmp/test-results/unittest.xml
+
       - store_artifacts:
           path: /tmp/test-results/warning.txt
           destination: analysis/warning.txt
