@@ -19,9 +19,9 @@ class RonnTest < Test::Unit::TestCase
     lines = output.split("\n")
     assert_equal 7, lines.size
     assert_equal %[.\\" generated with Ronn/v#{Ronn::version}], lines.shift
-    assert_equal %[.\\" http://github.com/rtomayko/ronn/tree/#{Ronn::revision}], lines.shift
+    assert_equal %[.\\" http://github.com/kamontat/ronn/tree/#{Ronn::revision}], lines.shift
     assert_equal %[.], lines.shift
-    assert_equal %[.TH "HELLO" "1" "November 2009" "" ""], lines.shift
+    assert_equal %[.TH "HELLO" "1" "November, 23 2009" "" ""], lines.shift
     assert_equal %[.], lines.shift
     assert_equal %[.SH "NAME"], lines.shift
     assert_equal %[\\fBhello\\fR \\- hello world], lines.shift
@@ -41,7 +41,7 @@ class RonnTest < Test::Unit::TestCase
     output = canonicalize(output)
     assert_match(/<h2 id='NAME'>NAME<\/h2>/, output)
     advertising = "<meta name='generator' value='Ronn/v"    + Ronn::version  +
-                  " (http://github.com/rtomayko/ronn/tree/" + Ronn::revision + ")'>"
+                  " (http://github.com/kamontat/ronn/tree/" + Ronn::revision + ")'>"
     assert_match(/#{Regexp.escape(advertising)}/, output)
   end
 
