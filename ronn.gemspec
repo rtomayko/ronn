@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = 'ronn'
-  s.version = '0.7.3'
-  s.date = '2010-06-24'
+  s.version = '0.7.4'
+  s.date = '2017-11-22'
 
   s.description = "Builds manuals"
   s.summary     = "Builds manuals"
@@ -10,13 +10,14 @@ Gem::Specification.new do |s|
   s.authors     = ["Ryan Tomayko", "Kamontat Chantrachirathumrong"]
   s.email       = ["rtomayko@gmail.com", "kamontat@hotmail.com"]
 
-  s.license     = ["MIT"]
+  s.licenses    = ["MIT"]
 
   # = MANIFEST =
   s.files = %w[
     AUTHORS
     CHANGES
     COPYING
+    Gemfile
     INSTALLING
     README.md
     Rakefile
@@ -46,6 +47,8 @@ Gem::Specification.new do |s|
     ronn.gemspec
     test/angle_bracket_syntax.html
     test/angle_bracket_syntax.ronn
+    test/backticks.html
+    test/backticks.ronn
     test/basic_document.html
     test/basic_document.ronn
     test/contest.rb
@@ -56,6 +59,8 @@ Gem::Specification.new do |s|
     test/definition_list_syntax.ronn
     test/dots_at_line_start_test.roff
     test/dots_at_line_start_test.ronn
+    test/ellipses.roff
+    test/ellipses.ronn
     test/entity_encoding_test.html
     test/entity_encoding_test.roff
     test/entity_encoding_test.ronn
@@ -68,6 +73,9 @@ Gem::Specification.new do |s|
     test/middle_paragraph.ronn
     test/missing_spaces.roff
     test/missing_spaces.ronn
+    test/nested_list_with_code.html
+    test/nested_list_with_code.roff
+    test/nested_list_with_code.ronn
     test/pre_block_with_quotes.roff
     test/pre_block_with_quotes.ronn
     test/section_reference_links.html
@@ -94,5 +102,5 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Ronn"]
   s.require_paths = %w[lib]
-  s.rubygems_version = '1.1.1'
+  s.rubygems_version = '2.4.0'
 end
