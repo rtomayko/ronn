@@ -1,4 +1,4 @@
-# Ronn
+# Ronn [![CircleCI](https://circleci.com/gh/kamontat/ronn.svg?style=svg)](https://circleci.com/gh/kamontat/ronn)
 
 Ronn builds manuals. It converts simple, human readable textfiles to roff for
 terminal display, and also to HTML for the web.
