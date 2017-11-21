@@ -46,7 +46,7 @@ jobs:
       - run: 
           name: run tests 
           command: |
-            bundle exec rake test TESTOPTS="--ci-dir=./reports"
+            bundle exec rake testci
 
       # build package
       - run:
