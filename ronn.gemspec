@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.files = %w[
     AUTHORS
     CHANGES
+    LICENSE
     COPYING
     Gemfile
     INSTALLING
