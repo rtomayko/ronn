@@ -16,10 +16,11 @@ Gem::Specification.new do |s|
   s.files = %w[
     AUTHORS
     CHANGES
-    LICENSE
     COPYING
     Gemfile
+    Gemfile.lock
     INSTALLING
+    LICENSE
     README.md
     Rakefile
     bin/ronn
