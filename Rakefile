@@ -63,14 +63,29 @@ end
 # PACKAGING ============================================================
 
 # Rev Ronn::VERSION
-desc 'Dump version (run git tag first)'
-task :rev do
+# update version in gemspec, first
+# commit all change, second
+# run rake release, last
+desc 'release version, release gh-pages'
+task :release => [:rev, :pages] do
   rev = ENV['REV'] || `git describe --tags`.chomp
   data = File.read('lib/ronn.rb')
   data.gsub!(/^( *)REV *=.*/, "\\1REV = '#{rev}'")
   File.open('lib/ronn.rb', 'wb') { |fd| fd.write(data) }
   puts "revision: #{rev}"
   puts "version:  #{`ruby -Ilib -rronn -e 'puts Ronn::VERSION'`}"
+end
+
+task :rev do | t, args |
+  $spec = eval(File.read('ronn.gemspec'))
+  v = $spec.version
+  if `git status`.match("nothing")
+    sh "
+      git tag #{v}
+    "
+  else 
+    abort "fatal: need to commit change first"
+  end
 end
 
 require 'rubygems'
