@@ -30,7 +30,7 @@ module Ronn
 
     def title_heading(name, section, tagline, manual, organization, version, date)
       comment "generated with Ronn/v#{Ronn.version}"
-      comment "http://github.com/rtomayko/ronn/tree/#{Ronn.revision}"
+      comment "http://github.com/kamontat/ronn/tree/#{Ronn.revision}"
       return if name.nil?
 
       bottom_left = nil
