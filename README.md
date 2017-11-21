@@ -11,11 +11,11 @@ detail.
 The `*.ronn` files found in the [`man/`][1] directory show off a wide range of
 ronn capabilities:
 
-  * [ronn(1)](http://kamontat.github.com/ronn/ronn.1) command -
+  * [ronn(1)](http://kamontat.github.io/ronn/ronn.1) command -
     [source file](http://github.com/kamontat/ronn/blob/master/man/ronn.1.ronn),
     [roff output](http://github.com/kamontat/ronn/blob/master/man/ronn.1)
 
-  * [ronn-format(7)](http://kamontat.github.com/ronn/ronn-format.7) -
+  * [ronn-format(7)](http://kamontat.github.io/ronn/ronn-format.7) -
     [source file](http://github.com/kamontat/ronn/blob/master/man/ronn-format.7.ronn),
     [roff output](http://github.com/kamontat/ronn/blob/master/man/ronn-format.7)
 

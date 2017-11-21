@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
 
   s.description = "Builds manuals"
   s.summary     = "Builds manuals"
-  s.homepage    = "http://rtomayko.github.com/ronn"
+  s.homepage    = "http://kamontat.github.io/ronn"
 
   s.authors     = ["Ryan Tomayko"]
   s.email       = "rtomayko@gmail.com"
