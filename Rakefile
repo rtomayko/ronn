@@ -29,9 +29,14 @@ task :testci do
   opt="--runner=xml"
   warning="/tmp/test-results/warning.txt"
   xml="/tmp/test-results/unittest.xml"
+
+  sh "mkdir /tmp/test-results || exit 0"
+
+  ENV['TESTOPTS'] = "#{opt}"
+
+  # Rake::Task["test"].invoke
   sh "
-  [ ! -d /tmp/test-results ] && mkdir /tmp/test-results
-  rake test TESTOPTS=\"#{opt}\" 2>#{warning} 1>#{xml}
+  rake test 2>#{warning} 1>#{xml}
   "
 end
 
