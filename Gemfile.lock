@@ -24,7 +24,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  minitest-ci (~> 3.3.0)
+  minitest-ci
   rake (~> 12.0.0)
   ronn!
   test-unit (~> 3.2.6)

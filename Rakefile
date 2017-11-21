@@ -3,8 +3,6 @@ require 'rake/testtask'
 
 require 'date'
 
-task :default => :test
-
 ROOTDIR = File.expand_path('..', __FILE__).sub(/#{Dir.pwd}(?=\/)/, '.')
 LIBDIR  = "#{ROOTDIR}/lib"
 BINDIR  = "#{ROOTDIR}/bin"
@@ -19,24 +17,18 @@ task :environment do
 end
 
 Rake::TestTask.new do |t|
-  t.libs = ["lib", "test"]
-  t.warning = true
-  t.verbose = true
-  t.test_files = FileList['test/test_*.rb']
+  t.libs << 'lib'
+  t.libs << 'test'
+  t.pattern = "test/test_*.rb"
 end
 
+task :default => :test
+
 task :testci do
-  opt="--ci-dir=/tmp/test-results"
   warning="/tmp/test-results/warning.txt"
 
   sh "mkdir /tmp/test-results || exit 0"
-
-  ENV['TESTOPTS'] = "#{opt}"
-
-  # Rake::Task["test"].invoke
-  sh "
-  bundle exec rake test 2>#{warning}
-  "
+  sh "bundle exec rake test 2>#{warning}"
 end
 
 desc 'Start the server'

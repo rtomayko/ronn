@@ -44,10 +44,10 @@ jobs:
           key: v1-dependencies-{{ checksum "ronn.gemspec" }}
 
       # run tests!
-      - run:
-          name: run tests
+      - run: 
+          name: run tests 
           command: |
-            bundle exec rake testci --trace
+            bundle exec rake test TESTOPTS="--ci-dir=./reports"
 
       # build package
       - run:
