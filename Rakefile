@@ -35,7 +35,7 @@ task :testci do
 
   # Rake::Task["test"].invoke
   sh "
-  bundle exec rake test 2>#{warning} 1>#{xml}
+  bundle exec rake test 2>#{warning}
   "
 end
 
