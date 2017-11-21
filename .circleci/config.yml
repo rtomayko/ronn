@@ -39,7 +39,6 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-            - /usr/local/bundle
             - /home/circleci/.gem/ruby/2.4.0
           key: v1-dependencies-{{ checksum "ronn.gemspec" }}
 
