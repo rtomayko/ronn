@@ -110,7 +110,15 @@ module Ronn
     # available. This is used as the manual page name when the
     # file contents do not include a name section.
     def path_name
-      @basename[/^[^.]+/] if @basename
+      if @basename
+        if @basename.to_s =~ /(.+)\.\d\w*\.ronn$/
+          # A ronn file like .1.ronn.
+          @basename.gsub(/(.+)\.\d\w*\.[^.]+$/, '\1')
+        else
+          # Fallback behavior, like index.txt, for example.
+          @basename[/^[^.]+/]
+        end
+      end
     end
 
     # Returns the <section> part of the path, or nil when
