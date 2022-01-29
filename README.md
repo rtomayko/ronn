@@ -11,7 +11,7 @@ detail.
 The `*.ronn` files found in the [`man/`][1] directory show off a wide range of
 ronn capabilities:
 
-  * [ronn(1)](http://rtomayko.github.com/ronn/ronn.1) command -
+  * [ronn(1)](http://rtomayko.github.io/ronn/ronn.1) command -
     [source file](http://github.com/rtomayko/ronn/blob/master/man/ronn.1.ronn),
     [roff output](http://github.com/rtomayko/ronn/blob/master/man/ronn.1)
 

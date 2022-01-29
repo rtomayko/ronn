@@ -15,7 +15,7 @@ Version 0.7.0 (2010 June 21)
   based on a set of name -> URL mappings defined in an index.txt file. The index
   may also define links to things that aren't manuals for use in markdown
   reference-style links. See the ronn(1) manual on LINK INDEXES for more
-  inforation: <http://rtomayko.github.com/ronn/ronn.1.html#LINK-INDEXES>
+  inforation: <http://rtomayko.github.io/ronn/ronn.1.html#LINK-INDEXES>
   (rtomayko)
 
 * ROFF: Fixed a bug where multiple dot characters (.) at the beginning of a
